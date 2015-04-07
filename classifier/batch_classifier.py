@@ -1,0 +1,58 @@
+
+import batch_settings as settings #Custom Settings
+import sys
+
+sys.path.insert(0,settings.working_directory)
+sys.path.append(settings.tweet_classifier_module)
+
+import couchdb
+import json 
+
+import tweet_classifier.classifier as classifier
+import sentiments #Dictionaries of emojis and extra sentiment to help TextBlob for more accurate analysis
+
+
+#Get the document from couchdb by ID
+def getDocument(id):
+	doc = db.get(id)
+	return doc
+
+#Get the document's text field
+def retrieveDocText(doc):
+	text = doc['text'] #Get the text of the tweet
+	return text
+
+#Get the document's language
+def retrieveLang(doc):
+	lang = doc['lang'] #Get the text of the tweet
+	return lang
+
+#Update Document with new fields (sentiment results)
+def updateDoc(doc,sentiment,polarity,subjectivity):
+	doc["sentiment_analysis"] = json.loads('{"sentiment": "%s","polarity": %.2f,"subjectivity": %.2f}' % (sentiment,polarity,subjectivity))
+	doc = db.save(doc)
+	print(str(doc[0]) + ";" + str(doc[1]))
+	# print("Document updated")
+
+server = couchdb.Server(settings.server)
+server.resource.credentials = (settings.admin_user, settings.admin_pass)
+
+############PERFORM SENTIMENT ANALYSIS IN BULK MODE########################
+try:
+	#Just use existing DB
+	db = server[settings.database]
+except:
+	print("Error while accessing couchdb data base!");
+
+for id in db:
+	doc = getDocument(id)
+	tweet = retrieveDocText(doc)
+	lang = retrieveLang(doc)
+	analysed_result = classifier.doSentimentAnalysis(tweet)
+
+	if lang == 'en' and analysed_result["lang"] == 'en' or lang != 'en' and analysed_result["lang"] == 'en': #only analyse english texts
+		# print("ID: " + id + ", Tweet: " + tweet + " -> " + sentiment) #Original tweet
+		# updateDoc(doc,analysed_result["sentiment"],analysed_result["polarity"],analysed_result["subjectivity"])
+		print("ID: " + id + ", Tweet: " + analysed_result["text"] + " -> " + analysed_result["sentiment"] + ", polarity: " + str(analysed_result["polarity"]) + ", subjectivity: " + str(analysed_result["subjectivity"])) #parsed tweet
+	else: #otherwise ignore it!
+		print("ID: " + id + ", Tweet: " + tweet + " -> " + "ignored!")
