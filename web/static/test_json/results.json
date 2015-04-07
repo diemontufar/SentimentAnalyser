@@ -1,0 +1,60 @@
+{
+  "results": {
+    "total_tweets": "2585",
+    "mean_sentiment": "positive",
+    "total_positive": "1210",
+    "total_neutral": "639",
+    "total_negative": "736",
+    "regions": {
+      "NSW": {
+        "name": "New South Wales",
+        "sentiment": "positive",
+        "positive": "123",
+        "neutral": "15",
+        "negative": "65"
+      },
+      "NT": {
+        "name": "Northern Territory",
+        "sentiment": "positive",
+        "positive": "456",
+        "neutral": "156",
+        "negative": "46"
+      },
+      "QLD": {
+        "name": "Queensland",
+        "sentiment": "negative",
+        "positive": "25",
+        "neutral": "133",
+        "negative": "250"
+      },
+      "SA": {
+        "name": "South Australia",
+        "sentiment": "negative",
+        "positive": "12",
+        "neutral": "45",
+        "negative": "90"
+      },
+      "TAS": {
+        "name": "Tasmania",
+        "sentiment": "neutral",
+        "positive": "123",
+        "neutral": "247",
+        "negative": "39"
+      },
+      "VIC": {
+        "name": "Victoria",
+        "sentiment": "positive",
+        "positive": "421",
+        "neutral": "9",
+        "negative": "117"
+      },
+      "WA": {
+        "name": "Western Australia",
+        "sentiment": "negative",
+        "positive": "50",
+        "neutral": "34",
+        "negative": "129"
+      }
+    }
+  }
+}

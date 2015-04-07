@@ -1,0 +1,15 @@
+{
+    "type" : "couchdb",
+    "couchdb" : {
+        "host" : "localhost",
+        "port" : 5984,
+        "db" : "twitterall",
+        "filter" : null
+    },
+    "index" : {
+        "index" : "twitterall_2",
+        "type" : "tweet",
+        "bulk_size" : "1000",
+        "bulk_timeout" : "10ms"
+    }
+}
