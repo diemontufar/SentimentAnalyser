@@ -194,19 +194,28 @@
                                     <i class="fa fa-twitter"></i> Tweets</h3>
                                     <div class="box-tools pull-right" data-toggle="tooltip" title="Sentiments">
                                         <div class="btn-group" data-toggle="btn-toggle" >
-                                            <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i></button>
-
-                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-blue"></i></button>                                            
-                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm active" id="btn-pos"><i class="fa fa-square text-blue"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm" id="btn-neu"><i class="fa fa-square text-green"></i></button>       
+                                            <button type="button" class="btn btn-default btn-sm" id="btn-neg"><i class="fa fa-square text-red" ></i></button>
 
                                         </div>
                                     </div>
                                 </div>
-                                <div class="box-body chat" id="chat-box">
-                                    
-                                </div><!-- /.box (chat box) -->
-                        
-                        </section><!-- ./Right Row -->
+                                <div id="scrollable" style="padding:10px;">
+                                    <div class="box-body chat" id="tab_1-1"> <!-- Positive -->
+                                        
+                                    </div><!-- /.box (chat box) -->
+
+                                    <div class="box-body chat" id="tab_2-2"> <!-- Neutral -->
+                                        
+                                    </div><!-- /.box (chat box) -->
+
+                                    <div class="box-body chat" id="tab_3-3"> <!-- Negative -->
+                                        
+                                    </div><!-- /.box (chat box) -->
+                                </div>
+                            </div>
+                        </section> <!-- ./Right Row -->
 
                     </div><!-- /.row -->
                 </section><!-- /.content -->

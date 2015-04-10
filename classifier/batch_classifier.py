@@ -1,3 +1,13 @@
+################################################################################
+#
+# Author: Diego Montufar
+# Date: Apr/2015
+# Name: batch_classifier.py
+# Description: Performs Sentiment analysis in all documents from a database
+#			   defined in the batch_settings.py file. If a document has already
+#              sentiment_analysis defined on its structure, pass.
+#
+################################################################################
 
 import batch_settings as settings #Custom Settings
 import sys
@@ -5,10 +15,10 @@ import sys
 sys.path.insert(0,settings.working_directory)
 sys.path.append(settings.tweet_classifier_module)
 
-import couchdb
-import json 
+import couchdb #couchdb heper
+import json #json documents management
 
-import tweet_classifier.classifier as classifier
+import tweet_classifier.classifier as classifier #classifier helper
 
 
 #Get the document from couchdb by ID
@@ -24,7 +34,6 @@ def hasAlreadySentiment(doc):
 
 	return True
 		
-
 #Get the document's text field
 def retrieveDocText(doc):
 	text = doc['text'] #Get the text of the tweet

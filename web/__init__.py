@@ -19,7 +19,13 @@ def doSimpleSearch(text):
 @app.route('/customSearch/<jsonQuery>')
 def doCustomSearch(jsonQuery):
 	doc_type = 'tweet'
-	return str(indexer.customSearch(jsonQuery,doc_type))
+	return indexer.customSearch(jsonQuery,doc_type)
+
+#Service: perform search based in a term in order to populate chart and table
+@app.route('/chartTableSearch/<jsonQuery>')
+def doChartTableSearch(jsonQuery):
+	doc_type = 'tweet'
+	return indexer.statisticsByTerm(jsonQuery,doc_type)
 
 #Test Services:
 @app.route('/test_json/pie')

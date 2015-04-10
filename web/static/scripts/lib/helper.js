@@ -6,7 +6,7 @@ define(["map","chart"], function()
 	{
 		return {
 
-			sentiment_icon : {positive:"fa-thumbs-o-up",negative:"fa-thumbs-o-down",neutral:"fa-angellist"},
+			sentiment_icon : {positive:"fa-thumbs-o-up",negative:"fa-thumbs-o-down",neutral:"fa-meh-o"},
 
 			/* Change text hyperlinks into real html links */
 			parseLinks:function(tweet){

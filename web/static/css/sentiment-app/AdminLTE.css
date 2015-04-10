@@ -1581,11 +1581,14 @@ body > .header .logo .icon {
   -moz-border-radius: 50% !important;
   border-radius: 50% !important;
 }
-.box .chat .item > img.online {
-  border: 2px solid #00a65a;
+.box .chat .item > img.positive {
+  border: 2px solid #0073B7;
 }
-.box .chat .item > img.offline {
+.box .chat .item > img.negative {
   border: 2px solid #f56954;
+}
+.box .chat .item > img.neutral {
+  border: 2px solid #00A65A;;
 }
 .box .chat .item > .message {
   margin-left: 55px;

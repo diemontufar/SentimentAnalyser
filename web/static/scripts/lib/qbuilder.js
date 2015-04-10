@@ -44,18 +44,19 @@ define(['esq'], function(ESQ) {
     	return JSON.stringify(esq.getQuery(), null, 2);
     };
 
-    /** Method: buildBasicFilteredSearch
+    /** Method: buildSearchByTerm
     *   Description: TODO: Change this to be more generic!!!!
     *   Parameters:
     *       term: the term you are searching for  
     **/
-    QBuilder.prototype.buildBasicFilteredSearch = function(term){
+    QBuilder.prototype.buildSearchByTerm = function(term){
         
         var esq = this.esq_obj;
-        esq.query("query", {"filtered":{"query":{"match":{"text":{"query":term,"operator":"or"}}},"strategy":"query_first"}});
+        esq.query("query",{"filtered": {"query": {"match": {"text": {"query": term,"operator": "or"}}},"filter": {"term": {"lang": "en"}}}});
 
         return JSON.stringify(esq.getQuery(), null, 2);
     };
+
 
 	return QBuilder;
 });

@@ -15,6 +15,10 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 	var modules = new PageModules();
 
 	$(window).load(function() {
+
+		showTweetTab("tab_1-1");
+        hideTweetTab("tab_2-2");
+        hideTweetTab("tab_3-3");
 		
 		
 	});
@@ -22,12 +26,11 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 	$(document).ready(function() {
 
 		$(function(){
-		    $('#chat-box').slimScroll({
+		    $('#scrollable').slimScroll({
 		        height: '250px'
 		    });
 		});
 
-		modules.populateTableModule(chart);
 		modules.populateTweetModule();
 
 	});
@@ -39,11 +42,62 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
 		if (term!="" && term!=undefined){
 			modules.populateTweetModuleByTerm(term);
+			modules.populateTableModule(chart,term);
+			//modules.populateChartModuleByTerm(chart);
 		}else{
 			console.log("Please insert some term!");
 		}
 
    	});
+
+   	$("[data-widget='collapse']").click(function() {
+        //Find the box parent        
+        var box = $(this).parents(".box").first();
+        //Find the body and the footer
+        var bf = box.find(".box-body, .box-footer");
+        if (!box.hasClass("collapsed-box")) {
+            box.addClass("collapsed-box");
+            bf.slideUp();
+        } else {
+            box.removeClass("collapsed-box");
+            bf.slideDown();
+        }
+    });
+
+    $('.btn-group[data-toggle="btn-toggle"]').each(function() {
+	    var group = $(this);
+	    $(this).find(".btn").click(function(e) {
+	        group.find(".btn.active").removeClass("active");
+	        $(this).addClass("active");
+	        e.preventDefault();
+	    });
+    });
+
+    $("#btn-pos").click(function() {
+    	showTweetTab("tab_1-1");
+        hideTweetTab("tab_2-2");
+        hideTweetTab("tab_3-3");
+    });
+
+    $("#btn-neu").click(function() {        
+		hideTweetTab("tab_1-1");
+		showTweetTab("tab_2-2");
+		hideTweetTab("tab_3-3");
+    });
+
+    $("#btn-neg").click(function() {        
+        hideTweetTab("tab_1-1");
+        hideTweetTab("tab_2-2");
+        showTweetTab("tab_3-3");
+    });
+
+    function showTweetTab(id){
+    	document.getElementById(id).style.display = "block";
+    };
+
+    function hideTweetTab(id){
+    	document.getElementById(id).style.display = "none";
+    };
 
    	
 
