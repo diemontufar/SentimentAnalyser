@@ -4,7 +4,7 @@
  * Description:       The Query Builder is responsible of creating and building queries using the ESQ library 
  * ======================================================================== */
 
-define(['esq'], function(ESQ) {
+define(['esq/esq'], function(ESQ) {
 
     var esq_obj = null;
 

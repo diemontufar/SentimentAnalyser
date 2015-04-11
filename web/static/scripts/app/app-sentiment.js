@@ -4,14 +4,11 @@
  * Description:       Here you can define the main method callings using jquery and JS 
  * ======================================================================== */
 
-require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","map","chart"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Map,Chart) {
+require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Chart) {
 
-	//var map = new Map();
-	//map.initializeMap();
-	//console.log(map.getMap());
 	var chart = new Chart();
 	chart.initializeChart();
-	//console.log(chart.getChart());
+
 	var modules = new PageModules();
 
 	$(window).load(function() {
@@ -31,7 +28,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 		    });
 		});
 
-		modules.populateTweetModule();
+		// modules.populateTweetModule();
 
 	});
 
@@ -43,7 +40,6 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 		if (term!="" && term!=undefined){
 			modules.populateTweetModuleByTerm(term);
 			modules.populateTableModule(chart,term);
-			//modules.populateChartModuleByTerm(chart);
 		}else{
 			console.log("Please insert some term!");
 		}
@@ -98,6 +94,16 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
     function hideTweetTab(id){
     	document.getElementById(id).style.display = "none";
     };
+
+    google.maps.Map.prototype.clearMarkers = function() {
+    	if (this.markers !== null && this.markers !== undefined){
+    		console.log("Entered!");
+		    for(var i=0; i < this.markers.length; i++){
+		        this.markers[i].setMap(null);
+		    }
+		    this.markers = new Array();
+		}
+	};
 
    	
 

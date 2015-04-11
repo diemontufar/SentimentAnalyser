@@ -1,1 +1,0 @@
-requirejs.config({baseUrl:"static/scripts/lib",paths:{app:"../app"}}),requirejs(["app/app-sentiment"]);

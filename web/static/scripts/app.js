@@ -19,13 +19,13 @@ requirejs.config({
         "jquery.jqueryui": "jqueryui/jquery-ui-1.10.3.min",
         "jquery.bootstrap": "bootstrap/bootstrap.min",
         "slimscroll": "slimscroll/jquery.slimscroll.min",
-        "dateformat": "date.format",
+        "dateformat": "util/date.format",
         "modules": "modules",
-        "goog" : "goog",
-        "propertyParser" : "propertyParser",
-        "helper": "helper",
-        "map": "map",
-        "chart": "chart"
+        "goog" : "util/goog",
+        "propertyParser" : "util/propertyParser",
+        "async" : "util/async",
+        "helper": "util/helper",
+        "chart": "util/chart"
     },
     shim: {
         "jquery.bootstrap": {

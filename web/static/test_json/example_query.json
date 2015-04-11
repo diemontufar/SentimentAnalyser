@@ -1,0 +1,81 @@
+If you want to count do the same POST but using _count
+
+
+(_search) General example of a query with filter language:
+
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match": {
+          "text": {
+            "query": "dna",
+            "operator": "or"
+          }
+        }
+      },
+      "filter": {
+        "term": {
+          "lang": "en"
+        }
+      }
+    }
+  }
+}
+
+ 
+(_search) General query for searching by term only negatives in english
+
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match": {
+          "text": {
+            "query": "lol",
+            "operator": "or"
+          }
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "lang": "en"
+              }
+            },
+            {
+              "term": {
+                "sentiment": "negative"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+(_count) count total number of tweets containing a term
+
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match": {
+          "text": {
+            "query": "lol",
+            "operator": "or"
+          }
+        }
+      },
+      "filter": {
+        "term": {
+          "lang": "en"
+        }
+      }
+    }
+  }
+}

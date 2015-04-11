@@ -2,11 +2,11 @@
  * Author:            Diego Montufar
  * Date:              25 Feb 2015
  * Description:       Here are defined the main modules: maps, chatrs and the tweeter feed.
- 					  All thir behaviour is managed through this script.
+ 					  All their behaviour is managed through this script.
  * ======================================================================== */
 /*global google */
 
-define(["helper","qbuilder"], function(Helper,QBuilder)
+define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 {
   "use strict";
   var qBuilder = new QBuilder();
@@ -23,84 +23,6 @@ define(["helper","qbuilder"], function(Helper,QBuilder)
         chart_table_service_url : 'http://localhost/chartTableSearch/',
 
         initialize : function(chart) {
-
-        },
-
-        /* Populate Tweets using JSON files */
-        populateTweetModule : function(){
-
-          // Send JSON request
-          // The returned JSON object will have a property called "results" where we find
-          // a list of the tweets matching our request query
-          $.getJSON(this.twitter_api_url,function(data) {
-              var helper = new Helper();
-
-              $('#tab_1-1').empty();
-              $('#tab_2-2').empty();
-              $('#tab_3-3').empty();
-              
-              $.each(data.rows, function(key, rows) {
-                // Uncomment line below to show tweet data in Fire Bug console
-                // Very helpful to find out what is available in the tweet objects
-                $.each(rows, function(i, tweet) {
-        	        // Before we continue we check that we got data
-        	        if(tweet.text !== undefined && tweet!=null) {
-        	          // Calculate how many hours ago was the tweet posted
-        	           var date_tweet = new Date(tweet.created_at);
-        	           var date_locale = date_tweet.format(' H:i:s - d M Y');
-                     
-
-        	          // Build the html string for the current tweet
-
-        	          	var tweet_text = helper.parseLinks(tweet.text);
-        	          	tweet_text = helper.parseHashTags(tweet_text);
-        	          	tweet_text = helper.parseUser(tweet_text);
-
-                      var sentiment_analysis = tweet.sentiment_analysis;
-                      var icon;
-                      var _class;
-
-                      if (sentiment_analysis!=null && sentiment_analysis!=undefined){
-                        if (sentiment_analysis.sentiment=='positive'){
-                          icon = helper.sentiment_icon.positive;
-                          _class = "positive";
-                        }else if(sentiment_analysis.sentiment=='negative'){
-                          icon = helper.sentiment_icon.negative;
-                          _class = "negative";
-                        }else if(sentiment_analysis.sentiment=='neutral'){
-                          icon = helper.sentiment_icon.neutral;
-                          _class = "neutral";
-                        }
-                      }else{
-                        icon = "";
-                      }
-
-              				var tweet_html = '<div class="item">';
-              				tweet_html += '<img src="' + tweet.user.profile_image_url + '"' + ' onerror="this.src=\'' + default_img_avatar + "\'" + '" alt="user image" class="' + _class + '">';
-              				tweet_html	  += '<p class="message">';
-              				tweet_html	  += '<a href="http://www.twitter.com/' + tweet.user.screen_name + '" class="name">';
-              				tweet_html	  += '<small class="text-muted pull-right"><i class="fa fa-clock-o"><\/i>' + date_locale + '<\/small>';
-              				tweet_html	  += tweet.user.name + '<\/a>';
-              				tweet_html	  += '<small class="text-muted">' + '@' + tweet.user.screen_name + '<\/small><br>';
-              				tweet_html	  += tweet_text;
-              				tweet_html	  += '<\/p><div class="attachment">';
-              				tweet_html	  += '<small class="text-muted">Retweets: ' + tweet.retweet_count + ' | Favorites: ' + tweet.favorite_count + ' | Sentiment: <i class="fa ' + icon + '"><\/i><\/small>';
-              				tweet_html	  += '<\/div><\/div>';
-
-        	          // Append html string to tweet_container div
-                     if (sentiment_analysis!=null && sentiment_analysis!=undefined){
-                      if (sentiment_analysis.sentiment=='positive'){
-                        $('#tab_1-1').append(tweet_html);
-                      }else if(sentiment_analysis.sentiment=='negative'){
-                        $('#tab_3-3').append(tweet_html);
-                      }else if(sentiment_analysis.sentiment=='neutral'){
-                        $('#tab_2-2').append(tweet_html);
-                      }
-                    }
-        	        }
-        	     });
-        	   });
-            });
 
         },
 
@@ -123,6 +45,7 @@ define(["helper","qbuilder"], function(Helper,QBuilder)
                   $('#tab_1-1').empty();
                   $('#tab_2-2').empty();
                   $('#tab_3-3').empty();
+                  deleteMarkers();
 
                   $.each(data.hits, function(key, hits) {
 
@@ -143,7 +66,6 @@ define(["helper","qbuilder"], function(Helper,QBuilder)
 
 
                                           // Build the html string for the current tweet
-
                                           var tweet_text = helper.parseLinks(tweet.text);
                                           tweet_text = helper.parseHashTags(tweet_text);
                                           tweet_text = helper.parseUser(tweet_text);
@@ -151,6 +73,7 @@ define(["helper","qbuilder"], function(Helper,QBuilder)
                                           var sentiment_analysis = tweet.sentiment_analysis;
                                           var icon;
                                           var _class;
+                                          var position;
 
                                           if (sentiment_analysis!=null && sentiment_analysis!=undefined){
                                             if (sentiment_analysis.sentiment=='positive'){
@@ -166,6 +89,10 @@ define(["helper","qbuilder"], function(Helper,QBuilder)
                                           }else{
                                             icon = "";
                                           }
+
+                                          //console.log(helper.getGeoMarkerPoint(tweet));
+                                          var marker = helper.getGeoMarkerPoint(tweet);
+                                          addMarker(marker); //Add markers to the map and the markers array
 
                                           var tweet_html = '<div class="item">';
                                           tweet_html += '<img src="' + tweet.user.profile_image_url + '"' + ' onerror="this.src=\'' + default_img_avatar + "\'" + '" alt="user image" class="' + _class + '">';
@@ -189,6 +116,8 @@ define(["helper","qbuilder"], function(Helper,QBuilder)
                                               $('#tab_2-2').append(tweet_html);
                                             }
                                           }
+
+                                         
                                           
                                       } //if tweet
 
@@ -197,6 +126,7 @@ define(["helper","qbuilder"], function(Helper,QBuilder)
                           }); //inner each 
                       } //if hits
                   }); //outer each 
+              setAllMap(map); //Add all markers to the map
               } //if data
           }); //End getJSON
 
