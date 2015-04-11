@@ -11,12 +11,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
 	var modules = new PageModules();
 
-	$(window).load(function() {
+	$(window).load(function() {	
 
-		showTweetTab("tab_1-1");
-        hideTweetTab("tab_2-2");
-        hideTweetTab("tab_3-3");
-		
 		
 	});
 
@@ -28,17 +24,23 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 		    });
 		});
 
-		// modules.populateTweetModule();
+        hide("section-chart");
+        hide("section-feed");
+
+		show("tab_1-1");
+        hide("tab_2-2");
+        hide("tab_3-3");
 
 	});
 
-	$("#go-button").click( function(){
+	$("#go-button").click( function(e){
 
 		var term = $("#term").val();
-		// map.setCenter(new google.maps.LatLng(36.784844,115.446828));
+        show("section-chart");
+        show("section-feed");
 
 		if (term!="" && term!=undefined){
-			modules.populateTweetModuleByTerm(term);
+			modules.populateTweetModuleByTerm(term,start_page,size_page);
 			modules.populateTableModule(chart,term);
 		}else{
 			console.log("Please insert some term!");
@@ -60,6 +62,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         }
     });
 
+   	//Toggle between button in tweet feed
     $('.btn-group[data-toggle="btn-toggle"]').each(function() {
 	    var group = $(this);
 	    $(this).find(".btn").click(function(e) {
@@ -69,42 +72,60 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 	    });
     });
 
+    //Activate tooltips
+    $("[data-toggle='tooltip']").tooltip();
+
+	$('#toggle-map').click(function(){
+	    $(this).find('i').toggleClass('fa-plus fa-minus')
+	});
+
+
     $("#btn-pos").click(function() {
-    	showTweetTab("tab_1-1");
-        hideTweetTab("tab_2-2");
-        hideTweetTab("tab_3-3");
+    	show("tab_1-1");
+        hide("tab_2-2");
+        hide("tab_3-3");
     });
 
     $("#btn-neu").click(function() {        
-		hideTweetTab("tab_1-1");
-		showTweetTab("tab_2-2");
-		hideTweetTab("tab_3-3");
+		hide("tab_1-1");
+		show("tab_2-2");
+		hide("tab_3-3");
     });
 
     $("#btn-neg").click(function() {        
-        hideTweetTab("tab_1-1");
-        hideTweetTab("tab_2-2");
-        showTweetTab("tab_3-3");
+        hide("tab_1-1");
+        hide("tab_2-2");
+        show("tab_3-3");
     });
 
-    function showTweetTab(id){
+    function show(id){
     	document.getElementById(id).style.display = "block";
     };
 
-    function hideTweetTab(id){
+    function hide(id){
     	document.getElementById(id).style.display = "none";
     };
 
-    google.maps.Map.prototype.clearMarkers = function() {
-    	if (this.markers !== null && this.markers !== undefined){
-    		console.log("Entered!");
-		    for(var i=0; i < this.markers.length; i++){
-		        this.markers[i].setMap(null);
-		    }
-		    this.markers = new Array();
-		}
-	};
+    //Pagination
+    $("#scrollable").slimScroll().bind('slimscroll', function(e, pos){
 
-   	
+    	var term = $("#term").val();
+    	
+    	if (pos =='top'){
+    		start_page = start_page - size_page;
+    		if (start_page >= 1){
+	    		console.log("New pages top-> start: " + start_page + ", size: " + size_page);
+	    		modules.populateTweetModuleByTerm(term,start_page,size_page);
+	    	}
+    	}else{
+    		start_page = start_page + size_page;
+    		if (start_page <= total_tweets){
+	    		console.log("New pages Botton-> start: " + start_page + ", size: " + size_page);
+	    		modules.populateTweetModuleByTerm(term,start_page,size_page);
+    		}
+    	}
+
+	});
+
 
 });

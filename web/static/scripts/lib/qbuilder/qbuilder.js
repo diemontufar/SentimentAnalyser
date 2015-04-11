@@ -6,11 +6,8 @@
 
 define(['esq/esq'], function(ESQ) {
 
-    var esq_obj = null;
-
 	/* Constructor */
     var QBuilder = function() {
-    	this.esq_obj = new ESQ();
     };
 
 
@@ -23,7 +20,7 @@ define(['esq/esq'], function(ESQ) {
     **/
     QBuilder.prototype.buildBasicMatchSearch = function(type,key,value){
     	
-    	var esq = this.esq_obj;
+    	var esq = new ESQ();
     	esq.query(type, { match: { key : value } });
 
     	return JSON.stringify(esq.getQuery(), null, 2);
@@ -38,21 +35,38 @@ define(['esq/esq'], function(ESQ) {
     **/
     QBuilder.prototype.buildMustMatchSearch = function(type,key,value){
     	
-    	var esq = this.esq_obj;
+    	var esq = new ESQ();
     	esq.query(type,['must'],{ match: { key : value } });
 
     	return JSON.stringify(esq.getQuery(), null, 2);
     };
 
     /** Method: buildSearchByTerm
-    *   Description: TODO: Change this to be more generic!!!!
+    *   Description: Perform basic search by term
     *   Parameters:
     *       term: the term you are searching for  
     **/
     QBuilder.prototype.buildSearchByTerm = function(term){
         
-        var esq = this.esq_obj;
-        esq.query("query",{"filtered": {"query": {"match": {"text": {"query": term,"operator": "or"}}},"filter": {"term": {"lang": "en"}}}});
+        var esq = new ESQ();
+        esq.query('query',{'filtered':{'query': {'match': {'text': {'query': term,'operator': 'or'}}},'filter': {'term': {'lang': 'en'}}}});
+
+        return JSON.stringify(esq.getQuery(), null, 2);
+    };
+
+    /** Method: buildPaginatedSearchByTerm
+    *   Description: Perform basic search by term with pagination
+    *   Parameters:
+    *       term: the term you are searching for  
+    *       start: the start of the paginated search
+    *       size: size of the pagination
+    **/
+    QBuilder.prototype.buildPaginatedSearchByTerm = function(term, start , size){
+
+        var esq = new ESQ();
+        esq.query('query',{'filtered':{'query': {'match': {'text': {'query': term,'operator': 'or'}}},'filter': {'term': {'lang': 'en'}}}});
+        esq.query('from',start);
+        esq.query('size',size);
 
         return JSON.stringify(esq.getQuery(), null, 2);
     };

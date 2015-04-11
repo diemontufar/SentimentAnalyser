@@ -28,6 +28,9 @@
         <script>
         var map;
         var markers = [];
+        var start_page = 1;
+        var size_page = 50; //variables fro pagination
+        var total_tweets = 0;
         function initialize() {
         var mapOptions = {
                             center: { lat: -37.816667, lng: 144.966667},
@@ -67,6 +70,11 @@
 
 
         google.maps.event.addDomListener(window, 'load', initialize);
+        google.maps.event.addDomListener(window, "resize", function() {
+         var center = map.getCenter();
+         google.maps.event.trigger(map, "resize");
+         map.setCenter(center); 
+        });
 
          </script>
 
@@ -134,7 +142,7 @@
                 <!-- Main row-->
                     <div class="row">
                         <!-- Map row -->
-                        <section class="col-lg-12 connectedSortable">
+                        <section class="col-lg-12 connectedSortable" id="section-map">
                            
                             <!-- Map box -->
                             <div class="box box-primary">
@@ -142,7 +150,7 @@
                                     <!-- tools box -->
                                     <div class="pull-right box-tools">
 
-                                         <button class="btn btn-default .btn-flat pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                         <button class="btn btn-default .btn-flat pull-right" id="toggle-map" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
                                          <i class="fa fa-minus"></i>
                                          </button>
 
@@ -184,7 +192,7 @@
                                 </div>
                                 <div class="box-body no-padding">
                                     <!--<div id="world-map" style="height: 300px;"></div>-->
-                                    <div id="regions_div" style="height: 400px;"></div>
+                                    <div id="regions_div" style="width:100%;height: 400px;"></div>
                                     <div class="table-responsive">
                                         <!-- .table - Uses sparkline charts-->
                                         <table class="table table-striped" id="regions-table">
@@ -201,7 +209,7 @@
                         </section><!-- Map Row -->
 
                         <!-- Left row -->
-                        <section class="col-lg-6 connectedSortable">
+                        <section class="col-lg-6 connectedSortable" id="section-chart">
                             <!-- DONUT CHART -->
                             <div class="box box-danger">
                                 <div class="box-header">
@@ -217,7 +225,7 @@
                         </section><!-- ./Left Row -->
 
                         <!-- Right Row -->
-                        <section class="col-lg-6 connectedSortable">
+                        <section class="col-lg-6 connectedSortable" id="section-feed">
                             <!-- Chat box -->
                             <div class="box box-success">
                                 <div class="box-header">
@@ -244,7 +252,12 @@
                                     <div class="box-body chat" id="tab_3-3"> <!-- Negative -->
                                         
                                     </div><!-- /.box (chat box) -->
+
                                 </div>
+<!--                                  <div class="overlay">
+                                  <i class="fa fa-refresh fa-spin"></i>
+                                </div> -->
+
                             </div>
                         </section> <!-- ./Right Row -->
 
@@ -252,26 +265,6 @@
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-
-
-
-        <!-- jQuery 2.0.2 -->
-        <!--<script src="../static/scripts/lib/jquery/jquery.min.js"></script>-->
-
-        <!-- jQuery UI 1.10.3 -->
-        <!--<script src="../static/scripts/lib/jqueryui/jquery-ui-1.10.3.min.js" type="text/javascript"></script>-->
-        
-        <!-- Bootstrap -->
-        <!--<script src="../static/scripts/lib/bootstrap/bootstrap.min.js" type="text/javascript"></script>-->
-
-        <!-- Slim Scroll -->
-        <!--<script src="../static/scripts/lib/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>-->
-
-          <!-- Date & Time -->
-        <!--<script src="../static/scripts/lib/date.format.js" type="text/javascript"></script>-->
-
-        <!-- AdminLTE App -->
-        <!--<script src="../static/scripts/app/app-sentiment.js" type="text/javascript"></script>-->
 
     </body>
 </html>

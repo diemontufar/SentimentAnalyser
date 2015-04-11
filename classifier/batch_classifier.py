@@ -17,6 +17,7 @@ sys.path.append(settings.tweet_classifier_module)
 
 import couchdb #couchdb heper
 import json #json documents management
+import time #record elapsed time
 
 import tweet_classifier.classifier as classifier #classifier helper
 
@@ -55,13 +56,16 @@ server = couchdb.Server(settings.server)
 server.resource.credentials = (settings.admin_user, settings.admin_pass)
 
 ############PERFORM SENTIMENT ANALYSIS IN BULK MODE########################
+processed_tweets = 0
+ignored_tweets = 0
+initial = time.time()
+
 try:
 	#Just use existing DB
 	db = server[settings.database]
 except:
 	print("Error while accessing couchdb data base!");
 
-i=0
 for id in db:
 	doc = getDocument(id)
 	tweet = retrieveDocText(doc)
@@ -72,6 +76,20 @@ for id in db:
 		# print("ID: " + id + ", Tweet: " + tweet + " -> " + sentiment) #Original tweet
 		if not hasAlreadySentiment(doc):
 			updateDoc(doc,analysed_result["sentiment"],analysed_result["polarity"],analysed_result["subjectivity"])
-			print("ID: " + id + ", Tweet: " + analysed_result["text"] + " -> " + analysed_result["sentiment"] + ", polarity: " + str(analysed_result["polarity"]) + ", subjectivity: " + str(analysed_result["subjectivity"])) #parsed tweet
+			processed_tweets += 1
+			print("Processed")
+			# print("ID: " + id + ", Tweet: " + analysed_result["text"] + " -> " + analysed_result["sentiment"] + ", polarity: " + str(analysed_result["polarity"]) + ", subjectivity: " + str(analysed_result["subjectivity"])) #parsed tweet
+		else:
+			ignored_tweets += 1
 	else: #otherwise ignore it!
-		print("ID: " + id + ", Tweet: " + " -> " + "ignored!")
+		# print("ID: " + id + ", Tweet: " + " -> " + "ignored!")
+		ignored_tweets += 1
+		print("Ignored")
+
+elapsed_time = time.time() - initial
+print("__________________________________________________")
+print("Processed Tweets: ", processed_tweets + ignored_tweets)
+print("Analysed Tweets: ", processed_tweets)
+print("Ignored Tweets: ", ignored_tweets)
+print("Execution time: %0.2f min." % (elapsed_time/60))
+

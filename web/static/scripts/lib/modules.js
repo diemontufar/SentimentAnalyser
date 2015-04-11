@@ -9,17 +9,15 @@
 define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 {
   "use strict";
-  var qBuilder = new QBuilder();
   var chart = document.getElementById('piechart_3d');
-  var default_img_avatar = "../static/img/undefined.png"
+  var default_img_avatar = "../static/img/undefined.png";
+  var qBuilder = new QBuilder();
 
   var PageModule = function()
   {
     return {
 
-        twitter_api_url : 'http://localhost/test_json/tweetfeed',
         search_service_url : 'http://localhost/customSearch/',
-        // results_url : 'http://localhost/test_json/pie',
         chart_table_service_url : 'http://localhost/chartTableSearch/',
 
         initialize : function(chart) {
@@ -27,10 +25,11 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
         },
 
         /* Populate Tweets using JSON files */
-        populateTweetModuleByTerm: function(term) { 
+        populateTweetModuleByTerm: function(term,start,size) { 
 
           //First build the query for searching the term as follows:
-          var query = qBuilder.buildSearchByTerm(term);
+          var query = qBuilder.buildPaginatedSearchByTerm(term,start,size);
+          console.log(query);
           //Then Build the URL in order to send to the python service:
           var request = this.search_service_url.concat(query);
 
@@ -116,8 +115,6 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                                               $('#tab_2-2').append(tweet_html);
                                             }
                                           }
-
-                                         
                                           
                                       } //if tweet
 
@@ -137,6 +134,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
           //First build the query for searching the term as follows:
           var query = qBuilder.buildSearchByTerm(term);
+          // console.log(query);
           //Then Build the URL in order to send to the python service:
           var request = this.chart_table_service_url.concat(query);
 
@@ -172,6 +170,8 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                       ['Negative',  parseInt(result.total_negative)],
                       ['Neutral',   parseInt(result.total_neutral)]
                     ]);
+
+                    total_tweets = parseInt(result.total_positive) + parseInt(result.total_negative) + parseInt(result.total_neutral); //Update global variable
                      
                     pie_chart.drawPieChart(chart_results);
                    

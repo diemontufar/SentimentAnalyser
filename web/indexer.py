@@ -73,6 +73,11 @@ def statisticsByTerm(jsonQuery, docType):
 
 
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"support","operator":"or"}}},"strategy":"query_first"}}}'
-# query = '{"query": {"filtered": {"query": {"match": {"text": {"query": "shit","operator": "or"}}},"filter": {"term": {"lang": "en"}}}}}'
+# query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}},from:0,size:20}'
+# query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}},from:1,size":50}}'
 # # print(statisticsByTerm(query,'tweet'))
-# statisticsByTerm(query,'tweet')
+# # print(statisticsByTerm(query,'tweet'))
+# print(customSearch(query,'tweet'))
+
+
+# {"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}}}
