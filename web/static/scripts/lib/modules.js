@@ -18,7 +18,8 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
     return {
 
         search_service_url : 'http://localhost/customSearch/',
-        chart_table_service_url : 'http://localhost/chartTableSearch/',
+        sentiment_totals_service_url : 'http://localhost/sentimentTotals/',
+        list_suburbs_service_url : 'http://localhost/listSuburbs',
 
         initialize : function(chart) {
 
@@ -29,7 +30,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
           //First build the query for searching the term as follows:
           var query = qBuilder.buildPaginatedSearchByTerm(term,start,size);
-          console.log(query);
+          // console.log(query);
           //Then Build the URL in order to send to the python service:
           var request = this.search_service_url.concat(query);
 
@@ -129,16 +130,16 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
         },
 
-        /* Parse results.json file and present data on modules*/
-        populateTableModule : function(chart,term){
+        /* Get data from web services in order to populate pie chart*/
+        populateChartModule : function(chart,term){
 
           //First build the query for searching the term as follows:
           var query = qBuilder.buildSearchByTerm(term);
           // console.log(query);
           //Then Build the URL in order to send to the python service:
-          var request = this.chart_table_service_url.concat(query);
+          var request = this.sentiment_totals_service_url.concat(query);
 
-          var table_html = '<tr><th>State/Territory<\/th><th>Sentiment<\/th><th>Positive<\/th><th>Neutral<\/th><th>Negative<\/th><\/tr>';
+          // var table_html = '<tr><th>State/Territory<\/th><th>Sentiment<\/th><th>Positive<\/th><th>Neutral<\/th><th>Negative<\/th><\/tr>';
           var helper = new Helper();
           var pie_chart = chart;
 
@@ -148,21 +149,21 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
                 if (data !== undefined && data !== null){
 
-                  $('#regions-table').empty();
+                  // $('#regions-table').empty();
 
                   $.each(data, function(res, result) {
 
-                		$.each(result.regions, function(reg, region) {
+                		// $.each(result.regions, function(reg, region) {
 
-          		        table_html += '<tr>';
-          		        table_html += '<td><a href="#">' + region.name +'<\/a><\/td>';
-          		        table_html += '<td>' + '<i class="fa ' + helper.sentiment_icon[region.sentiment] + '"><\/i><\/td>';
-          		        table_html += '<td>' + region.positive +'<\/td>';
-          		        table_html += '<td>' + region.neutral +'<\/td>';
-          		        table_html += '<td>' + region.negative +'<\/td>';
-          		        table_html +=  '<\/tr>';
+          		      //   table_html += '<tr>';
+          		      //   table_html += '<td><a href="#">' + region.name +'<\/a><\/td>';
+          		      //   table_html += '<td>' + '<i class="fa ' + helper.sentiment_icon[region.sentiment] + '"><\/i><\/td>';
+          		      //   table_html += '<td>' + region.positive +'<\/td>';
+          		      //   table_html += '<td>' + region.neutral +'<\/td>';
+          		      //   table_html += '<td>' + region.negative +'<\/td>';
+          		      //   table_html +=  '<\/tr>';
 
-                		});
+                		// });
 
                     var chart_results = google.visualization.arrayToDataTable([
                       ['Results', 'Totals per Sentiment'],
@@ -174,15 +175,98 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                     total_tweets = parseInt(result.total_positive) + parseInt(result.total_negative) + parseInt(result.total_neutral); //Update global variable
                      
                     pie_chart.drawPieChart(chart_results);
+                    $('#label-showing').empty();
+                    $('#label-showing').append('Showing from 1 to ' + size_page + ' of  ' + total_tweets + ' tweets');
                    
                  });
               }
 
                // Append html string to results table
-        	    $('#regions-table').append(table_html);
+        	    // $('#regions-table').append(table_html);
         	}); //End getJSON
 
-        } //end populateTableModule
+        }, //end populateTableModule
+
+        /* Obtain list of Countries fo birth in order to populate list boxes*/
+        populateListOfSuburbs : function(city){
+
+          $('#select-suburbs').empty();
+          console.log(city);
+
+          $.getJSON(this.list_suburbs_service_url,function(data) {
+
+            var suburbs_options_html =  '<option value="all" disabled selected style="display:none;">Suburbs</option>';
+
+              if (city == 'VIC'){
+                $.each(data.states, function(sta, state) {
+
+                  if (isInStateList(city)){
+                    
+                    $.each(state.suburbs, function(sub, suburb) {
+
+                      if (isInInnerMelbourne(suburb.id)){
+                        suburbs_options_html = suburbs_options_html + '<option value="' + suburb.id + '">' + suburb.name + '</option>';
+                      }
+
+                    });
+
+                  }
+
+                });
+              }
+
+              if (city == 'TAS'){
+                $.each(data.states, function(sta, state) {
+
+                  if (isInStateList(city)){
+                    
+                    $.each(state.suburbs, function(sub, suburb) {
+
+                      if (isInHobart(suburb.id)){
+                        suburbs_options_html = suburbs_options_html + '<option value="' + suburb.id + '">' + suburb.name + '</option>';
+                      }
+
+                    });
+
+                  }
+                });
+              }
+
+              map.setCenter(new google.maps.LatLng(getLat(city), getLang(city)));
+              map.setZoom(getZoom(city));
+               // Append html string to suburb option list
+              $('#select-suburbs').append(suburbs_options_html);
+
+          });
+
+        },
+
+        /* Obtain list of Countries fo birth in order to populate list boxes*/
+        populateListOfCities : function(){
+
+          $.getJSON(this.list_suburbs_service_url,function(data) {
+
+            var city_options_html =  '<option value="all" disabled selected style="display:none;">Main Cities</option>';
+
+              $.each(data.states, function(sta, state) {
+
+                if (isInStateList(state.state)){
+
+                  // if (state.state=='VIC') //Set Melbourne as default
+                  //   city_options_html = city_options_html + '<option selected value="' + state.state + '">' + getCityName(state.state) + '</option>';
+                  // else
+                    city_options_html = city_options_html + '<option value="' + state.state + '">' + getCityName(state.state) + '</option>';
+
+                }
+
+              });
+               // Append html string to cities option list
+              $('#select-cities').append(city_options_html);
+
+          });
+
+        }
+
   
     };
   };

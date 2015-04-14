@@ -1,21 +1,24 @@
 /* ========================================================================
  * Author:            Diego Montufar
  * Date:              25 Feb 2015
- * Description:       Here you can define the main method callings using jquery and JS 
+ * Description:       
+ *                    All the interaction between the user and the UI will be handled by this class
+ *                    Here we get parameters chosen by the user and then we make calls to the 'modules.js' class.
  * ======================================================================== */
 
-require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Chart) {
+require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart","suburbs"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Chart,Suburbs) {
 
 	var chart = new Chart();
 	chart.initializeChart();
 
-	var modules = new PageModules();
+	var modules = new PageModules(); 
 
 	$(window).load(function() {	
 
 		
 	});
 
+    /*Document ready initializations */
 	$(document).ready(function() {
 
 		$(function(){
@@ -24,8 +27,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 		    });
 		});
 
-        hide("section-chart");
-        hide("section-feed");
+        // hide("section-chart");
+        // hide("section-feed");
 
 		show("tab_1-1");
         hide("tab_2-2");
@@ -33,19 +36,23 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
 	});
 
+    /*When the user click the GO button do the following*/
 	$("#go-button").click( function(e){
 
 		var term = $("#term").val();
+        //Show hidden modules
         show("section-chart");
         show("section-feed");
 
+        //If topic is not empty start to populate data*/
 		if (term!="" && term!=undefined){
-			modules.populateTweetModuleByTerm(term,start_page,size_page);
-			modules.populateTableModule(chart,term);
-		}else{
-			console.log("Please insert some term!");
-		}
 
+            modules.populateListOfCities();
+			modules.populateTweetModuleByTerm(term,start_page,size_page);
+			modules.populateChartModule(chart,term);
+		}else{
+			message("Please insert some topic!");
+		}
    	});
 
    	$("[data-widget='collapse']").click(function() {
@@ -110,22 +117,35 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
     $("#scrollable").slimScroll().bind('slimscroll', function(e, pos){
 
     	var term = $("#term").val();
-    	
-    	if (pos =='top'){
+        var min = 1;
+        var max = total_tweets;
+
+    	if (pos =='top' && start_page>min){
     		start_page = start_page - size_page;
-    		if (start_page >= 1){
-	    		console.log("New pages top-> start: " + start_page + ", size: " + size_page);
-	    		modules.populateTweetModuleByTerm(term,start_page,size_page);
-	    	}
-    	}else{
+            var end_page = start_page + size_page;
+            $('#label-showing').empty();
+            $('#label-showing').append('Showing from ' + start_page + ' to ' + end_page + ' of  ' + total_tweets + ' tweets');
+    		modules.populateTweetModuleByTerm(term,start_page,size_page);
+
+    	}else if (pos =='bottom' && start_page <= max - size_page){
     		start_page = start_page + size_page;
-    		if (start_page <= total_tweets){
-	    		console.log("New pages Botton-> start: " + start_page + ", size: " + size_page);
-	    		modules.populateTweetModuleByTerm(term,start_page,size_page);
-    		}
+            var end_page = start_page + size_page;
+            $('#label-showing').empty();
+            $('#label-showing').append('Showing from ' + start_page + ' to ' + end_page + ' of  ' + total_tweets + ' tweets');
+    		modules.populateTweetModuleByTerm(term,start_page,size_page);
     	}
 
 	});
+
+    // function message(msg){
+    //     console.log(msg);
+    //     $('#modal-body').append(msg);
+    //     BootstrapDialog.alert(msg);
+    // };
+
+    $( "#select-cities" ).change(function() {
+      modules.populateListOfSuburbs($(this).val());
+    });
 
 
 });

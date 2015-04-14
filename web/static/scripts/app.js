@@ -25,7 +25,8 @@ requirejs.config({
         "propertyParser" : "util/propertyParser",
         "async" : "util/async",
         "helper": "util/helper",
-        "chart": "util/chart"
+        "chart": "util/chart",
+        "suburbs": "util/suburbs"
     },
     shim: {
         "jquery.bootstrap": {

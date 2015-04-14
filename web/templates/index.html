@@ -34,9 +34,31 @@
         function initialize() {
         var mapOptions = {
                             center: { lat: -37.816667, lng: 144.966667},
-                            zoom: 8
+                            zoom: 11
                         };
           map = new google.maps.Map(document.getElementById('regions_div'),mapOptions);
+
+          map.data.loadGeoJson('templates/melbourne.json');
+          map.data.loadGeoJson('templates/hobart.json');
+          var featureStyle = {
+            fillColor: 'red',
+            strokeWeight: 1
+          }
+
+
+
+          map.data.addListener('mouseover', function(event) {
+
+            // var infowindow = new google.maps.InfoWindow({
+            //   content: event.feature.getProperty('MEASURE_3')
+            // });
+
+            // infowindow.open(map);
+
+            console.log(event.feature.getProperty('MEASURE_3'));
+          });
+
+          map.data.setStyle(featureStyle);
         }
 
         // Add a marker to the map and push to the array.
@@ -103,6 +125,9 @@
 
         </header>
 
+
+        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button> -->
+
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
 
@@ -142,7 +167,7 @@
                 <!-- Main row-->
                     <div class="row">
                         <!-- Map row -->
-                        <section class="col-lg-12 connectedSortable" id="section-map">
+                        <section class="col-lg-6 connectedSortable" id="section-map">
                            
                             <!-- Map box -->
                             <div class="box box-primary">
@@ -154,32 +179,49 @@
                                          <i class="fa fa-minus"></i>
                                          </button>
 
-                                        <div class="pull-right" >
+                                    </div><!-- /. tools -->
+
+                                    <i class="fa fa-globe"></i>
+                                    <h3 class="box-title">
+                                        Map distribution
+                                    </h3>
+                                </div>
+                                <div class="box-body no-padding">
+                                    <!--<div id="world-map" style="height: 300px;"></div>-->
+                                    <div id="regions_div" style="width:100%;height: 350px;"></div>
+                                </div><!-- /.box-body-->
+                                <!--<div class="box-footer">
+                                    <button class="btn btn-info"><i class="fa fa-download"></i> Generate PDF</button>
+                                    <button class="btn btn-warning"><i class="fa fa-bug"></i> Report Bug</button>
+                                </div>-->
+                            </div>
+
+                        </section><!-- Map Row -->
+
+                        <!-- Right module -->
+                        <section class="col-lg-6 connectedSortable" id="section-cultures">
+                            <!-- CULTURES OF AUSTRALIA -->
+                            <div class="box">
+                                <!-- Header -->
+                                <div class="box-header">
+                                    <!-- tools box -->
+                                    <div class="pull-right box-tools">
+
+                                         <button class="btn btn-default .btn-flat pull-right" id="toggle-map" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                         <i class="fa fa-minus"></i>
+                                         </button>
+
+                                        <div class="pull-right">
                                            <!-- <label>Select</label> -->
-                                            <select class="form-control">
-                                                <option value='' disabled selected style='display:none;'>Cultures</option>
-                                                <option value="all">All</option>
-                                                <option value="chinesse">Chinesse</option>
-                                                <option value="dutch">Dutch</option>
-                                                <option value="english">English</option>
-                                                <option value="french">French</option>
-                                                <option value="italian">Italian</option>
-                                                <option value="spanish">Spanish</option>
+                                            <select class="form-control" id="select-suburbs" width="220" style="width: 220px">
+
                                             </select>
                                         </div>
 
                                         <div class="pull-right" style="margin-right: 15px; margin-left: 15px;">
                                            <!-- <label>Select</label> -->
-                                            <select class="form-control" >
-                                                <option value='' disabled selected style='display:none;'>Regions</option>
-                                                <option value="all">All</option>
-                                                <option value="nsw">New South Wales</option>
-                                                <option value="nt">Northern Territory</option>
-                                                <option value="qld">Queensland</option>
-                                                <option value="sa">South Australia</option>
-                                                <option value="tas">Tasmania</option>
-                                                <option value="vic">Victoria</option>
-                                                <option value="wa">Western Australia</option>
+                                            <select class="form-control" id="select-cities">
+
                                             </select>
                                         </div>
 
@@ -190,23 +232,71 @@
                                         Cultures of Australia
                                     </h3>
                                 </div>
-                                <div class="box-body no-padding">
-                                    <!--<div id="world-map" style="height: 300px;"></div>-->
-                                    <div id="regions_div" style="width:100%;height: 400px;"></div>
-                                    <div class="table-responsive">
-                                        <!-- .table - Uses sparkline charts-->
-                                        <table class="table table-striped" id="regions-table">
-                                            
-                                        </table><!-- /.table -->
-                                    </div>
-                                </div><!-- /.box-body-->
-                                <!--<div class="box-footer">
-                                    <button class="btn btn-info"><i class="fa fa-download"></i> Generate PDF</button>
-                                    <button class="btn btn-warning"><i class="fa fa-bug"></i> Report Bug</button>
-                                </div>-->
+                                <!-- Body -->
+                                <div class="box-body">
+                                      <table class="table table-bordered">
+                                        <tbody><tr>
+                                          <th style="width: 10px">#</th>
+                                          <th>Country of Birth</th>
+                                          <th>People</th>
+                                          <th style="width: 40px">Tweets</th>
+                                        </tr>
+                                        <tr>
+                                          <td>1.</td>
+                                          <td>India</td>
+                                          <td>250</td>
+                                          <td>100</td>
+                                        </tr>
+                                        <tr>
+                                          <td>2.</td>
+                                          <td>China</td>
+                                          <td>500</td>
+                                          <td>10</td>
+                                        <tr>
+                                          <td>3.</td>
+                                          <td>Canada</td>
+                                          <td>157</td>
+                                          <td>40</td>
+                                        </tr>
+                                        <tr>
+                                          <td>4.</td>
+                                          <td>Japan</td>
+                                          <td>1200</td>
+                                          <td>10</td>
+                                        </tr>
+                                        <tr>
+                                          <td>5.</td>
+                                          <td>Poland</td>
+                                          <td>347</td>
+                                          <td>5</td>
+                                        </tr>
+                                        <tr>
+                                          <td>6.</td>
+                                          <td>Germany</td>
+                                          <td>431</td>
+                                          <td>135</td>
+                                        </tr>
+                                        <tr>
+                                          <td>7.</td>
+                                          <td>Australia</td>
+                                          <td>4500</td>
+                                          <td>621</td>
+                                        </tr>
+                                      </tbody></table>
+                                </div>
+                                <!-- Footer -->
+                                <div class="box-footer clearfix">
+                                  <ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="#">«</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">»</a></li>
+                                  </ul>
+                                </div>
                             </div>
-
-                        </section><!-- Map Row -->
+                        
+                        </section><!-- ./Left Row -->
 
                         <!-- Left row -->
                         <section class="col-lg-6 connectedSortable" id="section-chart">
@@ -218,7 +308,7 @@
                                 </div>
                                 <div class="box-body chart-responsive">
                                     <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
-                                    <div class="chart" id="piechart_3d" style="height: 300px; position: relative;"></div>
+                                    <div class="chart" id="piechart_3d" style="height: 250px; position: relative;"></div>
                                 </div><!-- /.box-body -->
                             </div>
                         
@@ -233,7 +323,7 @@
                                     <i class="fa fa-twitter"></i> Tweets</h3>
                                     <div class="box-tools pull-right" data-toggle="tooltip" title="Sentiments">
                                         <div class="btn-group" data-toggle="btn-toggle" >
-                                            <button type="button" class="btn btn-default btn-sm active" id="btn-pos"><i class="fa fa-square text-blue"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm active" id="btn-pos" ><i class="fa fa-square text-blue"></i></button>
                                             <button type="button" class="btn btn-default btn-sm" id="btn-neu"><i class="fa fa-square text-green"></i></button>       
                                             <button type="button" class="btn btn-default btn-sm" id="btn-neg"><i class="fa fa-square text-red" ></i></button>
 
@@ -258,6 +348,12 @@
                                   <i class="fa fa-refresh fa-spin"></i>
                                 </div> -->
 
+                                <div class="box-footer clearfix">
+                                    <h6>
+                                    <label id="label-showing" class="text-muted pull-right"></label>
+                                    </h6>
+                                </div>
+
                             </div>
                         </section> <!-- ./Right Row -->
 
@@ -265,6 +361,22 @@
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+
+<!--         <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Information</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body…</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div> -->
 
     </body>
 </html>
