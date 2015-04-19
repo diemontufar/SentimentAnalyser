@@ -13,6 +13,8 @@
         <link href="../static/css/ionicons/ionicons.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="../static/css/sentiment-app/AdminLTE.css" rel="stylesheet" type="text/css" />
+        <!-- Dynatable style -->
+        <link href="../static/css/dynatable/jquery.dynatable.css" rel="stylesheet" type="text/css" />
         
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,9 +30,10 @@
         <script>
         var map;
         var markers = [];
-        var start_page = 1;
-        var size_page = 50; //variables fro pagination
-        var total_tweets = 0;
+        var start_page = 1; //variable for pagination
+        var size_page = 50; //variables for pagination
+        var total_tweets = 0; //global results
+        var cultures; //global results
         function initialize() {
         var mapOptions = {
                             center: { lat: -37.816667, lng: 144.966667},
@@ -173,7 +176,7 @@
                 <!-- Main row-->
                     <div class="row">
                         <!-- Map row -->
-                        <section class="col-lg-6 connectedSortable" id="section-map">
+                        <section class="col-lg-6 connectedSortable" id="section-map" style="display:none;">
                            
                             <!-- Map box -->
                             <div class="box box-primary">
@@ -194,7 +197,7 @@
                                 </div>
                                 <div class="box-body no-padding">
                                     <!--<div id="world-map" style="height: 300px;"></div>-->
-                                    <div id="regions_div" style="width:100%;height: 350px;"></div>
+                                    <div id="regions_div" style="width:100%;height: 370px;"></div>
                                 </div><!-- /.box-body-->
                                 <!--<div class="box-footer">
                                     <button class="btn btn-info"><i class="fa fa-download"></i> Generate PDF</button>
@@ -205,7 +208,7 @@
                         </section><!-- Map Row -->
 
                         <!-- Right module -->
-                        <section class="col-lg-6 connectedSortable" id="section-cultures">
+                        <section class="col-lg-6 connectedSortable" id="section-cultures" style="display:none;">
                             <!-- CULTURES OF AUSTRALIA -->
                             <div class="box">
                                 <!-- Header -->
@@ -213,7 +216,7 @@
                                     <!-- tools box -->
                                     <div class="pull-right box-tools">
 
-                                         <button class="btn btn-default .btn-flat pull-right" id="toggle-map" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                         <button class="btn btn-default .btn-flat pull-right" id="toggle-cultures" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
                                          <i class="fa fa-minus"></i>
                                          </button>
 
@@ -240,88 +243,26 @@
                                 </div>
                                 <!-- Body -->
                                 <div class="box-body">
-                                      <table class="table table-bordered">
-                                        <tbody><tr>
-                                          <th style="width: 10px">#</th>
-                                          <th>Country of Birth</th>
-                                          <th>Males</th>
-                                          <th>Females</th>
-                                          <th>People</th>
-                                          <th style="width: 40px">Tweets</th>
-                                        </tr>
-                                        <tr>
-                                          <td>1.</td>
-                                          <td>India</td>
-                                          <td>250</td>
-                                          <td>250</td>
-                                          <td>250</td>
-                                          <td>100</td>
-                                        </tr>
-                                        <tr>
-                                          <td>2.</td>
-                                          <td>China</td>
-                                          <td>250</td>
-                                          <td>250</td>
-                                          <td>500</td>
-                                          <td>10</td>
-                                        <tr>
-                                          <td>3.</td>
-                                          <td>Canada</td>
-                                          <td>250</td>
-                                          <td>250</td>
-                                          <td>157</td>
-                                          <td>40</td>
-                                        </tr>
-                                        <tr>
-                                          <td>4.</td>
-                                          <td>Japan</td>
-                                          <td>250</td>
-                                          <td>250</td>
-                                          <td>1200</td>
-                                          <td>10</td>
-                                        </tr>
-                                        <tr>
-                                          <td>5.</td>
-                                          <td>Poland</td>
-                                          <td>250</td>
-                                          <td>250</td>
-                                          <td>347</td>
-                                          <td>5</td>
-                                        </tr>
-                                        <tr>
-                                          <td>6.</td>
-                                          <td>Germany</td>
-                                          <td>250</td>
-                                          <td>250</td>
-                                          <td>431</td>
-                                          <td>135</td>
-                                        </tr>
-                                        <tr>
-                                          <td>7.</td>
-                                          <td>Australia</td>
-                                          <td>250</td>
-                                          <td>250</td>
-                                          <td>4500</td>
-                                          <td>621</td>
-                                        </tr>
-                                      </tbody></table>
-                                </div>
-                                <!-- Footer -->
-                                <div class="box-footer clearfix">
-                                  <ul class="pagination pagination-sm no-margin pull-right">
-                                    <li><a href="#">«</a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">»</a></li>
-                                  </ul>
+                                      <div style="height: 350px; position: relative;">
+                                        <table class="table table-bordered table-hover" id="table-cultures">
+                                          <thead style="background-color: rgb(0, 192, 239);">
+                                            <th>Country of Birth</th>
+                                            <th>Males</th>
+                                            <th>Females</th>
+                                            <th>Total</th>
+                                            <th>Tweets</th>
+                                          </thead>
+                                          <tbody>
+                                          </tbody>
+                                        </table>
+                                      </div>
                                 </div>
                             </div>
                         
                         </section><!-- ./Left Row -->
 
                         <!-- Left row -->
-                        <section class="col-lg-6 connectedSortable" id="section-chart">
+                        <section class="col-lg-6 connectedSortable" id="section-chart" style="display:none;">
                             <!-- DONUT CHART -->
                             <div class="box box-danger">
                                 <div class="box-header">
@@ -337,7 +278,7 @@
                         </section><!-- ./Left Row -->
 
                         <!-- Right Row -->
-                        <section class="col-lg-6 connectedSortable" id="section-feed">
+                        <section class="col-lg-6 connectedSortable" id="section-feed" style="display:none;">
                             <!-- Chat box -->
                             <div class="box box-success">
                                 <div class="box-header">
@@ -384,21 +325,21 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 
-<!--         <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Information</h4>
+        <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Modal Body</h3>
+                    </div>
+            </div>
           </div>
-          <div class="modal-body">
-            <p>One fine body…</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div> -->
+        </div>
+
+      </div>
 
     </body>
 </html>

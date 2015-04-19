@@ -1,3 +1,12 @@
+var statesList = {};
+	statesList['VIC'] = 'Melbourne';
+	statesList['NSW'] = 'Sydney';
+	statesList['TAS'] = 'Hobart';
+	statesList['QLD'] = 'Brisbane';
+	statesList['NT'] = 'Darwin';
+	statesList['WA'] = 'Perth';
+	statesList['SA'] = 'Adelaide';
+
 define([], function()
 {
 	"use strict";
@@ -105,7 +114,46 @@ define([], function()
 		        return marker; //Found a coordinate
 		      }
 
-		  	}
+		  	},
+
+		  	isInStateList: function(state){
+
+				return statesList[state] != undefined;
+
+		  	},
+
+		  	getCityName: function(id){
+			  
+			  return statesList[id];
+
+			},
+
+			infoMessage: function(msg){
+		        var icon = '<i class="icon fa fa-info" style="margin-right: 10px;"></i>';
+		        $('.modal-title').empty();
+		        $('.modal-body').empty();
+		        $('.modal-title').append(icon+'Info');
+		        $('.modal-body').append(msg);
+		        $('#basicModal').modal('show');
+		    },
+
+		    alertMessage: function(msg){
+		        var icon = '<i class="icon fa fa-warning" style="margin-right: 10px;"></i>';
+		        $('.modal-title').empty();
+		        $('.modal-body').empty();
+		        $('.modal-title').append(icon+'Warning');
+		        $('.modal-body').append(msg);
+		        $('#basicModal').modal('show');
+		    },
+
+		    errorMessage: function(msg){
+		        var icon = '<i class="icon fa fa-ban" style="margin-right: 10px;"></i>';
+		        $('.modal-title').empty();
+		        $('.modal-body').empty();
+		        $('.modal-title').append(icon+'Error');
+		        $('.modal-body').append(msg);
+		        $('#basicModal').modal('show');
+		    }
 
 		};
 	};

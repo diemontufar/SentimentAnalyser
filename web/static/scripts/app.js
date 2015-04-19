@@ -26,7 +26,7 @@ requirejs.config({
         "async" : "util/async",
         "helper": "util/helper",
         "chart": "util/chart",
-        "suburbs": "util/suburbs"
+        "dynatable": "dynatable/jquery.dynatable"
     },
     shim: {
         "jquery.bootstrap": {
@@ -36,6 +36,9 @@ requirejs.config({
             deps: ["jquery"]
         },
         "slimscroll": {
+            deps: ["jquery"]
+        },
+        "dynatable": {
             deps: ["jquery"]
         }
     }

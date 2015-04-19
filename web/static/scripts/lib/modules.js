@@ -17,10 +17,10 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
   {
     return {
 
-        search_service_url : 'http://localhost/customSearch/',
-        sentiment_totals_service_url : 'http://localhost/sentimentTotals/',
-        list_suburbs_service_url : 'http://localhost/listSuburbs',
-        cultures_service_url : 'http://localhost/culturesByCity',
+        search_service_url : '/customSearch/',
+        sentiment_totals_service_url : '/sentimentTotals/',
+        list_suburbs_service_url : '/listSuburbs',
+        cultures_service_url : '/culturesByCity',
 
         initialize : function(chart) {
 
@@ -40,7 +40,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
           // a list of the tweets matching our request query
           $.getJSON(request, function(data) {
 
-              var helper = new Helper();
+              
 
               if (data) {
                   $('#tab_1-1').empty();
@@ -67,6 +67,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
 
                                           // Build the html string for the current tweet
+                                          var helper = new Helper();
                                           var tweet_text = helper.parseLinks(tweet.text);
                                           tweet_text = helper.parseHashTags(tweet_text);
                                           tweet_text = helper.parseUser(tweet_text);
@@ -124,6 +125,10 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                               } //if sources
                           }); //inner each 
                       } //if hits
+                      else{
+                        var helper = new Helper();
+                        helper.infoMessage('No results found for topic: ' + term );
+                      }
                   }); //outer each 
               setAllMap(map); //Add all markers to the map
               } //if data
@@ -136,11 +141,10 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
           //First build the query for searching the term as follows:
           var query = qBuilder.buildSearchByTerm(term);
-          // console.log(query);
+
           //Then Build the URL in order to send to the python service:
           var request = this.sentiment_totals_service_url.concat(query);
 
-          // var table_html = '<tr><th>State/Territory<\/th><th>Sentiment<\/th><th>Positive<\/th><th>Neutral<\/th><th>Negative<\/th><\/tr>';
           var helper = new Helper();
           var pie_chart = chart;
 
@@ -150,21 +154,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
                 if (data !== undefined && data !== null){
 
-                  // $('#regions-table').empty();
-
                   $.each(data, function(res, result) {
-
-                		// $.each(result.regions, function(reg, region) {
-
-          		      //   table_html += '<tr>';
-          		      //   table_html += '<td><a href="#">' + region.name +'<\/a><\/td>';
-          		      //   table_html += '<td>' + '<i class="fa ' + helper.sentiment_icon[region.sentiment] + '"><\/i><\/td>';
-          		      //   table_html += '<td>' + region.positive +'<\/td>';
-          		      //   table_html += '<td>' + region.neutral +'<\/td>';
-          		      //   table_html += '<td>' + region.negative +'<\/td>';
-          		      //   table_html +=  '<\/tr>';
-
-                		// });
 
                     var chart_results = google.visualization.arrayToDataTable([
                       ['Results', 'Totals per Sentiment'],
@@ -182,8 +172,6 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                  });
               }
 
-               // Append html string to results table
-        	    // $('#regions-table').append(table_html);
         	}); //End getJSON
 
         }, //end populateTableModule
@@ -192,10 +180,9 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
         populateListOfSuburbs : function(state){
 
           $('#select-suburbs').empty();
-          // console.log(city);
+          cultures = null;
 
-          $.getJSON(this.cultures_service_url+'/'+state,function(data) {
-
+          $.getJSON(this.cultures_service_url+'/'+state).done(function(data) {
 
             if (data !== null && data!==undefined){
 
@@ -213,36 +200,38 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
                });
 
-
-              // var geoJson = JSON.parse(data);
-              // console.log(data);
+              cultures = data; //assign current result to the global variable
               map.data.addGeoJson(data);
-
               map.setCenter(new google.maps.LatLng(lat, lang));
               map.setZoom(zoom);
                // Append html string to suburb option list
               $('#select-suburbs').append(suburbs_options_html);
 
             }
+          }).fail(function(){
+            var helper = new Helper();
+            var city = $('#select-cities :selected').text();
+            helper.infoMessage('No suburbs found in: ' + city );
           });
 
         },
 
-        /* Obtain list of Countries fo birth in order to populate list boxes*/
+        /* Obtain list of Cities by state*/
         populateListOfCities : function(){
 
-          $.getJSON(this.list_suburbs_service_url,function(data) {
+          var helper = new Helper();
+          $('#select-suburbs').empty();
+          $('#select-cities').empty();
+
+          $.getJSON(this.list_suburbs_service_url).done(function(data) {
 
             var city_options_html =  '<option value="all" disabled selected style="display:none;">Main Cities</option>';
 
               $.each(data.states, function(sta, state) {
 
-                if (isInStateList(state.state)){
+                if (helper.isInStateList(state.state)){
 
-                  // if (state.state=='VIC') //Set Melbourne as default
-                  //   city_options_html = city_options_html + '<option selected value="' + state.state + '">' + getCityName(state.state) + '</option>';
-                  // else
-                    city_options_html = city_options_html + '<option value="' + state.state + '">' + getCityName(state.state) + '</option>';
+                    city_options_html = city_options_html + '<option value="' + state.state + '">' + helper.getCityName(state.state) + '</option>';
 
                 }
 
@@ -250,7 +239,58 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                // Append html string to cities option list
               $('#select-cities').append(city_options_html);
 
+          }).fail(function(){
+            var helper = new Helper();
+            helper.errorMessage('Error Loading list of Cities');
           });
+
+        },
+
+        /* Obtain list of Countries fo birth in order to populate table*/
+        populateTableOfCultures : function(suburb){
+
+          var table_html = '';
+          var count = 1;
+          var coutryRecords = [];
+
+          if (cultures!==null && cultures!==undefined){
+
+            // $('#table-cultures').empty();
+            // table_html += '<tbody>';
+
+            $.each(cultures.features, function(fea, feature) {
+
+                  if (feature.properties.feature_code ==  suburb){
+
+                      $.each(feature.properties.country_of_bird, function(cou, country) {
+
+
+                          coutryRecords[count-1] = {
+                                                      'countryOfBirth' : country.name,
+                                                      'males' : country.population.males,
+                                                      'females' : country.population.females,
+                                                      'total' : country.population.total,
+                                                      'tweets' : 0
+                                                    };
+
+                          count++;
+
+                      });
+
+                     var dynatable = $('#table-cultures').data('dynatable');
+                     dynatable.settings.dataset.originalRecords = coutryRecords;
+                     dynatable.paginationPerPage.set(8);
+                     dynatable.process();
+
+                  }
+
+            });
+
+          }else{
+            var helper = new Helper();
+            var suburb = $('#select-suburbs :selected').text();
+            helper.infoMessage('Cultures table cannot be populated for: ' + suburb );
+          }
 
         }
 

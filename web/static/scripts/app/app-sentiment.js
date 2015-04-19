@@ -6,12 +6,13 @@
  *                    Here we get parameters chosen by the user and then we make calls to the 'modules.js' class.
  * ======================================================================== */
 
-require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart","suburbs"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Chart,Suburbs) {
+require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart","dynatable","util/helper"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Chart,Dynatable,Helper) {
 
 	var chart = new Chart();
 	chart.initializeChart();
 
-	var modules = new PageModules(); 
+	var modules = new PageModules();
+    var helper = new Helper(); 
 
 	$(window).load(function() {	
 
@@ -27,8 +28,16 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 		    });
 		});
 
-        // hide("section-chart");
-        // hide("section-feed");
+        $('#table-cultures').dynatable({
+            features: {
+                paginate: true,
+                sort: true,
+                pushState: true,
+                search: true,
+                recordCount: true,
+                perPageSelect: false
+              }
+        });
 
 		show("tab_1-1");
         hide("tab_2-2");
@@ -41,8 +50,11 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
 		var term = $("#term").val();
         //Show hidden modules
+        show("section-cultures");
+        show("section-map");
         show("section-chart");
         show("section-feed");
+        refreshMap();
 
         //If topic is not empty start to populate data*/
 		if (term!="" && term!=undefined){
@@ -51,7 +63,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 			modules.populateTweetModuleByTerm(term,start_page,size_page);
 			modules.populateChartModule(chart,term);
 		}else{
-			message("Please insert some topic!");
+			helper.infoMessage("Please insert some topic!");
 		}
    	});
 
@@ -86,6 +98,10 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 	    $(this).find('i').toggleClass('fa-plus fa-minus')
 	});
 
+    $('#toggle-cultures').click(function(){
+        $(this).find('i').toggleClass('fa-plus fa-minus')
+    });
+
 
     $("#btn-pos").click(function() {
     	show("tab_1-1");
@@ -106,11 +122,13 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
     });
 
     function show(id){
-    	document.getElementById(id).style.display = "block";
+        var selector = '#'+id;
+        $(selector).fadeIn(2000);
     };
 
     function hide(id){
-    	document.getElementById(id).style.display = "none";
+        var selector = '#'+id;
+        $(selector).fadeOut(100);
     };
 
     //Pagination
@@ -137,15 +155,29 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
 	});
 
-    // function message(msg){
-    //     console.log(msg);
-    //     $('#modal-body').append(msg);
-    //     BootstrapDialog.alert(msg);
-    // };
 
     $( "#select-cities" ).change(function() {
-      modules.populateListOfSuburbs($(this).val());
+        
+        resetDynatable();
+        modules.populateListOfSuburbs($(this).val());
+
     });
+
+    $( "#select-suburbs" ).change(function() {
+        modules.populateTableOfCultures($(this).val());
+    });
+
+    function resetDynatable(){
+        var dynatable = $('#table-cultures').data('dynatable');
+        dynatable.settings.dataset.originalRecords = null;
+        dynatable.process();
+    };
+
+    function refreshMap(){
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center); 
+    };
 
 
 });
