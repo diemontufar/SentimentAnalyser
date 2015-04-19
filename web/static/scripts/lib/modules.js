@@ -20,6 +20,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
         search_service_url : 'http://localhost/customSearch/',
         sentiment_totals_service_url : 'http://localhost/sentimentTotals/',
         list_suburbs_service_url : 'http://localhost/listSuburbs',
+        cultures_service_url : 'http://localhost/culturesByCity',
 
         initialize : function(chart) {
 
@@ -188,55 +189,41 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
         }, //end populateTableModule
 
         /* Obtain list of Countries fo birth in order to populate list boxes*/
-        populateListOfSuburbs : function(city){
+        populateListOfSuburbs : function(state){
 
           $('#select-suburbs').empty();
-          console.log(city);
+          // console.log(city);
 
-          $.getJSON(this.list_suburbs_service_url,function(data) {
+          $.getJSON(this.cultures_service_url+'/'+state,function(data) {
 
-            var suburbs_options_html =  '<option value="all" disabled selected style="display:none;">Suburbs</option>';
 
-              if (city == 'VIC'){
-                $.each(data.states, function(sta, state) {
+            if (data !== null && data!==undefined){
 
-                  if (isInStateList(city)){
-                    
-                    $.each(state.suburbs, function(sub, suburb) {
+               var suburbs_options_html =  '<option value="all" disabled selected style="display:none;">Suburbs</option>';
 
-                      if (isInInnerMelbourne(suburb.id)){
-                        suburbs_options_html = suburbs_options_html + '<option value="' + suburb.id + '">' + suburb.name + '</option>';
-                      }
+               // console.log(data.state_coordinate);
 
-                    });
+               var lat = data.crs.properties.state_coordinate[0];
+               var lang = data.crs.properties.state_coordinate[1];
+               var zoom = data.crs.properties.state_coordinate[2];
 
-                  }
+               $.each(data.features, function(fea, feature) {
 
-                });
-              }
+                  suburbs_options_html = suburbs_options_html + '<option value="' + feature.properties.feature_code + '">' + feature.properties.feature_name + '</option>';
 
-              if (city == 'TAS'){
-                $.each(data.states, function(sta, state) {
+               });
 
-                  if (isInStateList(city)){
-                    
-                    $.each(state.suburbs, function(sub, suburb) {
 
-                      if (isInHobart(suburb.id)){
-                        suburbs_options_html = suburbs_options_html + '<option value="' + suburb.id + '">' + suburb.name + '</option>';
-                      }
+              // var geoJson = JSON.parse(data);
+              // console.log(data);
+              map.data.addGeoJson(data);
 
-                    });
-
-                  }
-                });
-              }
-
-              map.setCenter(new google.maps.LatLng(getLat(city), getLang(city)));
-              map.setZoom(getZoom(city));
+              map.setCenter(new google.maps.LatLng(lat, lang));
+              map.setZoom(zoom);
                // Append html string to suburb option list
               $('#select-suburbs').append(suburbs_options_html);
 
+            }
           });
 
         },

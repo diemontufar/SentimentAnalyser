@@ -34,12 +34,18 @@
         function initialize() {
         var mapOptions = {
                             center: { lat: -37.816667, lng: 144.966667},
+                            // center: {lat: 55.948564, lng: -3.181694}, //Edinburgh
                             zoom: 11
                         };
           map = new google.maps.Map(document.getElementById('regions_div'),mapOptions);
 
-          map.data.loadGeoJson('templates/melbourne.json');
-          map.data.loadGeoJson('templates/hobart.json');
+          // map.data.loadGeoJson('templates/melbourne.json');
+          // map.data.loadGeoJson('templates/hobart.json');
+          // map.data.loadGeoJson('templates/edinburgh_scotland-admin.json');
+          // map.data.loadGeoJson('templates/edinburgh_scotland-amenities.json');
+          // map.data.loadGeoJson('templates/edinburgh_scotland-places.json');
+          // map.data.loadGeoJson('../static/json/melbourne.json');
+          // map.data.loadGeoJson('../static/json/sydney.json');
           var featureStyle = {
             fillColor: 'red',
             strokeWeight: 1
@@ -55,7 +61,7 @@
 
             // infowindow.open(map);
 
-            console.log(event.feature.getProperty('MEASURE_3'));
+            console.log(event.feature.getProperty('feature_name'));
           });
 
           map.data.setStyle(featureStyle);
@@ -238,6 +244,8 @@
                                         <tbody><tr>
                                           <th style="width: 10px">#</th>
                                           <th>Country of Birth</th>
+                                          <th>Males</th>
+                                          <th>Females</th>
                                           <th>People</th>
                                           <th style="width: 40px">Tweets</th>
                                         </tr>
@@ -245,40 +253,54 @@
                                           <td>1.</td>
                                           <td>India</td>
                                           <td>250</td>
+                                          <td>250</td>
+                                          <td>250</td>
                                           <td>100</td>
                                         </tr>
                                         <tr>
                                           <td>2.</td>
                                           <td>China</td>
+                                          <td>250</td>
+                                          <td>250</td>
                                           <td>500</td>
                                           <td>10</td>
                                         <tr>
                                           <td>3.</td>
                                           <td>Canada</td>
+                                          <td>250</td>
+                                          <td>250</td>
                                           <td>157</td>
                                           <td>40</td>
                                         </tr>
                                         <tr>
                                           <td>4.</td>
                                           <td>Japan</td>
+                                          <td>250</td>
+                                          <td>250</td>
                                           <td>1200</td>
                                           <td>10</td>
                                         </tr>
                                         <tr>
                                           <td>5.</td>
                                           <td>Poland</td>
+                                          <td>250</td>
+                                          <td>250</td>
                                           <td>347</td>
                                           <td>5</td>
                                         </tr>
                                         <tr>
                                           <td>6.</td>
                                           <td>Germany</td>
+                                          <td>250</td>
+                                          <td>250</td>
                                           <td>431</td>
                                           <td>135</td>
                                         </tr>
                                         <tr>
                                           <td>7.</td>
                                           <td>Australia</td>
+                                          <td>250</td>
+                                          <td>250</td>
                                           <td>4500</td>
                                           <td>621</td>
                                         </tr>

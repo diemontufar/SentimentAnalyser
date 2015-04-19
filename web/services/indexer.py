@@ -1,23 +1,24 @@
-import elasticsearch
+import indexer_settings as settings
+import elasticsearch #elasticsearch library
+import couchdb #couchdb library
 import json
 
 es = elasticsearch.Elasticsearch()  # use default of localhost, port 9200
-es_index = 'twitterall_2'
 
 #Perform a search in a index based on a particular text
 def simpleSearch(query):
-    matches = es.search(index=es_index, q=query)
+    matches = es.search(index=settings.es_index, q=query)
     #hits = matches['hits']['hits']
     return json.dumps(matches, indent=4) 
 
 #Perform a search in a index based on a custom json query
 def customSearch(jsonQuery, docType):
-    matches = es.search(index=es_index, doc_type=docType, body=jsonQuery)
+    matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
     return json.dumps(matches, indent=4) 
 
 #Count the number of ocurrences in a index based on a json query
 def count(jsonQuery, docType):
-    num = es.count(index=es_index, doc_type=docType, body=jsonQuery)
+    num = es.count(index=settings.es_index, doc_type=docType, body=jsonQuery)
     counter = num['count']
     return int(counter)
 
@@ -27,11 +28,11 @@ def getRegions():
 
 #Specific Web services
 # def tweetsByTerm(jsonQuery, docType):
-#     matches = es.search(index=es_index, doc_type=docType, body=jsonQuery)
+#     matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
 #     return json.dumps(matches, indent=4) 
 
 def statisticsByTerm(jsonQuery, docType):
-    # matches = es.search(index=es_index, doc_type=docType, body=jsonQuery)
+    # matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
     total = count(jsonQuery, docType) #count total number of tweets
     
     #Modify jsonQuery in order to get counts and build a response
@@ -70,7 +71,25 @@ def statisticsByTerm(jsonQuery, docType):
 
     return json.dumps(result, indent=4) 
 
+#Get the document from couchdb by ID
+def getDocument(db,id):
+    doc = db.get(id)
+    return doc
 
+#Get the corresponding document from cultures couch database by state
+#Disclaimer: If you have more than one document with the same state, this will return an array of docs
+#If there is an empty result, return 'None'
+def getCultures(state):
+    server = couchdb.Server(settings.server)
+    try:
+        #Just use existing DB
+        db = server[settings.cultures_database]
+    except:
+        print("Error while accessing couchdb data base!")
+    for id in db:
+        doc = getDocument(db,id)
+        if doc["crs"]['properties']['state_id'] == state:
+            return json.dumps(doc, indent=4)
 
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"support","operator":"or"}}},"strategy":"query_first"}}}'
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}},from:0,size:20}'
@@ -81,3 +100,4 @@ def statisticsByTerm(jsonQuery, docType):
 
 
 # {"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}}}
+# print(getCultures('VIC'))

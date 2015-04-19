@@ -16,11 +16,15 @@ import re #Parsisng
 from ttp import ttp #For extracting usernames and hashtags
 from textblob import TextBlob #Parsing and Sentiment analysis
 import json #Working with sentiments
-import html.parser
+import html
 import time
+import os
+# __file__ refers to the root directory 
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))  
+
 
 #Open the sentiment.json file where emojis and other characters are defined
-with open('tweet_classifier/sentiments.json') as sentiments_json:    
+with open(APP_ROOT + '/sentiments.json') as sentiments_json:    
     sentiments = json.load(sentiments_json)
 
 #Regex to detect emails
@@ -42,7 +46,8 @@ def extractUsernamesHashtagsURLS(ttp_obj,text):
 # We also first unescape &amp;'s, in case the text has been buggily double-escaped.
 def normalizeTextForTagger(text):
     text = text.replace("&amp;", "&")
-    text = html.parser.HTMLParser().unescape(text)
+    # text = html.parser.HTMLParser().unescape(text)
+    text = html.unescape(text)
     return text
 
 #Remove emails
@@ -68,7 +73,7 @@ def parseText(text):
 	p = ttp.Parser()
 	ttp_result = p.parse(text)
 	text = extractUsernamesHashtagsURLS(ttp_result,text)
-	text = normalizeTextForTagger(text)
+	# text = normalizeTextForTagger(text)
 	text = removeEmails(text)
 	text = removeLineBreaks(text)
 

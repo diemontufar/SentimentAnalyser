@@ -31,6 +31,10 @@ def getSentimentTotals(jsonQuery):
 def listSuburbsAU():
 	return open(APP_STATIC_JSON+"/suburbs.json", 'r').read()
 
+#Service: Get GeoJson File
+@app.route('/culturesByCity/<state>')
+def listCulturesByCityAU(state):
+	return indexer.getCultures(state)
 
 #main
 if __name__ == "__main__":

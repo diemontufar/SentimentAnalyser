@@ -64,7 +64,7 @@ try:
 	#Just use existing DB
 	db = server[settings.database]
 except:
-	print("Error while accessing couchdb data base!");
+	print("Error while accessing couchdb data base!")
 
 for id in db:
 	doc = getDocument(id)
