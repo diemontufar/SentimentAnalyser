@@ -12,7 +12,7 @@
             "coordinates":{  
                "properties":{  
                   "coordinates":{  
-                     "type":"double"
+                     "type":"geo_point"
                   },
                   "type":{  
                      "type":"string"
@@ -373,15 +373,8 @@
                   "attributes":{  
                      "type":"object"
                   },
-                  "bounding_box":{  
-                     "properties":{  
-                        "coordinates":{  
-                           "type":"double"
-                        },
-                        "type":{  
-                           "type":"string"
-                        }
-                     }
+                  "bounding_box":{   
+                     "type":"geo_shape"
                   },
                   "country":{  
                      "type":"string"

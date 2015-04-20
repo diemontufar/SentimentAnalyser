@@ -186,7 +186,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
             if (data !== null && data!==undefined){
 
-               var suburbs_options_html =  '<option value="all" disabled selected style="display:none;">Suburbs</option>';
+               var suburbs_options_html =  '<option value="all" disabled selected style="display:none;">Select a Suburb</option>';
 
                // console.log(data.state_coordinate);
 
@@ -262,7 +262,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
                   if (feature.properties.feature_code ==  suburb){
 
-                      $.each(feature.properties.country_of_bird, function(cou, country) {
+                      $.each(feature.properties.country_of_birth, function(cou, country) {
 
 
                           coutryRecords[count-1] = {

@@ -1,6 +1,6 @@
 
 #Elasticsearch index:
-es_index = 'twitterall_2'
+es_index = 'twitterall'
 
 #Couchdb Database and credentials
 server = 'http://localhost:5984/'

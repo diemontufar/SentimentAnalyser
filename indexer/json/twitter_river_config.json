@@ -7,7 +7,7 @@
         "filter" : null
     },
     "index" : {
-        "index" : "twitterall_2",
+        "index" : "twitterall",
         "type" : "tweet",
         "bulk_size" : "1000",
         "bulk_timeout" : "10ms"
