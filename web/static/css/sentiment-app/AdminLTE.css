@@ -338,7 +338,7 @@ body > .header {
 body > .header .navbar {
   height: 50px;
   margin-bottom: 0;
-  margin-left: 220px;
+  /*margin-left: 220px;*/
 }
 body > .header .navbar .sidebar-toggle {
   float: left;

@@ -19,6 +19,12 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 		
 	});
 
+    // jQuery.extend({
+    //     postJSON: function( url, data, callback) {
+    //         return jQuery.post(url, data, callback, "json");
+    //     }
+    // });
+
     /*Document ready initializations */
 	$(document).ready(function() {
 
@@ -62,6 +68,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
             modules.populateListOfCities();
 			modules.populateTweetModuleByTerm(term,start_page,size_page);
 			modules.populateChartModule(chart,term);
+            
 		}else{
 			helper.infoMessage("Please insert some topic!");
 		}
@@ -164,7 +171,9 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
     });
 
     $( "#select-suburbs" ).change(function() {
+        show("table-div");
         modules.populateTableOfCultures($(this).val());
+        modules.drawTweetsBySuburb($("#term").val(),$(this).val());
     });
 
     function resetDynatable(){

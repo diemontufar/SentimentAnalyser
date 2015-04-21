@@ -50,8 +50,9 @@
           // map.data.loadGeoJson('../static/json/melbourne.json');
           // map.data.loadGeoJson('../static/json/sydney.json');
           var featureStyle = {
-            fillColor: 'red',
-            strokeWeight: 1
+            fillColor: '#FA955F',
+            strokeWeight: 0.8,
+            fillOpacity: 0.6
           }
 
 
@@ -117,12 +118,12 @@
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="#" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
+<!--             <a href="#" class="logo">
+                Add the class icon to your logo image or logo icon to add the margining
                 Sentiment Analyser
-            </a>
+            </a> -->
             <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top" role="navigation">
+            <nav class="navbar" role="navigation">
                 <!-- Sidebar toggle button-->
                 <!-- <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
@@ -154,7 +155,7 @@
                     <center>
                     <h1 class="box-title">
                         <span style="font-family: 'Kaushan Script', cursive; font-size: -webkit-xxx-large;">
-                            Hot Topic
+                            Cultures of Australia
                         </span>
                     </h1>
                     <h3>
@@ -192,7 +193,7 @@
 
                                     <i class="fa fa-globe"></i>
                                     <h3 class="box-title">
-                                        Map distribution
+                                        Map
                                     </h3>
                                 </div>
                                 <div class="box-body no-padding">
@@ -243,7 +244,7 @@
                                 </div>
                                 <!-- Body -->
                                 <div class="box-body">
-                                      <div style="height: 350px; position: relative;">
+                                      <div style="height: 350px; position: relative; display:none;" id="table-div">
                                         <table class="table table-bordered table-hover" id="table-cultures">
                                           <thead style="background-color: rgb(0, 192, 239);">
                                             <th>Country of Birth</th>

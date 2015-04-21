@@ -71,6 +71,5 @@ define(['esq/esq'], function(ESQ) {
         return JSON.stringify(esq.getQuery(), null, 2);
     };
 
-
 	return QBuilder;
 });

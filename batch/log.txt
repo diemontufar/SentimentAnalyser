@@ -1,0 +1,10 @@
+Batch Process initiated at: Tue Apr 21 00:49:06 2015
+Processed Tweets: 0
+Analysed Tweets: 0
+Ignored Tweets: 0
+__________________________________________________
+Starting indexing Batch process at: Tue Apr 21 00:49:06 2015
+b'/Users/diogonal/Documents/Git Projects/SentimentAnalyser/batch\n'
+done!
+Execution time: 0.00 min.
+Batch Process finished at: Tue Apr 21 00:49:06 2015

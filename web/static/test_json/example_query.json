@@ -180,6 +180,8 @@ Relation explanation: http://www.elastic.co/guide/en/elasticsearch/guide/current
 ____________________________________________________________________________________________________
 QUERY A TWEET IN WHICH ITS POINT COORDINATES IS LOCATED WITHIN A POLYGON (SUBURB) OR ITS PLACE BOUNDING BOX FIELD IS WITHIN A POLYGON (SUBURB)
 This is a combination of the two previous queries. Note the difference between querying 
+Note: could be a type = polygon or multipolygon
+See: http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-geo-shape-type.html
 
 {
   "query": {
@@ -230,7 +232,8 @@ This is a combination of the two previous queries. Note the difference between q
         }
       }
     }
-  }
+  },
+  "size" : 1000
 }
 
 ____________________________________________________________________________________________________
@@ -297,9 +300,116 @@ function(doc) {
 }
 
 2. FIND DIFFERENT NATIONALITIES
-#Search for country of birth coordinates in couchdb view:
+Map:
 function(doc) {
-  if (!doc.place.country_code){
-     emit(null, doc._id);
+  if (doc.user.lang) {
+    emit([doc.user.lang], 1);
   }
 }
+Reduce: _sum
+
+Same result with ELASTICSEARCH?
+
+#User languages
+{
+  "size": 0,
+  "query": {
+    "query_string": {
+      "analyze_wildcard": true,
+      "query": "*"
+    }
+  },
+  "aggs": {
+    "2": {
+      "terms": {
+        "field": "user.lang",
+        "size": 0,
+        "order": {
+          "_count": "desc"
+        }
+      }
+    }
+  }
+}
+
+#Tweet languages
+{
+  "size": 0,
+  "query": {
+    "query_string": {
+      "analyze_wildcard": true,
+      "query": "*"
+    }
+  },
+  "aggs": {
+    "2": {
+      "terms": {
+        "field": "lang",
+        "size": 0,
+        "order": {
+          "_count": "desc"
+        }
+      }
+    }
+  }
+}
+
+#Sentiments
+{
+  "aggs": {
+    "sentiment_analysis": {
+      "terms": {
+        "field": "sentiment",
+        "size": 5
+      }
+    }
+  }
+}
+
+#top 5 twitterers
+{
+  "size": 0,
+  "query": {
+    "query_string": {
+      "analyze_wildcard": true,
+      "query": "*"
+    }
+  },
+  "aggs": {
+    "2": {
+      "terms": {
+        "field": "user.screen_name",
+        "size": 5,
+        "order": {
+          "_count": "desc"
+        }
+      }
+    }
+  }
+}
+
+#top 5 hashtags
+{
+  "size": 0,
+  "query": {
+    "query_string": {
+      "analyze_wildcard": true,
+      "query": "*"
+    }
+  },
+  "aggs": {
+    "2": {
+      "terms": {
+        "field": "entities.hashtags.text",
+        "size": 5,
+        "order": {
+          "_count": "desc"
+        }
+      }
+    }
+  }
+}
+
+With filter:
+http://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-filter-aggregation.html
+http://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-filters-aggregation.html

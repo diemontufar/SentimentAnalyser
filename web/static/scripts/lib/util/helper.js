@@ -41,13 +41,17 @@ define([], function()
 
 			getGeoMarkerPoint: function(tweet){
 
-			  var image;
-			  if (tweet.sentiment_analysis.sentiment == 'positive'){
-			  		image = {url: '../static/img/marker-positive.png', size: new google.maps.Size(32, 32)};
-			  }else if (tweet.sentiment_analysis.sentiment == 'negative'){
-			  		image = {url: '../static/img/marker-negative.png', size: new google.maps.Size(32, 32)};
-			  }else{
-			  		image = {url: '../static/img/marker-neutral.png', size: new google.maps.Size(32, 32)};
+			  var image = {url: '../static/img/marker-neutral.png', size: new google.maps.Size(32, 32)};
+
+			  var sentiment_analysis = tweet.sentiment_analysis;
+			  if (sentiment_analysis != null && sentiment_analysis != undefined){
+				  if (tweet.sentiment_analysis.sentiment == 'positive'){
+				  		image = {url: '../static/img/marker-positive.png', size: new google.maps.Size(32, 32)};
+				  }else if (tweet.sentiment_analysis.sentiment == 'negative'){
+				  		image = {url: '../static/img/marker-negative.png', size: new google.maps.Size(32, 32)};
+				  }else{
+				  		image = {url: '../static/img/marker-neutral.png', size: new google.maps.Size(32, 32)};
+				  }
 			  }
 
 		      //If I cannot find point, search in coordinates

@@ -18,6 +18,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
     return {
 
         search_service_url : '/customSearch/',
+        geo_search_service_url : '/customGeoSearch/',
         sentiment_totals_service_url : '/sentimentTotals/',
         list_suburbs_service_url : '/listSuburbs',
         cultures_service_url : '/culturesByCity',
@@ -46,7 +47,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                   $('#tab_1-1').empty();
                   $('#tab_2-2').empty();
                   $('#tab_3-3').empty();
-                  deleteMarkers();
+                  // deleteMarkers();
 
                   $.each(data.hits, function(key, hits) {
 
@@ -92,9 +93,9 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                                             icon = "";
                                           }
 
-                                          //console.log(helper.getGeoMarkerPoint(tweet));
-                                          var marker = helper.getGeoMarkerPoint(tweet);
-                                          addMarker(marker); //Add markers to the map and the markers array
+                                          // //console.log(helper.getGeoMarkerPoint(tweet));
+                                          // var marker = helper.getGeoMarkerPoint(tweet);
+                                          // addMarker(marker); //Add markers to the map and the markers array
 
                                           var tweet_html = '<div class="item">';
                                           tweet_html += '<img src="' + tweet.user.profile_image_url + '"' + ' onerror="this.src=\'' + default_img_avatar + "\'" + '" alt="user image" class="' + _class + '">';
@@ -130,7 +131,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                         helper.infoMessage('No results found for topic: ' + term );
                       }
                   }); //outer each 
-              setAllMap(map); //Add all markers to the map
+              // setAllMap(map); //Add all markers to the map
               } //if data
           }); //End getJSON
 
@@ -255,9 +256,6 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
           if (cultures!==null && cultures!==undefined){
 
-            // $('#table-cultures').empty();
-            // table_html += '<tbody>';
-
             $.each(cultures.features, function(fea, feature) {
 
                   if (feature.properties.feature_code ==  suburb){
@@ -292,7 +290,78 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
             helper.infoMessage('Cultures table cannot be populated for: ' + suburb );
           }
 
-        }
+        },
+
+        /*Obtain tweets (only map markers) within a suburb*/
+        drawTweetsBySuburb : function(term,suburb){
+
+          // var multipolygon; //Used to hold the polygon coordinates which will be part of the geospatial query
+
+          // if (cultures!==null && cultures!==undefined){
+
+          //   $.each(cultures.features, function(fea, feature) {
+
+          //         if (feature.properties.feature_code ==  suburb){
+
+          //             multipolygon = feature.geometry.coordinates;
+
+          //         }
+
+          //   });
+
+          // }else{
+          //   var helper = new Helper();
+          //   var suburb = $('#select-suburbs :selected').text();
+          //   helper.infoMessage('Polygon cannot be populated for: ' + suburb );
+          // }
+
+          //Then Build the URL in order to send to the python service:
+          var request = this.geo_search_service_url.concat(term + '/' + suburb);
+
+          $.getJSON(request, function(data) {
+
+              if (data) {
+
+                  var helper = new Helper();
+                  deleteMarkers();
+
+                  $.each(data.hits, function(key, hits) {
+
+                      if (hits) {
+
+                          $.each(hits, function(j, sources) {
+
+                              if (sources) {
+
+                                  $.each(sources, function(i, tweet) {
+
+                                      // Before we continue we check that we got data
+                                      if (tweet.text !== undefined && tweet != null) {
+                                          // Calculate how many hours ago was the tweet posted
+                                          var date_tweet = new Date(tweet.created_at);
+                                          var date_locale = date_tweet.format(' H:i:s - d M Y');
+
+
+                                          // Build the html string for the current tweet
+                                                                                    //console.log(helper.getGeoMarkerPoint(tweet));
+                                          var marker = helper.getGeoMarkerPoint(tweet);
+                                          addMarker(marker); //Add markers to the map and the markers array
+                                          
+                                      } //if tweet
+
+                                  }); //inner inner each
+                              } //if sources
+                          }); //inner each 
+                      } //if hits
+                      else{
+                        helper.infoMessage('No results found for topic: ' + term );
+                      }
+                  }); //outer each 
+              setAllMap(map); //Add all markers to the map
+              } //if data
+          }); //End getJSON
+
+      }
 
   
     };

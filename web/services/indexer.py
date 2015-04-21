@@ -30,7 +30,6 @@ def getRegions():
 # def tweetsByTerm(jsonQuery, docType):
 #     matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
 #     return json.dumps(matches, indent=4) 
-
 def statisticsByTerm(jsonQuery, docType):
     # matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
     total = count(jsonQuery, docType) #count total number of tweets
@@ -61,12 +60,6 @@ def statisticsByTerm(jsonQuery, docType):
 
     regions = getRegions()
 
-    # print("Total: ", total)
-    # print("Mean: ", mean_sentiment)
-    # print("Positive: ", total_positive)
-    # print("Negative: ", total_negative)
-    # print("Neutral: ", total_neutral)
-
     result = '{"results":{"total_tweets": %i, "mean_sentiment":\"%s\", "total_positive": %i, "total_neutral": %i, "total_negative": %i,%s}}}' % (total,mean_sentiment,total_positive,total_neutral,total_negative,regions) 
 
     return json.dumps(result, indent=4) 
@@ -91,6 +84,43 @@ def getCultures(state):
         if doc["crs"]['properties']['state_id'] == state:
             return json.dumps(doc, indent=4)
 
+#Get the tweets located within a multipolygon and a set of points
+def getTweetsBySuburb(term,suburb,docType):
+
+    server = couchdb.Server(settings.server)
+    try:
+        #Just use existing DB
+        db = server[settings.cultures_database]
+    except:
+        print("Error while accessing couchdb data base!")
+    for id in db:
+        doc = getDocument(db,id)
+        
+        for feature in doc["features"]:
+            if feature["properties"]["feature_code"] == suburb:
+                multipolygon = feature["geometry"]["coordinates"]
+
+
+    if multipolygon:
+        jsonQuery = {
+                  "query": {"filtered": {"query": {"match": {"text": {"query": term, "operator": "or"} } }, 
+                    "filter": {
+                        "or" : {
+                          "filters" : [
+                                {"geo_shape":{"place.bounding_box":{"relation": "within", "shape": {"type": "multipolygon", "coordinates": multipolygon } } } },
+                                {"geo_polygon": {"coordinates.coordinates": {"points" : multipolygon[0][0] } } }
+                            ],
+                            "_cache" : True
+                        }
+                      }
+                    }
+                  },
+                  "size" : 1500
+                }
+        matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
+        return json.dumps(matches, indent=4) 
+
+
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"support","operator":"or"}}},"strategy":"query_first"}}}'
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}},from:0,size:20}'
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}},from:1,size":50}}'
@@ -101,3 +131,4 @@ def getCultures(state):
 
 # {"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}}}
 # print(getCultures('VIC'))
+# print(getTweetsBySuburb('AFL','206041117','tweet'))
