@@ -109,13 +109,14 @@ for id in db:
 		if not hasAlreadySentiment(doc):
 			doc = updateSentimentDoc(doc,analysed_result["sentiment"],analysed_result["polarity"],analysed_result["subjectivity"])
 			processed_tweets += 1
-			# print("Processed")
+			print("Processed")
 			# print("ID: " + id + ", Tweet: " + analysed_result["text"] + " -> " + analysed_result["sentiment"] + ", polarity: " + str(analysed_result["polarity"]) + ", subjectivity: " + str(analysed_result["subjectivity"])) #parsed tweet
 		else:
 			ignored_tweets += 1
+			print("Ignored")
 	else: #otherwise ignore it!
 		ignored_tweets += 1
-		# print("Ignored")
+		print("Ignored")
 	doc = updatePlaceDoc(doc)
 	doc = db.save(doc)
 

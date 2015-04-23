@@ -28,9 +28,9 @@ SECURITY_CONFIG 	= APP_ROOT + '/security_configurations.cfg'
 ########################## APP CONFIGURATIONS ###################################
 #Local CouchDB 
 server = 'http://localhost:5984/'
-database = 'twitterall_2'
-admin_user = 'diogonal'
-admin_pass = 'dgl0588'
+database = 'australia'
+admin_user = 'master'
+admin_pass = 'sentiment'
 
 #Directories
 working_directory = "/Library/WebServer/Documents/SentimentAnalyser/classifier"

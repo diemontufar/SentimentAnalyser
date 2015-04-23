@@ -318,7 +318,10 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
           //Then Build the URL in order to send to the python service:
           var request = this.geo_search_service_url.concat(term + '/' + suburb);
 
+
           $.getJSON(request, function(data) {
+
+            var mapLanguages = [];
 
               if (data) {
 
@@ -341,9 +344,10 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                                           var date_tweet = new Date(tweet.created_at);
                                           var date_locale = date_tweet.format(' H:i:s - d M Y');
 
-
+                                          mapLanguages[tweet.user.lang] = (mapLanguages[tweet.user.lang]||0)+1;
+                                          // console.log(tweet.lang);
                                           // Build the html string for the current tweet
-                                                                                    //console.log(helper.getGeoMarkerPoint(tweet));
+                                          //console.log(helper.getGeoMarkerPoint(tweet));
                                           var marker = helper.getGeoMarkerPoint(tweet);
                                           addMarker(marker); //Add markers to the map and the markers array
                                           
@@ -357,7 +361,9 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                         helper.infoMessage('No results found for topic: ' + term );
                       }
                   }); //outer each 
+              console.log(mapLanguages);
               setAllMap(map); //Add all markers to the map
+              
               } //if data
           }); //End getJSON
 

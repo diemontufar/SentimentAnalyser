@@ -366,7 +366,8 @@
                "index":"no"
             },
             "lang":{  
-               "type":"string"
+               "type":"string",
+               "index":"not_analyzed"
             },
             "place":{  
                "properties":{  
@@ -377,19 +378,22 @@
                      "type":"geo_shape"
                   },
                   "country":{  
-                     "type":"string"
+                     "type":"string",
+                     "index":"not_analyzed"
                   },
                   "country_code":{  
                      "type":"string"
                   },
                   "full_name":{  
-                     "type":"string"
+                     "type":"string",
+                     "index":"not_analyzed"
                   },
                   "id":{  
                      "type":"string"
                   },
                   "name":{  
-                     "type":"string"
+                     "type":"string",
+                     "index":"not_analyzed"
                   },
                   "place_type":{  
                      "type":"string"
@@ -468,14 +472,16 @@
                      "index":"no"
                   },
                   "lang":{  
-                     "type":"string"
+                     "type":"string",
+                     "index":"not_analyzed"
                   },
                   "listed_count":{  
                      "type":"long",
                      "index":"no"
                   },
                   "location":{  
-                     "type":"string"
+                     "type":"string",
+                     "index":"not_analyzed"
                   },
                   "name":{  
                      "type":"string"

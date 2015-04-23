@@ -1,8 +1,8 @@
 #!/bin/bash
 
-INDEX_CONFIG_PATH="json/twitter_index_config.json"
-RIVER_PATH="json/twitter_river_config.json"
-INDEX_NAME="twitterall"
+INDEX_CONFIG_PATH="/Library/WebServer/Documents/SentimentAnalyser/indexer/json/twitter_index_config.json"
+RIVER_PATH="/Library/WebServer/Documents/SentimentAnalyser/indexer/json/twitter_river_config.json"
+INDEX_NAME="australia"
 INDEX_TYPE="tweet"
 
 #####################CREATE INDEX AND RIVER###########################
