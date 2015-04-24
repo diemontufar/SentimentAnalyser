@@ -22,10 +22,6 @@ def count(jsonQuery, docType):
     counter = num['count']
     return int(counter)
 
-#TODO: this must be dynamic!!!!
-def getRegions():
-    return '"regions":{"NSW":{"name":"NewSouthWales","sentiment":"positive","positive":123,"neutral":15,"negative":65},"NT":{"name":"NorthernTerritory","sentiment":"positive","positive":456,"neutral":156,"negative":46},"QLD":{"name":"Queensland","sentiment":"negative","positive":25,"neutral":133,"negative":250},"SA":{"name":"SouthAustralia","sentiment":"negative","positive":12,"neutral":45,"negative":90},"TAS":{"name":"Tasmania","sentiment":"neutral","positive":123,"neutral":247,"negative":39},"VIC":{"name":"Victoria","sentiment":"positive","positive":421,"neutral":9,"negative":117},"WA":{"name":"WesternAustralia","sentiment":"negative","positive":50,"neutral":34,"negative":129}'
-
 #Specific Web services
 # def tweetsByTerm(jsonQuery, docType):
 #     matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
@@ -52,15 +48,13 @@ def statisticsByTerm(jsonQuery, docType):
     mean_sentiment = "neutral"
     #Calculate the mean:
     if total_positive>total_negative and total_positive>total_neutral:
-        mean_sentiment = "positive"
+        mean_sentiment = "Positive"
     elif total_negative>total_positive and total_negative>total_neutral:
-        mean_sentiment = "negative"
+        mean_sentiment = "Negative"
     else:
-        mean_sentiment = "neutral"
+        mean_sentiment = "Neutral"
 
-    regions = getRegions()
-
-    result = '{"results":{"total_tweets": %i, "mean_sentiment":\"%s\", "total_positive": %i, "total_neutral": %i, "total_negative": %i,%s}}}' % (total,mean_sentiment,total_positive,total_neutral,total_negative,regions) 
+    result = '{"results":{"total_tweets": %i, "mean_sentiment":\"%s\", "total_positive": %i, "total_neutral": %i, "total_negative": %i}}' % (total,mean_sentiment,total_positive,total_neutral,total_negative) 
 
     return json.dumps(result, indent=4) 
 

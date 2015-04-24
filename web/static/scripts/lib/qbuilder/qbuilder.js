@@ -71,5 +71,11 @@ define(['esq/esq'], function(ESQ) {
         return JSON.stringify(esq.getQuery(), null, 2);
     };
 
+    QBuilder.prototype.buildBasicAggregation = function(term,field,size){
+
+        var query = {"size": 0, "query": {"query_string": {"analyze_wildcard": true, "query": "*"} }, "aggs": {"2": {"terms": {"field": field, "size": size, "order": {"_count": "desc"} } } } };
+        return JSON.stringify(query, null, 2);
+    };
+
 	return QBuilder;
 });

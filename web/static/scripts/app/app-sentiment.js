@@ -60,7 +60,12 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         show("section-map");
         show("section-chart");
         show("section-feed");
+        show("section-toptwitterers");
+        show("section-toptrends");
+        hide("div-totals");
+        resetMapAndTable();
         refreshMap();
+
 
         //If topic is not empty start to populate data*/
 		if (term!="" && term!=undefined){
@@ -68,6 +73,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
             modules.populateListOfCities();
 			modules.populateTweetModuleByTerm(term,start_page,size_page);
 			modules.populateChartModule(chart,term);
+            modules.populateTopTwitterers(term,5);
+            modules.populateTopTrends(term,5);
             
 		}else{
 			helper.infoMessage("Please insert some topic!");
@@ -174,6 +181,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         show("table-div");
         modules.populateTableOfCultures($(this).val());
         modules.drawTweetsBySuburb($("#term").val(),$(this).val());
+        show("div-totals");
     });
 
     function resetDynatable(){
@@ -186,6 +194,24 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         var center = map.getCenter();
         google.maps.event.trigger(map, "resize");
         map.setCenter(center); 
+    };
+
+    function resetMapAndTable(){
+        //Clear Map
+        deleteMarkers();
+        map.data.forEach(function(feature) {
+            //filter...
+            map.data.remove(feature);
+        });
+        map.setCenter(new google.maps.LatLng(-26.209487, 134.060946)); 
+        map.setZoom(4);
+
+        ////Clear Map
+        var dynatable = $('#table-cultures').data('dynatable');
+        dynatable.settings.dataset.originalRecords = null;
+        dynatable.paginationPerPage.set(8);
+        dynatable.process();
+
     };
 
 

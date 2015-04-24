@@ -55,21 +55,23 @@
             fillOpacity: 0.6
           }
 
-
-
+          // When the user mouseovers, show the Suburb info
           map.data.addListener('mouseover', function(event) {
+              
+              console.log(event.feature.getProperty('feature_name'));
+              $('#info-box').empty();
+              $('#info-box').append(event.feature.getProperty('feature_name'));
+          }); 
 
-            // var infowindow = new google.maps.InfoWindow({
-            //   content: event.feature.getProperty('MEASURE_3')
-            // });
-
-            // infowindow.open(map);
-
-            console.log(event.feature.getProperty('feature_name'));
-          });
+          // When the user mouseovers, show the Suburb info
+          map.data.addListener('mouseout', function(event) {
+              $('#info-box').empty();
+          }); 
 
           map.data.setStyle(featureStyle);
         }
+
+
 
         // Add a marker to the map and push to the array.
         function addMarker(marker) {
@@ -174,7 +176,8 @@
 
                 <!-- Main content -->
                 <section class="content">
-                <!-- Main row-->
+
+                    <!-- Main row-->
                     <div class="row">
                         <!-- Map row -->
                         <section class="col-lg-6 connectedSortable" id="section-map" style="display:none;">
@@ -199,11 +202,10 @@
                                 <div class="box-body no-padding">
                                     <!--<div id="world-map" style="height: 300px;"></div>-->
                                     <div id="regions_div" style="width:100%;height: 370px;"></div>
+                                    <div>
+                                        <label id="info-box" class="text-muted pull-left"></label>
+                                    </div>
                                 </div><!-- /.box-body-->
-                                <!--<div class="box-footer">
-                                    <button class="btn btn-info"><i class="fa fa-download"></i> Generate PDF</button>
-                                    <button class="btn btn-warning"><i class="fa fa-bug"></i> Report Bug</button>
-                                </div>-->
                             </div>
 
                         </section><!-- Map Row -->
@@ -261,6 +263,137 @@
                             </div>
                         
                         </section><!-- ./Left Row -->
+                    </div><!-- /.row -->
+
+                    <!-- Main row-->
+                    <div class="row">
+                        <!-- Map row -->
+                        <section class="col-lg-6 connectedSortable" id="section-toptwitterers" style="display:none;">
+                           
+                            <!-- Map box -->
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <!-- tools box -->
+                                    <div class="pull-right box-tools">
+
+                                         <button class="btn btn-default .btn-flat pull-right" id="toggle-map" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                         <i class="fa fa-minus"></i>
+                                         </button>
+
+                                    </div><!-- /. tools -->
+
+                                    <i class="fa fa-user"></i>
+                                    <h3 class="box-title">
+                                        Top 5 Twitterers
+                                    </h3>
+                                </div>
+                                <!-- Body -->
+                                <div class="box-body">
+                                      <div style="height: 200px; position: relative; display:block;" id="toptwitterers-div">
+
+                                      </div>
+                                </div>
+                            </div>
+
+                        </section><!-- Map Row -->
+
+                        <!-- Right module -->
+                        <section class="col-lg-6 connectedSortable" id="section-toptrends" style="display:none;">
+                            <!-- CULTURES OF AUSTRALIA -->
+                            <div class="box">
+                                <!-- Header -->
+                                <div class="box-header">
+                                    <!-- tools box -->
+                                    <div class="pull-right box-tools">
+
+                                         <button class="btn btn-default .btn-flat pull-right" id="toggle-cultures" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                         <i class="fa fa-minus"></i>
+                                         </button>
+
+                                    </div><!-- /. tools -->
+
+                                    <i class="fa fa-bar-chart-o"></i>
+                                    <h3 class="box-title">
+                                        Top 5 Trends
+                                    </h3>
+                                </div>
+                                <!-- Body -->
+                                <div class="box-body">
+                                      <div style="height: 200px; position: relative; display:block;" id="toptrends-div">
+
+                                      </div>
+                                </div>
+                            </div>
+                        
+                        </section><!-- ./Left Row -->
+                    </div><!-- /.row -->
+
+                    <div class="row" id="div-totals" style="display:none;">
+
+                        <!-- <section  id="section-overall" style="display:block;"> -->
+                            <!-- <div class="row"> -->
+                            
+                                <div class="col-lg-3 col-xs-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-green" id="overall-div">
+                                    <div class="inner" id="overall-sentiment-div">
+                                      <h3>Positive</h3>
+                                      <h4>&nbsp;</h4>
+                                    </div>
+                                    <div class="icon">
+                                      <i class="fa fa-smile-o" id="overall-icon"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">Overall Sentiment</a>
+                                  </div>
+                                </div>
+                            
+                                <div class="col-lg-3 col-xs-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-blue">
+                                    <div class="inner">
+                                      <h3>Ecuadorians</h3>
+                                      <h4>&nbsp;</h4>
+                                    </div>
+                                    <div class="icon">
+                                      <i class="fa fa-smile-o"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">Positive people</a>
+                                  </div>
+                                </div>
+                            
+                                <div class="col-lg-3 col-xs-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-red">
+                                    <div class="inner">
+                                      <h3>Indians</h3>
+                                      <h4>&nbsp;</h4>
+                                    </div>
+                                    <div class="icon">
+                                      <i class="fa fa-frown-o"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">Negative people</a>
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-3 col-xs-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                      <h3>Carlton</h3>
+                                      <h4>Positive</h4>
+                                    </div>
+                                    <div class="icon">
+                                      <i class="fa fa-smile-o"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">Suburb Sentiment</a>
+                                  </div>
+                                </div>
+                            
+                            <!-- </div> -->
+                        <!-- </section> -->
+                    </div>
+
+                    <div class="row">
 
                         <!-- Left row -->
                         <section class="col-lg-6 connectedSortable" id="section-chart" style="display:none;">
@@ -320,8 +453,8 @@
 
                             </div>
                         </section> <!-- ./Right Row -->
-
                     </div><!-- /.row -->
+
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->

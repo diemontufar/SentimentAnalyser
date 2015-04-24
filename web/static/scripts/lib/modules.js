@@ -27,6 +27,82 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
         },
 
+        /* Populate Top 5 Twitterers */
+        populateTopTwitterers: function(term,size) { 
+
+          var field = "user.screen_name";
+          //First build the query for searching the term as follows:
+          var qBuilder = new QBuilder();
+          var query = qBuilder.buildBasicAggregation(term,field,size);
+
+          $.getJSON(this.search_service_url + query).done(function(data) {
+
+            $('#toptwitterers-div').empty();
+            var buckets = data.aggregations['2'].buckets;
+            var html_user = '<ol type="1">';
+
+            if ( buckets.length !=0 ){
+              $.each(buckets, function(key, hit) {
+
+                var user = "@" + hit.key;
+                var url = "http://www.twitter.com/" + hit.key;
+
+                html_user += '<li><h4><a href=' + url + ' target="_blank" class="name">' + user + '</a></h4></li>';
+
+              });
+            }else{
+              var helper = new Helper();
+              helper.infoMessage('No Top twitterers found');
+            }
+            
+            html_user += '</ol>';
+            $('#toptwitterers-div').append(html_user);
+
+          }).fail(function(){
+            var helper = new Helper();
+            helper.errorMessage('Error Loading Top Tweetterers');
+          });
+
+        },
+
+        /* Populate Top 5 Trends */
+        populateTopTrends: function(term,size) { 
+
+          var field = "entities.hashtags.text";
+          //First build the query for searching the term as follows:
+          var qBuilder = new QBuilder();
+          var query = qBuilder.buildBasicAggregation(term,field,size);
+
+          $.getJSON(this.search_service_url + query).done(function(data) {
+
+            $('#toptrends-div').empty();
+            var buckets = data.aggregations['2'].buckets;
+            var html_user = '<ol type="1">';
+
+            if ( buckets.length !=0 ){
+              $.each(buckets, function(key, hit) {
+
+                var hashtag = "#" + hit.key;
+                var url = " https://twitter.com/hashtag/" + hit.key;
+
+                html_user += '<li><h4><a href=' + url + '?src=tren target="_blank" class="name">' + hashtag + '</a></h4></li>';
+
+              });
+            }else{
+              var helper = new Helper();
+              helper.infoMessage('No Trends found');
+            }
+            
+            html_user += '</ol>';
+            $('#toptrends-div').append(html_user);
+
+          }).fail(function(){
+            var helper = new Helper();
+            helper.errorMessage('Error Loading Top Trends');
+          });
+
+        },
+
         /* Populate Tweets using JSON files */
         populateTweetModuleByTerm: function(term,start,size) { 
 
@@ -146,12 +222,13 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
           //Then Build the URL in order to send to the python service:
           var request = this.sentiment_totals_service_url.concat(query);
 
-          var helper = new Helper();
+          
           var pie_chart = chart;
 
           $.getJSON(request,function(data) {
 
                 data = JSON.parse(data);
+                var helper = new Helper();
 
                 if (data !== undefined && data !== null){
 
@@ -169,6 +246,28 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                     pie_chart.drawPieChart(chart_results);
                     $('#label-showing').empty();
                     $('#label-showing').append('Showing from 1 to ' + size_page + ' of  ' + total_tweets + ' tweets');
+
+                    $('#overall-sentiment-div h3').empty();
+                    $('#overall-sentiment-div h3').append(result.mean_sentiment);
+
+                    var icon;
+                    var color;
+                    document.getElementById("overall-icon").className = "";
+                    document.getElementById("overall-div").className = "";
+                    
+                    if (result.mean_sentiment == 'Positive'){
+                      icon = "fa " + helper.sentiment_icon.positive;
+                      color = "small-box bg-aqua";
+                    }else if (result.mean_sentiment == 'Negative'){
+                      icon = "fa " + helper.sentiment_icon.negative;
+                      color = "small-box bg-red";
+                    }else{
+                      icon = "fa " + helper.sentiment_icon.neutral;
+                      color = "small-box bg-green";
+                    }
+
+                    document.getElementById("overall-icon").className = icon;
+                    document.getElementById("overall-div").className = color;
                    
                  });
               }
