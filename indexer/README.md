@@ -48,7 +48,7 @@ $ /usr/share/elasticsearch/bin/plugin install elasticsearch/elasticsearch-river-
 ```
 Further information: [elasticsearch-couchdb-river](https://github.com/elastic/elasticsearch-river-couchdb/blob/master/README.md)
 
-* Cofigure river:
+* Configure river:
 ```sh
 $ curl -XPUT "localhost:9200/_river/$INDEX_NAME/_meta" -d @json/twitter_river_config.json
 ```
