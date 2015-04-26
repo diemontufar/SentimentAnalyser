@@ -42,13 +42,6 @@
                         };
           map = new google.maps.Map(document.getElementById('regions_div'),mapOptions);
 
-          // map.data.loadGeoJson('templates/melbourne.json');
-          // map.data.loadGeoJson('templates/hobart.json');
-          // map.data.loadGeoJson('templates/edinburgh_scotland-admin.json');
-          // map.data.loadGeoJson('templates/edinburgh_scotland-amenities.json');
-          // map.data.loadGeoJson('templates/edinburgh_scotland-places.json');
-          // map.data.loadGeoJson('../static/json/melbourne.json');
-          // map.data.loadGeoJson('../static/json/sydney.json');
           var featureStyle = {
             fillColor: '#FA955F',
             strokeWeight: 0.8,
@@ -70,8 +63,6 @@
 
           map.data.setStyle(featureStyle);
         }
-
-
 
         // Add a marker to the map and push to the array.
         function addMarker(marker) {
@@ -120,35 +111,11 @@
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-<!--             <a href="#" class="logo">
-                Add the class icon to your logo image or logo icon to add the margining
-                Sentiment Analyser
-            </a> -->
             <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar" role="navigation">
-                <!-- Sidebar toggle button-->
-                <!-- <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a> -->
-            </nav>
-
+            <nav class="navbar" role="navigation"></nav>
         </header>
 
-
-        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button> -->
-
         <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
-
-            <!--<aside class="left-side sidebar-offcanvas">-->               
-                <!-- sidebar: style can be found in sidebar.less -->
-
-                <!-- /.sidebar -->
-            <!--</aside>-->
-
 
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside>                
@@ -441,9 +408,6 @@
                                     </div><!-- /.box (chat box) -->
 
                                 </div>
-<!--                                  <div class="overlay">
-                                  <i class="fa fa-refresh fa-spin"></i>
-                                </div> -->
 
                                 <div class="box-footer clearfix">
                                     <h6>

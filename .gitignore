@@ -4,6 +4,7 @@ web/__pycache__/
 orchestration/venv/
 __pycache__
 venv
+extras
 ## Java
 
 *.class
