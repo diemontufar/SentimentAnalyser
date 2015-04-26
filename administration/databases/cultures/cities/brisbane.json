@@ -6,7 +6,7 @@
       "name": "urn:x-ogc:def:crs:EPSG:4283",
       "state_id":"QLD",
       "state_name":"Brisbane",
-      "state_coordinate": [-27.4710107,153.0234489,11]
+      "state_coordinate": [-27.459801, 153.039938,12]
     }
   },
   "features": [

@@ -6,7 +6,7 @@
       "name": "urn:x-ogc:def:crs:EPSG:4283",
       "state_id":"TAS",
       "state_name":"Hobart",
-      "state_coordinate": [-42.8819032,147.3238148,9]
+      "state_coordinate": [-42.8819032,147.3238148,11]
     }
   },
   "features": [
