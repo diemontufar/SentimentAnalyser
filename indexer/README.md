@@ -3,7 +3,7 @@ Indexer Module
 
 - - - - 
 
-This module is related to the Elasticsearch idexing process. Prior to the index creation, it is necessary to permorm two main configurations:
+This module is related to the Elasticsearch indexing process. Prior to the index creation, it is necessary to perform two main configurations:
 
 1. Configure Mappings
 2. Create Index
@@ -61,7 +61,7 @@ This call will create a river that uses the _changes stream to index all data wi
 
 ### Create and Configure: automatic option
 
-Alternatively, a bash script which performs the steps mentioned above is provided. You may want to execute it instead of running each line by yourself. However, be aware that you must have installed the River pluging before executig this script.
+Alternatively, a bash script which performs the steps mentioned above is provided. You may want to execute it instead of running each line by yourself. However, be aware that you must have installed the River plugin before executing this script.
 
 ```sh
 $ ./configure_index.sh
@@ -69,5 +69,5 @@ $ ./configure_index.sh
 
 ### Response
 
-If everithing was configured correctly, you may expect to see how the indexing process starts and documents are continously streamed from the couchdb database. It may take a while depending on the machine capabilities, cluster configuration and the amount of data to be indexed.
+If everything was configured correctly, you may expect to see how the indexing process starts and documents are continuously streamed from the couchdb database. It may take a while depending on the machine capabilities, cluster configuration and the amount of data to be indexed.
 
