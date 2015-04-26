@@ -1,18 +1,30 @@
-import json
- 
+#########################################################################################################
+#
+# Author: Diego Montufar
+# Date: Apr/2015
+# Name: harvester_classifier.py
+# Description: Performs Sentiment, geo location and gender analysis for streamed tweets as they come.
+#              Logs will be written in a file for each quadrant defined in the settings i.e. log_harvester_TEST_1.txt
+#
+# Execution:   python harvester_classifier.py 1
+# Output:      log_harvester_TEST_1.txt
+#
+#########################################################################################################
+import json #json docs
+#Twitter Streaming API connection
 from tweepy.streaming import StreamListener
 from tweepy import Stream, OAuthHandler
-
-import couchdb
-import settings
-import emailer
-import time
-import atexit
-import random
-import sys
-from signal import signal, SIGTERM
+import couchdb #couchdb connection
+import settings #settings defining quadrants, API keys and tokens
+import emailer #emailing services
+import time #record date and time
+import atexit #catch termination
+import random #generate random process ID
+import sys #sys
+from signal import signal, SIGTERM #detect termination by the system
 from sys import exit
-import tweet_classifier.classifier as classifier #classifier helper
+import tweet_classifier.classifier as classifier #Sentiment Classifier
+from genderizer.genderizer import Genderizer #Gender classifier
 
 proc_id = int(random.random() * 1000)
 quadrant = str(sys.argv[1]) #get the quadrant argument from command line
@@ -26,33 +38,37 @@ class listener(StreamListener):
     ignored_tweets = 0
     
     def on_data(self, data):
-    	#Load Json from Twitter API
+        #Load Json from Twitter API
         tweet = json.loads(data)
         try:
             tweet["_id"] = str(tweet['id']) #Get the ID
             lang = tweet['lang']
-            text = tweet['text']
-            #Sentiment Analysis
-            analysed_result = classifier.doSentimentAnalysis(text)
+            name = tweet['user']['name']
 
-            if lang == 'en': #only analyse english texts
+            #Gender Analysis:
+            name_list = name.split()
+            name = name_list[0]
+
+            gender = Genderizer.detect(firstName = name)
+            tweet['user']['gender'] = gender
+
+            #Sentiment Analysis
+            analysed_result = classifier.doSentimentAnalysis(str(tweet['text']))
+
+            if str(lang) == 'en': #only analyse english texts
                 if not hasAlreadySentiment(tweet):
                     tweet = updateSentimentDoc(tweet,analysed_result["sentiment"],analysed_result["polarity"],analysed_result["subjectivity"])
                     self.processed_tweets += 1
-                    # print("Processed")
-                    # print(tweet['id'])
                 else:
                     self.ignored_tweets += 1
             else: #otherwise ignore it!
                 self.ignored_tweets += 1
-                # print("Ignored")
+
             #Update place coordinates to work with GeoJson
             tweet = updatePlaceDoc(tweet)
 
-            print(tweet['sentiment_analysis'])
-
             doc = db.save(tweet) #Save tweet into CouchDB
-            #print("Obtained Tweet ID: " + str(tweet['id']))
+            # print("Obtained Tweet ID: " + str(tweet['id']))
             self.tweet_count += 1
             if (self.tweet_count%10000 == 0):
                 #Notify when 10000 new tweets have been stored on database
@@ -64,8 +80,7 @@ class listener(StreamListener):
         return True
     
     def on_error(self, status):
-        writeLog("Error during streaming")
-        print(status)
+        writeLog("Error during streaming"+str(status))
         sys.exit()
         
 def writeLog(msg):
@@ -125,7 +140,7 @@ writeLog("--------------------------------------")
 writeLog("Starting streaming process...")
 atexit.register(exit_handler)
 signal(SIGTERM, exit_handler)
-
+#API authentication
 auth = OAuthHandler(settings.consumer_key,settings.consumer_secret)
 auth.set_access_token(settings.access_token,settings.access_secret)
 twitterStream = Stream(auth, listnerTweet)
@@ -150,5 +165,6 @@ except:
     writeLog(notice_msg)
     emailer.sendEmail(message=str(notice_msg))
 
-#Streams not terminate unless the connection is closed, blocking the thread. Tweepy offers a convenient async parameter on filter so the stream will run on a new thread.
+#Streams not terminate unless the connection is closed, blocking the thread. 
+#Tweepy offers a convenient async parameter on filter so the stream will run on a new thread.
 twitterStream.filter(locations = settings.locations)

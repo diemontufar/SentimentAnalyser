@@ -3,29 +3,29 @@
 # Author: Diego Montufar
 # Date: Apr/2015
 # Name: batch_classifier.py
-# Description: Performs Sentiment analysis in all documents from a database
+# Description: Performs Sentiment, geo location and gender analysis in all documents from a database
 #			   defined in the batch_settings.py file. If a document has already
-#              sentiment_analysis defined on its structure, pass.
+#              one of the mentioned fields defined on its structure, it will be ignored.
+#			   Log will be written in a file i.e. log_dbname.txt
+#
+# Execution:   python batch_classifier.py test
+# Output:      log_test.txt
 #
 ################################################################################
 
 import batch_settings as settings #Custom Settings
-import sys
-import os
-import subprocess
-
-sys.path.insert(0,settings.working_directory)
-sys.path.append(settings.tweet_classifier_module)
-
-INDEXER_DIR = os.path.dirname(settings.indexer_module)
-INDEX_SCRIPT = os.path.join(INDEXER_DIR, settings.create_index_script)
-LOG_FILE = 'log.txt'
-
-import couchdb #couchdb heper
+import sys #system library
+import os #dealing with files
+import couchdb #couchdb connection to databases
 import json #json documents management
 import time #record elapsed time
 
-import tweet_classifier.classifier as classifier #classifier helper
+import tweet_classifier.classifier as classifier #Sentiment classifier
+from genderizer.genderizer import Genderizer #Gender classifier
+
+#You need to provide an argument which is the name of the database
+database_arg = str(sys.argv[1]) 
+LOG_FILE = 'log_' + database_arg + '.txt'
 
 
 #Get the document from couchdb by ID
@@ -41,7 +41,16 @@ def hasAlreadySentiment(doc):
 		return False
 
 	return True
-		
+
+#Verify if tweet has already gender field
+def hasAlreadyGender(doc):
+	try:
+		obj = doc["user"]["gender"]
+	except KeyError:
+		return False
+
+	return True
+
 #Get the document's text field
 def retrieveDocText(doc):
 	text = doc['text'] #Get the text of the tweet
@@ -83,7 +92,7 @@ def writeLog(line):
 server = couchdb.Server(settings.server)
 server.resource.credentials = (settings.admin_user, settings.admin_pass)
 
-############PERFORM SENTIMENT ANALYSIS IN BULK MODE########################
+############PERFORM TWEET ANALYSIS IN BULK MODE########################
 os.remove(LOG_FILE) if os.path.exists(LOG_FILE) else None
 processed_tweets = 0
 ignored_tweets = 0
@@ -93,7 +102,7 @@ success = False
 
 try:
 	#Just use existing DB
-	db = server[settings.database]
+	db = server[database_arg]
 	success = True
 except:
 	writeLog("Error while accessing couchdb database!")
@@ -105,34 +114,42 @@ for id in db:
 	analysed_result = classifier.doSentimentAnalysis(tweet)
 
 	if lang == 'en': #only analyse english texts
-		# print("ID: " + id + ", Tweet: " + tweet + " -> " + sentiment) #Original tweet
 		if not hasAlreadySentiment(doc):
 			doc = updateSentimentDoc(doc,analysed_result["sentiment"],analysed_result["polarity"],analysed_result["subjectivity"])
 			processed_tweets += 1
-			print("Processed")
-			# print("ID: " + id + ", Tweet: " + analysed_result["text"] + " -> " + analysed_result["sentiment"] + ", polarity: " + str(analysed_result["polarity"]) + ", subjectivity: " + str(analysed_result["subjectivity"])) #parsed tweet
 		else:
 			ignored_tweets += 1
-			print("Ignored")
 	else: #otherwise ignore it!
 		ignored_tweets += 1
-		print("Ignored")
+
+	#Update place bounding box
 	doc = updatePlaceDoc(doc)
+
+	#Update gender:
+	if not hasAlreadyGender(doc):
+		name = doc['user']['name']
+		name_list = name.split()
+
+		if name_list is not None and len(name_list)>=1:
+			name = name_list[0]
+			gender = Genderizer.detect(firstName = name)
+			doc['user']['gender'] = gender
+		else:
+			doc['user']['gender'] = None
+
 	doc = db.save(doc)
 
-#End execution, print statistics:
+#End execution, print statistics and elapsed time:
 if success:
 	elapsed_time = time.time() - initial
+	writeLog("Batch process for database: " + database_arg)
 	writeLog("Processed Tweets: " + str(processed_tweets + ignored_tweets))
 	writeLog("Analysed Tweets: " + str(processed_tweets))
 	writeLog("Ignored Tweets: " + str(ignored_tweets))
-	writeLog("__________________________________________________")
-	writeLog("Starting indexing Batch process at: " + str(time.strftime("%c")))
-	#Execute batch indexing process
-	result = subprocess.check_output([INDEX_SCRIPT])
-	writeLog(str(result))
+	writeLog("___________Starting to compact database_____________")
+	initiated = db.compact()
+	writeLog("Compaction succeeded: " + str(initiated))
 	writeLog("done!")
-	#Finalizing indexing
 	str_end = "Execution time: %0.2f min." % (elapsed_time/60)
 	writeLog(str_end)
 	writeLog("Batch Process finished at: " + str(time.strftime("%c")))
