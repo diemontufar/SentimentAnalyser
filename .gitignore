@@ -5,6 +5,8 @@ orchestration/venv/
 __pycache__
 venv
 extras
+*.wsgi
+indexer_settings.py
 ## Java
 
 *.class
