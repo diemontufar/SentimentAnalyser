@@ -19,8 +19,9 @@
                   }
                }
             },
-            "created_at":{  
-               "type":"string"
+            "created_at":{ 
+               "type":"date",
+               "format":"EE MMM d HH:mm:ss Z yyyy||dd/MM/yyyy||dd-MM-yyyy||date_optional_time"
             },
             "entities":{  
                "properties":{  
@@ -339,8 +340,7 @@
                }
             },
             "id":{  
-               "type":"long",
-               "index":"no"
+               "type":"long"
             },
             "id_str":{  
                "type":"string"
@@ -421,7 +421,8 @@
                "type":"string"
             },
             "timestamp_ms":{  
-               "type":"string"
+               "type":"date",
+               "format":"date_hour_minute_second"
             },
             "truncated":{  
                "type":"boolean",

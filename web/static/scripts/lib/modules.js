@@ -394,26 +394,6 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
         /*Obtain tweets (only map markers) within a suburb*/
         drawTweetsBySuburb : function(term,suburb){
 
-          // var multipolygon; //Used to hold the polygon coordinates which will be part of the geospatial query
-
-          // if (cultures!==null && cultures!==undefined){
-
-          //   $.each(cultures.features, function(fea, feature) {
-
-          //         if (feature.properties.feature_code ==  suburb){
-
-          //             multipolygon = feature.geometry.coordinates;
-
-          //         }
-
-          //   });
-
-          // }else{
-          //   var helper = new Helper();
-          //   var suburb = $('#select-suburbs :selected').text();
-          //   helper.infoMessage('Polygon cannot be populated for: ' + suburb );
-          // }
-
           //Then Build the URL in order to send to the python service:
           var request = this.geo_search_service_url.concat(term + '/' + suburb);
 

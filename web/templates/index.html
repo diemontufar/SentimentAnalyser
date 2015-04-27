@@ -15,6 +15,8 @@
         <link href="../static/css/sentiment-app/AdminLTE.css" rel="stylesheet" type="text/css" />
         <!-- Dynatable style -->
         <link href="../static/css/dynatable/jquery.dynatable.css" rel="stylesheet" type="text/css" />
+        <!-- DAterange style -->
+        <link href="../static/css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
         
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,7 +53,7 @@
           // When the user mouseovers, show the Suburb info
           map.data.addListener('mouseover', function(event) {
               
-              console.log(event.feature.getProperty('feature_name'));
+              // console.log(event.feature.getProperty('feature_name'));
               $('#info-box').empty();
               $('#info-box').append(event.feature.getProperty('feature_name'));
           }); 
@@ -190,20 +192,6 @@
                                          <i class="fa fa-minus"></i>
                                          </button>
 
-                                        <div class="pull-right">
-                                           <!-- <label>Select</label> -->
-                                            <select class="form-control" id="select-suburbs" width="220" style="width: 220px">
-
-                                            </select>
-                                        </div>
-
-                                        <div class="pull-right" style="margin-right: 15px; margin-left: 15px;">
-                                           <!-- <label>Select</label> -->
-                                            <select class="form-control" id="select-cities">
-
-                                            </select>
-                                        </div>
-
                                     </div><!-- /. tools -->
 
                                     <i class="fa fa-group"></i>
@@ -227,6 +215,30 @@
                                         </table>
                                       </div>
                                 </div>
+
+                                <div class="box-footer clearfix">
+                                  <div class="pull-right">
+                                      <button class="btn btn-default pull-right" id="daterange-btn">
+                                        <i class="fa fa-calendar"></i> <span>Select Date</span>
+                                        <i class="fa fa-caret-down"></i>
+                                      </button>
+                                    </div>
+
+                                    <div class="pull-right" style="margin-right: 15px; margin-left: 10px;">
+                                       <!-- <label>Select</label> -->
+                                        <select class="form-control" id="select-suburbs" width="180" style="width: 180px">
+
+                                        </select>
+                                    </div>
+
+                                    <div class="pull-right" style="margin-right: 5px;">
+                                       <!-- <label>Select</label> -->
+                                        <select class="form-control" id="select-cities">
+
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
                         
                         </section><!-- ./Left Row -->

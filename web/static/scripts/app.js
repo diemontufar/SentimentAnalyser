@@ -26,7 +26,9 @@ requirejs.config({
         "async" : "util/async",
         "helper": "util/helper",
         "chart": "util/chart",
-        "dynatable": "dynatable/jquery.dynatable"
+        "dynatable": "dynatable/jquery.dynatable",
+        "daterangepicker": "daterangepicker/daterangepicker",
+        "moment": "daterangepicker/moment"
     },
     shim: {
         "jquery.bootstrap": {
@@ -40,6 +42,12 @@ requirejs.config({
         },
         "dynatable": {
             deps: ["jquery"]
+        },
+        "daterangepicker": {
+            deps: ["jquery"]
+        },
+        "daterangepicker": {
+            deps: ["jquery.bootstrap"]
         }
     }
 });

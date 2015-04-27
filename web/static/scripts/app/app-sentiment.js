@@ -6,7 +6,7 @@
  *                    Here we get parameters chosen by the user and then we make calls to the 'modules.js' class.
  * ======================================================================== */
 
-require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart","dynatable","util/helper"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Chart,Dynatable,Helper) {
+require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart","dynatable","daterangepicker","util/helper"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Chart,Dynatable,Daterangepicker,Helper) {
 
 	var chart = new Chart();
 	chart.initializeChart();
@@ -18,12 +18,6 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
 		
 	});
-
-    // jQuery.extend({
-    //     postJSON: function( url, data, callback) {
-    //         return jQuery.post(url, data, callback, "json");
-    //     }
-    // });
 
     /*Document ready initializations */
 	$(document).ready(function() {
@@ -44,6 +38,14 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
                 perPageSelect: false
               }
         });
+
+        $('#daterange-btn').daterangepicker(helper.date_options,selectedDate);
+
+        var ini_date = moment().subtract(29, 'days');
+        var end_date = moment();
+
+        $('#daterange-btn span').html(ini_date.format('MMMM D, YYYY') + ' - ' + end_date.format('MMMM D, YYYY'));
+        
 
 		show("tab_1-1");
         hide("tab_2-2");
@@ -135,6 +137,11 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         show("tab_3-3");
     });
 
+    function selectedDate(start,end){
+        console.log(start.format('D/MM/YYYY') + ' - ' + end.format('D/MM/YYYY'));
+        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    };
+
     function show(id){
         var selector = '#'+id;
         $(selector).fadeIn(2000);
@@ -171,7 +178,6 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
 
     $( "#select-cities" ).change(function() {
-        
         resetDynatable();
         modules.populateListOfSuburbs($(this).val());
 
