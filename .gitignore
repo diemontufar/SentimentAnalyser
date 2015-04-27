@@ -7,6 +7,7 @@ venv
 extras
 *.wsgi
 indexer_settings.py
+*.pyc
 ## Java
 
 *.class
