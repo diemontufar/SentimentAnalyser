@@ -77,6 +77,63 @@ define(["moment"], function(Moment)
 				});
 			},
 
+			getCulturesRecords:function(countryRecords){
+
+			  var count = 1;
+          	  var coutryRecordsResponse = [];
+
+	          if (countryRecords!==null && countryRecords!==undefined ){
+
+	            	$.each(countryRecords, function(cob, country) {
+
+	                    coutryRecordsResponse[count-1] = {
+	                                                'countryCode' : country.id,
+	                                                'countryOfBirth' : country.name,
+	                                                'countryLanguages' : country.languages,
+	                                                'males' : country.population.males,
+	                                                'females' : country.population.females,
+	                                                'total' : country.population.total,
+	                                                'tweets' : country.count
+	                                              };
+
+	                    count++;
+
+	                 });
+				}//end if
+				else{
+					console.log("Cultures or languagesGlobal global variables are not defined!");
+					coutryRecordsResponse =  undefined;
+				}
+
+				return coutryRecordsResponse;
+
+			},
+
+			getCountryName:function(languageCode){
+
+				var name;
+
+				if (languagesGlobal!== null && languagesGlobal!==undefined){
+
+					$.each(languagesGlobal.country_of_birth,function(key,country){
+
+						$.each(country.languages,function(lan,language){
+							if (language == languageCode.toLowerCase()){
+								name = country.name;
+								return;
+							}
+						});
+					});
+
+				}else{
+					console.log("languagesGlobal is not defined!");
+					name = null;
+				}
+
+				return name;
+
+			},
+
 			getGeoMarkerPoint: function(tweet){
 
 			  var image = {url: '../static/img/marker-neutral.png', size: new google.maps.Size(32, 32)};

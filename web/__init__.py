@@ -38,32 +38,61 @@ def getCustomSearch(jsonQuery):
 #Service: 
 #Parameters: 
 #return: 
-@app.route('/customGeoSearch/<term>/<suburb>')
-def getCustomGeoSearch(term,suburb):
+@app.route('/customGeoSearch/<term>/<suburbCode>/<startP>/<sizeP>')
+def getCustomGeoSearch(term,suburbCode,startP,sizeP):
 	doc_type = 'tweet'
-	return indexer.getTweetsBySuburb(term,suburb,doc_type)
+	return indexer.getTweetsBySuburb(term,suburbCode,startP,sizeP,doc_type)
 
 #Service: return a json 
 #Parameters: <jsonQuery> is a json object which must follow the elasticsearch query structure
 #return: a json object containing the matched results
-@app.route('/sentimentTotals/<jsonQuery>')
-def getSentimentTotals(jsonQuery):
+@app.route('/sentimentTotals/<term>/<suburbCode>')
+def getSentimentTotals(term,suburbCode):
 	doc_type = 'tweet'
-	return indexer.statisticsByTerm(jsonQuery,doc_type)
+	return indexer.statisticsByTerm(term,suburbCode,doc_type)
 
 #Service: Get a list of the suburbs of main cities of AU: ABS 2011
 #Parameters: none
 #return: a json object containing a list of suburbs
-@app.route('/listSuburbs')
-def listSuburbsAU():
-	return open(APP_STATIC_JSON+"/suburbs.json", 'r').read()
+@app.route('/listSuburbs/<countryCode>')
+def listSuburbsAU(countryCode):
+	return indexer.getSuburbs(countryCode)
+
 
 #Service: Get GeoJson File containing information relatd to countries of birth by suburb of AU
 #Parameters: <state> the code of the state: i.e: VIC, TAS, etc
 #return: GeoJson object
-@app.route('/culturesByCity/<state>')
-def listCulturesByCityAU(state):
-	return indexer.getCultures(state)
+@app.route('/culturesByCity/<stateCode>')
+def listCulturesByCityAU(stateCode):
+	return indexer.getCultures(stateCode)
+
+#Service: 
+#Parameters: 
+#return: 
+@app.route('/languagesByCountry/<countryCode>')
+def listLanguagesByCountry(countryCode):
+	return indexer.getLanguages(countryCode)
+
+
+@app.route('/tweetsByCountryOfBirth/<term>/<stateCode>/<suburbCode>')
+def getTweetsByCountryOfBirth(term,stateCode,suburbCode):
+	return indexer.getTweetsByCountryOfBirth(term,stateCode,suburbCode)
+
+
+@app.route('/customAggregation/<jsonQuery>')
+def getCustomAgg(jsonQuery):
+	doc_type = 'tweet'
+	return indexer.getCustomAgg(doc_type,jsonQuery)
+
+
+#Good!
+@app.route('/topListBySuburb/<term>/<suburbCode>/<field>/<size>')
+def getTopList(term,suburbCode,field,size):
+	doc_type = 'tweet'
+	return indexer.getTopListBySuburb(doc_type,term,suburbCode,field,size)
+
+
+
 
 #main
 if __name__ == "__main__":

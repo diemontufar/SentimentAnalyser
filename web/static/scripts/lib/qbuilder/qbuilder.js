@@ -18,13 +18,13 @@ define(['esq/esq'], function(ESQ) {
     *		key: key field you are searching for
     *		value: the vaule you are searching for  
     **/
-    QBuilder.prototype.buildBasicMatchSearch = function(type,key,value){
+    // QBuilder.prototype.buildBasicMatchSearch = function(type,key,value){
     	
-    	var esq = new ESQ();
-    	esq.query(type, { match: { key : value } });
+    // 	var esq = new ESQ();
+    // 	esq.query(type, { match: { key : value } });
 
-    	return JSON.stringify(esq.getQuery(), null, 2);
-    };
+    // 	return JSON.stringify(esq.getQuery(), null, 2);
+    // };
 
     /** Method: buildBasicMatchSearch
     *	Description: Allows you to search for a value using the match option
@@ -33,26 +33,26 @@ define(['esq/esq'], function(ESQ) {
     *		key: key field you are searching for
     *		value: the vaule you are searching for  
     **/
-    QBuilder.prototype.buildMustMatchSearch = function(type,key,value){
+    // QBuilder.prototype.buildMustMatchSearch = function(type,key,value){
     	
-    	var esq = new ESQ();
-    	esq.query(type,['must'],{ match: { key : value } });
+    // 	var esq = new ESQ();
+    // 	esq.query(type,['must'],{ match: { key : value } });
 
-    	return JSON.stringify(esq.getQuery(), null, 2);
-    };
+    // 	return JSON.stringify(esq.getQuery(), null, 2);
+    // };
 
     /** Method: buildSearchByTerm
     *   Description: Perform basic search by term
     *   Parameters:
     *       term: the term you are searching for  
     **/
-    QBuilder.prototype.buildSearchByTerm = function(term){
+    // QBuilder.prototype.buildSearchByTerm = function(term){
         
-        var esq = new ESQ();
-        esq.query('query',{'filtered':{'query': {'match': {'text': {'query': term,'operator': 'or'}}},'filter': {'term': {'lang': 'en'}}}});
+    //     var esq = new ESQ();
+    //     esq.query('query',{'filtered':{'query': {'match': {'text': {'query': term,'operator': 'or'}}},'filter': {'term': {'lang': 'en'}}}});
 
-        return JSON.stringify(esq.getQuery(), null, 2);
-    };
+    //     return JSON.stringify(esq.getQuery(), null, 2);
+    // };
 
     /** Method: buildPaginatedSearchByTerm
     *   Description: Perform basic search by term with pagination
@@ -71,11 +71,33 @@ define(['esq/esq'], function(ESQ) {
         return JSON.stringify(esq.getQuery(), null, 2);
     };
 
-    QBuilder.prototype.buildBasicAggregation = function(term,field,size){
+    // QBuilder.prototype.buildBasicAggregation = function(term,field,size){
 
-        var query = {"size": 0, "query": {"query_string": {"analyze_wildcard": true, "query": "*"} }, "aggs": {"2": {"terms": {"field": field, "size": size, "order": {"_count": "desc"} } } } };
-        return JSON.stringify(query, null, 2);
-    };
+    //     var query = {"size": 0, "query": {"query_string": {"analyze_wildcard": true, "query": "text:"+term} }, "aggs": {"2": {"terms": {"field": field, "size": size, "order": {"_count": "desc"} } } } };
+    //     return JSON.stringify(query, null, 2);
+    // };
+
+    // QBuilder.prototype.buildTopAggregation = function(term,sentiment,suburbCode){ //Unused!!!!!!!!!!
+
+    //     var conditions = " AND sentiment_analysis.sentiment:" + sentiment;
+    //     conditions += " AND -user.lang:en";
+    //     var query = {
+    //                     "query":"text:" + term + conditions,
+    //                     "suburb": suburbCode,
+    //                     "agg1":{
+    //                        "field":"user.lang",
+    //                        "size":1,
+    //                        "order":"desc"
+    //                     },
+    //                     "agg2":{
+    //                        "field":"sentiment_analysis.sentiment",
+    //                        "size":1,
+    //                        "order":"desc"
+    //                     }
+    //                  }
+    //     return JSON.stringify(query, null, 2);
+
+    // };
 
 	return QBuilder;
 });

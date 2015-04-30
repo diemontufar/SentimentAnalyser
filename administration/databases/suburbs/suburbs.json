@@ -1,4 +1,7 @@
 {
+  "type":"suburb",
+  "country_code":1,
+  "country_name":"Australia",
   "states": [
     {
       "state": "ACT",

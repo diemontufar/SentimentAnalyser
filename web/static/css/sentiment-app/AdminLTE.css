@@ -1276,6 +1276,12 @@ body > .header .logo .icon {
 .box.box-success {
   border-top-color: #00a65a;
 }
+.box.box-coffee {
+  border-top-color: #996C25;
+}
+.box.box-purple {
+  border-top-color: #A539E4;
+}
 .box.height-control .box-body {
   max-height: 300px;
   overflow: auto;

@@ -19,6 +19,23 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 		
 	});
 
+    function clearModules(){
+
+        start_page = 0; //global variable for pagination
+        size_page = 50; //global variables for pagination
+
+        $('#toptwitterers-div').empty();
+        $('#toptrends-div').empty();
+        $('#tab_1-1').empty();
+        $('#tab_2-2').empty();
+        $('#tab_3-3').empty();
+        $('#label-showing').empty();
+        $('#overall-sentiment-div h3').empty();
+        $('#topcountries-div').empty();
+
+
+    };
+
     /*Document ready initializations */
 	$(document).ready(function() {
 
@@ -27,6 +44,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 		        height: '250px'
 		    });
 		});
+
+        modules.populateListOfLanguages();
 
         $('#table-cultures').dynatable({
             features: {
@@ -56,27 +75,19 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
     /*When the user click the GO button do the following*/
 	$("#go-button").click( function(e){
 
+        clearModules();
 		var term = $("#term").val();
         //Show hidden modules
         show("section-cultures");
         show("section-map");
-        show("section-chart");
-        show("section-feed");
-        show("section-toptwitterers");
-        show("section-toptrends");
         hide("div-totals");
         resetMapAndTable();
         refreshMap();
-
 
         //If topic is not empty start to populate data*/
 		if (term!="" && term!=undefined){
 
             modules.populateListOfCities();
-			modules.populateTweetModuleByTerm(term,start_page,size_page);
-			modules.populateChartModule(chart,term);
-            modules.populateTopTwitterers(term,5);
-            modules.populateTopTrends(term,5);
             
 		}else{
 			helper.infoMessage("Please insert some topic!");
@@ -158,20 +169,21 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
     	var term = $("#term").val();
         var min = 1;
         var max = total_tweets;
+        var suburb = $('#select-suburbs').val();
 
     	if (pos =='top' && start_page>min){
     		start_page = start_page - size_page;
             var end_page = start_page + size_page;
             $('#label-showing').empty();
             $('#label-showing').append('Showing from ' + start_page + ' to ' + end_page + ' of  ' + total_tweets + ' tweets');
-    		modules.populateTweetModuleByTerm(term,start_page,size_page);
+    		modules.populateTweetModuleByTerm(term,suburb,start_page,size_page);
 
     	}else if (pos =='bottom' && start_page <= max - size_page){
     		start_page = start_page + size_page;
             var end_page = start_page + size_page;
             $('#label-showing').empty();
             $('#label-showing').append('Showing from ' + start_page + ' to ' + end_page + ' of  ' + total_tweets + ' tweets');
-    		modules.populateTweetModuleByTerm(term,start_page,size_page);
+    		modules.populateTweetModuleByTerm(term,suburb,start_page,size_page);
     	}
 
 	});
@@ -185,8 +197,26 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
     $( "#select-suburbs" ).change(function() {
         show("table-div");
-        modules.populateTableOfCultures($(this).val());
+
+        var term = $("#term").val();
+        var state = $("#select-cities").val();
+        var suburb = $(this).val();
+        var date = null;
+
+        modules.populateTable(term,state,suburb,date);
         modules.drawTweetsBySuburb($("#term").val(),$(this).val());
+        modules.populateTopTwitterers(term,suburb,5);
+        modules.populateTopTrends(term,suburb,5);
+        modules.populateChartModule(chart,term,suburb);
+        modules.populateTweetModuleByTerm(term,suburb,start_page,size_page);
+        // modules.populatePositivePeople(term,suburb); //Unused
+        // modules.populateNegativePeople(term,suburb); //Unused
+
+        show("section-chart");
+        show("section-feed");
+        show("section-toptwitterers");
+        show("section-toptrends");
+        show("section-topcountries");
         show("div-totals");
     });
 

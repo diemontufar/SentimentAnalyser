@@ -32,10 +32,12 @@
         <script>
         var map;
         var markers = [];
-        var start_page = 1; //variable for pagination
+        var start_page = 0; //variable for pagination
         var size_page = 50; //variables for pagination
         var total_tweets = 0; //global results
-        var cultures; //global results
+        var cultures; //global cultures
+        var languagesGlobal; //global languages
+        var tableRecordsGlobal //global table records
         function initialize() {
         var mapOptions = {
                             center: { lat: -37.816667, lng: 144.966667},
@@ -153,7 +155,7 @@
                            
                             <!-- Map box -->
                             <div class="box box-primary">
-                                <div class="box-header">
+                                <div class="box-header with-border">
                                     <!-- tools box -->
                                     <div class="pull-right box-tools">
 
@@ -184,7 +186,7 @@
                             <!-- CULTURES OF AUSTRALIA -->
                             <div class="box">
                                 <!-- Header -->
-                                <div class="box-header">
+                                <div class="box-header with-border">
                                     <!-- tools box -->
                                     <div class="pull-right box-tools">
 
@@ -204,7 +206,9 @@
                                       <div style="height: 350px; position: relative; display:none;" id="table-div">
                                         <table class="table table-bordered table-hover" id="table-cultures">
                                           <thead style="background-color: rgb(0, 192, 239);">
+                                            <th style="display: none">Country Code</th>
                                             <th>Country of Birth</th>
+                                            <th style="display: none">Country Languages</th>
                                             <th>Males</th>
                                             <th>Females</th>
                                             <th>Total</th>
@@ -247,11 +251,11 @@
                     <!-- Main row-->
                     <div class="row">
                         <!-- Map row -->
-                        <section class="col-lg-6 connectedSortable" id="section-toptwitterers" style="display:none;">
+                        <section class="col-lg-3 connectedSortable" id="section-toptwitterers" style="display:none;">
                            
                             <!-- Map box -->
-                            <div class="box box-primary">
-                                <div class="box-header">
+                            <div class="box box-coffee">
+                                <div class="box-header with-border">
                                     <!-- tools box -->
                                     <div class="pull-right box-tools">
 
@@ -277,11 +281,11 @@
                         </section><!-- Map Row -->
 
                         <!-- Right module -->
-                        <section class="col-lg-6 connectedSortable" id="section-toptrends" style="display:none;">
+                        <section class="col-lg-3 connectedSortable" id="section-toptrends" style="display:none;">
                             <!-- CULTURES OF AUSTRALIA -->
-                            <div class="box">
+                            <div class="box box-warning">
                                 <!-- Header -->
-                                <div class="box-header">
+                                <div class="box-header with-border">
                                     <!-- tools box -->
                                     <div class="pull-right box-tools">
 
@@ -299,6 +303,66 @@
                                 <!-- Body -->
                                 <div class="box-body">
                                       <div style="height: 200px; position: relative; display:block;" id="toptrends-div">
+
+                                      </div>
+                                </div>
+                            </div>
+                        
+                        </section><!-- ./Left Row -->
+
+                        <!-- Right module -->
+                        <section class="col-lg-3 connectedSortable" id="section-topcountries" style="display:none;">
+                            <!-- CULTURES OF AUSTRALIA -->
+                            <div class="box box-purple">
+                                <!-- Header -->
+                                <div class="box-header with-border">
+                                    <!-- tools box -->
+                                    <div class="pull-right box-tools">
+
+                                         <button class="btn btn-default .btn-flat pull-right" id="toggle-cultures" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                         <i class="fa fa-minus"></i>
+                                         </button>
+
+                                    </div><!-- /. tools -->
+
+                                    <i class="fa fa-male"></i>
+                                    <h3 class="box-title">
+                                        Top 5 Cultures
+                                    </h3>
+                                </div>
+                                <!-- Body -->
+                                <div class="box-body">
+                                      <div style="height: 200px; position: relative; display:block;" id="topcountries-div">
+
+                                      </div>
+                                </div>
+                            </div>
+                        
+                        </section><!-- ./Left Row -->
+
+                        <!-- Right module -->
+                        <section class="col-lg-3 connectedSortable" id="section-topsuburbs" style="display:none;">
+                            <!-- CULTURES OF AUSTRALIA -->
+                            <div class="box box-info">
+                                <!-- Header -->
+                                <div class="box-header with-border">
+                                    <!-- tools box -->
+                                    <div class="pull-right box-tools">
+
+                                         <button class="btn btn-default .btn-flat pull-right" id="toggle-cultures" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                         <i class="fa fa-minus"></i>
+                                         </button>
+
+                                    </div><!-- /. tools -->
+
+                                    <i class="fa fa-home"></i>
+                                    <h3 class="box-title">
+                                        Top 5 Suburbs
+                                    </h3>
+                                </div>
+                                <!-- Body -->
+                                <div class="box-body">
+                                      <div style="height: 200px; position: relative; display:block;" id="topsuburbs-div">
 
                                       </div>
                                 </div>
@@ -326,10 +390,10 @@
                                   </div>
                                 </div>
                             
-                                <div class="col-lg-3 col-xs-6">
+                                <!-- <div class="col-lg-3 col-xs-6"> -->
                                   <!-- small box -->
-                                  <div class="small-box bg-blue">
-                                    <div class="inner">
+  <!--                                 <div class="small-box bg-blue">
+                                    <div class="inner" id="positive-people-div">
                                       <h3>Ecuadorians</h3>
                                       <h4>&nbsp;</h4>
                                     </div>
@@ -338,12 +402,12 @@
                                     </div>
                                     <a href="#" class="small-box-footer">Positive people</a>
                                   </div>
-                                </div>
+                                </div> -->
                             
-                                <div class="col-lg-3 col-xs-6">
+                                <!-- <div class="col-lg-3 col-xs-6"> -->
                                   <!-- small box -->
-                                  <div class="small-box bg-red">
-                                    <div class="inner">
+<!--                                   <div class="small-box bg-red">
+                                    <div class="inner" id="negative-people-div">
                                       <h3>Indians</h3>
                                       <h4>&nbsp;</h4>
                                     </div>
@@ -352,19 +416,19 @@
                                     </div>
                                     <a href="#" class="small-box-footer">Negative people</a>
                                   </div>
-                                </div>
+                                </div> -->
 
-                                <div class="col-lg-3 col-xs-6">
+                                <div class="col-lg-3 col-xs-6" style="display:none;">
                                   <!-- small box -->
                                   <div class="small-box bg-yellow">
                                     <div class="inner">
                                       <h3>Carlton</h3>
-                                      <h4>Positive</h4>
+                                      <h4>1250</h4>
                                     </div>
                                     <div class="icon">
-                                      <i class="fa fa-smile-o"></i>
+                                      <i class="fa fa-home"></i>
                                     </div>
-                                    <a href="#" class="small-box-footer">Suburb Sentiment</a>
+                                    <a href="#" class="small-box-footer">Twitt Zone</a>
                                   </div>
                                 </div>
                             
@@ -372,13 +436,22 @@
                         <!-- </section> -->
                     </div>
 
+<!--                     <div class="row">
+                      <center>
+                      <h1>
+                      <small>Sentiment Analysis against all English twitts containing the term "AFL"</small>
+                      </h1>
+                      </center>
+                     
+                    </div> -->
+
                     <div class="row">
 
                         <!-- Left row -->
                         <section class="col-lg-6 connectedSortable" id="section-chart" style="display:none;">
                             <!-- DONUT CHART -->
                             <div class="box box-danger">
-                                <div class="box-header">
+                                <div class="box-header with-border">
                                     <i class="fa fa-smile-o"></i>
                                     <h3 class="box-title">Sentiment results</h3>
                                 </div>
@@ -394,7 +467,7 @@
                         <section class="col-lg-6 connectedSortable" id="section-feed" style="display:none;">
                             <!-- Chat box -->
                             <div class="box box-success">
-                                <div class="box-header">
+                                <div class="box-header with-border">
                                     <h3 class="box-title">
                                     <i class="fa fa-twitter"></i> Tweets</h3>
                                     <div class="box-tools pull-right" data-toggle="tooltip" title="Sentiments">

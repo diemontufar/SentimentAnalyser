@@ -18,24 +18,27 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
     return {
 
         search_service_url : '/customSearch/',
-        geo_search_service_url : '/customGeoSearch/',
+        geo_search_service_url : '/customGeoSearch/', //Gooood!
         sentiment_totals_service_url : '/sentimentTotals/',
-        list_suburbs_service_url : '/listSuburbs',
+        list_suburbs_service_url : '/listSuburbs/',
         cultures_service_url : '/culturesByCity',
+        list_languages_service_url : '/languagesByCountry/',
+        table_cultures_service_url : '/tweetsByCountryOfBirth/',
+        custom_agg_service_url : '/customAggregation/',
+        list_top_bysuburb_service_url: 'topListBySuburb/', //Good!
 
-        initialize : function(chart) {
+        initialize : function() {
 
         },
 
         /* Populate Top 5 Twitterers */
-        populateTopTwitterers: function(term,size) { 
+        populateTopTwitterers: function(term,suburb,size) { 
 
           var field = "user.screen_name";
-          //First build the query for searching the term as follows:
-          var qBuilder = new QBuilder();
-          var query = qBuilder.buildBasicAggregation(term,field,size);
 
-          $.getJSON(this.search_service_url + query).done(function(data) {
+          var request = this.list_top_bysuburb_service_url + term + '/' + suburb + '/' + field + '/' + size;
+
+          $.getJSON(request).done(function(data) {
 
             $('#toptwitterers-div').empty();
             var buckets = data.aggregations['2'].buckets;
@@ -66,14 +69,13 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
         },
 
         /* Populate Top 5 Trends */
-        populateTopTrends: function(term,size) { 
+        populateTopTrends: function(term,suburb,size) { 
 
           var field = "entities.hashtags.text";
-          //First build the query for searching the term as follows:
-          var qBuilder = new QBuilder();
-          var query = qBuilder.buildBasicAggregation(term,field,size);
 
-          $.getJSON(this.search_service_url + query).done(function(data) {
+          var request = this.list_top_bysuburb_service_url + term + '/' + suburb + '/' + field + '/' + size;
+
+          $.getJSON(request).done(function(data) {
 
             $('#toptrends-div').empty();
             var buckets = data.aggregations['2'].buckets;
@@ -104,125 +106,96 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
         },
 
         /* Populate Tweets using JSON files */
-        populateTweetModuleByTerm: function(term,start,size) { 
+        populateTweetModuleByTerm: function(term,suburb,start,size) { 
 
-          //First build the query for searching the term as follows:
-          var query = qBuilder.buildPaginatedSearchByTerm(term,start,size);
-          // console.log(query);
           //Then Build the URL in order to send to the python service:
-          var request = this.search_service_url.concat(query);
+          var request = this.geo_search_service_url + term + '/' + suburb + '/' +  start + '/' + size;
 
           // Send JSON request
           // The returned JSON object will have a property called "results" where we find
           // a list of the tweets matching our request query
           $.getJSON(request, function(data) {
 
-              
-
               if (data) {
                   $('#tab_1-1').empty();
                   $('#tab_2-2').empty();
                   $('#tab_3-3').empty();
-                  // deleteMarkers();
 
-                  $.each(data.hits, function(key, hits) {
+                $.each(data.hits.hits, function(key, hit) {
 
-                      if (hits) {
+                    var tweet = hit._source;
 
-                          $.each(hits, function(j, sources) {
-
-                              if (sources) {
-
-                                  $.each(sources, function(i, tweet) {
-
-                                      // console.log(tweet.text);
-                                      // Before we continue we check that we got data
-                                      if (tweet.text !== undefined && tweet != null) {
-                                          // Calculate how many hours ago was the tweet posted
-                                          var date_tweet = new Date(tweet.created_at);
-                                          var date_locale = date_tweet.format(' H:i:s - d M Y');
+                    // Before we continue we check that we got data
+                    if (tweet.text !== undefined && tweet != null) {
+                        // Calculate how many hours ago was the tweet posted
+                        var date_tweet = new Date(tweet.created_at);
+                        var date_locale = date_tweet.format(' H:i:s - d M Y');
 
 
-                                          // Build the html string for the current tweet
-                                          var helper = new Helper();
-                                          var tweet_text = helper.parseLinks(tweet.text);
-                                          tweet_text = helper.parseHashTags(tweet_text);
-                                          tweet_text = helper.parseUser(tweet_text);
-
-                                          var sentiment_analysis = tweet.sentiment_analysis;
-                                          var icon;
-                                          var _class;
-                                          var position;
-
-                                          if (sentiment_analysis!=null && sentiment_analysis!=undefined){
-                                            if (sentiment_analysis.sentiment=='positive'){
-                                              icon = helper.sentiment_icon.positive;
-                                              _class = "positive";
-                                            }else if(sentiment_analysis.sentiment=='negative'){
-                                              icon = helper.sentiment_icon.negative;
-                                              _class = "negative";
-                                            }else if(sentiment_analysis.sentiment=='neutral'){
-                                              icon = helper.sentiment_icon.neutral;
-                                              _class = "neutral";
-                                            }
-                                          }else{
-                                            icon = "";
-                                          }
-
-                                          // //console.log(helper.getGeoMarkerPoint(tweet));
-                                          // var marker = helper.getGeoMarkerPoint(tweet);
-                                          // addMarker(marker); //Add markers to the map and the markers array
-
-                                          var tweet_html = '<div class="item">';
-                                          tweet_html += '<img src="' + tweet.user.profile_image_url + '"' + ' onerror="this.src=\'' + default_img_avatar + "\'" + '" alt="user image" class="' + _class + '">';
-                                          tweet_html += '<p class="message">';
-                                          tweet_html += '<a href="http://www.twitter.com/' + tweet.user.screen_name + '" class="name">';
-                                          tweet_html += '<small class="text-muted pull-right"><i class="fa fa-clock-o"><\/i>' + date_locale + '<\/small>';
-                                          tweet_html += tweet.user.name + '<\/a>';
-                                          tweet_html += '<small class="text-muted">' + '@' + tweet.user.screen_name + '<\/small><br>';
-                                          tweet_html += tweet_text;
-                                          tweet_html += '<\/p><div class="attachment">';
-                                          tweet_html += '<small class="text-muted">Retweets: ' + tweet.retweet_count + ' | Favorites: ' + tweet.favorite_count + ' | Sentiment: <i class="fa ' + icon + '"><\/i><\/small>';
-                                          tweet_html += '<\/div><\/div>';
-
-                                          // Append html string to tweet_container div
-                                         if (sentiment_analysis!=null && sentiment_analysis!=undefined){
-                                            if (sentiment_analysis.sentiment=='positive'){
-                                              $('#tab_1-1').append(tweet_html);
-                                            }else if(sentiment_analysis.sentiment=='negative'){
-                                              $('#tab_3-3').append(tweet_html);
-                                            }else if(sentiment_analysis.sentiment=='neutral'){
-                                              $('#tab_2-2').append(tweet_html);
-                                            }
-                                          }
-                                          
-                                      } //if tweet
-
-                                  }); //inner inner each
-                              } //if sources
-                          }); //inner each 
-                      } //if hits
-                      else{
+                        // Build the html string for the current tweet
                         var helper = new Helper();
-                        helper.infoMessage('No results found for topic: ' + term );
-                      }
-                  }); //outer each 
-              // setAllMap(map); //Add all markers to the map
-              } //if data
+                        var tweet_text = helper.parseLinks(tweet.text);
+                        tweet_text = helper.parseHashTags(tweet_text);
+                        tweet_text = helper.parseUser(tweet_text);
+
+                        var sentiment_analysis = tweet.sentiment_analysis;
+                        var icon;
+                        var _class;
+                        var position;
+
+                        if (sentiment_analysis!=null && sentiment_analysis!=undefined){
+                          if (sentiment_analysis.sentiment=='positive'){
+                            icon = helper.sentiment_icon.positive;
+                            _class = "positive";
+                          }else if(sentiment_analysis.sentiment=='negative'){
+                            icon = helper.sentiment_icon.negative;
+                            _class = "negative";
+                          }else if(sentiment_analysis.sentiment=='neutral'){
+                            icon = helper.sentiment_icon.neutral;
+                            _class = "neutral";
+                          }
+                        }else{
+                          icon = "";
+                        }
+
+                        var tweet_html = '<div class="item">';
+                        tweet_html += '<img src="' + tweet.user.profile_image_url + '"' + ' onerror="this.src=\'' + default_img_avatar + "\'" + '" alt="user image" class="' + _class + '">';
+                        tweet_html += '<p class="message">';
+                        tweet_html += '<a href="http://www.twitter.com/' + tweet.user.screen_name + '" class="name">';
+                        tweet_html += '<small class="text-muted pull-right"><i class="fa fa-clock-o"><\/i>' + date_locale + '<\/small>';
+                        tweet_html += tweet.user.name + '<\/a>';
+                        tweet_html += '<small class="text-muted">' + '@' + tweet.user.screen_name + '<\/small><br>';
+                        tweet_html += tweet_text;
+                        tweet_html += '<\/p><div class="attachment">';
+                        tweet_html += '<small class="text-muted">Retweets: ' + tweet.retweet_count + ' | Favorites: ' + tweet.favorite_count + ' | Sentiment: <i class="fa ' + icon + '"><\/i><\/small>';
+                        tweet_html += '<\/div><\/div>';
+
+                        // Append html string to tweet_container div
+                       if (sentiment_analysis!=null && sentiment_analysis!=undefined){
+                          if (sentiment_analysis.sentiment=='positive'){
+                            $('#tab_1-1').append(tweet_html);
+                          }else if(sentiment_analysis.sentiment=='negative'){
+                            $('#tab_3-3').append(tweet_html);
+                          }else if(sentiment_analysis.sentiment=='neutral'){
+                            $('#tab_2-2').append(tweet_html);
+                          }
+                        }
+                    
+                    }
+                    
+                });
+              }
+
           }); //End getJSON
 
         },
 
         /* Get data from web services in order to populate pie chart*/
-        populateChartModule : function(chart,term){
-
-          //First build the query for searching the term as follows:
-          var query = qBuilder.buildSearchByTerm(term);
+        populateChartModule : function(chart,term,suburb){
 
           //Then Build the URL in order to send to the python service:
-          var request = this.sentiment_totals_service_url.concat(query);
+          var request = this.sentiment_totals_service_url.concat(term + '/' + suburb);
 
-          
           var pie_chart = chart;
 
           $.getJSON(request,function(data) {
@@ -276,6 +249,37 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
         }, //end populateTableModule
 
+        /* Obtain list of Cities by state*/
+        populateListOfCities : function(){
+
+          var helper = new Helper();
+          $('#select-suburbs').empty();
+          $('#select-cities').empty();
+          var country_code = "1"; //Australia
+
+          $.getJSON(this.list_suburbs_service_url + country_code).done(function(data) {
+
+            var city_options_html =  '<option value="all" disabled selected style="display:none;">Main Cities</option>';
+
+              $.each(data.states, function(sta, state) {
+
+                if (helper.isInStateList(state.state)){
+
+                    city_options_html = city_options_html + '<option value="' + state.state + '">' + helper.getCityName(state.state) + '</option>';
+
+                }
+
+              });
+               // Append html string to cities option list
+              $('#select-cities').append(city_options_html);
+
+          }).fail(function(){
+            var helper = new Helper();
+            helper.errorMessage('Error Loading list of Cities');
+          });
+
+        },
+
         /* Obtain list of Countries fo birth in order to populate list boxes*/
         populateListOfSuburbs : function(state){
 
@@ -316,89 +320,122 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
         },
 
-        /* Obtain list of Cities by state*/
-        populateListOfCities : function(){
+        populateTable: function(term,state,suburb,date){
 
-          var helper = new Helper();
-          $('#select-suburbs').empty();
-          $('#select-cities').empty();
+          //Then Build the URL in order to send to the python service:
+          var request = this.table_cultures_service_url.concat(term + '/' + state + '/' + suburb); //date missing
+          tableRecordsGlobal = null;
 
-          $.getJSON(this.list_suburbs_service_url).done(function(data) {
+          $.getJSON(request, function(countryRecords) {
 
-            var city_options_html =  '<option value="all" disabled selected style="display:none;">Main Cities</option>';
+            // console.log(countryRecords);
 
-              $.each(data.states, function(sta, state) {
+            if (countryRecords){
 
-                if (helper.isInStateList(state.state)){
+              var helper = new Helper();
+              var tableRecords = helper.getCulturesRecords(countryRecords);
+              tableRecordsGlobal = tableRecords;
+              tableRecordsGlobal = tableRecordsGlobal.sort(function(a,b) { return parseFloat(b.tweets) - parseFloat(a.tweets) } );
 
-                    city_options_html = city_options_html + '<option value="' + state.state + '">' + helper.getCityName(state.state) + '</option>';
+              //Populate Top 5 
+               $('#topcountries-div').empty();
+               var html_cultures = '<ol type="1">';
+               var i = 0;
+               $.each(tableRecordsGlobal,function(key,record){
 
-                }
+                  if (i<5 && record.tweets != 0){
+                    html_cultures += '<li><h5>' + record.countryOfBirth + '</h5></li>';
+                    i++;
+                  }
 
-              });
-               // Append html string to cities option list
-              $('#select-cities').append(city_options_html);
+               });
 
-          }).fail(function(){
-            var helper = new Helper();
-            helper.errorMessage('Error Loading list of Cities');
+               html_cultures += '</ol>';
+               $('#topcountries-div').append(html_cultures);
+
+              // console.log(tableRecords);
+               var dynatable = $('#table-cultures').data('dynatable');
+               dynatable.settings.dataset.originalRecords = tableRecords;
+               dynatable.paginationPerPage.set(8);
+               dynatable.process();
+
+            }else{
+              var suburb = $('#select-suburbs :selected').text();
+              helper.infoMessage('Cultures table cannot be populated for: ' + suburb );
+            }
+
           });
 
         },
 
-        /* Obtain list of Countries fo birth in order to populate table*/
-        populateTableOfCultures : function(suburb){
+        // populatePositivePeople: function(term,suburb){
 
-          var table_html = '';
-          var count = 1;
-          var coutryRecords = [];
+        //   //First build the query for searching the term as follows:
+        //   var qBuilder = new QBuilder();
+        //   var query = qBuilder.buildTopAggregation(term,"positive",suburb);
 
-          if (cultures!==null && cultures!==undefined){
+        //   $('#positive-people-div h3').empty();
+        //   $('#positive-people-div h4').empty();
 
-            $.each(cultures.features, function(fea, feature) {
+        //   $.getJSON(this.custom_agg_service_url + query, function(data) {
 
-                  if (feature.properties.feature_code ==  suburb){
+        //     var countryCode = data["aggregations"]["2"]["buckets"][0]["key"];
+        //     var count = data["aggregations"]["2"]["buckets"][0]["doc_count"];
+        //     var helper = new Helper();
+        //     var country = helper.getCountryName(countryCode);
 
-                      $.each(feature.properties.country_of_birth, function(cou, country) {
+        //     $('#positive-people-div h3').append(country);
+        //     $('#positive-people-div h4').append(count);
 
+        //   });
 
-                          coutryRecords[count-1] = {
-                                                      'countryOfBirth' : country.name,
-                                                      'males' : country.population.males,
-                                                      'females' : country.population.females,
-                                                      'total' : country.population.total,
-                                                      'tweets' : 0
-                                                    };
+        // },
 
-                          count++;
+        // populateNegativePeople: function(term,suburb){
 
-                      });
+        //   //First build the query for searching the term as follows:
+        //   var qBuilder = new QBuilder();
+        //   var query = qBuilder.buildTopAggregation(term,"negative",suburb);
 
-                     var dynatable = $('#table-cultures').data('dynatable');
-                     dynatable.settings.dataset.originalRecords = coutryRecords;
-                     dynatable.paginationPerPage.set(8);
-                     dynatable.process();
+        //   $('#negative-people-div h3').empty();
+        //   $('#negative-people-div h4').empty();
 
-                  }
+        //   $.getJSON(this.custom_agg_service_url + query, function(data) {
 
-            });
+        //     var countryCode = data["aggregations"]["2"]["buckets"][0]["key"];
+        //     var count = data["aggregations"]["2"]["buckets"][0]["doc_count"];
+        //     var helper = new Helper();
+        //     var country = helper.getCountryName(countryCode);
 
-          }else{
-            var helper = new Helper();
-            var suburb = $('#select-suburbs :selected').text();
-            helper.infoMessage('Cultures table cannot be populated for: ' + suburb );
-          }
+        //     $('#negative-people-div h3').append(country);
+        //     $('#negative-people-div h4').append(count);
+
+        //   });
+
+        // },
+
+        populateListOfLanguages: function(){
+
+          $.getJSON(this.list_languages_service_url + '1', function(data) {
+
+            languagesGlobal = data;
+
+          });
 
         },
 
-        /*Obtain tweets (only map markers) within a suburb*/
+        /*Obtain tweets (only map markers) within a suburb*/ //Goooood!
         drawTweetsBySuburb : function(term,suburb){
 
-          //Then Build the URL in order to send to the python service:
-          var request = this.geo_search_service_url.concat(term + '/' + suburb);
+          var startP = 0;
+          var sizeP = 10000;
 
+          //Then Build the URL in order to send to the python service:
+          var request = this.geo_search_service_url + term + '/' + suburb + '/' + startP + '/' + sizeP;
 
           $.getJSON(request, function(data) {
+
+            var total_retrieved_tweets = 0;
 
             var mapLanguages = [];
 
@@ -407,48 +444,44 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                   var helper = new Helper();
                   deleteMarkers();
 
-                  $.each(data.hits, function(key, hits) {
+                  $.each(data.hits.hits, function(key, hit) {
 
-                      if (hits) {
+                    var tweet = hit._source;
 
-                          $.each(hits, function(j, sources) {
+                    // Before we continue we check that we got data
+                    if (tweet !== undefined && tweet !== null) {
+                        // Calculate how many hours ago was the tweet posted
+                        var date_tweet = new Date(tweet.created_at);
+                        var date_locale = date_tweet.format(' H:i:s - d M Y');
 
-                              if (sources) {
+                        var lan = tweet.user.lang.toLowerCase();
 
-                                  $.each(sources, function(i, tweet) {
+                        if (lan === undefined || lan === null){
+                          lan = 'und';
+                        }
 
-                                      // Before we continue we check that we got data
-                                      if (tweet.text !== undefined && tweet != null) {
-                                          // Calculate how many hours ago was the tweet posted
-                                          var date_tweet = new Date(tweet.created_at);
-                                          var date_locale = date_tweet.format(' H:i:s - d M Y');
+                        mapLanguages[lan] = (mapLanguages[lan]||0)+1;
+                        total_retrieved_tweets++;
 
-                                          mapLanguages[tweet.user.lang] = (mapLanguages[tweet.user.lang]||0)+1;
-                                          // console.log(tweet.lang);
-                                          // Build the html string for the current tweet
-                                          //console.log(helper.getGeoMarkerPoint(tweet));
-                                          var marker = helper.getGeoMarkerPoint(tweet);
-                                          addMarker(marker); //Add markers to the map and the markers array
-                                          
-                                      } //if tweet
+                        var marker = helper.getGeoMarkerPoint(tweet);
+                        addMarker(marker); //Add markers to the map and the markers array
+                        
+                    }else{
+                      console.log("Undefined");
+                    }
 
-                                  }); //inner inner each
-                              } //if sources
-                          }); //inner each 
-                      } //if hits
-                      else{
-                        helper.infoMessage('No results found for topic: ' + term );
-                      }
-                  }); //outer each 
+                  }); //inner inner each
+
               console.log(mapLanguages);
+              console.log("Total retrieved tweets: " + total_retrieved_tweets);
+              var helper = new Helper();
               setAllMap(map); //Add all markers to the map
               
               } //if data
           }); //End getJSON
-
       }
 
-  
+
     };
   };
 
