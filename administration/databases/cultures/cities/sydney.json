@@ -4,9 +4,13 @@
     "type": "city",
     "properties": {
       "name": "urn:x-ogc:def:crs:EPSG:4283",
-      "state_id":"NSW",
-      "state_name":"Sydney",
-      "state_coordinate": [-33.906305, 151.171196,11]
+      "state_id": "NSW",
+      "state_name": "Sydney",
+      "state_coordinate": [
+        -33.906305,
+        151.171196,
+        11
+      ]
     }
   },
   "features": [
@@ -1829,7 +1833,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 886,
               "males": 406,
@@ -1873,15 +1877,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 562,
-              "males": 280,
-              "females": 282
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -1901,7 +1896,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 140,
               "males": 66,
@@ -1960,15 +1955,6 @@
               "total": 34,
               "males": 9,
               "females": 25
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 82,
-              "males": 32,
-              "females": 50
             }
           },
           {
@@ -2063,11 +2049,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 28,
               "males": 13,
               "females": 15
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 82,
+              "males": 32,
+              "females": 50
             }
           },
           {
@@ -2099,7 +2094,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 280,
               "males": 167,
@@ -2122,6 +2117,15 @@
               "total": 133,
               "males": 61,
               "females": 72
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 562,
+              "males": 280,
+              "females": 282
             }
           }
         ]
@@ -3395,7 +3399,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 3289,
               "males": 1462,
@@ -3439,15 +3443,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -3467,7 +3462,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 287,
               "males": 129,
@@ -3526,15 +3521,6 @@
               "total": 95,
               "males": 24,
               "females": 71
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 321,
-              "males": 132,
-              "females": 189
             }
           },
           {
@@ -3629,11 +3615,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 23,
               "males": 10,
               "females": 13
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 321,
+              "males": 132,
+              "females": 189
             }
           },
           {
@@ -3665,7 +3660,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 533,
               "males": 289,
@@ -3688,6 +3683,15 @@
               "total": 276,
               "males": 115,
               "females": 161
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 6,
+              "males": 3,
+              "females": 3
             }
           }
         ]
@@ -7645,7 +7649,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 108,
               "males": 31,
@@ -7689,15 +7693,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 9,
-              "males": 5,
-              "females": 4
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -7717,7 +7712,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 30,
               "males": 15,
@@ -7776,15 +7771,6 @@
               "total": 38,
               "males": 9,
               "females": 29
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 37,
-              "males": 15,
-              "females": 22
             }
           },
           {
@@ -7879,11 +7865,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 3,
               "males": 0,
               "females": 3
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 37,
+              "males": 15,
+              "females": 22
             }
           },
           {
@@ -7915,7 +7910,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 1636,
               "males": 888,
@@ -7938,6 +7933,15 @@
               "total": 36,
               "males": 18,
               "females": 18
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 9,
+              "males": 5,
+              "females": 4
             }
           }
         ]
@@ -9023,7 +9027,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 0,
               "males": 0,
@@ -9067,15 +9071,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -9095,7 +9090,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 0,
               "males": 0,
@@ -9150,15 +9145,6 @@
           {
             "id": "6201",
             "name": "Japan",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
             "population": {
               "total": 0,
               "males": 0,
@@ -9257,7 +9243,16 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
             "population": {
               "total": 0,
               "males": 0,
@@ -9293,7 +9288,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 0,
               "males": 0,
@@ -9312,6 +9307,15 @@
           {
             "id": "5105",
             "name": "Vietnam",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
               "total": 0,
               "males": 0,
@@ -10845,7 +10849,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1671,
               "males": 760,
@@ -10889,15 +10893,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 542,
-              "males": 278,
-              "females": 264
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -10917,7 +10912,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 115,
               "males": 63,
@@ -10976,15 +10971,6 @@
               "total": 23,
               "males": 12,
               "females": 11
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 217,
-              "males": 97,
-              "females": 120
             }
           },
           {
@@ -11079,11 +11065,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 42,
               "males": 23,
               "females": 19
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 217,
+              "males": 97,
+              "females": 120
             }
           },
           {
@@ -11115,7 +11110,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 176,
               "males": 106,
@@ -11138,6 +11133,15 @@
               "total": 3921,
               "males": 1797,
               "females": 2124
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 542,
+              "males": 278,
+              "females": 264
             }
           }
         ]
@@ -12259,7 +12263,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 172,
               "males": 65,
@@ -12303,15 +12307,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 216,
-              "males": 111,
-              "females": 105
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -12331,7 +12326,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 30,
               "males": 13,
@@ -12390,15 +12385,6 @@
               "total": 3,
               "males": 0,
               "females": 3
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 25,
-              "males": 15,
-              "females": 10
             }
           },
           {
@@ -12493,11 +12479,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 32,
               "males": 13,
               "females": 19
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 25,
+              "males": 15,
+              "females": 10
             }
           },
           {
@@ -12529,7 +12524,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 317,
               "males": 152,
@@ -12552,6 +12547,15 @@
               "total": 1227,
               "males": 564,
               "females": 663
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 216,
+              "males": 111,
+              "females": 105
             }
           }
         ]
@@ -13621,7 +13625,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 829,
               "males": 389,
@@ -13665,15 +13669,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 29,
-              "males": 17,
-              "females": 12
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -13693,7 +13688,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 136,
               "males": 64,
@@ -13752,15 +13747,6 @@
               "total": 12,
               "males": 3,
               "females": 9
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 757,
-              "males": 345,
-              "females": 412
             }
           },
           {
@@ -13855,11 +13841,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 23,
               "males": 16,
               "females": 7
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 757,
+              "males": 345,
+              "females": 412
             }
           },
           {
@@ -13891,7 +13886,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 185,
               "males": 107,
@@ -13914,6 +13909,15 @@
               "total": 546,
               "males": 241,
               "females": 305
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 29,
+              "males": 17,
+              "females": 12
             }
           }
         ]
@@ -15167,7 +15171,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 2107,
               "males": 958,
@@ -15211,15 +15215,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 1037,
-              "males": 512,
-              "females": 525
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -15239,7 +15234,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 335,
               "males": 159,
@@ -15298,15 +15293,6 @@
               "total": 62,
               "males": 14,
               "females": 48
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 58,
-              "males": 24,
-              "females": 34
             }
           },
           {
@@ -15401,11 +15387,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 49,
               "males": 28,
               "females": 21
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 58,
+              "males": 24,
+              "females": 34
             }
           },
           {
@@ -15437,7 +15432,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 394,
               "males": 208,
@@ -15460,6 +15455,15 @@
               "total": 149,
               "males": 65,
               "females": 84
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 1037,
+              "males": 512,
+              "females": 525
             }
           }
         ]
@@ -16625,7 +16629,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 82,
               "males": 37,
@@ -16669,15 +16673,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 31,
-              "males": 13,
-              "females": 18
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -16697,7 +16692,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 37,
               "males": 16,
@@ -16756,15 +16751,6 @@
               "total": 23,
               "males": 3,
               "females": 20
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 26,
-              "males": 19,
-              "females": 7
             }
           },
           {
@@ -16859,11 +16845,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 14,
               "males": 5,
               "females": 9
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 26,
+              "males": 19,
+              "females": 7
             }
           },
           {
@@ -16895,7 +16890,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 350,
               "males": 194,
@@ -16918,6 +16913,15 @@
               "total": 25,
               "males": 12,
               "females": 13
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 31,
+              "males": 13,
+              "females": 18
             }
           }
         ]
@@ -18131,7 +18135,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 4068,
               "males": 1709,
@@ -18175,15 +18179,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 17,
-              "males": 5,
-              "females": 12
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -18203,7 +18198,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 486,
               "males": 240,
@@ -18262,15 +18257,6 @@
               "total": 48,
               "males": 7,
               "females": 41
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 670,
-              "males": 309,
-              "females": 361
             }
           },
           {
@@ -18365,11 +18351,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 31,
               "males": 14,
               "females": 17
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 670,
+              "males": 309,
+              "females": 361
             }
           },
           {
@@ -18401,7 +18396,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 362,
               "males": 206,
@@ -18424,6 +18419,15 @@
               "total": 443,
               "males": 192,
               "females": 251
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 17,
+              "males": 5,
+              "females": 12
             }
           }
         ]
@@ -20025,7 +20029,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 303,
               "males": 132,
@@ -20069,15 +20073,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 5,
-              "males": 5,
-              "females": 0
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -20097,7 +20092,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 44,
               "males": 23,
@@ -20156,15 +20151,6 @@
               "total": 20,
               "males": 6,
               "females": 14
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 67,
-              "males": 33,
-              "females": 34
             }
           },
           {
@@ -20259,11 +20245,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 15,
               "males": 5,
               "females": 10
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 67,
+              "males": 33,
+              "females": 34
             }
           },
           {
@@ -20295,7 +20290,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 255,
               "males": 140,
@@ -20318,6 +20313,15 @@
               "total": 129,
               "males": 61,
               "females": 68
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 5,
+              "males": 5,
+              "females": 0
             }
           }
         ]
@@ -22791,7 +22795,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 4991,
               "males": 2320,
@@ -22835,15 +22839,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 25,
-              "males": 11,
-              "females": 14
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -22863,7 +22858,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 297,
               "males": 149,
@@ -22922,15 +22917,6 @@
               "total": 39,
               "males": 10,
               "females": 29
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 1138,
-              "males": 551,
-              "females": 587
             }
           },
           {
@@ -23025,11 +23011,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 23,
               "males": 9,
               "females": 14
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 1138,
+              "males": 551,
+              "females": 587
             }
           },
           {
@@ -23061,7 +23056,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 213,
               "males": 129,
@@ -23084,6 +23079,15 @@
               "total": 1034,
               "males": 467,
               "females": 567
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 25,
+              "males": 11,
+              "females": 14
             }
           }
         ]
@@ -24065,7 +24069,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 0,
               "males": 0,
@@ -24109,15 +24113,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -24137,7 +24132,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 0,
               "males": 0,
@@ -24192,15 +24187,6 @@
           {
             "id": "6201",
             "name": "Japan",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
             "population": {
               "total": 0,
               "males": 0,
@@ -24299,7 +24285,16 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
             "population": {
               "total": 0,
               "males": 0,
@@ -24335,7 +24330,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 0,
               "males": 0,
@@ -24354,6 +24349,15 @@
           {
             "id": "5105",
             "name": "Vietnam",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
               "total": 0,
               "males": 0,
@@ -28027,7 +28031,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 880,
               "males": 397,
@@ -28071,15 +28075,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 7,
-              "males": 4,
-              "females": 3
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -28099,7 +28094,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 229,
               "males": 99,
@@ -28158,15 +28153,6 @@
               "total": 20,
               "males": 4,
               "females": 16
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 401,
-              "males": 189,
-              "females": 212
             }
           },
           {
@@ -28261,11 +28247,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 25,
               "males": 9,
               "females": 16
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 401,
+              "males": 189,
+              "females": 212
             }
           },
           {
@@ -28297,7 +28292,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 539,
               "males": 281,
@@ -28320,6 +28315,15 @@
               "total": 133,
               "males": 57,
               "females": 76
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 7,
+              "males": 4,
+              "females": 3
             }
           }
         ]
@@ -31073,7 +31077,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 2343,
               "males": 1069,
@@ -31117,15 +31121,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 15,
-              "males": 7,
-              "females": 8
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -31145,7 +31140,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 373,
               "males": 173,
@@ -31204,15 +31199,6 @@
               "total": 48,
               "males": 17,
               "females": 31
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 1266,
-              "males": 591,
-              "females": 675
             }
           },
           {
@@ -31307,11 +31293,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 19,
               "males": 9,
               "females": 10
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 1266,
+              "males": 591,
+              "females": 675
             }
           },
           {
@@ -31343,7 +31338,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 422,
               "males": 214,
@@ -31366,6 +31361,15 @@
               "total": 148,
               "males": 77,
               "females": 71
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 15,
+              "males": 7,
+              "females": 8
             }
           }
         ]
@@ -32507,7 +32511,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 120,
               "males": 55,
@@ -32551,15 +32555,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 168,
-              "males": 85,
-              "females": 83
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -32579,7 +32574,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 27,
               "males": 15,
@@ -32638,15 +32633,6 @@
               "total": 6,
               "males": 3,
               "females": 3
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 33,
-              "males": 14,
-              "females": 19
             }
           },
           {
@@ -32741,11 +32727,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 16,
               "males": 9,
               "females": 7
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 33,
+              "males": 14,
+              "females": 19
             }
           },
           {
@@ -32777,7 +32772,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 79,
               "males": 42,
@@ -32800,6 +32795,15 @@
               "total": 822,
               "males": 387,
               "females": 435
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 168,
+              "males": 85,
+              "females": 83
             }
           }
         ]
@@ -34169,7 +34173,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 966,
               "males": 422,
@@ -34213,15 +34217,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 14,
-              "males": 4,
-              "females": 10
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -34241,7 +34236,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 186,
               "males": 84,
@@ -34300,15 +34295,6 @@
               "total": 24,
               "males": 5,
               "females": 19
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 321,
-              "males": 150,
-              "females": 171
             }
           },
           {
@@ -34403,11 +34389,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 28,
               "males": 17,
               "females": 11
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 321,
+              "males": 150,
+              "females": 171
             }
           },
           {
@@ -34439,7 +34434,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 305,
               "males": 154,
@@ -34462,6 +34457,15 @@
               "total": 196,
               "males": 86,
               "females": 110
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 14,
+              "males": 4,
+              "females": 10
             }
           }
         ]
@@ -35195,7 +35199,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 109,
               "males": 45,
@@ -35239,15 +35243,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 3,
-              "males": 0,
-              "females": 3
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -35267,7 +35262,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 64,
               "males": 33,
@@ -35326,15 +35321,6 @@
               "total": 100,
               "males": 39,
               "females": 61
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 85,
-              "males": 35,
-              "females": 50
             }
           },
           {
@@ -35429,11 +35415,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 6,
               "males": 3,
               "females": 3
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 85,
+              "males": 35,
+              "females": 50
             }
           },
           {
@@ -35465,7 +35460,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 849,
               "males": 539,
@@ -35488,6 +35483,15 @@
               "total": 45,
               "males": 25,
               "females": 20
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 3,
+              "males": 0,
+              "females": 3
             }
           }
         ]
@@ -39745,7 +39749,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 254,
               "males": 101,
@@ -39789,15 +39793,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 9,
-              "males": 3,
-              "females": 6
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -39817,7 +39812,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 108,
               "males": 49,
@@ -39876,15 +39871,6 @@
               "total": 40,
               "males": 10,
               "females": 30
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 71,
-              "males": 28,
-              "females": 43
             }
           },
           {
@@ -39979,11 +39965,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 20,
               "males": 6,
               "females": 14
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 71,
+              "males": 28,
+              "females": 43
             }
           },
           {
@@ -40015,7 +40010,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 777,
               "males": 404,
@@ -40038,6 +40033,15 @@
               "total": 68,
               "males": 29,
               "females": 39
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 9,
+              "males": 3,
+              "females": 6
             }
           }
         ]
@@ -40959,7 +40963,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 243,
               "males": 103,
@@ -41003,15 +41007,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 33,
-              "males": 13,
-              "females": 20
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -41031,7 +41026,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 62,
               "males": 29,
@@ -41090,15 +41085,6 @@
               "total": 58,
               "males": 26,
               "females": 32
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 42,
-              "males": 18,
-              "females": 24
             }
           },
           {
@@ -41193,11 +41179,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 18,
               "males": 10,
               "females": 8
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 42,
+              "males": 18,
+              "females": 24
             }
           },
           {
@@ -41229,7 +41224,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 688,
               "males": 366,
@@ -41252,6 +41247,15 @@
               "total": 289,
               "males": 127,
               "females": 162
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 33,
+              "males": 13,
+              "females": 20
             }
           }
         ]
@@ -42357,7 +42361,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 242,
               "males": 97,
@@ -42401,15 +42405,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 37,
-              "males": 16,
-              "females": 21
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -42429,7 +42424,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 79,
               "males": 34,
@@ -42488,15 +42483,6 @@
               "total": 62,
               "males": 19,
               "females": 43
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 61,
-              "males": 25,
-              "females": 36
             }
           },
           {
@@ -42591,11 +42577,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 26,
               "males": 15,
               "females": 11
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 61,
+              "males": 25,
+              "females": 36
             }
           },
           {
@@ -42627,7 +42622,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 979,
               "males": 585,
@@ -42650,6 +42645,15 @@
               "total": 117,
               "males": 51,
               "females": 66
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 37,
+              "males": 16,
+              "females": 21
             }
           }
         ]
@@ -46595,7 +46599,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 419,
               "males": 185,
@@ -46639,15 +46643,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 9,
-              "males": 5,
-              "females": 4
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -46667,7 +46662,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 166,
               "males": 84,
@@ -46726,15 +46721,6 @@
               "total": 35,
               "males": 9,
               "females": 26
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 149,
-              "males": 62,
-              "females": 87
             }
           },
           {
@@ -46829,11 +46815,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 28,
               "males": 13,
               "females": 15
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 149,
+              "males": 62,
+              "females": 87
             }
           },
           {
@@ -46865,7 +46860,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 766,
               "males": 386,
@@ -46888,6 +46883,15 @@
               "total": 99,
               "males": 40,
               "females": 59
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 9,
+              "males": 5,
+              "females": 4
             }
           }
         ]
@@ -48021,7 +48025,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 408,
               "males": 156,
@@ -48065,15 +48069,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 9,
-              "males": 5,
-              "females": 4
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -48093,7 +48088,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 113,
               "males": 51,
@@ -48152,15 +48147,6 @@
               "total": 113,
               "males": 31,
               "females": 82
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 99,
-              "males": 35,
-              "females": 64
             }
           },
           {
@@ -48255,11 +48241,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 20,
               "males": 11,
               "females": 9
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 99,
+              "males": 35,
+              "females": 64
             }
           },
           {
@@ -48291,7 +48286,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 1006,
               "males": 583,
@@ -48314,6 +48309,15 @@
               "total": 262,
               "males": 107,
               "females": 155
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 9,
+              "males": 5,
+              "females": 4
             }
           }
         ]
@@ -49539,7 +49543,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 357,
               "males": 154,
@@ -49583,15 +49587,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 37,
-              "males": 19,
-              "females": 18
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -49611,7 +49606,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 97,
               "males": 53,
@@ -49670,15 +49665,6 @@
               "total": 0,
               "males": 0,
               "females": 0
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 422,
-              "males": 201,
-              "females": 221
             }
           },
           {
@@ -49773,11 +49759,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 16,
               "males": 7,
               "females": 9
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 422,
+              "males": 201,
+              "females": 221
             }
           },
           {
@@ -49809,7 +49804,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 195,
               "males": 107,
@@ -49832,6 +49827,15 @@
               "total": 563,
               "males": 257,
               "females": 306
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 37,
+              "males": 19,
+              "females": 18
             }
           }
         ]
@@ -51129,7 +51133,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 418,
               "males": 180,
@@ -51173,15 +51177,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -51201,7 +51196,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 65,
               "males": 32,
@@ -51260,15 +51255,6 @@
               "total": 44,
               "males": 12,
               "females": 32
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 74,
-              "males": 19,
-              "females": 55
             }
           },
           {
@@ -51363,11 +51349,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 17,
               "males": 14,
               "females": 3
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 74,
+              "males": 19,
+              "females": 55
             }
           },
           {
@@ -51399,7 +51394,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 527,
               "males": 290,
@@ -51422,6 +51417,15 @@
               "total": 53,
               "males": 22,
               "females": 31
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 6,
+              "males": 3,
+              "females": 3
             }
           }
         ]
@@ -52487,7 +52491,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1683,
               "males": 792,
@@ -52531,15 +52535,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -52559,7 +52554,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 191,
               "males": 97,
@@ -52618,15 +52613,6 @@
               "total": 32,
               "males": 9,
               "females": 23
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 829,
-              "males": 404,
-              "females": 425
             }
           },
           {
@@ -52721,11 +52707,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 9,
               "males": 4,
               "females": 5
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 829,
+              "males": 404,
+              "females": 425
             }
           },
           {
@@ -52757,7 +52752,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 111,
               "males": 69,
@@ -52780,6 +52775,15 @@
               "total": 290,
               "males": 126,
               "females": 164
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 6,
+              "males": 3,
+              "females": 3
             }
           }
         ]
@@ -53721,7 +53725,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 6279,
               "males": 2825,
@@ -53765,15 +53769,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 341,
-              "males": 179,
-              "females": 162
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -53793,7 +53788,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 909,
               "males": 454,
@@ -53852,15 +53847,6 @@
               "total": 47,
               "males": 9,
               "females": 38
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 117,
-              "males": 56,
-              "females": 61
             }
           },
           {
@@ -53955,11 +53941,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 13,
               "males": 10,
               "females": 3
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 117,
+              "males": 56,
+              "females": 61
             }
           },
           {
@@ -53991,7 +53986,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 162,
               "males": 92,
@@ -54014,6 +54009,15 @@
               "total": 157,
               "males": 72,
               "females": 85
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 341,
+              "males": 179,
+              "females": 162
             }
           }
         ]
@@ -59755,7 +59759,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 804,
               "males": 363,
@@ -59799,15 +59803,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 98,
-              "males": 49,
-              "females": 49
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -59827,7 +59822,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 138,
               "males": 66,
@@ -59886,15 +59881,6 @@
               "total": 28,
               "males": 3,
               "females": 25
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 90,
-              "males": 35,
-              "females": 55
             }
           },
           {
@@ -59989,11 +59975,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 27,
               "males": 15,
               "females": 12
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 90,
+              "males": 35,
+              "females": 55
             }
           },
           {
@@ -60025,7 +60020,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 364,
               "males": 186,
@@ -60048,6 +60043,15 @@
               "total": 386,
               "males": 168,
               "females": 218
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 98,
+              "males": 49,
+              "females": 49
             }
           }
         ]
@@ -63921,7 +63925,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 906,
               "males": 409,
@@ -63965,15 +63969,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 89,
-              "males": 48,
-              "females": 41
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -63993,7 +63988,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 234,
               "males": 107,
@@ -64052,15 +64047,6 @@
               "total": 21,
               "males": 9,
               "females": 12
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 23,
-              "males": 5,
-              "females": 18
             }
           },
           {
@@ -64155,11 +64141,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 21,
               "males": 9,
               "females": 12
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 23,
+              "males": 5,
+              "females": 18
             }
           },
           {
@@ -64191,7 +64186,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 194,
               "males": 100,
@@ -64214,6 +64209,15 @@
               "total": 171,
               "males": 79,
               "females": 92
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 89,
+              "males": 48,
+              "females": 41
             }
           }
         ]
@@ -65039,7 +65043,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1124,
               "males": 481,
@@ -65083,15 +65087,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 151,
-              "males": 72,
-              "females": 79
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -65111,7 +65106,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 122,
               "males": 64,
@@ -65170,15 +65165,6 @@
               "total": 43,
               "males": 11,
               "females": 32
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 45,
-              "males": 19,
-              "females": 26
             }
           },
           {
@@ -65273,11 +65259,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 25,
               "males": 13,
               "females": 12
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 45,
+              "males": 19,
+              "females": 26
             }
           },
           {
@@ -65309,7 +65304,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 174,
               "males": 88,
@@ -65332,6 +65327,15 @@
               "total": 66,
               "males": 26,
               "females": 40
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 151,
+              "males": 72,
+              "females": 79
             }
           }
         ]
@@ -67285,7 +67289,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1863,
               "males": 826,
@@ -67329,15 +67333,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 308,
-              "males": 155,
-              "females": 153
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -67357,7 +67352,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 307,
               "males": 156,
@@ -67416,15 +67411,6 @@
               "total": 22,
               "males": 7,
               "females": 15
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 47,
-              "males": 19,
-              "females": 28
             }
           },
           {
@@ -67519,11 +67505,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 28,
               "males": 17,
               "females": 11
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 47,
+              "males": 19,
+              "females": 28
             }
           },
           {
@@ -67555,7 +67550,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 261,
               "males": 147,
@@ -67578,6 +67573,15 @@
               "total": 68,
               "males": 27,
               "females": 41
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 308,
+              "males": 155,
+              "females": 153
             }
           }
         ]
@@ -68603,7 +68607,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 834,
               "males": 373,
@@ -68647,15 +68651,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 41,
-              "males": 21,
-              "females": 20
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -68675,7 +68670,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 90,
               "males": 48,
@@ -68734,15 +68729,6 @@
               "total": 18,
               "males": 0,
               "females": 18
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 156,
-              "males": 71,
-              "females": 85
             }
           },
           {
@@ -68837,11 +68823,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 4,
               "males": 0,
               "females": 4
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 156,
+              "males": 71,
+              "females": 85
             }
           },
           {
@@ -68873,7 +68868,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 110,
               "males": 61,
@@ -68896,6 +68891,15 @@
               "total": 993,
               "males": 449,
               "females": 544
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 41,
+              "males": 21,
+              "females": 20
             }
           }
         ]
@@ -70185,7 +70189,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 207,
               "males": 68,
@@ -70229,15 +70233,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 28,
-              "males": 11,
-              "females": 17
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -70257,7 +70252,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 91,
               "males": 36,
@@ -70316,15 +70311,6 @@
               "total": 97,
               "males": 26,
               "females": 71
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 60,
-              "males": 23,
-              "females": 37
             }
           },
           {
@@ -70419,11 +70405,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 28,
               "males": 14,
               "females": 14
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 60,
+              "males": 23,
+              "females": 37
             }
           },
           {
@@ -70455,7 +70450,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 1596,
               "males": 869,
@@ -70478,6 +70473,15 @@
               "total": 103,
               "males": 35,
               "females": 68
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 28,
+              "males": 11,
+              "females": 17
             }
           }
         ]
@@ -72499,7 +72503,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 81,
               "males": 31,
@@ -72543,15 +72547,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 10,
-              "males": 5,
-              "females": 5
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -72571,7 +72566,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 51,
               "males": 18,
@@ -72630,15 +72625,6 @@
               "total": 48,
               "males": 12,
               "females": 36
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 41,
-              "males": 15,
-              "females": 26
             }
           },
           {
@@ -72733,11 +72719,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 15,
               "males": 7,
               "females": 8
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 41,
+              "males": 15,
+              "females": 26
             }
           },
           {
@@ -72769,7 +72764,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 1181,
               "males": 643,
@@ -72792,6 +72787,15 @@
               "total": 46,
               "males": 18,
               "females": 28
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 10,
+              "males": 5,
+              "females": 5
             }
           }
         ]
@@ -73985,7 +73989,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 422,
               "males": 189,
@@ -74029,15 +74033,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 59,
-              "males": 30,
-              "females": 29
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -74057,7 +74052,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 93,
               "males": 42,
@@ -74116,15 +74111,6 @@
               "total": 68,
               "males": 24,
               "females": 44
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 43,
-              "males": 11,
-              "females": 32
             }
           },
           {
@@ -74219,11 +74205,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 30,
               "males": 16,
               "females": 14
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 43,
+              "males": 11,
+              "females": 32
             }
           },
           {
@@ -74255,7 +74250,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 835,
               "males": 472,
@@ -74278,6 +74273,15 @@
               "total": 1531,
               "males": 730,
               "females": 801
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 59,
+              "males": 30,
+              "females": 29
             }
           }
         ]
@@ -75423,7 +75427,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 884,
               "males": 379,
@@ -75467,15 +75471,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 40,
-              "males": 18,
-              "females": 22
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -75495,7 +75490,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 175,
               "males": 86,
@@ -75554,15 +75549,6 @@
               "total": 37,
               "males": 12,
               "females": 25
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 79,
-              "males": 36,
-              "females": 43
             }
           },
           {
@@ -75657,11 +75643,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 36,
               "males": 18,
               "females": 18
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 79,
+              "males": 36,
+              "females": 43
             }
           },
           {
@@ -75693,7 +75688,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 453,
               "males": 259,
@@ -75716,6 +75711,15 @@
               "total": 117,
               "males": 51,
               "females": 66
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 40,
+              "males": 18,
+              "females": 22
             }
           }
         ]
@@ -77573,7 +77577,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 240,
               "males": 104,
@@ -77617,15 +77621,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 186,
-              "males": 98,
-              "females": 88
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -77645,7 +77640,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 43,
               "males": 22,
@@ -77704,15 +77699,6 @@
               "total": 40,
               "males": 12,
               "females": 28
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 16,
-              "males": 4,
-              "females": 12
             }
           },
           {
@@ -77807,11 +77793,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 34,
               "males": 16,
               "females": 18
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 16,
+              "males": 4,
+              "females": 12
             }
           },
           {
@@ -77843,7 +77838,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 319,
               "males": 163,
@@ -77866,6 +77861,15 @@
               "total": 81,
               "males": 36,
               "females": 45
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 186,
+              "males": 98,
+              "females": 88
             }
           }
         ]
@@ -80131,7 +80135,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1948,
               "males": 850,
@@ -80175,15 +80179,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 385,
-              "males": 180,
-              "females": 205
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -80203,7 +80198,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 474,
               "males": 234,
@@ -80262,15 +80257,6 @@
               "total": 44,
               "males": 9,
               "females": 35
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 97,
-              "males": 38,
-              "females": 59
             }
           },
           {
@@ -80365,11 +80351,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 27,
               "males": 14,
               "females": 13
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 97,
+              "males": 38,
+              "females": 59
             }
           },
           {
@@ -80401,7 +80396,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 588,
               "males": 311,
@@ -80424,6 +80419,15 @@
               "total": 85,
               "males": 31,
               "females": 54
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 385,
+              "males": 180,
+              "females": 205
             }
           }
         ]
@@ -81369,7 +81373,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1739,
               "males": 797,
@@ -81413,15 +81417,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 61,
-              "males": 29,
-              "females": 32
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -81441,7 +81436,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 491,
               "males": 237,
@@ -81500,15 +81495,6 @@
               "total": 19,
               "males": 4,
               "females": 15
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 38,
-              "males": 18,
-              "females": 20
             }
           },
           {
@@ -81603,11 +81589,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 9,
               "males": 9,
               "females": 0
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 38,
+              "males": 18,
+              "females": 20
             }
           },
           {
@@ -81639,7 +81634,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 183,
               "males": 92,
@@ -81662,6 +81657,15 @@
               "total": 220,
               "males": 101,
               "females": 119
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 61,
+              "males": 29,
+              "females": 32
             }
           }
         ]
@@ -82843,7 +82847,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 354,
               "males": 145,
@@ -82887,15 +82891,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 35,
-              "males": 17,
-              "females": 18
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -82915,7 +82910,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 143,
               "males": 63,
@@ -82974,15 +82969,6 @@
               "total": 99,
               "males": 33,
               "females": 66
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 104,
-              "males": 31,
-              "females": 73
             }
           },
           {
@@ -83077,11 +83063,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 23,
               "males": 10,
               "females": 13
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 104,
+              "males": 31,
+              "females": 73
             }
           },
           {
@@ -83113,7 +83108,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 1364,
               "males": 752,
@@ -83136,6 +83131,15 @@
               "total": 147,
               "males": 70,
               "females": 77
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 35,
+              "males": 17,
+              "females": 18
             }
           }
         ]
@@ -87905,7 +87909,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 692,
               "males": 324,
@@ -87949,15 +87953,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 123,
-              "males": 57,
-              "females": 66
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -87977,7 +87972,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 158,
               "males": 76,
@@ -88036,15 +88031,6 @@
               "total": 30,
               "males": 10,
               "females": 20
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 24,
-              "males": 8,
-              "females": 16
             }
           },
           {
@@ -88139,11 +88125,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 18,
               "males": 10,
               "females": 8
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 24,
+              "males": 8,
+              "females": 16
             }
           },
           {
@@ -88175,7 +88170,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 358,
               "males": 179,
@@ -88198,6 +88193,15 @@
               "total": 56,
               "males": 28,
               "females": 28
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 123,
+              "males": 57,
+              "females": 66
             }
           }
         ]
@@ -90123,7 +90127,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 742,
               "males": 333,
@@ -90167,15 +90171,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 139,
-              "males": 77,
-              "females": 62
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -90195,7 +90190,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 206,
               "males": 101,
@@ -90254,15 +90249,6 @@
               "total": 17,
               "males": 7,
               "females": 10
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 43,
-              "males": 17,
-              "females": 26
             }
           },
           {
@@ -90357,11 +90343,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 19,
               "males": 11,
               "females": 8
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 43,
+              "males": 17,
+              "females": 26
             }
           },
           {
@@ -90393,7 +90388,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 333,
               "males": 192,
@@ -90416,6 +90411,15 @@
               "total": 442,
               "males": 196,
               "females": 246
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 139,
+              "males": 77,
+              "females": 62
             }
           }
         ]
@@ -91553,7 +91557,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 342,
               "males": 159,
@@ -91597,15 +91601,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 4,
-              "males": 0,
-              "females": 4
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -91625,7 +91620,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 81,
               "males": 43,
@@ -91684,15 +91679,6 @@
               "total": 32,
               "males": 13,
               "females": 19
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 32,
-              "males": 15,
-              "females": 17
             }
           },
           {
@@ -91787,11 +91773,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 26,
               "males": 13,
               "females": 13
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 32,
+              "males": 15,
+              "females": 17
             }
           },
           {
@@ -91823,7 +91818,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 338,
               "males": 169,
@@ -91846,6 +91841,15 @@
               "total": 64,
               "males": 29,
               "females": 35
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 4,
+              "males": 0,
+              "females": 4
             }
           }
         ]
@@ -93499,7 +93503,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 376,
               "males": 163,
@@ -93543,15 +93547,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 117,
-              "males": 61,
-              "females": 56
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -93571,7 +93566,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 124,
               "males": 62,
@@ -93630,15 +93625,6 @@
               "total": 21,
               "males": 7,
               "females": 14
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 31,
-              "males": 6,
-              "females": 25
             }
           },
           {
@@ -93733,11 +93719,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 10,
               "males": 7,
               "females": 3
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 31,
+              "males": 6,
+              "females": 25
             }
           },
           {
@@ -93769,7 +93764,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 614,
               "males": 327,
@@ -93792,6 +93787,15 @@
               "total": 406,
               "males": 185,
               "females": 221
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 117,
+              "males": 61,
+              "females": 56
             }
           }
         ]
@@ -96885,7 +96889,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 583,
               "males": 263,
@@ -96929,15 +96933,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 204,
-              "males": 102,
-              "females": 102
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -96957,7 +96952,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 158,
               "males": 81,
@@ -97016,15 +97011,6 @@
               "total": 22,
               "males": 8,
               "females": 14
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 23,
-              "males": 12,
-              "females": 11
             }
           },
           {
@@ -97119,11 +97105,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 21,
               "males": 9,
               "females": 12
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 23,
+              "males": 12,
+              "females": 11
             }
           },
           {
@@ -97155,7 +97150,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 467,
               "males": 255,
@@ -97178,6 +97173,15 @@
               "total": 73,
               "males": 26,
               "females": 47
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 204,
+              "males": 102,
+              "females": 102
             }
           }
         ]
@@ -98111,7 +98115,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 245,
               "males": 105,
@@ -98155,15 +98159,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 24,
-              "males": 11,
-              "females": 13
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -98183,7 +98178,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 53,
               "males": 25,
@@ -98242,15 +98237,6 @@
               "total": 74,
               "males": 30,
               "females": 44
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 51,
-              "males": 19,
-              "females": 32
             }
           },
           {
@@ -98345,11 +98331,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 40,
               "males": 19,
               "females": 21
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 51,
+              "males": 19,
+              "females": 32
             }
           },
           {
@@ -98381,7 +98376,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 965,
               "males": 544,
@@ -98404,6 +98399,15 @@
               "total": 188,
               "males": 82,
               "females": 106
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 24,
+              "males": 11,
+              "females": 13
             }
           }
         ]
@@ -99385,7 +99389,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 0,
               "males": 0,
@@ -99429,15 +99433,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -99457,7 +99452,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 0,
               "males": 0,
@@ -99512,15 +99507,6 @@
           {
             "id": "6201",
             "name": "Japan",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
             "population": {
               "total": 0,
               "males": 0,
@@ -99619,7 +99605,16 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
             "population": {
               "total": 0,
               "males": 0,
@@ -99655,7 +99650,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 0,
               "males": 0,
@@ -99674,6 +99669,15 @@
           {
             "id": "5105",
             "name": "Vietnam",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
               "total": 0,
               "males": 0,
@@ -101515,7 +101519,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 185,
               "males": 86,
@@ -101559,15 +101563,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 15,
-              "males": 6,
-              "females": 9
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -101587,7 +101582,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 68,
               "males": 36,
@@ -101646,15 +101641,6 @@
               "total": 123,
               "males": 55,
               "females": 68
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 130,
-              "males": 57,
-              "females": 73
             }
           },
           {
@@ -101749,11 +101735,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 24,
               "males": 10,
               "females": 14
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 130,
+              "males": 57,
+              "females": 73
             }
           },
           {
@@ -101785,7 +101780,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 1420,
               "males": 888,
@@ -101808,6 +101803,15 @@
               "total": 105,
               "males": 47,
               "females": 58
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 15,
+              "males": 6,
+              "females": 9
             }
           }
         ]
@@ -103249,7 +103253,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 497,
               "males": 224,
@@ -103293,15 +103297,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 66,
-              "males": 35,
-              "females": 31
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -103321,7 +103316,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 98,
               "males": 48,
@@ -103380,15 +103375,6 @@
               "total": 9,
               "males": 5,
               "females": 4
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 78,
-              "males": 37,
-              "females": 41
             }
           },
           {
@@ -103483,11 +103469,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 15,
               "males": 8,
               "females": 7
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 78,
+              "males": 37,
+              "females": 41
             }
           },
           {
@@ -103519,7 +103514,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 86,
               "males": 50,
@@ -103542,6 +103537,15 @@
               "total": 1052,
               "males": 500,
               "females": 552
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 66,
+              "males": 35,
+              "females": 31
             }
           }
         ]
@@ -104783,7 +104787,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1994,
               "males": 760,
@@ -104827,15 +104831,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 20,
-              "males": 9,
-              "females": 11
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -104855,7 +104850,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 378,
               "males": 178,
@@ -104914,15 +104909,6 @@
               "total": 283,
               "males": 98,
               "females": 185
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 522,
-              "males": 218,
-              "females": 304
             }
           },
           {
@@ -105017,11 +105003,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 26,
               "males": 14,
               "females": 12
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 522,
+              "males": 218,
+              "females": 304
             }
           },
           {
@@ -105053,7 +105048,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 987,
               "males": 577,
@@ -105076,6 +105071,15 @@
               "total": 260,
               "males": 116,
               "females": 144
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 20,
+              "males": 9,
+              "females": 11
             }
           }
         ]
@@ -106421,7 +106425,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 898,
               "males": 360,
@@ -106465,15 +106469,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 11,
-              "males": 3,
-              "females": 8
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -106493,7 +106488,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 97,
               "males": 56,
@@ -106552,15 +106547,6 @@
               "total": 79,
               "males": 27,
               "females": 52
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 154,
-              "males": 69,
-              "females": 85
             }
           },
           {
@@ -106655,11 +106641,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 25,
               "males": 13,
               "females": 12
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 154,
+              "males": 69,
+              "females": 85
             }
           },
           {
@@ -106691,7 +106686,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 827,
               "males": 522,
@@ -106714,6 +106709,15 @@
               "total": 198,
               "males": 101,
               "females": 97
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 11,
+              "males": 3,
+              "females": 8
             }
           }
         ]
@@ -108587,7 +108591,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 523,
               "males": 248,
@@ -108631,15 +108635,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 60,
-              "males": 33,
-              "females": 27
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -108659,7 +108654,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 123,
               "males": 55,
@@ -108718,15 +108713,6 @@
               "total": 17,
               "males": 3,
               "females": 14
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 54,
-              "males": 27,
-              "females": 27
             }
           },
           {
@@ -108821,11 +108807,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 3,
               "males": 0,
               "females": 3
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 54,
+              "males": 27,
+              "females": 27
             }
           },
           {
@@ -108857,7 +108852,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 272,
               "males": 143,
@@ -108880,6 +108875,15 @@
               "total": 576,
               "males": 263,
               "females": 313
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 60,
+              "males": 33,
+              "females": 27
             }
           }
         ]
@@ -109865,7 +109869,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1324,
               "males": 607,
@@ -109909,15 +109913,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 91,
-              "males": 40,
-              "females": 51
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -109937,7 +109932,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 247,
               "males": 120,
@@ -109996,15 +109991,6 @@
               "total": 21,
               "males": 6,
               "females": 15
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 43,
-              "males": 18,
-              "females": 25
             }
           },
           {
@@ -110099,11 +110085,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 13,
               "males": 3,
               "females": 10
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 43,
+              "males": 18,
+              "females": 25
             }
           },
           {
@@ -110135,7 +110130,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 117,
               "males": 55,
@@ -110158,6 +110153,15 @@
               "total": 219,
               "males": 82,
               "females": 137
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 91,
+              "males": 40,
+              "females": 51
             }
           }
         ]
@@ -111507,7 +111511,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1643,
               "males": 746,
@@ -111551,15 +111555,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 851,
-              "males": 414,
-              "females": 437
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -111579,7 +111574,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 197,
               "males": 102,
@@ -111638,15 +111633,6 @@
               "total": 104,
               "males": 32,
               "females": 72
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 51,
-              "males": 28,
-              "females": 23
             }
           },
           {
@@ -111741,11 +111727,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 28,
               "males": 11,
               "females": 17
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 51,
+              "males": 28,
+              "females": 23
             }
           },
           {
@@ -111777,7 +111772,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 259,
               "males": 133,
@@ -111800,6 +111795,15 @@
               "total": 165,
               "males": 82,
               "females": 83
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 851,
+              "males": 414,
+              "females": 437
             }
           }
         ]
@@ -112885,7 +112889,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 541,
               "males": 250,
@@ -112929,15 +112933,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 58,
-              "males": 30,
-              "females": 28
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -112957,7 +112952,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 160,
               "males": 64,
@@ -113016,15 +113011,6 @@
               "total": 4,
               "males": 0,
               "females": 4
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 63,
-              "males": 30,
-              "females": 33
             }
           },
           {
@@ -113119,11 +113105,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 21,
               "males": 13,
               "females": 8
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 63,
+              "males": 30,
+              "females": 33
             }
           },
           {
@@ -113155,7 +113150,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 160,
               "males": 87,
@@ -113178,6 +113173,15 @@
               "total": 202,
               "males": 94,
               "females": 108
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 58,
+              "males": 30,
+              "females": 28
             }
           }
         ]
@@ -117679,7 +117683,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 266,
               "males": 109,
@@ -117723,15 +117727,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 180,
-              "males": 90,
-              "females": 90
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -117751,7 +117746,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 80,
               "males": 34,
@@ -117809,15 +117804,6 @@
             "population": {
               "total": 17,
               "males": 4,
-              "females": 13
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 23,
-              "males": 10,
               "females": 13
             }
           },
@@ -117913,11 +117899,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 37,
               "males": 15,
               "females": 22
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 23,
+              "males": 10,
+              "females": 13
             }
           },
           {
@@ -117949,7 +117944,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 423,
               "males": 203,
@@ -117972,6 +117967,15 @@
               "total": 65,
               "males": 25,
               "females": 40
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 180,
+              "males": 90,
+              "females": 90
             }
           }
         ]
@@ -127597,7 +127601,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 3965,
               "males": 1805,
@@ -127641,15 +127645,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 200,
-              "males": 102,
-              "females": 98
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -127669,7 +127664,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 674,
               "males": 307,
@@ -127728,15 +127723,6 @@
               "total": 31,
               "males": 9,
               "females": 22
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 93,
-              "males": 31,
-              "females": 62
             }
           },
           {
@@ -127831,11 +127817,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 32,
               "males": 17,
               "females": 15
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 93,
+              "males": 31,
+              "females": 62
             }
           },
           {
@@ -127867,7 +127862,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 393,
               "males": 211,
@@ -127890,6 +127885,15 @@
               "total": 115,
               "males": 52,
               "females": 63
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 200,
+              "males": 102,
+              "females": 98
             }
           }
         ]
@@ -129627,7 +129631,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 2404,
               "males": 1033,
@@ -129671,15 +129675,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 13,
-              "males": 6,
-              "females": 7
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -129699,7 +129694,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 586,
               "males": 265,
@@ -129758,15 +129753,6 @@
               "total": 38,
               "males": 13,
               "females": 25
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 2258,
-              "males": 1046,
-              "females": 1212
             }
           },
           {
@@ -129861,11 +129847,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 35,
               "males": 16,
               "females": 19
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 2258,
+              "males": 1046,
+              "females": 1212
             }
           },
           {
@@ -129897,7 +129892,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 287,
               "males": 160,
@@ -129920,6 +129915,15 @@
               "total": 474,
               "males": 215,
               "females": 259
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 13,
+              "males": 6,
+              "females": 7
             }
           }
         ]
@@ -130629,7 +130633,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 487,
               "males": 212,
@@ -130673,15 +130677,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 8,
-              "males": 3,
-              "females": 5
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -130701,7 +130696,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 122,
               "males": 62,
@@ -130760,15 +130755,6 @@
               "total": 133,
               "males": 53,
               "females": 80
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 168,
-              "males": 74,
-              "females": 94
             }
           },
           {
@@ -130863,11 +130849,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 13,
               "males": 8,
               "females": 5
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 168,
+              "males": 74,
+              "females": 94
             }
           },
           {
@@ -130899,7 +130894,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 1073,
               "males": 681,
@@ -130922,6 +130917,15 @@
               "total": 150,
               "males": 84,
               "females": 66
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 8,
+              "males": 3,
+              "females": 5
             }
           }
         ]
@@ -131875,7 +131879,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 149,
               "males": 67,
@@ -131919,15 +131923,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 157,
-              "males": 81,
-              "females": 76
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -131947,7 +131942,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 35,
               "males": 13,
@@ -132006,15 +132001,6 @@
               "total": 21,
               "males": 0,
               "females": 21
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 14,
-              "males": 5,
-              "females": 9
             }
           },
           {
@@ -132109,11 +132095,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 9,
               "males": 6,
               "females": 3
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 14,
+              "males": 5,
+              "females": 9
             }
           },
           {
@@ -132145,7 +132140,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 333,
               "males": 203,
@@ -132168,6 +132163,15 @@
               "total": 160,
               "males": 70,
               "females": 90
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 157,
+              "males": 81,
+              "females": 76
             }
           }
         ]
@@ -135437,7 +135441,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 2769,
               "males": 1117,
@@ -135481,15 +135485,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 8,
-              "males": 4,
-              "females": 4
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -135509,7 +135504,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 570,
               "males": 257,
@@ -135568,15 +135563,6 @@
               "total": 397,
               "males": 148,
               "females": 249
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 1262,
-              "males": 606,
-              "females": 656
             }
           },
           {
@@ -135671,11 +135657,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 17,
               "males": 5,
               "females": 12
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 1262,
+              "males": 606,
+              "females": 656
             }
           },
           {
@@ -135707,7 +135702,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 1367,
               "males": 874,
@@ -135730,6 +135725,15 @@
               "total": 352,
               "males": 165,
               "females": 187
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 8,
+              "males": 4,
+              "females": 4
             }
           }
         ]
@@ -137639,7 +137643,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 0,
               "males": 0,
@@ -137683,15 +137687,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -137711,7 +137706,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 0,
               "males": 0,
@@ -137766,15 +137761,6 @@
           {
             "id": "6201",
             "name": "Japan",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
             "population": {
               "total": 0,
               "males": 0,
@@ -137873,7 +137859,16 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
             "population": {
               "total": 0,
               "males": 0,
@@ -137909,7 +137904,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 10,
               "males": 5,
@@ -137928,6 +137923,15 @@
           {
             "id": "5105",
             "name": "Vietnam",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
               "total": 0,
               "males": 0,
@@ -138977,7 +138981,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 1805,
               "males": 813,
@@ -139021,15 +139025,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 11,
-              "males": 6,
-              "females": 5
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -139049,7 +139044,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 299,
               "males": 145,
@@ -139108,15 +139103,6 @@
               "total": 83,
               "males": 30,
               "females": 53
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 399,
-              "males": 184,
-              "females": 215
             }
           },
           {
@@ -139211,11 +139197,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 33,
               "males": 18,
               "females": 15
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 399,
+              "males": 184,
+              "females": 215
             }
           },
           {
@@ -139247,7 +139242,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 754,
               "males": 458,
@@ -139270,6 +139265,15 @@
               "total": 264,
               "males": 137,
               "females": 127
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 11,
+              "males": 6,
+              "females": 5
             }
           }
         ]
@@ -140559,7 +140563,7 @@
           },
           {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 385,
               "males": 177,
@@ -140603,15 +140607,6 @@
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 430,
-              "males": 220,
-              "females": 210
-            }
-          },
-          {
             "id": "2304",
             "name": "Germany",
             "population": {
@@ -140631,7 +140626,7 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 56,
               "males": 29,
@@ -140690,15 +140685,6 @@
               "total": 11,
               "males": 0,
               "females": 11
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 65,
-              "males": 29,
-              "females": 36
             }
           },
           {
@@ -140793,11 +140779,20 @@
           },
           {
             "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "name": "South Eastern Europe",
             "population": {
               "total": 24,
               "males": 9,
               "females": 15
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 65,
+              "males": 29,
+              "females": 36
             }
           },
           {
@@ -140829,7 +140824,7 @@
           },
           {
             "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "name": "United Kingdom",
             "population": {
               "total": 179,
               "males": 93,
@@ -140852,6 +140847,15 @@
               "total": 2215,
               "males": 1038,
               "females": 1177
+            }
+          },
+          {
+            "id": "3206",
+            "name": "Yugoslav",
+            "population": {
+              "total": 430,
+              "males": 220,
+              "females": 210
             }
           }
         ]

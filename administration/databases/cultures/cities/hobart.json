@@ -4,9 +4,13 @@
     "type": "city",
     "properties": {
       "name": "urn:x-ogc:def:crs:EPSG:4283",
-      "state_id":"TAS",
-      "state_name":"Hobart",
-      "state_coordinate": [-42.8819032,147.3238148,11]
+      "state_id": "TAS",
+      "state_name": "Hobart",
+      "state_coordinate": [
+        -42.8819032,
+        147.3238148,
+        11
+      ]
     }
   },
   "features": [
@@ -4347,102 +4351,12 @@
         },
         "country_of_birth": [
           {
-            "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "id": "1101",
+            "name": "Australia",
             "population": {
-              "total": 468,
-              "males": 257,
-              "females": 211
-            }
-          },
-          {
-            "id": "3307",
-            "name": "Poland",
-            "population": {
-              "total": 20,
-              "males": 6,
-              "females": 14
-            }
-          },
-          {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5204",
-            "name": "Philippines",
-            "population": {
-              "total": 16,
-              "males": 3,
-              "females": 13
-            }
-          },
-          {
-            "id": "3204",
-            "name": "Croatia",
-            "population": {
-              "total": 13,
-              "males": 6,
-              "females": 7
-            }
-          },
-          {
-            "id": "7107",
-            "name": "Sri Lanka",
-            "population": {
-              "total": 21,
-              "males": 8,
-              "females": 13
-            }
-          },
-          {
-            "id": "4102",
-            "name": "Egypt",
-            "population": {
-              "total": 3,
-              "males": 0,
-              "females": 3
-            }
-          },
-          {
-            "id": "5102",
-            "name": "Cambodia",
-            "population": {
-              "total": 3,
-              "males": 3,
-              "females": 0
-            }
-          },
-          {
-            "id": "5104",
-            "name": "Thailand",
-            "population": {
-              "total": 33,
-              "males": 17,
-              "females": 16
-            }
-          },
-          {
-            "id": "3207",
-            "name": "Greece",
-            "population": {
-              "total": 20,
-              "males": 10,
-              "females": 10
-            }
-          },
-          {
-            "id": "5205",
-            "name": "Singapore",
-            "population": {
-              "total": 28,
-              "males": 16,
-              "females": 12
+              "total": 5952,
+              "males": 2989,
+              "females": 2963
             }
           },
           {
@@ -4455,6 +4369,24 @@
             }
           },
           {
+            "id": "3202",
+            "name": "Bosnia and Herzegovina",
+            "population": {
+              "total": 15,
+              "males": 6,
+              "females": 9
+            }
+          },
+          {
+            "id": "5102",
+            "name": "Cambodia",
+            "population": {
+              "total": 3,
+              "males": 3,
+              "females": 0
+            }
+          },
+          {
             "id": "8102",
             "name": "Canada",
             "population": {
@@ -4464,111 +4396,12 @@
             }
           },
           {
-            "id": "1502",
-            "name": "Fiji",
-            "population": {
-              "total": 7,
-              "males": 0,
-              "females": 7
-            }
-          },
-          {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 114,
               "males": 50,
               "females": 64
-            }
-          },
-          {
-            "id": "2304",
-            "name": "Germany",
-            "population": {
-              "total": 49,
-              "males": 28,
-              "females": 21
-            }
-          },
-          {
-            "id": "4204",
-            "name": "Iraq",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5202",
-            "name": "Indonesia",
-            "population": {
-              "total": 12,
-              "males": 5,
-              "females": 7
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 38,
-              "males": 12,
-              "females": 26
-            }
-          },
-          {
-            "id": "1201",
-            "name": "New Zealand",
-            "population": {
-              "total": 110,
-              "males": 57,
-              "females": 53
-            }
-          },
-          {
-            "id": "4215",
-            "name": "Turkey",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "8104",
-            "name": "United States of America",
-            "population": {
-              "total": 69,
-              "males": 37,
-              "females": 32
-            }
-          },
-          {
-            "id": "4208",
-            "name": "Lebanon",
-            "population": {
-              "total": 4,
-              "males": 0,
-              "females": 4
-            }
-          },
-          {
-            "id": "7103",
-            "name": "India",
-            "population": {
-              "total": 122,
-              "males": 62,
-              "females": 60
-            }
-          },
-          {
-            "id": "2201",
-            "name": "Ireland",
-            "population": {
-              "total": 17,
-              "males": 10,
-              "females": 7
             }
           },
           {
@@ -4581,30 +4414,120 @@
             }
           },
           {
-            "id": "3202",
-            "name": "Bosnia and Herzegovina",
+            "id": "3204",
+            "name": "Croatia",
             "population": {
-              "total": 15,
+              "total": 13,
               "males": 6,
-              "females": 9
+              "females": 7
             }
           },
           {
-            "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "id": "4102",
+            "name": "Egypt",
             "population": {
-              "total": 4,
+              "total": 3,
               "males": 0,
-              "females": 4
+              "females": 3
+            }
+          },
+          {
+            "id": "1502",
+            "name": "Fiji",
+            "population": {
+              "total": 7,
+              "males": 0,
+              "females": 7
+            }
+          },
+          {
+            "id": "2304",
+            "name": "Germany",
+            "population": {
+              "total": 49,
+              "males": 28,
+              "females": 21
+            }
+          },
+          {
+            "id": "3207",
+            "name": "Greece",
+            "population": {
+              "total": 20,
+              "males": 10,
+              "females": 10
             }
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 28,
               "males": 11,
               "females": 17
+            }
+          },
+          {
+            "id": "7103",
+            "name": "India",
+            "population": {
+              "total": 122,
+              "males": 62,
+              "females": 60
+            }
+          },
+          {
+            "id": "5202",
+            "name": "Indonesia",
+            "population": {
+              "total": 12,
+              "males": 5,
+              "females": 7
+            }
+          },
+          {
+            "id": "4204",
+            "name": "Iraq",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "2201",
+            "name": "Ireland",
+            "population": {
+              "total": 17,
+              "males": 10,
+              "females": 7
+            }
+          },
+          {
+            "id": "3104",
+            "name": "Italy",
+            "population": {
+              "total": 48,
+              "males": 27,
+              "females": 21
+            }
+          },
+          {
+            "id": "6201",
+            "name": "Japan",
+            "population": {
+              "total": 19,
+              "males": 10,
+              "females": 9
+            }
+          },
+          {
+            "id": "4208",
+            "name": "Lebanon",
+            "population": {
+              "total": 4,
+              "males": 0,
+              "females": 4
             }
           },
           {
@@ -4626,24 +4549,6 @@
             }
           },
           {
-            "id": "9225",
-            "name": "South Africa",
-            "population": {
-              "total": 42,
-              "males": 21,
-              "females": 21
-            }
-          },
-          {
-            "id": "3104",
-            "name": "Italy",
-            "population": {
-              "total": 48,
-              "males": 27,
-              "females": 21
-            }
-          },
-          {
             "id": "2308",
             "name": "Netherlands",
             "population": {
@@ -4653,12 +4558,111 @@
             }
           },
           {
-            "id": "6201",
-            "name": "Japan",
+            "id": "1201",
+            "name": "New Zealand",
             "population": {
-              "total": 19,
-              "males": 10,
-              "females": 9
+              "total": 110,
+              "males": 57,
+              "females": 53
+            }
+          },
+          {
+            "id": "5204",
+            "name": "Philippines",
+            "population": {
+              "total": 16,
+              "males": 3,
+              "females": 13
+            }
+          },
+          {
+            "id": "3307",
+            "name": "Poland",
+            "population": {
+              "total": 20,
+              "males": 6,
+              "females": 14
+            }
+          },
+          {
+            "id": "5205",
+            "name": "Singapore",
+            "population": {
+              "total": 28,
+              "males": 16,
+              "females": 12
+            }
+          },
+          {
+            "id": "9225",
+            "name": "South Africa",
+            "population": {
+              "total": 42,
+              "males": 21,
+              "females": 21
+            }
+          },
+          {
+            "id": "3200",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 4,
+              "males": 0,
+              "females": 4
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 38,
+              "males": 12,
+              "females": 26
+            }
+          },
+          {
+            "id": "7107",
+            "name": "Sri Lanka",
+            "population": {
+              "total": 21,
+              "males": 8,
+              "females": 13
+            }
+          },
+          {
+            "id": "5104",
+            "name": "Thailand",
+            "population": {
+              "total": 33,
+              "males": 17,
+              "females": 16
+            }
+          },
+          {
+            "id": "4215",
+            "name": "Turkey",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "2100",
+            "name": "United Kingdom",
+            "population": {
+              "total": 468,
+              "males": 257,
+              "females": 211
+            }
+          },
+          {
+            "id": "8104",
+            "name": "United States of America",
+            "population": {
+              "total": 69,
+              "males": 37,
+              "females": 32
             }
           },
           {
@@ -4671,12 +4675,12 @@
             }
           },
           {
-            "id": "1101",
-            "name": "Australia",
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
-              "total": 5952,
-              "males": 2989,
-              "females": 2963
+              "total": 0,
+              "males": 0,
+              "females": 0
             }
           }
         ]
@@ -6728,65 +6732,29 @@
         },
         "country_of_birth": [
           {
-            "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "id": "1101",
+            "name": "Australia",
             "population": {
-              "total": 364,
-              "males": 202,
-              "females": 162
+              "total": 6603,
+              "males": 3092,
+              "females": 3511
             }
           },
           {
-            "id": "3307",
-            "name": "Poland",
+            "id": "BE",
+            "name": "Born elsewhere(e)",
             "population": {
-              "total": 33,
-              "males": 11,
-              "females": 22
+              "total": 228,
+              "males": 107,
+              "females": 121
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
+            "id": "3202",
+            "name": "Bosnia and Herzegovina",
             "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5204",
-            "name": "Philippines",
-            "population": {
-              "total": 19,
-              "males": 5,
-              "females": 14
-            }
-          },
-          {
-            "id": "3204",
-            "name": "Croatia",
-            "population": {
-              "total": 10,
+              "total": 3,
               "males": 3,
-              "females": 7
-            }
-          },
-          {
-            "id": "7107",
-            "name": "Sri Lanka",
-            "population": {
-              "total": 10,
-              "males": 4,
-              "females": 6
-            }
-          },
-          {
-            "id": "4102",
-            "name": "Egypt",
-            "population": {
-              "total": 0,
-              "males": 0,
               "females": 0
             }
           },
@@ -6800,42 +6768,6 @@
             }
           },
           {
-            "id": "5104",
-            "name": "Thailand",
-            "population": {
-              "total": 5,
-              "males": 0,
-              "females": 5
-            }
-          },
-          {
-            "id": "3207",
-            "name": "Greece",
-            "population": {
-              "total": 35,
-              "males": 18,
-              "females": 17
-            }
-          },
-          {
-            "id": "5205",
-            "name": "Singapore",
-            "population": {
-              "total": 8,
-              "males": 3,
-              "females": 5
-            }
-          },
-          {
-            "id": "BE",
-            "name": "Born elsewhere(e)",
-            "population": {
-              "total": 228,
-              "males": 107,
-              "females": 121
-            }
-          },
-          {
             "id": "8102",
             "name": "Canada",
             "population": {
@@ -6845,111 +6777,12 @@
             }
           },
           {
-            "id": "1502",
-            "name": "Fiji",
-            "population": {
-              "total": 10,
-              "males": 5,
-              "females": 5
-            }
-          },
-          {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 25,
               "males": 8,
               "females": 17
-            }
-          },
-          {
-            "id": "2304",
-            "name": "Germany",
-            "population": {
-              "total": 44,
-              "males": 17,
-              "females": 27
-            }
-          },
-          {
-            "id": "4204",
-            "name": "Iraq",
-            "population": {
-              "total": 14,
-              "males": 9,
-              "females": 5
-            }
-          },
-          {
-            "id": "5202",
-            "name": "Indonesia",
-            "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 12,
-              "males": 5,
-              "females": 7
-            }
-          },
-          {
-            "id": "1201",
-            "name": "New Zealand",
-            "population": {
-              "total": 82,
-              "males": 33,
-              "females": 49
-            }
-          },
-          {
-            "id": "4215",
-            "name": "Turkey",
-            "population": {
-              "total": 3,
-              "males": 3,
-              "females": 0
-            }
-          },
-          {
-            "id": "8104",
-            "name": "United States of America",
-            "population": {
-              "total": 28,
-              "males": 19,
-              "females": 9
-            }
-          },
-          {
-            "id": "4208",
-            "name": "Lebanon",
-            "population": {
-              "total": 3,
-              "males": 3,
-              "females": 0
-            }
-          },
-          {
-            "id": "7103",
-            "name": "India",
-            "population": {
-              "total": 38,
-              "males": 16,
-              "females": 22
-            }
-          },
-          {
-            "id": "2201",
-            "name": "Ireland",
-            "population": {
-              "total": 15,
-              "males": 11,
-              "females": 4
             }
           },
           {
@@ -6962,8 +6795,107 @@
             }
           },
           {
-            "id": "3202",
-            "name": "Bosnia and Herzegovina",
+            "id": "3204",
+            "name": "Croatia",
+            "population": {
+              "total": 10,
+              "males": 3,
+              "females": 7
+            }
+          },
+          {
+            "id": "4102",
+            "name": "Egypt",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "1502",
+            "name": "Fiji",
+            "population": {
+              "total": 10,
+              "males": 5,
+              "females": 5
+            }
+          },
+          {
+            "id": "2304",
+            "name": "Germany",
+            "population": {
+              "total": 44,
+              "males": 17,
+              "females": 27
+            }
+          },
+          {
+            "id": "3207",
+            "name": "Greece",
+            "population": {
+              "total": 35,
+              "males": 18,
+              "females": 17
+            }
+          },
+          {
+            "id": "6102",
+            "name": "Hong Kong",
+            "population": {
+              "total": 9,
+              "males": 3,
+              "females": 6
+            }
+          },
+          {
+            "id": "7103",
+            "name": "India",
+            "population": {
+              "total": 38,
+              "males": 16,
+              "females": 22
+            }
+          },
+          {
+            "id": "5202",
+            "name": "Indonesia",
+            "population": {
+              "total": 6,
+              "males": 3,
+              "females": 3
+            }
+          },
+          {
+            "id": "4204",
+            "name": "Iraq",
+            "population": {
+              "total": 14,
+              "males": 9,
+              "females": 5
+            }
+          },
+          {
+            "id": "2201",
+            "name": "Ireland",
+            "population": {
+              "total": 15,
+              "males": 11,
+              "females": 4
+            }
+          },
+          {
+            "id": "3104",
+            "name": "Italy",
+            "population": {
+              "total": 53,
+              "males": 26,
+              "females": 27
+            }
+          },
+          {
+            "id": "6201",
+            "name": "Japan",
             "population": {
               "total": 3,
               "males": 3,
@@ -6971,21 +6903,12 @@
             }
           },
           {
-            "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "id": "4208",
+            "name": "Lebanon",
             "population": {
-              "total": 4,
-              "males": 4,
-              "females": 0
-            }
-          },
-          {
-            "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
-            "population": {
-              "total": 9,
+              "total": 3,
               "males": 3,
-              "females": 6
+              "females": 0
             }
           },
           {
@@ -7007,24 +6930,6 @@
             }
           },
           {
-            "id": "9225",
-            "name": "South Africa",
-            "population": {
-              "total": 30,
-              "males": 15,
-              "females": 15
-            }
-          },
-          {
-            "id": "3104",
-            "name": "Italy",
-            "population": {
-              "total": 53,
-              "males": 26,
-              "females": 27
-            }
-          },
-          {
             "id": "2308",
             "name": "Netherlands",
             "population": {
@@ -7034,12 +6939,111 @@
             }
           },
           {
-            "id": "6201",
-            "name": "Japan",
+            "id": "1201",
+            "name": "New Zealand",
+            "population": {
+              "total": 82,
+              "males": 33,
+              "females": 49
+            }
+          },
+          {
+            "id": "5204",
+            "name": "Philippines",
+            "population": {
+              "total": 19,
+              "males": 5,
+              "females": 14
+            }
+          },
+          {
+            "id": "3307",
+            "name": "Poland",
+            "population": {
+              "total": 33,
+              "males": 11,
+              "females": 22
+            }
+          },
+          {
+            "id": "5205",
+            "name": "Singapore",
+            "population": {
+              "total": 8,
+              "males": 3,
+              "females": 5
+            }
+          },
+          {
+            "id": "9225",
+            "name": "South Africa",
+            "population": {
+              "total": 30,
+              "males": 15,
+              "females": 15
+            }
+          },
+          {
+            "id": "3200",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 4,
+              "males": 4,
+              "females": 0
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 12,
+              "males": 5,
+              "females": 7
+            }
+          },
+          {
+            "id": "7107",
+            "name": "Sri Lanka",
+            "population": {
+              "total": 10,
+              "males": 4,
+              "females": 6
+            }
+          },
+          {
+            "id": "5104",
+            "name": "Thailand",
+            "population": {
+              "total": 5,
+              "males": 0,
+              "females": 5
+            }
+          },
+          {
+            "id": "4215",
+            "name": "Turkey",
             "population": {
               "total": 3,
               "males": 3,
               "females": 0
+            }
+          },
+          {
+            "id": "2100",
+            "name": "United Kingdom",
+            "population": {
+              "total": 364,
+              "males": 202,
+              "females": 162
+            }
+          },
+          {
+            "id": "8104",
+            "name": "United States of America",
+            "population": {
+              "total": 28,
+              "males": 19,
+              "females": 9
             }
           },
           {
@@ -7052,12 +7056,12 @@
             }
           },
           {
-            "id": "1101",
-            "name": "Australia",
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
-              "total": 6603,
-              "males": 3092,
-              "females": 3511
+              "total": 0,
+              "males": 0,
+              "females": 0
             }
           }
         ]
@@ -9845,102 +9849,12 @@
         },
         "country_of_birth": [
           {
-            "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "id": "1101",
+            "name": "Australia",
             "population": {
-              "total": 229,
-              "males": 121,
-              "females": 108
-            }
-          },
-          {
-            "id": "3307",
-            "name": "Poland",
-            "population": {
-              "total": 7,
-              "males": 3,
-              "females": 4
-            }
-          },
-          {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5204",
-            "name": "Philippines",
-            "population": {
-              "total": 7,
-              "males": 4,
-              "females": 3
-            }
-          },
-          {
-            "id": "3204",
-            "name": "Croatia",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "7107",
-            "name": "Sri Lanka",
-            "population": {
-              "total": 11,
-              "males": 3,
-              "females": 8
-            }
-          },
-          {
-            "id": "4102",
-            "name": "Egypt",
-            "population": {
-              "total": 8,
-              "males": 5,
-              "females": 3
-            }
-          },
-          {
-            "id": "5102",
-            "name": "Cambodia",
-            "population": {
-              "total": 3,
-              "males": 3,
-              "females": 0
-            }
-          },
-          {
-            "id": "5104",
-            "name": "Thailand",
-            "population": {
-              "total": 12,
-              "males": 5,
-              "females": 7
-            }
-          },
-          {
-            "id": "3207",
-            "name": "Greece",
-            "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
-            "id": "5205",
-            "name": "Singapore",
-            "population": {
-              "total": 34,
-              "males": 15,
-              "females": 19
+              "total": 3122,
+              "males": 1550,
+              "females": 1572
             }
           },
           {
@@ -9953,6 +9867,24 @@
             }
           },
           {
+            "id": "3202",
+            "name": "Bosnia and Herzegovina",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "5102",
+            "name": "Cambodia",
+            "population": {
+              "total": 3,
+              "males": 3,
+              "females": 0
+            }
+          },
+          {
             "id": "8102",
             "name": "Canada",
             "population": {
@@ -9962,111 +9894,12 @@
             }
           },
           {
-            "id": "1502",
-            "name": "Fiji",
-            "population": {
-              "total": 8,
-              "males": 0,
-              "females": 8
-            }
-          },
-          {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 156,
               "males": 74,
               "females": 82
-            }
-          },
-          {
-            "id": "2304",
-            "name": "Germany",
-            "population": {
-              "total": 28,
-              "males": 13,
-              "females": 15
-            }
-          },
-          {
-            "id": "4204",
-            "name": "Iraq",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5202",
-            "name": "Indonesia",
-            "population": {
-              "total": 7,
-              "males": 4,
-              "females": 3
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 43,
-              "males": 15,
-              "females": 28
-            }
-          },
-          {
-            "id": "1201",
-            "name": "New Zealand",
-            "population": {
-              "total": 55,
-              "males": 23,
-              "females": 32
-            }
-          },
-          {
-            "id": "4215",
-            "name": "Turkey",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "8104",
-            "name": "United States of America",
-            "population": {
-              "total": 37,
-              "males": 21,
-              "females": 16
-            }
-          },
-          {
-            "id": "4208",
-            "name": "Lebanon",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "7103",
-            "name": "India",
-            "population": {
-              "total": 29,
-              "males": 20,
-              "females": 9
-            }
-          },
-          {
-            "id": "2201",
-            "name": "Ireland",
-            "population": {
-              "total": 15,
-              "males": 7,
-              "females": 8
             }
           },
           {
@@ -10079,8 +9912,8 @@
             }
           },
           {
-            "id": "3202",
-            "name": "Bosnia and Herzegovina",
+            "id": "3204",
+            "name": "Croatia",
             "population": {
               "total": 0,
               "males": 0,
@@ -10088,21 +9921,111 @@
             }
           },
           {
-            "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "id": "4102",
+            "name": "Egypt",
             "population": {
-              "total": 0,
+              "total": 8,
+              "males": 5,
+              "females": 3
+            }
+          },
+          {
+            "id": "1502",
+            "name": "Fiji",
+            "population": {
+              "total": 8,
               "males": 0,
-              "females": 0
+              "females": 8
+            }
+          },
+          {
+            "id": "2304",
+            "name": "Germany",
+            "population": {
+              "total": 28,
+              "males": 13,
+              "females": 15
+            }
+          },
+          {
+            "id": "3207",
+            "name": "Greece",
+            "population": {
+              "total": 6,
+              "males": 3,
+              "females": 3
             }
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 27,
               "males": 9,
               "females": 18
+            }
+          },
+          {
+            "id": "7103",
+            "name": "India",
+            "population": {
+              "total": 29,
+              "males": 20,
+              "females": 9
+            }
+          },
+          {
+            "id": "5202",
+            "name": "Indonesia",
+            "population": {
+              "total": 7,
+              "males": 4,
+              "females": 3
+            }
+          },
+          {
+            "id": "4204",
+            "name": "Iraq",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "2201",
+            "name": "Ireland",
+            "population": {
+              "total": 15,
+              "males": 7,
+              "females": 8
+            }
+          },
+          {
+            "id": "3104",
+            "name": "Italy",
+            "population": {
+              "total": 11,
+              "males": 3,
+              "females": 8
+            }
+          },
+          {
+            "id": "6201",
+            "name": "Japan",
+            "population": {
+              "total": 17,
+              "males": 11,
+              "females": 6
+            }
+          },
+          {
+            "id": "4208",
+            "name": "Lebanon",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
             }
           },
           {
@@ -10124,24 +10047,6 @@
             }
           },
           {
-            "id": "9225",
-            "name": "South Africa",
-            "population": {
-              "total": 36,
-              "males": 15,
-              "females": 21
-            }
-          },
-          {
-            "id": "3104",
-            "name": "Italy",
-            "population": {
-              "total": 11,
-              "males": 3,
-              "females": 8
-            }
-          },
-          {
             "id": "2308",
             "name": "Netherlands",
             "population": {
@@ -10151,12 +10056,111 @@
             }
           },
           {
-            "id": "6201",
-            "name": "Japan",
+            "id": "1201",
+            "name": "New Zealand",
             "population": {
-              "total": 17,
-              "males": 11,
-              "females": 6
+              "total": 55,
+              "males": 23,
+              "females": 32
+            }
+          },
+          {
+            "id": "5204",
+            "name": "Philippines",
+            "population": {
+              "total": 7,
+              "males": 4,
+              "females": 3
+            }
+          },
+          {
+            "id": "3307",
+            "name": "Poland",
+            "population": {
+              "total": 7,
+              "males": 3,
+              "females": 4
+            }
+          },
+          {
+            "id": "5205",
+            "name": "Singapore",
+            "population": {
+              "total": 34,
+              "males": 15,
+              "females": 19
+            }
+          },
+          {
+            "id": "9225",
+            "name": "South Africa",
+            "population": {
+              "total": 36,
+              "males": 15,
+              "females": 21
+            }
+          },
+          {
+            "id": "3200",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 43,
+              "males": 15,
+              "females": 28
+            }
+          },
+          {
+            "id": "7107",
+            "name": "Sri Lanka",
+            "population": {
+              "total": 11,
+              "males": 3,
+              "females": 8
+            }
+          },
+          {
+            "id": "5104",
+            "name": "Thailand",
+            "population": {
+              "total": 12,
+              "males": 5,
+              "females": 7
+            }
+          },
+          {
+            "id": "4215",
+            "name": "Turkey",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "2100",
+            "name": "United Kingdom",
+            "population": {
+              "total": 229,
+              "males": 121,
+              "females": 108
+            }
+          },
+          {
+            "id": "8104",
+            "name": "United States of America",
+            "population": {
+              "total": 37,
+              "males": 21,
+              "females": 16
             }
           },
           {
@@ -10169,12 +10173,12 @@
             }
           },
           {
-            "id": "1101",
-            "name": "Australia",
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
-              "total": 3122,
-              "males": 1550,
-              "females": 1572
+              "total": 0,
+              "males": 0,
+              "females": 0
             }
           }
         ]
@@ -14038,39 +14042,66 @@
         },
         "country_of_birth": [
           {
-            "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "id": "1101",
+            "name": "Australia",
             "population": {
-              "total": 242,
-              "males": 139,
-              "females": 103
+              "total": 4698,
+              "males": 2276,
+              "females": 2422
             }
           },
           {
-            "id": "3307",
-            "name": "Poland",
+            "id": "BE",
+            "name": "Born elsewhere(e)",
             "population": {
-              "total": 39,
-              "males": 17,
-              "females": 22
+              "total": 219,
+              "males": 109,
+              "females": 110
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
+            "id": "3202",
+            "name": "Bosnia and Herzegovina",
             "population": {
-              "total": 0,
+              "total": 6,
+              "males": 3,
+              "females": 3
+            }
+          },
+          {
+            "id": "5102",
+            "name": "Cambodia",
+            "population": {
+              "total": 4,
               "males": 0,
-              "females": 0
+              "females": 4
             }
           },
           {
-            "id": "5204",
-            "name": "Philippines",
+            "id": "8102",
+            "name": "Canada",
             "population": {
-              "total": 29,
-              "males": 12,
-              "females": 17
+              "total": 6,
+              "males": 0,
+              "females": 6
+            }
+          },
+          {
+            "id": "6101",
+            "name": "China",
+            "population": {
+              "total": 44,
+              "males": 23,
+              "females": 21
+            }
+          },
+          {
+            "id": "Z",
+            "name": "Country of birth not stated",
+            "population": {
+              "total": 267,
+              "males": 139,
+              "females": 128
             }
           },
           {
@@ -14079,15 +14110,6 @@
             "population": {
               "total": 6,
               "males": 6,
-              "females": 0
-            }
-          },
-          {
-            "id": "7107",
-            "name": "Sri Lanka",
-            "population": {
-              "total": 0,
-              "males": 0,
               "females": 0
             }
           },
@@ -14101,75 +14123,12 @@
             }
           },
           {
-            "id": "5102",
-            "name": "Cambodia",
-            "population": {
-              "total": 4,
-              "males": 0,
-              "females": 4
-            }
-          },
-          {
-            "id": "5104",
-            "name": "Thailand",
-            "population": {
-              "total": 15,
-              "males": 9,
-              "females": 6
-            }
-          },
-          {
-            "id": "3207",
-            "name": "Greece",
-            "population": {
-              "total": 21,
-              "males": 10,
-              "females": 11
-            }
-          },
-          {
-            "id": "5205",
-            "name": "Singapore",
-            "population": {
-              "total": 7,
-              "males": 3,
-              "females": 4
-            }
-          },
-          {
-            "id": "BE",
-            "name": "Born elsewhere(e)",
-            "population": {
-              "total": 219,
-              "males": 109,
-              "females": 110
-            }
-          },
-          {
-            "id": "8102",
-            "name": "Canada",
-            "population": {
-              "total": 6,
-              "males": 0,
-              "females": 6
-            }
-          },
-          {
             "id": "1502",
             "name": "Fiji",
             "population": {
               "total": 7,
               "males": 4,
               "females": 3
-            }
-          },
-          {
-            "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
-            "population": {
-              "total": 44,
-              "males": 23,
-              "females": 21
             }
           },
           {
@@ -14182,66 +14141,21 @@
             }
           },
           {
-            "id": "4204",
-            "name": "Iraq",
+            "id": "3207",
+            "name": "Greece",
             "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5202",
-            "name": "Indonesia",
-            "population": {
-              "total": 9,
-              "males": 0,
-              "females": 9
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 10,
-              "males": 0,
-              "females": 10
-            }
-          },
-          {
-            "id": "1201",
-            "name": "New Zealand",
-            "population": {
-              "total": 59,
-              "males": 29,
-              "females": 30
-            }
-          },
-          {
-            "id": "4215",
-            "name": "Turkey",
-            "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
-            "id": "8104",
-            "name": "United States of America",
-            "population": {
-              "total": 17,
+              "total": 21,
               "males": 10,
-              "females": 7
+              "females": 11
             }
           },
           {
-            "id": "4208",
-            "name": "Lebanon",
+            "id": "6102",
+            "name": "Hong Kong",
             "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
+              "total": 11,
+              "males": 3,
+              "females": 8
             }
           },
           {
@@ -14254,6 +14168,24 @@
             }
           },
           {
+            "id": "5202",
+            "name": "Indonesia",
+            "population": {
+              "total": 9,
+              "males": 0,
+              "females": 9
+            }
+          },
+          {
+            "id": "4204",
+            "name": "Iraq",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
             "id": "2201",
             "name": "Ireland",
             "population": {
@@ -14263,17 +14195,17 @@
             }
           },
           {
-            "id": "Z",
-            "name": "Country of birth not stated",
+            "id": "3104",
+            "name": "Italy",
             "population": {
-              "total": 267,
-              "males": 139,
-              "females": 128
+              "total": 57,
+              "males": 29,
+              "females": 28
             }
           },
           {
-            "id": "3202",
-            "name": "Bosnia and Herzegovina",
+            "id": "6201",
+            "name": "Japan",
             "population": {
               "total": 6,
               "males": 3,
@@ -14281,21 +14213,12 @@
             }
           },
           {
-            "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "id": "4208",
+            "name": "Lebanon",
             "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
-            "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
-            "population": {
-              "total": 11,
-              "males": 3,
-              "females": 8
+              "total": 0,
+              "males": 0,
+              "females": 0
             }
           },
           {
@@ -14317,24 +14240,6 @@
             }
           },
           {
-            "id": "9225",
-            "name": "South Africa",
-            "population": {
-              "total": 24,
-              "males": 15,
-              "females": 9
-            }
-          },
-          {
-            "id": "3104",
-            "name": "Italy",
-            "population": {
-              "total": 57,
-              "males": 29,
-              "females": 28
-            }
-          },
-          {
             "id": "2308",
             "name": "Netherlands",
             "population": {
@@ -14344,12 +14249,111 @@
             }
           },
           {
-            "id": "6201",
-            "name": "Japan",
+            "id": "1201",
+            "name": "New Zealand",
+            "population": {
+              "total": 59,
+              "males": 29,
+              "females": 30
+            }
+          },
+          {
+            "id": "5204",
+            "name": "Philippines",
+            "population": {
+              "total": 29,
+              "males": 12,
+              "females": 17
+            }
+          },
+          {
+            "id": "3307",
+            "name": "Poland",
+            "population": {
+              "total": 39,
+              "males": 17,
+              "females": 22
+            }
+          },
+          {
+            "id": "5205",
+            "name": "Singapore",
+            "population": {
+              "total": 7,
+              "males": 3,
+              "females": 4
+            }
+          },
+          {
+            "id": "9225",
+            "name": "South Africa",
+            "population": {
+              "total": 24,
+              "males": 15,
+              "females": 9
+            }
+          },
+          {
+            "id": "3200",
+            "name": "South Eastern Europe",
             "population": {
               "total": 6,
               "males": 3,
               "females": 3
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 10,
+              "males": 0,
+              "females": 10
+            }
+          },
+          {
+            "id": "7107",
+            "name": "Sri Lanka",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "5104",
+            "name": "Thailand",
+            "population": {
+              "total": 15,
+              "males": 9,
+              "females": 6
+            }
+          },
+          {
+            "id": "4215",
+            "name": "Turkey",
+            "population": {
+              "total": 6,
+              "males": 3,
+              "females": 3
+            }
+          },
+          {
+            "id": "2100",
+            "name": "United Kingdom",
+            "population": {
+              "total": 242,
+              "males": 139,
+              "females": 103
+            }
+          },
+          {
+            "id": "8104",
+            "name": "United States of America",
+            "population": {
+              "total": 17,
+              "males": 10,
+              "females": 7
             }
           },
           {
@@ -14362,12 +14366,12 @@
             }
           },
           {
-            "id": "1101",
-            "name": "Australia",
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
-              "total": 4698,
-              "males": 2276,
-              "females": 2422
+              "total": 0,
+              "males": 0,
+              "females": 0
             }
           }
         ]
@@ -19491,66 +19495,30 @@
         },
         "country_of_birth": [
           {
-            "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "id": "1101",
+            "name": "Australia",
             "population": {
-              "total": 630,
-              "males": 326,
-              "females": 304
+              "total": 7252,
+              "males": 3493,
+              "females": 3759
             }
           },
           {
-            "id": "3307",
-            "name": "Poland",
+            "id": "BE",
+            "name": "Born elsewhere(e)",
             "population": {
-              "total": 29,
-              "males": 11,
-              "females": 18
+              "total": 483,
+              "males": 247,
+              "females": 236
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5204",
-            "name": "Philippines",
-            "population": {
-              "total": 18,
-              "males": 9,
-              "females": 9
-            }
-          },
-          {
-            "id": "3204",
-            "name": "Croatia",
-            "population": {
-              "total": 12,
-              "males": 3,
-              "females": 9
-            }
-          },
-          {
-            "id": "7107",
-            "name": "Sri Lanka",
-            "population": {
-              "total": 13,
-              "males": 5,
-              "females": 8
-            }
-          },
-          {
-            "id": "4102",
-            "name": "Egypt",
+            "id": "3202",
+            "name": "Bosnia and Herzegovina",
             "population": {
               "total": 9,
-              "males": 6,
-              "females": 3
+              "males": 4,
+              "females": 5
             }
           },
           {
@@ -19563,11 +19531,65 @@
             }
           },
           {
-            "id": "5104",
-            "name": "Thailand",
+            "id": "8102",
+            "name": "Canada",
             "population": {
-              "total": 52,
-              "males": 21,
+              "total": 30,
+              "males": 14,
+              "females": 16
+            }
+          },
+          {
+            "id": "6101",
+            "name": "China",
+            "population": {
+              "total": 596,
+              "males": 277,
+              "females": 319
+            }
+          },
+          {
+            "id": "Z",
+            "name": "Country of birth not stated",
+            "population": {
+              "total": 465,
+              "males": 273,
+              "females": 192
+            }
+          },
+          {
+            "id": "3204",
+            "name": "Croatia",
+            "population": {
+              "total": 12,
+              "males": 3,
+              "females": 9
+            }
+          },
+          {
+            "id": "4102",
+            "name": "Egypt",
+            "population": {
+              "total": 9,
+              "males": 6,
+              "females": 3
+            }
+          },
+          {
+            "id": "1502",
+            "name": "Fiji",
+            "population": {
+              "total": 9,
+              "males": 3,
+              "females": 6
+            }
+          },
+          {
+            "id": "2304",
+            "name": "Germany",
+            "population": {
+              "total": 65,
+              "males": 34,
               "females": 31
             }
           },
@@ -19581,120 +19603,12 @@
             }
           },
           {
-            "id": "5205",
-            "name": "Singapore",
+            "id": "6102",
+            "name": "Hong Kong",
             "population": {
-              "total": 61,
-              "males": 23,
-              "females": 38
-            }
-          },
-          {
-            "id": "BE",
-            "name": "Born elsewhere(e)",
-            "population": {
-              "total": 483,
-              "males": 247,
-              "females": 236
-            }
-          },
-          {
-            "id": "8102",
-            "name": "Canada",
-            "population": {
-              "total": 30,
-              "males": 14,
-              "females": 16
-            }
-          },
-          {
-            "id": "1502",
-            "name": "Fiji",
-            "population": {
-              "total": 9,
-              "males": 3,
-              "females": 6
-            }
-          },
-          {
-            "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
-            "population": {
-              "total": 596,
-              "males": 277,
-              "females": 319
-            }
-          },
-          {
-            "id": "2304",
-            "name": "Germany",
-            "population": {
-              "total": 65,
-              "males": 34,
-              "females": 31
-            }
-          },
-          {
-            "id": "4204",
-            "name": "Iraq",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5202",
-            "name": "Indonesia",
-            "population": {
-              "total": 10,
-              "males": 4,
-              "females": 6
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 136,
-              "males": 69,
-              "females": 67
-            }
-          },
-          {
-            "id": "1201",
-            "name": "New Zealand",
-            "population": {
-              "total": 145,
-              "males": 69,
-              "females": 76
-            }
-          },
-          {
-            "id": "4215",
-            "name": "Turkey",
-            "population": {
-              "total": 3,
-              "males": 3,
-              "females": 0
-            }
-          },
-          {
-            "id": "8104",
-            "name": "United States of America",
-            "population": {
-              "total": 74,
-              "males": 38,
-              "females": 36
-            }
-          },
-          {
-            "id": "4208",
-            "name": "Lebanon",
-            "population": {
-              "total": 3,
-              "males": 0,
-              "females": 3
+              "total": 57,
+              "males": 35,
+              "females": 22
             }
           },
           {
@@ -19707,6 +19621,24 @@
             }
           },
           {
+            "id": "5202",
+            "name": "Indonesia",
+            "population": {
+              "total": 10,
+              "males": 4,
+              "females": 6
+            }
+          },
+          {
+            "id": "4204",
+            "name": "Iraq",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
             "id": "2201",
             "name": "Ireland",
             "population": {
@@ -19716,39 +19648,30 @@
             }
           },
           {
-            "id": "Z",
-            "name": "Country of birth not stated",
+            "id": "3104",
+            "name": "Italy",
             "population": {
-              "total": 465,
-              "males": 273,
-              "females": 192
+              "total": 59,
+              "males": 27,
+              "females": 32
             }
           },
           {
-            "id": "3202",
-            "name": "Bosnia and Herzegovina",
+            "id": "6201",
+            "name": "Japan",
             "population": {
-              "total": 9,
-              "males": 4,
-              "females": 5
+              "total": 42,
+              "males": 9,
+              "females": 33
             }
           },
           {
-            "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "id": "4208",
+            "name": "Lebanon",
             "population": {
-              "total": 5,
+              "total": 3,
               "males": 0,
-              "females": 5
-            }
-          },
-          {
-            "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
-            "population": {
-              "total": 57,
-              "males": 35,
-              "females": 22
+              "females": 3
             }
           },
           {
@@ -19770,24 +19693,6 @@
             }
           },
           {
-            "id": "9225",
-            "name": "South Africa",
-            "population": {
-              "total": 122,
-              "males": 65,
-              "females": 57
-            }
-          },
-          {
-            "id": "3104",
-            "name": "Italy",
-            "population": {
-              "total": 59,
-              "males": 27,
-              "females": 32
-            }
-          },
-          {
             "id": "2308",
             "name": "Netherlands",
             "population": {
@@ -19797,12 +19702,111 @@
             }
           },
           {
-            "id": "6201",
-            "name": "Japan",
+            "id": "1201",
+            "name": "New Zealand",
             "population": {
-              "total": 42,
+              "total": 145,
+              "males": 69,
+              "females": 76
+            }
+          },
+          {
+            "id": "5204",
+            "name": "Philippines",
+            "population": {
+              "total": 18,
               "males": 9,
-              "females": 33
+              "females": 9
+            }
+          },
+          {
+            "id": "3307",
+            "name": "Poland",
+            "population": {
+              "total": 29,
+              "males": 11,
+              "females": 18
+            }
+          },
+          {
+            "id": "5205",
+            "name": "Singapore",
+            "population": {
+              "total": 61,
+              "males": 23,
+              "females": 38
+            }
+          },
+          {
+            "id": "9225",
+            "name": "South Africa",
+            "population": {
+              "total": 122,
+              "males": 65,
+              "females": 57
+            }
+          },
+          {
+            "id": "3200",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 5,
+              "males": 0,
+              "females": 5
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 136,
+              "males": 69,
+              "females": 67
+            }
+          },
+          {
+            "id": "7107",
+            "name": "Sri Lanka",
+            "population": {
+              "total": 13,
+              "males": 5,
+              "females": 8
+            }
+          },
+          {
+            "id": "5104",
+            "name": "Thailand",
+            "population": {
+              "total": 52,
+              "males": 21,
+              "females": 31
+            }
+          },
+          {
+            "id": "4215",
+            "name": "Turkey",
+            "population": {
+              "total": 3,
+              "males": 3,
+              "females": 0
+            }
+          },
+          {
+            "id": "2100",
+            "name": "United Kingdom",
+            "population": {
+              "total": 630,
+              "males": 326,
+              "females": 304
+            }
+          },
+          {
+            "id": "8104",
+            "name": "United States of America",
+            "population": {
+              "total": 74,
+              "males": 38,
+              "females": 36
             }
           },
           {
@@ -19815,12 +19819,12 @@
             }
           },
           {
-            "id": "1101",
-            "name": "Australia",
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
-              "total": 7252,
-              "males": 3493,
-              "females": 3759
+              "total": 0,
+              "males": 0,
+              "females": 0
             }
           }
         ]
@@ -23116,62 +23120,26 @@
         },
         "country_of_birth": [
           {
-            "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "id": "1101",
+            "name": "Australia",
             "population": {
-              "total": 413,
-              "males": 209,
-              "females": 204
+              "total": 4485,
+              "males": 2146,
+              "females": 2339
             }
           },
           {
-            "id": "3307",
-            "name": "Poland",
+            "id": "BE",
+            "name": "Born elsewhere(e)",
             "population": {
-              "total": 12,
-              "males": 6,
-              "females": 6
+              "total": 150,
+              "males": 75,
+              "females": 75
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5204",
-            "name": "Philippines",
-            "population": {
-              "total": 7,
-              "males": 3,
-              "females": 4
-            }
-          },
-          {
-            "id": "3204",
-            "name": "Croatia",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "7107",
-            "name": "Sri Lanka",
-            "population": {
-              "total": 3,
-              "males": 3,
-              "females": 0
-            }
-          },
-          {
-            "id": "4102",
-            "name": "Egypt",
+            "id": "3202",
+            "name": "Bosnia and Herzegovina",
             "population": {
               "total": 0,
               "males": 0,
@@ -23188,42 +23156,6 @@
             }
           },
           {
-            "id": "5104",
-            "name": "Thailand",
-            "population": {
-              "total": 12,
-              "males": 4,
-              "females": 8
-            }
-          },
-          {
-            "id": "3207",
-            "name": "Greece",
-            "population": {
-              "total": 3,
-              "males": 3,
-              "females": 0
-            }
-          },
-          {
-            "id": "5205",
-            "name": "Singapore",
-            "population": {
-              "total": 16,
-              "males": 9,
-              "females": 7
-            }
-          },
-          {
-            "id": "BE",
-            "name": "Born elsewhere(e)",
-            "population": {
-              "total": 150,
-              "males": 75,
-              "females": 75
-            }
-          },
-          {
             "id": "8102",
             "name": "Canada",
             "population": {
@@ -23233,111 +23165,12 @@
             }
           },
           {
-            "id": "1502",
-            "name": "Fiji",
-            "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 62,
               "males": 30,
               "females": 32
-            }
-          },
-          {
-            "id": "2304",
-            "name": "Germany",
-            "population": {
-              "total": 43,
-              "males": 18,
-              "females": 25
-            }
-          },
-          {
-            "id": "4204",
-            "name": "Iraq",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5202",
-            "name": "Indonesia",
-            "population": {
-              "total": 4,
-              "males": 4,
-              "females": 0
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "1201",
-            "name": "New Zealand",
-            "population": {
-              "total": 80,
-              "males": 37,
-              "females": 43
-            }
-          },
-          {
-            "id": "4215",
-            "name": "Turkey",
-            "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
-            "id": "8104",
-            "name": "United States of America",
-            "population": {
-              "total": 61,
-              "males": 23,
-              "females": 38
-            }
-          },
-          {
-            "id": "4208",
-            "name": "Lebanon",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "7103",
-            "name": "India",
-            "population": {
-              "total": 24,
-              "males": 12,
-              "females": 12
-            }
-          },
-          {
-            "id": "2201",
-            "name": "Ireland",
-            "population": {
-              "total": 16,
-              "males": 10,
-              "females": 6
             }
           },
           {
@@ -23350,8 +23183,8 @@
             }
           },
           {
-            "id": "3202",
-            "name": "Bosnia and Herzegovina",
+            "id": "3204",
+            "name": "Croatia",
             "population": {
               "total": 0,
               "males": 0,
@@ -23359,8 +23192,35 @@
             }
           },
           {
-            "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "id": "4102",
+            "name": "Egypt",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "1502",
+            "name": "Fiji",
+            "population": {
+              "total": 6,
+              "males": 3,
+              "females": 3
+            }
+          },
+          {
+            "id": "2304",
+            "name": "Germany",
+            "population": {
+              "total": 43,
+              "males": 18,
+              "females": 25
+            }
+          },
+          {
+            "id": "3207",
+            "name": "Greece",
             "population": {
               "total": 3,
               "males": 3,
@@ -23369,11 +23229,74 @@
           },
           {
             "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "name": "Hong Kong",
             "population": {
               "total": 10,
               "males": 4,
               "females": 6
+            }
+          },
+          {
+            "id": "7103",
+            "name": "India",
+            "population": {
+              "total": 24,
+              "males": 12,
+              "females": 12
+            }
+          },
+          {
+            "id": "5202",
+            "name": "Indonesia",
+            "population": {
+              "total": 4,
+              "males": 4,
+              "females": 0
+            }
+          },
+          {
+            "id": "4204",
+            "name": "Iraq",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "2201",
+            "name": "Ireland",
+            "population": {
+              "total": 16,
+              "males": 10,
+              "females": 6
+            }
+          },
+          {
+            "id": "3104",
+            "name": "Italy",
+            "population": {
+              "total": 15,
+              "males": 7,
+              "females": 8
+            }
+          },
+          {
+            "id": "6201",
+            "name": "Japan",
+            "population": {
+              "total": 12,
+              "males": 3,
+              "females": 9
+            }
+          },
+          {
+            "id": "4208",
+            "name": "Lebanon",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
             }
           },
           {
@@ -23395,24 +23318,6 @@
             }
           },
           {
-            "id": "9225",
-            "name": "South Africa",
-            "population": {
-              "total": 30,
-              "males": 11,
-              "females": 19
-            }
-          },
-          {
-            "id": "3104",
-            "name": "Italy",
-            "population": {
-              "total": 15,
-              "males": 7,
-              "females": 8
-            }
-          },
-          {
             "id": "2308",
             "name": "Netherlands",
             "population": {
@@ -23422,12 +23327,111 @@
             }
           },
           {
-            "id": "6201",
-            "name": "Japan",
+            "id": "1201",
+            "name": "New Zealand",
+            "population": {
+              "total": 80,
+              "males": 37,
+              "females": 43
+            }
+          },
+          {
+            "id": "5204",
+            "name": "Philippines",
+            "population": {
+              "total": 7,
+              "males": 3,
+              "females": 4
+            }
+          },
+          {
+            "id": "3307",
+            "name": "Poland",
             "population": {
               "total": 12,
+              "males": 6,
+              "females": 6
+            }
+          },
+          {
+            "id": "5205",
+            "name": "Singapore",
+            "population": {
+              "total": 16,
+              "males": 9,
+              "females": 7
+            }
+          },
+          {
+            "id": "9225",
+            "name": "South Africa",
+            "population": {
+              "total": 30,
+              "males": 11,
+              "females": 19
+            }
+          },
+          {
+            "id": "3200",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 3,
               "males": 3,
-              "females": 9
+              "females": 0
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "7107",
+            "name": "Sri Lanka",
+            "population": {
+              "total": 3,
+              "males": 3,
+              "females": 0
+            }
+          },
+          {
+            "id": "5104",
+            "name": "Thailand",
+            "population": {
+              "total": 12,
+              "males": 4,
+              "females": 8
+            }
+          },
+          {
+            "id": "4215",
+            "name": "Turkey",
+            "population": {
+              "total": 6,
+              "males": 3,
+              "females": 3
+            }
+          },
+          {
+            "id": "2100",
+            "name": "United Kingdom",
+            "population": {
+              "total": 413,
+              "males": 209,
+              "females": 204
+            }
+          },
+          {
+            "id": "8104",
+            "name": "United States of America",
+            "population": {
+              "total": 61,
+              "males": 23,
+              "females": 38
             }
           },
           {
@@ -23440,12 +23444,12 @@
             }
           },
           {
-            "id": "1101",
-            "name": "Australia",
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
-              "total": 4485,
-              "males": 2146,
-              "females": 2339
+              "total": 0,
+              "males": 0,
+              "females": 0
             }
           }
         ]
@@ -25041,62 +25045,26 @@
         },
         "country_of_birth": [
           {
-            "id": "2100",
-            "name": "United Kingdom, Channel Islands and Isle of Man(d)",
+            "id": "1101",
+            "name": "Australia",
             "population": {
-              "total": 322,
-              "males": 162,
-              "females": 160
+              "total": 4453,
+              "males": 2092,
+              "females": 2361
             }
           },
           {
-            "id": "3307",
-            "name": "Poland",
+            "id": "BE",
+            "name": "Born elsewhere(e)",
             "population": {
-              "total": 13,
-              "males": 6,
-              "females": 7
+              "total": 145,
+              "males": 71,
+              "females": 74
             }
           },
           {
-            "id": "3206",
-            "name": "Former Yugoslav Republic of Macedonia (FYROM)",
-            "population": {
-              "total": 3,
-              "males": 3,
-              "females": 0
-            }
-          },
-          {
-            "id": "5204",
-            "name": "Philippines",
-            "population": {
-              "total": 6,
-              "males": 3,
-              "females": 3
-            }
-          },
-          {
-            "id": "3204",
-            "name": "Croatia",
-            "population": {
-              "total": 7,
-              "males": 3,
-              "females": 4
-            }
-          },
-          {
-            "id": "7107",
-            "name": "Sri Lanka",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "4102",
-            "name": "Egypt",
+            "id": "3202",
+            "name": "Bosnia and Herzegovina",
             "population": {
               "total": 0,
               "males": 0,
@@ -25113,42 +25081,6 @@
             }
           },
           {
-            "id": "5104",
-            "name": "Thailand",
-            "population": {
-              "total": 3,
-              "males": 0,
-              "females": 3
-            }
-          },
-          {
-            "id": "3207",
-            "name": "Greece",
-            "population": {
-              "total": 13,
-              "males": 9,
-              "females": 4
-            }
-          },
-          {
-            "id": "5205",
-            "name": "Singapore",
-            "population": {
-              "total": 13,
-              "males": 5,
-              "females": 8
-            }
-          },
-          {
-            "id": "BE",
-            "name": "Born elsewhere(e)",
-            "population": {
-              "total": 145,
-              "males": 71,
-              "females": 74
-            }
-          },
-          {
             "id": "8102",
             "name": "Canada",
             "population": {
@@ -25158,111 +25090,12 @@
             }
           },
           {
-            "id": "1502",
-            "name": "Fiji",
-            "population": {
-              "total": 4,
-              "males": 0,
-              "females": 4
-            }
-          },
-          {
             "id": "6101",
-            "name": "China (excl. SARs and Taiwan)(b)",
+            "name": "China",
             "population": {
               "total": 40,
               "males": 17,
               "females": 23
-            }
-          },
-          {
-            "id": "2304",
-            "name": "Germany",
-            "population": {
-              "total": 36,
-              "males": 24,
-              "females": 12
-            }
-          },
-          {
-            "id": "4204",
-            "name": "Iraq",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "5202",
-            "name": "Indonesia",
-            "population": {
-              "total": 6,
-              "males": 0,
-              "females": 6
-            }
-          },
-          {
-            "id": "6203",
-            "name": "Korea, Republic of (South)",
-            "population": {
-              "total": 12,
-              "males": 6,
-              "females": 6
-            }
-          },
-          {
-            "id": "1201",
-            "name": "New Zealand",
-            "population": {
-              "total": 75,
-              "males": 38,
-              "females": 37
-            }
-          },
-          {
-            "id": "4215",
-            "name": "Turkey",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "8104",
-            "name": "United States of America",
-            "population": {
-              "total": 40,
-              "males": 21,
-              "females": 19
-            }
-          },
-          {
-            "id": "4208",
-            "name": "Lebanon",
-            "population": {
-              "total": 3,
-              "males": 3,
-              "females": 0
-            }
-          },
-          {
-            "id": "7103",
-            "name": "India",
-            "population": {
-              "total": 22,
-              "males": 13,
-              "females": 9
-            }
-          },
-          {
-            "id": "2201",
-            "name": "Ireland",
-            "population": {
-              "total": 23,
-              "males": 14,
-              "females": 9
             }
           },
           {
@@ -25275,17 +25108,8 @@
             }
           },
           {
-            "id": "3202",
-            "name": "Bosnia and Herzegovina",
-            "population": {
-              "total": 0,
-              "males": 0,
-              "females": 0
-            }
-          },
-          {
-            "id": "3200",
-            "name": "South Eastern Europe, nfd(c)",
+            "id": "3204",
+            "name": "Croatia",
             "population": {
               "total": 7,
               "males": 3,
@@ -25293,12 +25117,111 @@
             }
           },
           {
-            "id": "6102",
-            "name": "Hong Kong (SAR of China)(b)",
+            "id": "4102",
+            "name": "Egypt",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "1502",
+            "name": "Fiji",
             "population": {
               "total": 4,
               "males": 0,
               "females": 4
+            }
+          },
+          {
+            "id": "2304",
+            "name": "Germany",
+            "population": {
+              "total": 36,
+              "males": 24,
+              "females": 12
+            }
+          },
+          {
+            "id": "3207",
+            "name": "Greece",
+            "population": {
+              "total": 13,
+              "males": 9,
+              "females": 4
+            }
+          },
+          {
+            "id": "6102",
+            "name": "Hong Kong",
+            "population": {
+              "total": 4,
+              "males": 0,
+              "females": 4
+            }
+          },
+          {
+            "id": "7103",
+            "name": "India",
+            "population": {
+              "total": 22,
+              "males": 13,
+              "females": 9
+            }
+          },
+          {
+            "id": "5202",
+            "name": "Indonesia",
+            "population": {
+              "total": 6,
+              "males": 0,
+              "females": 6
+            }
+          },
+          {
+            "id": "4204",
+            "name": "Iraq",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "2201",
+            "name": "Ireland",
+            "population": {
+              "total": 23,
+              "males": 14,
+              "females": 9
+            }
+          },
+          {
+            "id": "3104",
+            "name": "Italy",
+            "population": {
+              "total": 36,
+              "males": 15,
+              "females": 21
+            }
+          },
+          {
+            "id": "6201",
+            "name": "Japan",
+            "population": {
+              "total": 12,
+              "males": 7,
+              "females": 5
+            }
+          },
+          {
+            "id": "4208",
+            "name": "Lebanon",
+            "population": {
+              "total": 3,
+              "males": 3,
+              "females": 0
             }
           },
           {
@@ -25320,24 +25243,6 @@
             }
           },
           {
-            "id": "9225",
-            "name": "South Africa",
-            "population": {
-              "total": 19,
-              "males": 16,
-              "females": 3
-            }
-          },
-          {
-            "id": "3104",
-            "name": "Italy",
-            "population": {
-              "total": 36,
-              "males": 15,
-              "females": 21
-            }
-          },
-          {
             "id": "2308",
             "name": "Netherlands",
             "population": {
@@ -25347,12 +25252,111 @@
             }
           },
           {
-            "id": "6201",
-            "name": "Japan",
+            "id": "1201",
+            "name": "New Zealand",
+            "population": {
+              "total": 75,
+              "males": 38,
+              "females": 37
+            }
+          },
+          {
+            "id": "5204",
+            "name": "Philippines",
+            "population": {
+              "total": 6,
+              "males": 3,
+              "females": 3
+            }
+          },
+          {
+            "id": "3307",
+            "name": "Poland",
+            "population": {
+              "total": 13,
+              "males": 6,
+              "females": 7
+            }
+          },
+          {
+            "id": "5205",
+            "name": "Singapore",
+            "population": {
+              "total": 13,
+              "males": 5,
+              "females": 8
+            }
+          },
+          {
+            "id": "9225",
+            "name": "South Africa",
+            "population": {
+              "total": 19,
+              "males": 16,
+              "females": 3
+            }
+          },
+          {
+            "id": "3200",
+            "name": "South Eastern Europe",
+            "population": {
+              "total": 7,
+              "males": 3,
+              "females": 4
+            }
+          },
+          {
+            "id": "6203",
+            "name": "South Korea",
             "population": {
               "total": 12,
-              "males": 7,
-              "females": 5
+              "males": 6,
+              "females": 6
+            }
+          },
+          {
+            "id": "7107",
+            "name": "Sri Lanka",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "5104",
+            "name": "Thailand",
+            "population": {
+              "total": 3,
+              "males": 0,
+              "females": 3
+            }
+          },
+          {
+            "id": "4215",
+            "name": "Turkey",
+            "population": {
+              "total": 0,
+              "males": 0,
+              "females": 0
+            }
+          },
+          {
+            "id": "2100",
+            "name": "United Kingdom",
+            "population": {
+              "total": 322,
+              "males": 162,
+              "females": 160
+            }
+          },
+          {
+            "id": "8104",
+            "name": "United States of America",
+            "population": {
+              "total": 40,
+              "males": 21,
+              "females": 19
             }
           },
           {
@@ -25365,12 +25369,12 @@
             }
           },
           {
-            "id": "1101",
-            "name": "Australia",
+            "id": "3206",
+            "name": "Yugoslav",
             "population": {
-              "total": 4453,
-              "males": 2092,
-              "females": 2361
+              "total": 3,
+              "males": 3,
+              "females": 0
             }
           }
         ]

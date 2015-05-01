@@ -26,9 +26,6 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
         $('#toptwitterers-div').empty();
         $('#toptrends-div').empty();
-        $('#tab_1-1').empty();
-        $('#tab_2-2').empty();
-        $('#tab_3-3').empty();
         $('#label-showing').empty();
         $('#overall-sentiment-div h3').empty();
         $('#topcountries-div').empty();
@@ -217,6 +214,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         show("section-toptwitterers");
         show("section-toptrends");
         show("section-topcountries");
+        show("section-overallsentiment");
         show("div-totals");
     });
 

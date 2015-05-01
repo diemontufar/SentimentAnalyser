@@ -1,38 +1,114 @@
-import indexer_settings as settings
+import indexer_settings as settings #custom settings
 import elasticsearch #elasticsearch library
 import couchdb #couchdb library
 import json
 
 es = elasticsearch.Elasticsearch()  # use default of localhost, port 9200
 
-#Perform a search in a index based on a particular text
-def simpleSearch(query):
-    matches = es.search(index=settings.es_index, q=query)
-    #hits = matches['hits']['hits']
+# Method:           genericSearch
+# Description:      Execute a generic query againt the index based on a json query
+# Parameters:       jsonQuery must be a valid elasticsearch query.
+# Further info:     http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-queries.html
+# Output:           matches (JSON)
+def genericSearch(jsonQuery):
+    matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
     return json.dumps(matches, indent=4) 
 
-#Perform a search in a index based on a custom json query
-def customSearch(jsonQuery, docType):
-    matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
-    return json.dumps(matches, indent=4) 
-
-#Count the number of ocurrences in a index based on a json query
-def count(jsonQuery, docType):
-    num = es.count(index=settings.es_index, doc_type=docType, body=jsonQuery)
+# Method:           count
+# Description:      Count the number of ocurrences in a index based on a json query
+# Parameters:       jsonQuery must be a valid elasticsearch query.
+# Further info:     http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-queries.html
+# Output:           counter (Integer)
+def count(jsonQuery):
+    num = es.count(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
     counter = num['count']
     return int(counter)
 
-#Specific Web services
-# def tweetsByTerm(jsonQuery, docType):
-#     matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
-#     return json.dumps(matches, indent=4) 
-def statisticsByTerm(term, suburbCode, docType):
+# Method:           getDocument
+# Description:      Obtain a document from couchdb by ID   
+# Parameters:       couchdb database connection and document id
+# Output:           doc (JSON)
+def getDocument(db,id):
+    doc = db.get(id)
+    return doc
+
+# Method:           getCulturesByState
+# Description:      Obtain the list of cultures by state from couchdb database            
+# Parameters:       stateCode (String) as defined on the database i.e. 'VIC'
+# Output:           doc (JSON)
+def getCulturesByState(stateCode):
+    server = couchdb.Server(settings.server)
+    try:
+        #Just use existing DB
+        db = server[settings.cultures_database]
+    except:
+        print("Error while accessing couchdb data base!")
+    for id in db:
+        doc = getDocument(db,id)
+        if doc["crs"]['properties']['state_id'] == stateCode:
+            return json.dumps(doc, indent=4)
+
+# Method:           getSuburbsList
+# Description:      Obtain the list of suburbs by country from couchdb database                    
+# Parameters:       countryCode (String) as defined on the database i.e. '1' (corresponds to Australia)
+# Output:           doc (JSON)
+def getSuburbsList(countryCode):
+    server = couchdb.Server(settings.server)
+    try:
+        #Just use existing DB
+        db = server[settings.suburbs_database]
+    except:
+        print("Error while accessing suburbs couchdb data base!")
+    for id in db:
+        doc = getDocument(db,id)
+        if doc["country_code"] == int(countryCode):
+            return json.dumps(doc, indent=4)
+
+# Method:           getLanguages
+# Description:      Obtain the list of suburbs by country from couchdb database
+# Parameters:       countryCode (String) as defined on the database i.e. '1' (corresponds to Australia)
+# Output:           doc (JSON)
+def getLanguages(countryCode):
+    server = couchdb.Server(settings.server)
+    try:
+        #Just use existing DB
+        db = server[settings.languages_database]
+    except:
+        print("Error while accessing languages couchdb data base!")
+    for id in db:
+        doc = getDocument(db,id)
+        if doc["country_code"] == int(countryCode):
+            return json.dumps(doc, indent=4)
+
+# Method:           getMultipolygon
+# Description:      Obtain multipolygon defined on GeoJson document on couchdb database        
+# Parameters:       suburbCode (String) as defined on the database i.e. '206041122' (corresponds to melbourne)
+# Output:           multipolygon (Geojson Feature)
+def getMultipolygon(suburbCode):
+    server = couchdb.Server(settings.server)
+    try:
+        #Just use existing DB
+        db = server[settings.cultures_database]
+    except:
+        print("Error while accessing cultures couchdb data base!")
+    for id in db:
+        doc = getDocument(db,id)
+        
+        for feature in doc["features"]:
+            if feature["properties"]["feature_code"] == suburbCode:
+                multipolygon = feature["geometry"]["coordinates"]
+    return multipolygon
+
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
+def statisticsByTerm(term, suburbCode):
 
     query = 'text:' + term
     query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
     multipolygon = getMultipolygon(suburbCode)
-
-    # print(multipolygon)
 
     jsonQuery = {
                    "query":{
@@ -68,7 +144,7 @@ def statisticsByTerm(term, suburbCode, docType):
                    "size":0
                 }
 
-    matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
+    matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
 
     total = 0
     total_positive = 0
@@ -101,70 +177,53 @@ def statisticsByTerm(term, suburbCode, docType):
 
     return json.dumps(result, indent=4) 
 
-#Get the document from couchdb by ID
-def getDocument(db,id):
-    doc = db.get(id)
-    return doc
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
+def getTopListBySuburb(term,suburbCode,field,size): #Goooooood!
 
-#Get the corresponding document from cultures couch database by state
-#Disclaimer: If you have more than one document with the same state, this will return an array of docs
-#If there is an empty result, return 'None'
-def getCultures(state):
-    server = couchdb.Server(settings.server)
-    try:
-        #Just use existing DB
-        db = server[settings.cultures_database]
-    except:
-        print("Error while accessing couchdb data base!")
-    for id in db:
-        doc = getDocument(db,id)
-        if doc["crs"]['properties']['state_id'] == state:
-            return json.dumps(doc, indent=4)
+    multipolygon = getMultipolygon(suburbCode)
+    query = "text:" + term
+    query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
 
-#Get the corresponding document from suburbs couch database 
-def getSuburbs(country):
-    server = couchdb.Server(settings.server)
-    try:
-        #Just use existing DB
-        db = server[settings.suburbs_database]
-    except:
-        print("Error while accessing suburbs couchdb data base!")
-    for id in db:
-        doc = getDocument(db,id)
-        if doc["country_code"] == int(country):
-            return json.dumps(doc, indent=4)
+    jsonQuery = {
+                   "query":{
+                      "filtered":{
+                         "filter":{
+                            "or":{
+                               "filters" : [
+                                                {"geo_shape":{"place.bounding_box":{"relation": "within", "shape": {"type": "multipolygon", "coordinates": multipolygon } } } },
+                                                {"geo_polygon": {"coordinates.coordinates": {"points" : multipolygon[0][0] } } }
+                                            ],
+                               "_cache":True
+                            }
+                         },
+                         "query": {
+                                    "query_string": {
+                                      "query": query,
+                                      "analyze_wildcard": True
+                                    }
+                        }
+                      }
+                   },
+                   "aggs": {"2": {"terms": {"field": field, "size": size, "order": {"_count": "desc"} } } },
+                   "size":0
+                }
 
-#Get the corresponding document from suburbs couch database 
-def getLanguages(country):
-    server = couchdb.Server(settings.server)
-    try:
-        #Just use existing DB
-        db = server[settings.languages_database]
-    except:
-        print("Error while accessing languages couchdb data base!")
-    for id in db:
-        doc = getDocument(db,id)
-        if doc["country_code"] == int(country):
-            return json.dumps(doc, indent=4)
+    matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
+    return json.dumps(matches, indent=4)
 
-#Get the Multipolygon from cultures database
-def getMultipolygon(suburbCode):
-    server = couchdb.Server(settings.server)
-    try:
-        #Just use existing DB
-        db = server[settings.cultures_database]
-    except:
-        print("Error while accessing cultures couchdb data base!")
-    for id in db:
-        doc = getDocument(db,id)
-        
-        for feature in doc["features"]:
-            if feature["properties"]["feature_code"] == suburbCode:
-                multipolygon = feature["geometry"]["coordinates"]
-    return multipolygon
 
+# Method:           
+# Description:      
+#                   
+#                   
+# Parameters:       
+# Output:           
 #Get the tweets located within a multipolygon and a set of points
-def getTweetsBySuburb(term,suburbCode,fromP,sizeP,docType):
+def getTweetsBySuburb(term,suburbCode,fromP,sizeP):
 
     query = 'text:' + term
     query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
@@ -194,12 +253,12 @@ def getTweetsBySuburb(term,suburbCode,fromP,sizeP,docType):
                        }
                     }
 
-        matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
+        matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
         return json.dumps(matches, indent=4) 
 
 
 
-# def getCustomAgg(docType,jsonQueryP):
+# def getCustomAgg(jsonQueryP):
 # # "text:LOVE AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment=negative OR sentiment_analysis.sentiment=neutral) AND -user.lang:en"
 
 #     jsonQ = json.loads(jsonQueryP)
@@ -238,46 +297,20 @@ def getTweetsBySuburb(term,suburbCode,fromP,sizeP,docType):
 #                         }
 #                       }
 #                 }
-#     matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
+#     matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
 #     return json.dumps(matches, indent=4)
 
-def getTopListBySuburb(docType,term,suburbCode,field,size): #Goooooood!
 
-    multipolygon = getMultipolygon(suburbCode)
-    query = "text:" + term
-    query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
 
-    jsonQuery = {
-                   "query":{
-                      "filtered":{
-                         "filter":{
-                            "or":{
-                               "filters" : [
-                                                {"geo_shape":{"place.bounding_box":{"relation": "within", "shape": {"type": "multipolygon", "coordinates": multipolygon } } } },
-                                                {"geo_polygon": {"coordinates.coordinates": {"points" : multipolygon[0][0] } } }
-                                            ],
-                               "_cache":True
-                            }
-                         },
-                         "query": {
-                                    "query_string": {
-                                      "query": query,
-                                      "analyze_wildcard": True
-                                    }
-                        }
-                      }
-                   },
-                   "aggs": {"2": {"terms": {"field": field, "size": size, "order": {"_count": "desc"} } } },
-                   "size":0
-                }
-
-    matches = es.search(index=settings.es_index, doc_type=docType, body=jsonQuery)
-    return json.dumps(matches, indent=4)
 
 
 ################################################################################################# MUST BE REVISED!!!!
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getLanguagesFromTweetsBySuburb(tweetsBySuburb):
 
     totals = {}
@@ -295,6 +328,11 @@ def getLanguagesFromTweetsBySuburb(tweetsBySuburb):
     else:
         return None
 
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getCulturesBySuburb(countryOfBirthBySuburb,suburbCode):
     if countryOfBirthBySuburb:
         for crs in countryOfBirthBySuburb["features"]:
@@ -304,7 +342,11 @@ def getCulturesBySuburb(countryOfBirthBySuburb,suburbCode):
     else:
         return None
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def mergeTweetsLanguages(languagesOfTweets,languagesOfCountries,cultures):
 
     counts = {}
@@ -342,7 +384,11 @@ def mergeTweetsLanguages(languagesOfTweets,languagesOfCountries,cultures):
     return mergedCountedList
 
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def isInMergedList(mergedList,language):
 
     for cob in mergedList:
@@ -351,7 +397,11 @@ def isInMergedList(mergedList,language):
                 return cob["id"]
     return False
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getListLanguages(languagesOfCountries,id):
     for cob in languagesOfCountries:
         if cob["id"] == id:
@@ -362,12 +412,16 @@ def getCountLanguages(languagesOfTweets,id):
         if lan == id:
             return int(languagesOfTweets[lan])
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getTweetsByCountryOfBirth(term,stateCode,suburbCode):
-    tweetsBySuburb = json.loads(getTweetsBySuburb(term,suburbCode,0,10000,"tweet"))
+    tweetsBySuburb = json.loads(getTweetsBySuburb(term,suburbCode,0,10000))
     languagesOfTweets = getLanguagesFromTweetsBySuburb(tweetsBySuburb)
 
-    countryOfBirthBySuburb = json.loads(getCultures(stateCode))
+    countryOfBirthBySuburb = json.loads(getCulturesByState(stateCode))
     cultures = getCulturesBySuburb(countryOfBirthBySuburb,suburbCode)
 
     languagesOfCountries = json.loads(getLanguages(1)) #1: Australia
@@ -380,7 +434,7 @@ def getTweetsByCountryOfBirth(term,stateCode,suburbCode):
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"support","operator":"or"}}},"strategy":"query_first"}}}'
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}},from:0,size:20}'
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}},from:1,size":50}}'
-# print(statisticsByTerm('AFL','206041117','tweet'))
+# print(statisticsByTerm('AFL','206041117'))
 # # print(statisticsByTerm(query,'tweet'))
 # print(customSearch(query,'tweet'))
 #
@@ -405,7 +459,7 @@ def getTweetsByCountryOfBirth(term,stateCode,suburbCode):
 
 # print(getLanguages ('1'))
 
-print(getTweetsByCountryOfBirth('AFL','VIC','206041122'))
+# print(getTweetsByCountryOfBirth('AFL','VIC','206041122'))
 # print(getTweetsBySuburb('a','206041122','tweet'))
 
 # {"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}}}

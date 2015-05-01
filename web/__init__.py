@@ -19,80 +19,87 @@ APP_STATIC_JSON = os.path.join(APP_STATIC, 'json')
 
 app = Flask(__name__)
 
-#Service: Main web page index.html is called
-#Parameters: none
-#Parameters: index.html
+#Service: 		Main web page index.html is called
+#Description:	
+#Parameters: 	none
+#output: 	index.html
 @app.route('/')
 @app.route('/index')
 def index():
 	return render_template('index.html')
 
-#Service: perform custom searches based on elasticsearch queries in json format
-#Parameters: <jsonQuery> is a json object which must follow the elasticsearch query structure
-#return: a json object containing the matched results
-@app.route('/customSearch/<jsonQuery>')
-def getCustomSearch(jsonQuery):
-	doc_type = 'tweet'
-	return indexer.customSearch(jsonQuery,doc_type)
+#Service: 		
+#Description:	Perform custom searches based on elasticsearch queries in json format
+#Parameters: 	<jsonQuery> is a json object which must follow the elasticsearch query structure
+#output: 		a json object containing the matched results
+@app.route('/genericSearch/<jsonQuery>')
+def getGenericSearch(jsonQuery):
+	return indexer.genericSearch(jsonQuery)
 
-#Service: 
-#Parameters: 
-#return: 
-@app.route('/customGeoSearch/<term>/<suburbCode>/<startP>/<sizeP>')
-def getCustomGeoSearch(term,suburbCode,startP,sizeP):
-	doc_type = 'tweet'
-	return indexer.getTweetsBySuburb(term,suburbCode,startP,sizeP,doc_type)
+#Service: 		
+#Parameters: 	
+#output: 		
+@app.route('/genericGeoSearch/<term>/<suburbCode>/<startP>/<sizeP>')
+def getGenericGeoSearch(term,suburbCode,startP,sizeP):
+	return indexer.getTweetsBySuburb(term,suburbCode,startP,sizeP)
 
-#Service: return a json 
-#Parameters: <jsonQuery> is a json object which must follow the elasticsearch query structure
-#return: a json object containing the matched results
+#Service: 	
+#Description:		
+#Parameters: 	
+#output: 		
 @app.route('/sentimentTotals/<term>/<suburbCode>')
 def getSentimentTotals(term,suburbCode):
-	doc_type = 'tweet'
-	return indexer.statisticsByTerm(term,suburbCode,doc_type)
+	return indexer.statisticsByTerm(term,suburbCode)
 
-#Service: Get a list of the suburbs of main cities of AU: ABS 2011
-#Parameters: none
-#return: a json object containing a list of suburbs
-@app.route('/listSuburbs/<countryCode>')
-def listSuburbsAU(countryCode):
-	return indexer.getSuburbs(countryCode)
+#Service:		
+#Description: 	Get a list of the suburbs of main cities of AU: ABS 2011
+#Parameters: 	
+#output: 		
+@app.route('/suburbsByCountry/<countryCode>')
+def getSuburbsList(countryCode):
+	return indexer.getSuburbsList(countryCode)
 
 
-#Service: Get GeoJson File containing information relatd to countries of birth by suburb of AU
-#Parameters: <state> the code of the state: i.e: VIC, TAS, etc
-#return: GeoJson object
-@app.route('/culturesByCity/<stateCode>')
-def listCulturesByCityAU(stateCode):
-	return indexer.getCultures(stateCode)
+#Service:		
+#Description: 	Get GeoJson File containing information relatd to countries of birth by suburb of AU
+#Parameters: 	<state> the code of the state: i.e: VIC, TAS, etc
+#return: 		GeoJson object
+@app.route('/culturesByState/<stateCode>')
+def getCulturesByState(stateCode):
+	return indexer.getCulturesByState(stateCode)
 
 #Service: 
+#Description:
 #Parameters: 
 #return: 
 @app.route('/languagesByCountry/<countryCode>')
-def listLanguagesByCountry(countryCode):
+def getLanguagesByCountry(countryCode):
 	return indexer.getLanguages(countryCode)
 
-
+#Service: 
+#Description:
+#Parameters: 
+#return: 
 @app.route('/tweetsByCountryOfBirth/<term>/<stateCode>/<suburbCode>')
 def getTweetsByCountryOfBirth(term,stateCode,suburbCode):
 	return indexer.getTweetsByCountryOfBirth(term,stateCode,suburbCode)
 
+#Service: 
+#Description:
+#Parameters: 
+#return: 
+# @app.route('/genericAggregation/<jsonQuery>')
+# def getGenericAgg(jsonQuery):
+# 	return indexer.getGenericAgg(jsonQuery)
 
-@app.route('/customAggregation/<jsonQuery>')
-def getCustomAgg(jsonQuery):
-	doc_type = 'tweet'
-	return indexer.getCustomAgg(doc_type,jsonQuery)
 
-
-#Good!
+#Service: 
+#Description:
+#Parameters: 
+#return: 
 @app.route('/topListBySuburb/<term>/<suburbCode>/<field>/<size>')
 def getTopList(term,suburbCode,field,size):
-	doc_type = 'tweet'
-	return indexer.getTopListBySuburb(doc_type,term,suburbCode,field,size)
-
-
-
+	return indexer.getTopListBySuburb(term,suburbCode,field,size)
 
 #main
 if __name__ == "__main__":

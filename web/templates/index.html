@@ -187,20 +187,44 @@
                             <div class="box">
                                 <!-- Header -->
                                 <div class="box-header with-border">
-                                    <!-- tools box -->
-                                    <div class="pull-right box-tools">
+
+<!--                                     <div class="pull-right box-tools">
 
                                          <button class="btn btn-default .btn-flat pull-right" id="toggle-cultures" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
                                          <i class="fa fa-minus"></i>
                                          </button>
 
-                                    </div><!-- /. tools -->
+                                    </div> -->
 
                                     <i class="fa fa-group"></i>
-                                    <h3 class="box-title">
-                                        Cultures of Australia
-                                    </h3>
-                                </div>
+                                      <h3 class="box-title">
+                                          AU Cultures
+                                      </h3>
+
+                                    <div class="box-footer clearfix">
+                                        <div class="pull-right">
+                                            <button class="btn btn-default pull-right" id="daterange-btn">
+                                              <i class="fa fa-calendar"></i> <span>Select Date</span>
+                                              <i class="fa fa-caret-down"></i>
+                                            </button>
+                                          </div>
+
+                                          <div class="pull-right" style="margin-right: 15px; margin-left: 10px;">
+                                             <!-- <label>Select</label> -->
+                                              <select class="form-control" id="select-suburbs" width="180" style="width: 180px">
+
+                                              </select>
+                                          </div>
+
+                                          <div class="pull-right" style="margin-right: 5px;">
+                                             <!-- <label>Select</label> -->
+                                              <select class="form-control" id="select-cities">
+
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+
                                 <!-- Body -->
                                 <div class="box-body">
                                       <div style="height: 350px; position: relative; display:none;" id="table-div">
@@ -220,31 +244,8 @@
                                       </div>
                                 </div>
 
-                                <div class="box-footer clearfix">
-                                  <div class="pull-right">
-                                      <button class="btn btn-default pull-right" id="daterange-btn">
-                                        <i class="fa fa-calendar"></i> <span>Select Date</span>
-                                        <i class="fa fa-caret-down"></i>
-                                      </button>
-                                    </div>
-
-                                    <div class="pull-right" style="margin-right: 15px; margin-left: 10px;">
-                                       <!-- <label>Select</label> -->
-                                        <select class="form-control" id="select-suburbs" width="180" style="width: 180px">
-
-                                        </select>
-                                    </div>
-
-                                    <div class="pull-right" style="margin-right: 5px;">
-                                       <!-- <label>Select</label> -->
-                                        <select class="form-control" id="select-cities">
-
-                                        </select>
-                                    </div>
                                 </div>
 
-                            </div>
-                        
                         </section><!-- ./Left Row -->
                     </div><!-- /.row -->
 
@@ -367,8 +368,41 @@
                                       </div>
                                 </div>
                             </div>
-                        
                         </section><!-- ./Left Row -->
+
+                        <section class="col-lg-3 connectedSortable" id="section-overallsentiment" style="display:none;">
+
+                              <div class="box row">
+                                <div>
+                                    <!-- small box -->
+                                    <div class="small-box bg-green" id="overall-div">
+                                      <div class="inner" id="overall-sentiment-div">
+                                        <h3>Positive</h3>
+                                        <h4>&nbsp;</h4>
+                                      </div>
+                                      <div class="icon">
+                                        <i class="fa fa-smile-o" id="overall-icon"></i>
+                                      </div>
+                                      <a href="#" class="small-box-footer">Overall Sentiment</a>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <!-- small box -->
+                                    <div class="small-box bg-yellow" id="total-div">
+                                      <div class="inner" id="total-tweets-div">
+                                        <h3>Positive</h3>
+                                        <h4>&nbsp;</h4>
+                                      </div>
+                                      <div class="icon">
+                                        <i class="fa fa-bar-chart-o"></i>
+                                      </div>
+                                      <a href="#" class="small-box-footer">Total Tweets</a>
+                                    </div>
+                                </div>
+                              </div>
+
+                        </section>
                     </div><!-- /.row -->
 
                     <div class="row" id="div-totals" style="display:none;">
@@ -376,9 +410,9 @@
                         <!-- <section  id="section-overall" style="display:block;"> -->
                             <!-- <div class="row"> -->
                             
-                                <div class="col-lg-3 col-xs-6">
+                                <!-- <div class="col-lg-3 col-xs-6"  style="display:none;"> -->
                                   <!-- small box -->
-                                  <div class="small-box bg-green" id="overall-div">
+<!--                                   <div class="small-box bg-green" id="overall-div">
                                     <div class="inner" id="overall-sentiment-div">
                                       <h3>Positive</h3>
                                       <h4>&nbsp;</h4>
@@ -388,7 +422,7 @@
                                     </div>
                                     <a href="#" class="small-box-footer">Overall Sentiment</a>
                                   </div>
-                                </div>
+                                </div> -->
                             
                                 <!-- <div class="col-lg-3 col-xs-6"> -->
                                   <!-- small box -->
@@ -418,9 +452,9 @@
                                   </div>
                                 </div> -->
 
-                                <div class="col-lg-3 col-xs-6" style="display:none;">
+                                <!-- <div class="col-lg-3 col-xs-6" style="display:none;"> -->
                                   <!-- small box -->
-                                  <div class="small-box bg-yellow">
+<!--                                   <div class="small-box bg-yellow">
                                     <div class="inner">
                                       <h3>Carlton</h3>
                                       <h4>1250</h4>
@@ -430,7 +464,7 @@
                                     </div>
                                     <a href="#" class="small-box-footer">Twitt Zone</a>
                                   </div>
-                                </div>
+                                </div> -->
                             
                             <!-- </div> -->
                         <!-- </section> -->

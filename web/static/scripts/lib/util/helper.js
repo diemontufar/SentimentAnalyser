@@ -150,7 +150,7 @@ define(["moment"], function(Moment)
 			  }
 
 		      //If I cannot find point, search in coordinates
-		      if (tweet.geo === null || tweet.geo === undefined){ 
+		      if (tweet.coordinates === null || tweet.coordinates === undefined){ 
 		        //If I cannot find point, search in place.bounding_box.coordinates
 		        if(tweet.coordinates === null || tweet.coordinates === undefined){
 					//I'm gonna find the point for sure here

@@ -17,14 +17,12 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
   {
     return {
 
-        search_service_url : '/customSearch/',
-        geo_search_service_url : '/customGeoSearch/', //Gooood!
+        geo_search_service_url : '/genericGeoSearch/', //Gooood!
         sentiment_totals_service_url : '/sentimentTotals/',
-        list_suburbs_service_url : '/listSuburbs/',
-        cultures_service_url : '/culturesByCity',
+        list_suburbs_service_url : '/suburbsByCountry/', //Good!
+        cultures_service_url : '/culturesByState', 
         list_languages_service_url : '/languagesByCountry/',
         table_cultures_service_url : '/tweetsByCountryOfBirth/',
-        custom_agg_service_url : '/customAggregation/',
         list_top_bysuburb_service_url: 'topListBySuburb/', //Good!
 
         initialize : function() {
@@ -55,7 +53,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
               });
             }else{
               var helper = new Helper();
-              helper.infoMessage('No Top twitterers found');
+              helper.infoMessage('No twitterers found for this topic');
             }
             
             html_user += '</ol>';
@@ -92,7 +90,7 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
               });
             }else{
               var helper = new Helper();
-              helper.infoMessage('No Trends found');
+              helper.infoMessage('No trends found for this topic');
             }
             
             html_user += '</ol>';
@@ -120,6 +118,8 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                   $('#tab_1-1').empty();
                   $('#tab_2-2').empty();
                   $('#tab_3-3').empty();
+
+                  var count_records = 0;
 
                 $.each(data.hits.hits, function(key, hit) {
 
@@ -174,10 +174,13 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                        if (sentiment_analysis!=null && sentiment_analysis!=undefined){
                           if (sentiment_analysis.sentiment=='positive'){
                             $('#tab_1-1').append(tweet_html);
+                            count_records++;
                           }else if(sentiment_analysis.sentiment=='negative'){
                             $('#tab_3-3').append(tweet_html);
+                            count_records++;
                           }else if(sentiment_analysis.sentiment=='neutral'){
                             $('#tab_2-2').append(tweet_html);
+                            count_records++;
                           }
                         }
                     
@@ -185,6 +188,8 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                     
                 });
               }
+
+              console.log("Number of listed tweets: " + count_records);
 
           }); //End getJSON
 
@@ -199,6 +204,8 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
           var pie_chart = chart;
 
           $.getJSON(request,function(data) {
+
+            console.log(data);
 
                 data = JSON.parse(data);
                 var helper = new Helper();
@@ -222,6 +229,9 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
                     $('#overall-sentiment-div h3').empty();
                     $('#overall-sentiment-div h3').append(result.mean_sentiment);
+
+                    $('#total-tweets-div h3').empty();
+                    $('#total-tweets-div h3').append(total_tweets);
 
                     var icon;
                     var color;
@@ -435,6 +445,10 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
           $.getJSON(request, function(data) {
 
+            var reposition_lang = undefined;
+            var reposition_lat = undefined;
+            var got_center = true;
+
             var total_retrieved_tweets = 0;
 
             var mapLanguages = [];
@@ -466,6 +480,12 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                         var marker = helper.getGeoMarkerPoint(tweet);
                         addMarker(marker); //Add markers to the map and the markers array
                         
+                        if (got_center){
+                            reposition_lang = marker.position.F;
+                            reposition_lat = marker.position.A;
+                            got_center = false;
+                        }
+                        
                     }else{
                       console.log("Undefined");
                     }
@@ -473,10 +493,12 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
                   }); //inner inner each
 
               console.log(mapLanguages);
-              console.log("Total retrieved tweets: " + total_retrieved_tweets);
+              console.log("Total drawn tweets: " + total_retrieved_tweets);
               var helper = new Helper();
               setAllMap(map); //Add all markers to the map
-              
+              // console.log("Lat: " + reposition_lat + " , Lat: " + reposition_lang);
+              map.setCenter(new google.maps.LatLng(reposition_lat, reposition_lang)); 
+              map.setZoom(13);
               } //if data
           }); //End getJSON
       }

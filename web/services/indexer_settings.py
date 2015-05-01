@@ -1,6 +1,7 @@
 
 #Elasticsearch index:
 es_index = 'twitterall'
+es_docType = 'tweet'
 
 #Couchdb Database and credentials
 server = 'http://localhost:5984/'
