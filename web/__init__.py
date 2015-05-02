@@ -39,17 +39,17 @@ def getGenericSearch(jsonQuery):
 #Service: 		
 #Parameters: 	
 #output: 		
-@app.route('/genericGeoSearch/<term>/<suburbCode>/<startP>/<sizeP>')
-def getGenericGeoSearch(term,suburbCode,startP,sizeP):
-	return indexer.getTweetsBySuburb(term,suburbCode,startP,sizeP)
+@app.route('/genericGeoSearch/<term>/<suburbCode>/<startP>/<sizeP>/<startDate>/<endDate>')
+def getGenericGeoSearch(term,suburbCode,startP,sizeP,startDate,endDate):
+	return indexer.getTweetsBySuburb(term,suburbCode,startP,sizeP,startDate,endDate)
 
 #Service: 	
 #Description:		
 #Parameters: 	
 #output: 		
-@app.route('/sentimentTotals/<term>/<suburbCode>')
-def getSentimentTotals(term,suburbCode):
-	return indexer.statisticsByTerm(term,suburbCode)
+@app.route('/sentimentTotals/<term>/<suburbCode>/<startDate>/<endDate>')
+def getSentimentTotals(term,suburbCode,startDate,endDate):
+	return indexer.statisticsByTerm(term,suburbCode,startDate,endDate)
 
 #Service:		
 #Description: 	Get a list of the suburbs of main cities of AU: ABS 2011
@@ -80,9 +80,9 @@ def getLanguagesByCountry(countryCode):
 #Description:
 #Parameters: 
 #return: 
-@app.route('/tweetsByCountryOfBirth/<term>/<stateCode>/<suburbCode>')
-def getTweetsByCountryOfBirth(term,stateCode,suburbCode):
-	return indexer.getTweetsByCountryOfBirth(term,stateCode,suburbCode)
+@app.route('/tweetsByCountryOfBirth/<term>/<stateCode>/<suburbCode>/<startDate>/<endDate>')
+def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startDate,endDate):
+	return indexer.getTweetsByCountryOfBirth(term,stateCode,suburbCode,startDate,endDate)
 
 #Service: 
 #Description:
@@ -97,9 +97,9 @@ def getTweetsByCountryOfBirth(term,stateCode,suburbCode):
 #Description:
 #Parameters: 
 #return: 
-@app.route('/topListBySuburb/<term>/<suburbCode>/<field>/<size>')
-def getTopList(term,suburbCode,field,size):
-	return indexer.getTopListBySuburb(term,suburbCode,field,size)
+@app.route('/topListBySuburb/<term>/<suburbCode>/<field>/<size>/<startDate>/<endDate>')
+def getTopList(term,suburbCode,field,size,startDate,endDate):
+	return indexer.getTopListBySuburb(term,suburbCode,field,size,startDate,endDate)
 
 #main
 if __name__ == "__main__":

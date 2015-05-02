@@ -2,6 +2,7 @@ import indexer_settings as settings #custom settings
 import elasticsearch #elasticsearch library
 import couchdb #couchdb library
 import json
+import datetime
 
 es = elasticsearch.Elasticsearch()  # use default of localhost, port 9200
 
@@ -99,15 +100,31 @@ def getMultipolygon(suburbCode):
                 multipolygon = feature["geometry"]["coordinates"]
     return multipolygon
 
+
+def getFormattedRange(startTimestamp,endTimestamp):
+
+    strStart = datetime.datetime.fromtimestamp(int(startTimestamp)/1000).strftime('%Y-%m-%d')
+    strEnd = datetime.datetime.fromtimestamp(int(endTimestamp)/1000).strftime('%Y-%m-%d')
+
+    if strStart == strEnd:
+        return strStart
+    else:
+        return "[" + strStart + " TO " + strEnd + "]"
+
 # Method:           
 # Description:      
 #                                 
 # Parameters:       
 # Output:           
-def statisticsByTerm(term, suburbCode):
+def statisticsByTerm(term, suburbCode, startTimestamp, endTimestamp):
+
+    dateRange = getFormattedRange(startTimestamp,endTimestamp)
+    str_date_len = len(dateRange)
 
     query = 'text:' + term
     query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
+    query +=  " AND created_at:" + dateRange
+
     multipolygon = getMultipolygon(suburbCode)
 
     jsonQuery = {
@@ -146,6 +163,8 @@ def statisticsByTerm(term, suburbCode):
 
     matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
 
+    print(jsonQuery)
+
     total = 0
     total_positive = 0
     total_neutral = 0
@@ -182,11 +201,15 @@ def statisticsByTerm(term, suburbCode):
 #                                 
 # Parameters:       
 # Output:           
-def getTopListBySuburb(term,suburbCode,field,size): #Goooooood!
+def getTopListBySuburb(term,suburbCode,field,size, startTimestamp, endTimestamp): 
+
+    dateRange = getFormattedRange(startTimestamp,endTimestamp)
+    str_date_len = len(dateRange)
 
     multipolygon = getMultipolygon(suburbCode)
     query = "text:" + term
     query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
+    query +=  " AND created_at:" + dateRange
 
     jsonQuery = {
                    "query":{
@@ -223,11 +246,16 @@ def getTopListBySuburb(term,suburbCode,field,size): #Goooooood!
 # Parameters:       
 # Output:           
 #Get the tweets located within a multipolygon and a set of points
-def getTweetsBySuburb(term,suburbCode,fromP,sizeP):
+def getTweetsBySuburb(term,suburbCode,fromP,sizeP, startTimestamp, endTimestamp):
 
+    dateRange = getFormattedRange(startTimestamp,endTimestamp)
+    str_date_len = len(dateRange)
+
+    multipolygon = getMultipolygon(suburbCode)
     query = 'text:' + term
     query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
-    multipolygon = getMultipolygon(suburbCode)
+    query +=  " AND created_at:" + dateRange
+    
 
     if multipolygon:
         jsonQuery = {
@@ -417,8 +445,8 @@ def getCountLanguages(languagesOfTweets,id):
 #                                 
 # Parameters:       
 # Output:           
-def getTweetsByCountryOfBirth(term,stateCode,suburbCode):
-    tweetsBySuburb = json.loads(getTweetsBySuburb(term,suburbCode,0,10000))
+def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startTimestamp, endTimestamp):
+    tweetsBySuburb = json.loads(getTweetsBySuburb(term,suburbCode,0,10000, startTimestamp, endTimestamp))
     languagesOfTweets = getLanguagesFromTweetsBySuburb(tweetsBySuburb)
 
     countryOfBirthBySuburb = json.loads(getCulturesByState(stateCode))
@@ -438,6 +466,13 @@ def getTweetsByCountryOfBirth(term,stateCode,suburbCode):
 # # print(statisticsByTerm(query,'tweet'))
 # print(customSearch(query,'tweet'))
 #
+
+# print(statisticsByTerm("AFL", "206041117", "1428069500339", "1430578700339"))
+# AFL/206041117/1428069500339/1430578700339"
+# print(getTweetsBySuburb('a','206041122',"1427202000000", "1427202000000"))
+
+#1427893200000 - 1430402400000
+# 1428069500339/1430578700339"
 
 # print(getTweetsBySuburb('AFL','206041122','tweet'))
 

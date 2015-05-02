@@ -6,12 +6,11 @@
  * ======================================================================== */
 /*global google */
 
-define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
+define(["util/helper"], function(Helper)
 {
   "use strict";
   var chart = document.getElementById('piechart_3d');
   var default_img_avatar = "../static/img/undefined.png";
-  var qBuilder = new QBuilder();
 
   var PageModule = function()
   {
@@ -34,7 +33,16 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
           var field = "user.screen_name";
 
-          var request = this.list_top_bysuburb_service_url + term + '/' + suburb + '/' + field + '/' + size;
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
+          var request = this.list_top_bysuburb_service_url + term + '/' + suburb + '/' + field + '/' + size + '/' + startDate + '/' + endDate;
 
           $.getJSON(request).done(function(data) {
 
@@ -71,7 +79,16 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
           var field = "entities.hashtags.text";
 
-          var request = this.list_top_bysuburb_service_url + term + '/' + suburb + '/' + field + '/' + size;
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
+          var request = this.list_top_bysuburb_service_url + term + '/' + suburb + '/' + field + '/' + size + '/' + startDate + '/' + endDate;
 
           $.getJSON(request).done(function(data) {
 
@@ -106,8 +123,17 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
         /* Populate Tweets using JSON files */
         populateTweetModuleByTerm: function(term,suburb,start,size) { 
 
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
           //Then Build the URL in order to send to the python service:
-          var request = this.geo_search_service_url + term + '/' + suburb + '/' +  start + '/' + size;
+          var request = this.geo_search_service_url + term + '/' + suburb + '/' +  start + '/' + size + '/' + startDate + '/' + endDate;
 
           // Send JSON request
           // The returned JSON object will have a property called "results" where we find
@@ -198,8 +224,17 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
         /* Get data from web services in order to populate pie chart*/
         populateChartModule : function(chart,term,suburb){
 
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
           //Then Build the URL in order to send to the python service:
-          var request = this.sentiment_totals_service_url.concat(term + '/' + suburb);
+          var request = this.sentiment_totals_service_url.concat(term + '/' + suburb + '/' + startDate + '/' + endDate);
 
           var pie_chart = chart;
 
@@ -332,8 +367,17 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
 
         populateTable: function(term,state,suburb,date){
 
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
           //Then Build the URL in order to send to the python service:
-          var request = this.table_cultures_service_url.concat(term + '/' + state + '/' + suburb); //date missing
+          var request = this.table_cultures_service_url.concat(term + '/' + state + '/' + suburb + '/' + startDate + '/' + endDate); //date missing
           tableRecordsGlobal = null;
 
           $.getJSON(request, function(countryRecords) {
@@ -440,8 +484,17 @@ define(["util/helper","qbuilder/qbuilder"], function(Helper,QBuilder)
           var startP = 0;
           var sizeP = 10000;
 
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
           //Then Build the URL in order to send to the python service:
-          var request = this.geo_search_service_url + term + '/' + suburb + '/' + startP + '/' + sizeP;
+          var request = this.geo_search_service_url + term + '/' + suburb + '/' + startP + '/' + sizeP + '/' + startDate + '/' + endDate;
 
           $.getJSON(request, function(data) {
 

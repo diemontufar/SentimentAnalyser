@@ -60,7 +60,10 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         var ini_date = moment().subtract(29, 'days');
         var end_date = moment();
 
-        $('#daterange-btn span').html(ini_date.format('MMMM D, YYYY') + ' - ' + end_date.format('MMMM D, YYYY'));
+        startDate = ini_date;
+        endDate = end_date;
+
+        $('#daterange-btn span').html(startDate.format('MMMM D, YYYY') + ' - ' + endDate.format('MMMM D, YYYY'));
         
 
 		show("tab_1-1");
@@ -146,8 +149,11 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
     });
 
     function selectedDate(start,end){
-        console.log(start.format('D/MM/YYYY') + ' - ' + end.format('D/MM/YYYY'));
+        startDate = start;
+        endDate = end;
+        console.log(startDate + ' - ' + endDate);
         $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        $("#select-suburbs").trigger("change");
     };
 
     function show(id){
@@ -247,6 +253,5 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         dynatable.process();
 
     };
-
 
 });
