@@ -1398,7 +1398,9 @@ body > .header .logo .icon {
   margin-bottom: 0;
 }
 .box .box-body .full-width-chart {
-  margin: -19px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 .box .box-body.no-padding .full-width-chart {
   margin: -9px;

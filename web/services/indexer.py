@@ -285,6 +285,123 @@ def getTweetsBySuburb(term,suburbCode,fromP,sizeP, startTimestamp, endTimestamp)
         return json.dumps(matches, indent=4) 
 
 
+def getCityBoundingBox(stateCode):
+
+    if stateCode == 'VIC':
+        coordinates = {"bottom_right" : [145.764740,-38.260720], "top_left" : [144.394492,-37.459846] }
+    elif stateCode == 'NSW':
+        coordinates = {"bottom_right" : [151.342636,-34.169249], "top_left" : [150.502229,-33.424598] }
+    elif stateCode == 'TAS':
+        coordinates = {"bottom_right" : [147.341501,-42.891561], "top_left" : [147.315681,-42.873221] }
+    elif stateCode == 'WA':
+        coordinates = {"bottom_right" : [116.413915,-32.482907], "top_left" : [115.448767,-31.454860] }
+    elif stateCode == 'SA':
+        coordinates = {"bottom_right" : [139.043564,-35.464059 ], "top_left" : [138.360346,-34.507872] }
+    elif stateCode == 'NT':
+        coordinates = {"bottom_right" : [131.200600,-12.859710], "top_left" : [130.815152,-12.330012] }
+    elif stateCode == 'QLD':
+        coordinates = {"bottom_right" : [153.552920,-28.037280], "top_left" : [152.452799,-26.777500] }
+
+        140.9923,-39.2060,150.1329,-35.8547
+
+    return coordinates
+
+# Method:           
+# Description:      
+#                   
+#                   
+# Parameters:       
+# Output:   
+def getSentimentTotalsByCity(term, stateCode, startTimestamp, endTimestamp):
+
+    dateRange = getFormattedRange(startTimestamp,endTimestamp)
+    str_date_len = len(dateRange)
+
+    coordinates = getCityBoundingBox(stateCode)
+    query = 'text:' + term
+    query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
+    query +=  " AND created_at:" + dateRange
+
+    if coordinates:
+        jsonQuery = {
+                       "query":{
+                          "filtered":{
+                             "filter": {
+                                        "geo_bounding_box": {
+                                          "coordinates.coordinates": coordinates
+                                        }
+                                      },
+                             "query": {
+                                        "query_string": {
+                                          "query": query,
+                                          "analyze_wildcard": True
+                                        }
+                            }
+                          }
+                       },
+                       "aggs": {"2": {"terms": {"field": "sentiment_analysis.sentiment", "size": 0, "order": {"_count": "desc"} } } },
+                       "size":0
+                    }
+        # print(jsonQuery)
+
+        matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
+        return json.dumps(matches, indent=4) 
+
+
+def getDataFromResponse(response):
+
+    responseJson = json.loads(response)
+    bucks = {}
+
+    if responseJson is not None:
+
+        total = responseJson["hits"]["total"]
+        buckets = responseJson["aggregations"]["2"]["buckets"]
+
+        for buck in buckets:
+
+             bucks[buck["key"]] = buck["doc_count"] 
+
+        return {"total" : total, "buckets" : bucks}
+
+
+
+def getAllSentimentTotalsByCity(term, startTimestamp, endTimestamp):
+
+    statesList = ['VIC','NSW','TAS','WA','SA','NT','QLD']
+
+    positive = 0
+    negative = 0
+    neutral = 0
+
+    sentimentTotalsByCityList = {}
+
+    for state in statesList:
+        response = getSentimentTotalsByCity(term, state, startTimestamp, endTimestamp)
+        sentimentTotals = getDataFromResponse(response)
+
+        try:
+            positive = sentimentTotals["buckets"]["positive"]
+        except KeyError:
+            positive = 0
+
+        try:
+            negative = sentimentTotals["buckets"]["negative"]
+        except KeyError:
+            negative = 0
+
+        try:
+            neutral = sentimentTotals["buckets"]["neutral"]
+        except KeyError:
+            neutral = 0
+
+        sentimentTotalsByCityList[state] = {"total" : sentimentTotals["total"], "positive": positive, "negative" : negative, "neutral": neutral }
+
+        positive = 0
+        negative = 0
+        neutral = 0
+
+    return json.dumps(sentimentTotalsByCityList, indent=4) 
 
 # def getCustomAgg(jsonQueryP):
 # # "text:LOVE AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment=negative OR sentiment_analysis.sentiment=neutral) AND -user.lang:en"
@@ -467,7 +584,9 @@ def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startTimestamp, endTimes
 # print(customSearch(query,'tweet'))
 #
 
-# print(statisticsByTerm("AFL", "206041117", "1428069500339", "1430578700339"))
+# statisticsByTerm("love", "206041117", "1428069500339", "1430578700339")
+# print(getSentimentTotalsByCity('AFL','VIC', "1428069500339", "1430578700339"))
+print(getAllSentimentTotalsByCity('AFL', "1428069500339", "1430578700339"))
 # AFL/206041117/1428069500339/1430578700339"
 # print(getTweetsBySuburb('a','206041122',"1427202000000", "1427202000000"))
 

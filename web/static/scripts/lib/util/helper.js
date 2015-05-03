@@ -215,6 +215,82 @@ define(["moment"], function(Moment)
 
 		  	},
 
+		  	sentimentByCityBarChartOptions : {
+
+                 scaleShowGridLines : true,
+                 scaleGridLineColor : "rgba(0,0,0,.05)",
+                 scaleGridLineWidth : 1,
+                 scaleShowHorizontalLines: true,
+                 scaleShowVerticalLines: true,
+                 bezierCurve : true,
+                 bezierCurveTension : 0.4,
+                 pointDot : true,
+                 pointDotRadius : 4,
+                 pointDotStrokeWidth : 1,
+                 pointHitDetectionRadius : 20,
+                 datasetStroke : true,
+                 datasetStrokeWidth : 2,
+                 datasetFill : true,
+                 multiTooltipTemplate: "<%= datasetLabel %> : <%= value %>",
+                 legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+               },
+
+            getBarDataChart: function(data){
+
+            	  if (data !== undefined && data !== null){
+
+            	  	var positives = [];
+            	  	var negatives = [];
+            	  	var neutrals = [];
+
+            	  	$.each(data,function(key,value){
+
+        	  			positives.push(value.positive);
+            	  		negatives.push(value.negative);
+            	  		neutrals.push(value.neutral);
+
+            	  	});
+
+	            	  var dataChart = {
+							            labels: ["Melbourne", "Sydney", "Hobart", "Perth", "Adelaide", "Darwin", "Brisbane"],
+							            datasets: [
+							                {
+							                    label: "Positive",
+							                    fillColor: "rgba(0, 175, 240,0.5)",
+							                    strokeColor: "rgba(0, 175, 240,0.8)",
+							                    highlightFill: "rgba(0, 175, 240,0.75)",
+							                    highlightStroke: "rgba(0, 175, 240,1)",
+							                    data: positives
+							                },
+							                {
+							                    label: "Negative",
+							                    fillColor: "rgba(240, 80, 50,0.5)",
+							                    strokeColor: "rgba(240, 80, 50,0.8)",
+							                    highlightFill: "rgba(240, 80, 50,0.75)",
+							                    highlightStroke: "rgba(240, 80, 50,1)",
+							                    data: negatives
+							                },
+							                {
+							                    label: "Neutral",
+							                    fillColor: "rgba(84, 184, 71,0.5)",
+							                    strokeColor: "rgba(84, 184, 71,0.8)",
+							                    highlightFill: "rgba(84, 184, 71,0.75)",
+							                    highlightStroke: "rgba(84, 184, 71,1)",
+							                    data: neutrals
+							                }
+							            ]
+							        };
+
+			      }else{
+			      	return undefined;
+			      }
+
+			      return dataChart;
+
+
+            },
+
 		  	isInStateList: function(state){
 
 				return statesList[state] != undefined;

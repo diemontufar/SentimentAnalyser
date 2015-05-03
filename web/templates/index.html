@@ -40,6 +40,7 @@
         var tableRecordsGlobal //global table records
         var startDate; //current date selected
         var endDate; //current date selected
+        var barChartSentimentCities; //BarChart
         function initialize() {
         var mapOptions = {
                             center: { lat: -37.816667, lng: 144.966667},
@@ -252,7 +253,7 @@
                     <!-- Main row-->
                     <div class="row">
                         <!-- Map row -->
-                        <section class="col-lg-3 connectedSortable" id="section-toptwitterers" style="display:none;">
+                        <section class="col-lg-4 connectedSortable" id="section-toptwitterers" style="display:none;">
                            
                             <!-- Map box -->
                             <div class="box box-coffee">
@@ -282,7 +283,7 @@
                         </section><!-- Map Row -->
 
                         <!-- Right module -->
-                        <section class="col-lg-3 connectedSortable" id="section-toptrends" style="display:none;">
+                        <section class="col-lg-4 connectedSortable" id="section-toptrends" style="display:none;">
                             <!-- CULTURES OF AUSTRALIA -->
                             <div class="box box-warning">
                                 <!-- Header -->
@@ -312,7 +313,7 @@
                         </section><!-- ./Left Row -->
 
                         <!-- Right module -->
-                        <section class="col-lg-3 connectedSortable" id="section-topcountries" style="display:none;">
+                        <section class="col-lg-4 connectedSortable" id="section-topcountries" style="display:none;">
                             <!-- CULTURES OF AUSTRALIA -->
                             <div class="box box-purple">
                                 <!-- Header -->
@@ -328,7 +329,7 @@
 
                                     <i class="fa fa-male"></i>
                                     <h3 class="box-title">
-                                        Top 5 Cultures
+                                        Top 5 Twitterer Cultures
                                     </h3>
                                 </div>
                                 <!-- Body -->
@@ -342,7 +343,7 @@
                         </section><!-- ./Left Row -->
 
                         <!-- Right module -->
-                        <section class="col-lg-3 connectedSortable" id="section-topsuburbs" style="display:none;">
+                        <section class="col-lg-4 connectedSortable" id="section-topsuburbs" style="display:none;">
                             <!-- CULTURES OF AUSTRALIA -->
                             <div class="box box-info">
                                 <!-- Header -->
@@ -370,39 +371,6 @@
                             </div>
                         </section><!-- ./Left Row -->
 
-                        <section class="col-lg-3 connectedSortable" id="section-overallsentiment" style="display:none;">
-
-                              <div class="box row">
-                                <div>
-                                    <!-- small box -->
-                                    <div class="small-box bg-green" id="overall-div">
-                                      <div class="inner" id="overall-sentiment-div">
-                                        <h3>Positive</h3>
-                                        <h4>&nbsp;</h4>
-                                      </div>
-                                      <div class="icon">
-                                        <i class="fa fa-smile-o" id="overall-icon"></i>
-                                      </div>
-                                      <a href="#" class="small-box-footer">Overall Sentiment</a>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <!-- small box -->
-                                    <div class="small-box bg-yellow" id="total-div">
-                                      <div class="inner" id="total-tweets-div">
-                                        <h3>Positive</h3>
-                                        <h4>&nbsp;</h4>
-                                      </div>
-                                      <div class="icon">
-                                        <i class="fa fa-bar-chart-o"></i>
-                                      </div>
-                                      <a href="#" class="small-box-footer">Total Tweets</a>
-                                    </div>
-                                </div>
-                              </div>
-
-                        </section>
                     </div><!-- /.row -->
 
                     <div class="row" id="div-totals" style="display:none;">
@@ -482,12 +450,12 @@
                     <div class="row">
 
                         <!-- Left row -->
-                        <section class="col-lg-6 connectedSortable" id="section-chart" style="display:none;">
+                        <div class="col-md-3" id="section-chart" style="display:none;">
                             <!-- DONUT CHART -->
                             <div class="box box-danger">
                                 <div class="box-header with-border">
                                     <i class="fa fa-smile-o"></i>
-                                    <h3 class="box-title">Sentiment results</h3>
+                                    <h3 class="box-title">Sentiment results: Suburbs</h3>
                                 </div>
                                 <div class="box-body chart-responsive">
                                     <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
@@ -495,10 +463,40 @@
                                 </div><!-- /.box-body -->
                             </div>
                         
-                        </section><!-- ./Left Row -->
+                        </div><!-- ./Left Row -->
+
+
+                        <div class="col-lg-3 connectedSortable" id="section-overallsentiment" style="display:none;">
+                          <div>
+                              <!-- small box -->
+                              <div class="small-box bg-green" id="overall-div">
+                                <div class="inner" id="overall-sentiment-div">
+                                  <h3>Positive</h3>
+                                  <h4>&nbsp;</h4>
+                                </div>
+                                <div class="icon">
+                                  <i class="fa fa-smile-o" id="overall-icon"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">Overall Sentiment</a>
+                              </div>
+                          </div>
+
+                          <div>
+                              <div class="small-box bg-yellow" id="total-div">
+                                <div class="inner" id="total-tweets-div">
+                                  <h3>Positive</h3>
+                                  <h4>&nbsp;</h4>
+                                </div>
+                                <div class="icon">
+                                  <i class="fa fa-bar-chart-o"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">Total Tweets</a>
+                              </div>
+                          </div>
+                        </div>
 
                         <!-- Right Row -->
-                        <section class="col-lg-6 connectedSortable" id="section-feed" style="display:none;">
+                        <div class="col-md-6" id="section-feed" style="display:none;">
                             <!-- Chat box -->
                             <div class="box box-success">
                                 <div class="box-header with-border">
@@ -535,10 +533,38 @@
                                 </div>
 
                             </div>
-                        </section> <!-- ./Right Row -->
+                        </div> <!-- ./Right Row -->
                     </div><!-- /.row -->
 
+                    
+
+                    <div class="row">
+
+                        <!-- Left row -->
+                        <section class="col-lg-6 connectedSortable" id="section-bar-chart" style="visibility:hidden;">
+                            <!-- DONUT CHART -->
+                            <div class="box box-danger">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-smile-o"></i>
+                                    <h3 class="box-title">Sentiment results: Tweets vs. Main Cities</h3>
+                                </div>
+                                <div class="box-body">
+                                    <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
+                                    <div class="full-width-chart" id="myChartContainer" >
+                                        <canvas id="sentimentByCityChart" width="500px" height="250px"></canvas>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div>
+                        
+                        </section><!-- ./Left Row -->
+
+                    </div>
+
                 </section><!-- /.content -->
+
+
+
+
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 

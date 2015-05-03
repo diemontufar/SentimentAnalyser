@@ -6,11 +6,16 @@
  * ======================================================================== */
 /*global google */
 
-define(["util/helper"], function(Helper)
+define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOptions)
 {
   "use strict";
   var chart = document.getElementById('piechart_3d');
   var default_img_avatar = "../static/img/undefined.png";
+
+  Chart.noConflict();
+  var chartOptions = new ChartOptions();
+
+  Chart.defaults.global = chartOptions.defaults;
 
   var PageModule = function()
   {
@@ -23,6 +28,7 @@ define(["util/helper"], function(Helper)
         list_languages_service_url : '/languagesByCountry/',
         table_cultures_service_url : '/tweetsByCountryOfBirth/',
         list_top_bysuburb_service_url: 'topListBySuburb/', //Good!
+        list_sentiment_by_city_service_url: 'sentimentTotalsByCity/', //Good!
 
         initialize : function() {
 
@@ -551,9 +557,37 @@ define(["util/helper"], function(Helper)
               setAllMap(map); //Add all markers to the map
               // console.log("Lat: " + reposition_lat + " , Lat: " + reposition_lang);
               map.setCenter(new google.maps.LatLng(reposition_lat, reposition_lang)); 
-              map.setZoom(13);
+              map.setZoom(12);
               } //if data
           }); //End getJSON
+      },
+
+      populateTweetsCitiesBarChart: function(term){
+
+        if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
+        //Then Build the URL in order to send to the python service:
+        var request = this.list_sentiment_by_city_service_url + term + '/' + startDate + '/' + endDate;
+
+        $.getJSON(request, function(data) {
+
+          var helper = new Helper();
+
+          var dataChart = helper.getBarDataChart(data);
+
+          // This will get the first returned node in the jQuery collection.
+          var myBarChart = new Chart(barChartSentimentCities).Bar(dataChart, helper.sentimentByCityBarChartOptions);
+
+        });
+
+        
       }
 
 

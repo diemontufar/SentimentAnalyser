@@ -6,9 +6,9 @@
  *                    Here we get parameters chosen by the user and then we make calls to the 'modules.js' class.
  * ======================================================================== */
 
-require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart","dynatable","daterangepicker","util/helper"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Chart,Dynatable,Daterangepicker,Helper) {
+require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart","dynatable","daterangepicker","util/helper"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,gPieChart,Dynatable,Daterangepicker,Helper) {
 
-	var chart = new Chart();
+	var chart = new gPieChart();
 	chart.initializeChart();
 
 	var modules = new PageModules();
@@ -27,8 +27,32 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         $('#toptwitterers-div').empty();
         $('#toptrends-div').empty();
         $('#label-showing').empty();
-        $('#overall-sentiment-div h3').empty();
         $('#topcountries-div').empty();
+
+
+        $('#tab_1-1').empty();
+        $('#tab_2-2').empty();
+        $('#tab_3-3').empty();
+
+        $('#overall-sentiment-div h3').empty();
+        $('#overall-sentiment-div h3').append('None');
+
+        $('#total-tweets-div h3').empty();
+        $('#total-tweets-div h3').append('0');
+
+       
+        show("section-cultures");
+        show("section-map");
+        
+
+        hide("section-feed");
+        hide("section-toptwitterers");
+        hide("section-toptrends");
+        hide("section-topcountries");
+        hide("section-overallsentiment");
+        hide("div-totals");
+        $('#section-bar-chart').css('visibility','hidden');
+        hide('section-chart');
 
 
     };
@@ -57,6 +81,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
         $('#daterange-btn').daterangepicker(helper.date_options,selectedDate);
 
+
         var ini_date = moment().subtract(29, 'days');
         var end_date = moment();
 
@@ -70,23 +95,24 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         hide("tab_2-2");
         hide("tab_3-3");
 
+        barChartSentimentCities = $("#sentimentByCityChart").get(0).getContext("2d"); //global BarChart
+        
+
 	});
 
     /*When the user click the GO button do the following*/
 	$("#go-button").click( function(e){
 
-        clearModules();
 		var term = $("#term").val();
         //Show hidden modules
-        show("section-cultures");
-        show("section-map");
-        hide("div-totals");
+        clearModules();
         resetMapAndTable();
         refreshMap();
 
         //If topic is not empty start to populate data*/
 		if (term!="" && term!=undefined){
 
+            modules.populateTweetsCitiesBarChart(term);
             modules.populateListOfCities();
             
 		}else{
@@ -200,6 +226,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
     $( "#select-suburbs" ).change(function() {
         show("table-div");
+        $('#section-bar-chart').css('visibility','visible');
+        show('section-chart');
 
         var term = $("#term").val();
         var state = $("#select-cities").val();
@@ -215,13 +243,14 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         // modules.populatePositivePeople(term,suburb); //Unused
         // modules.populateNegativePeople(term,suburb); //Unused
 
-        show("section-chart");
         show("section-feed");
         show("section-toptwitterers");
         show("section-toptrends");
         show("section-topcountries");
         show("section-overallsentiment");
         show("div-totals");
+        
+
     });
 
     function resetDynatable(){
@@ -253,5 +282,6 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         dynatable.process();
 
     };
+
 
 });

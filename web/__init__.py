@@ -101,6 +101,14 @@ def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startDate,endDate):
 def getTopList(term,suburbCode,field,size,startDate,endDate):
 	return indexer.getTopListBySuburb(term,suburbCode,field,size,startDate,endDate)
 
+#Service: 
+#Description:
+#Parameters: 
+#return: 
+@app.route('/sentimentTotalsByCity/<term>/<startDate>/<endDate>')
+def getSentimentTotalsByCity(term,startDate,endDate):
+	return indexer.getAllSentimentTotalsByCity(term,startDate,endDate);
+
 #main
 if __name__ == "__main__":
 	app.run(debug=True)
