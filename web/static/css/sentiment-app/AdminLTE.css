@@ -637,7 +637,7 @@ body > .header .logo .icon {
   margin-right: 10px;
 }
 .dropdown-menu > li > a:hover {
-  background-color: #3c8dbc;
+  background-color: rgba(8, 8, 8, 0.19);
   color: #f9f9f9;
 }
 /*Drodown in navbars*/

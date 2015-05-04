@@ -29,7 +29,7 @@ requirejs.config({
         "dynatable": "dynatable/jquery.dynatable",
         "daterangepicker": "daterangepicker/daterangepicker",
         "moment": "daterangepicker/moment",
-        "chartjs": "chartjs/chart.min",
+        "chartjs": "chartjs/Chart.min",
         "chartoptions" : "util/chartoptions"
     },
     shim: {

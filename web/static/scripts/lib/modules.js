@@ -246,9 +246,6 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
 
           $.getJSON(request,function(data) {
 
-            console.log(data);
-
-                data = JSON.parse(data);
                 var helper = new Helper();
 
                 if (data !== undefined && data !== null){
@@ -386,9 +383,9 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
           var request = this.table_cultures_service_url.concat(term + '/' + state + '/' + suburb + '/' + startDate + '/' + endDate); //date missing
           tableRecordsGlobal = null;
 
-          $.getJSON(request, function(countryRecords) {
+          $.getJSON(request, function(data) {
 
-            // console.log(countryRecords);
+            var countryRecords = data["buckets"];
 
             if (countryRecords){
 

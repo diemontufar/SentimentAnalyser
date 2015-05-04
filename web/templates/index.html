@@ -119,7 +119,22 @@
         <!-- header logo: style can be found in header.less -->
         <header class="header">
             <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar" role="navigation"></nav>
+            <nav class="navbar" role="navigation">
+              <div class="margin pull-right" style="margin-right: 15px; margin-left: 10px; margin-top:10px;">
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">External Links</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">Services</a></li>
+                      <li><a href="http://trends24.in/australia/" target="_blank">Twitter trends</a></li>
+                    </ul>
+                </div>
+              </div>
+            <nav>
         </header>
 
         <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -130,8 +145,8 @@
                 <section class="content-header">
                     <center>
                     <h1 class="box-title">
-                        <span style="font-family: 'Kaushan Script', cursive; font-size: -webkit-xxx-large;">
-                            Cultures of Australia
+                        <span style="font-family: 'Kaushan Script', cursive; font-size: 60px;">
+                            Exploring the Cultures of Australia
                         </span>
                     </h1>
                     <h3>
@@ -447,6 +462,16 @@
                      
                     </div> -->
 
+                    <div class="row" id="disclaimer-sentiment" style="display:none;">
+                      <center>
+                        <h2 style="margin-bottom: 30px;"> 
+                          <medium style="font-family: Source Sans Pro, sans-serif; color: rgba(105, 115, 109, 0.54); font-size: 25px;">
+                            Sentiment analysis is performed against english language tweets only!
+                          </medium> 
+                        </h2>
+                      </center>
+                    </div>
+
                     <div class="row">
 
                         <!-- Left row -->
@@ -467,7 +492,7 @@
 
 
                         <div class="col-lg-3 connectedSortable" id="section-overallsentiment" style="display:none;">
-                          <div>
+                          <div style="margin-top:15px;">
                               <!-- small box -->
                               <div class="small-box bg-green" id="overall-div">
                                 <div class="inner" id="overall-sentiment-div">
@@ -482,7 +507,7 @@
                           </div>
 
                           <div>
-                              <div class="small-box bg-yellow" id="total-div">
+                              <div class="small-box bg-blue" id="total-div">
                                 <div class="inner" id="total-tweets-div">
                                   <h3>Positive</h3>
                                   <h4>&nbsp;</h4>

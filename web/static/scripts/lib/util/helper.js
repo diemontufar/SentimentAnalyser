@@ -23,7 +23,7 @@ define(["moment"], function(Moment)
                     endDate: moment(),
                     minDate: '01/01/2012',
                     maxDate: '12/31/2015',
-                    dateLimit: { days: 90 },
+                    dateLimit: { days: 120 },
                     showDropdowns: true,
                     showWeekNumbers: true,
                     timePicker: false,
@@ -243,9 +243,11 @@ define(["moment"], function(Moment)
             	  	var positives = [];
             	  	var negatives = [];
             	  	var neutrals = [];
+            	  	var labelsStates = [];
 
             	  	$.each(data,function(key,value){
 
+            	  		labelsStates.push(statesList[key]);
         	  			positives.push(value.positive);
             	  		negatives.push(value.negative);
             	  		neutrals.push(value.neutral);
@@ -253,7 +255,7 @@ define(["moment"], function(Moment)
             	  	});
 
 	            	  var dataChart = {
-							            labels: ["Melbourne", "Sydney", "Hobart", "Perth", "Adelaide", "Darwin", "Brisbane"],
+							            labels: labelsStates,
 							            datasets: [
 							                {
 							                    label: "Positive",

@@ -421,8 +421,7 @@
                "type":"string"
             },
             "timestamp_ms":{  
-               "type":"date",
-               "format":"date_hour_minute_second"
+               "type":"date"
             },
             "truncated":{  
                "type":"boolean",

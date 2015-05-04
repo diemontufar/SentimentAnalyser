@@ -13,7 +13,7 @@ es = elasticsearch.Elasticsearch()  # use default of localhost, port 9200
 # Output:           matches (JSON)
 def genericSearch(jsonQuery):
     matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
-    return json.dumps(matches, indent=4) 
+    return matches
 
 # Method:           count
 # Description:      Count the number of ocurrences in a index based on a json query
@@ -47,7 +47,7 @@ def getCulturesByState(stateCode):
     for id in db:
         doc = getDocument(db,id)
         if doc["crs"]['properties']['state_id'] == stateCode:
-            return json.dumps(doc, indent=4)
+            return doc
 
 # Method:           getSuburbsList
 # Description:      Obtain the list of suburbs by country from couchdb database                    
@@ -63,7 +63,7 @@ def getSuburbsList(countryCode):
     for id in db:
         doc = getDocument(db,id)
         if doc["country_code"] == int(countryCode):
-            return json.dumps(doc, indent=4)
+            return doc
 
 # Method:           getLanguages
 # Description:      Obtain the list of suburbs by country from couchdb database
@@ -79,7 +79,7 @@ def getLanguages(countryCode):
     for id in db:
         doc = getDocument(db,id)
         if doc["country_code"] == int(countryCode):
-            return json.dumps(doc, indent=4)
+            return doc
 
 # Method:           getMultipolygon
 # Description:      Obtain multipolygon defined on GeoJson document on couchdb database        
@@ -101,20 +101,28 @@ def getMultipolygon(suburbCode):
     return multipolygon
 
 
+# Method:           getFormattedRange
+# Description:      Parse start and end dates in timestamp format into a Lucene syntax for date ranges
+# Parameters:       startTimestamp (String),endTimestamp (String) i.e. 1428069500339, 1430578700339
+# Output:           range (String) i.e. [2015-01-01 TO 2015-02-01]
 def getFormattedRange(startTimestamp,endTimestamp):
 
+    #Format YY-mm-dd
     strStart = datetime.datetime.fromtimestamp(int(startTimestamp)/1000).strftime('%Y-%m-%d')
     strEnd = datetime.datetime.fromtimestamp(int(endTimestamp)/1000).strftime('%Y-%m-%d')
 
     if strStart == strEnd:
-        return strStart
+        return strStart #return a single date
     else:
-        return "[" + strStart + " TO " + strEnd + "]"
+        return "[" + strStart + " TO " + strEnd + "]" #return range
 
-# Method:           
+# Method:           statisticsByTerm
 # Description:      
 #                                 
-# Parameters:       
+# Parameters:       term (String)
+#                   suburbCode (String)
+#                   startTimestamp (String)
+#                   endTimestamp (String)
 # Output:           
 def statisticsByTerm(term, suburbCode, startTimestamp, endTimestamp):
 
@@ -163,8 +171,6 @@ def statisticsByTerm(term, suburbCode, startTimestamp, endTimestamp):
 
     matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
 
-    print(jsonQuery)
-
     total = 0
     total_positive = 0
     total_neutral = 0
@@ -194,7 +200,7 @@ def statisticsByTerm(term, suburbCode, startTimestamp, endTimestamp):
 
     result = '{"results":{"total_tweets": %i, "mean_sentiment":\"%s\", "total_positive": %i, "total_neutral": %i, "total_negative": %i}}' % (total,mean_sentiment,total_positive,total_neutral,total_negative) 
 
-    return json.dumps(result, indent=4) 
+    return json.loads(result)
 
 # Method:           
 # Description:      
@@ -208,7 +214,7 @@ def getTopListBySuburb(term,suburbCode,field,size, startTimestamp, endTimestamp)
 
     multipolygon = getMultipolygon(suburbCode)
     query = "text:" + term
-    query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
+    # query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
     query +=  " AND created_at:" + dateRange
 
     jsonQuery = {
@@ -236,7 +242,7 @@ def getTopListBySuburb(term,suburbCode,field,size, startTimestamp, endTimestamp)
                 }
 
     matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
-    return json.dumps(matches, indent=4)
+    return matches
 
 
 # Method:           
@@ -282,10 +288,12 @@ def getTweetsBySuburb(term,suburbCode,fromP,sizeP, startTimestamp, endTimestamp)
                     }
 
         matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
-        return json.dumps(matches, indent=4) 
+        return matches
 
 
 def getCityBoundingBox(stateCode):
+
+    coordinates = None
 
     if stateCode == 'VIC':
         coordinates = {"bottom_right" : [145.764740,-38.260720], "top_left" : [144.394492,-37.459846] }
@@ -301,8 +309,6 @@ def getCityBoundingBox(stateCode):
         coordinates = {"bottom_right" : [131.200600,-12.859710], "top_left" : [130.815152,-12.330012] }
     elif stateCode == 'QLD':
         coordinates = {"bottom_right" : [153.552920,-28.037280], "top_left" : [152.452799,-26.777500] }
-
-        140.9923,-39.2060,150.1329,-35.8547
 
     return coordinates
 
@@ -345,12 +351,12 @@ def getSentimentTotalsByCity(term, stateCode, startTimestamp, endTimestamp):
         # print(jsonQuery)
 
         matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
-        return json.dumps(matches, indent=4) 
+        return matches
 
 
 def getDataFromResponse(response):
 
-    responseJson = json.loads(response)
+    responseJson = response
     bucks = {}
 
     if responseJson is not None:
@@ -401,7 +407,7 @@ def getAllSentimentTotalsByCity(term, startTimestamp, endTimestamp):
         negative = 0
         neutral = 0
 
-    return json.dumps(sentimentTotalsByCityList, indent=4) 
+    return sentimentTotalsByCityList
 
 # def getCustomAgg(jsonQueryP):
 # # "text:LOVE AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment=negative OR sentiment_analysis.sentiment=neutral) AND -user.lang:en"
@@ -456,29 +462,8 @@ def getAllSentimentTotalsByCity(term, startTimestamp, endTimestamp):
 #                                 
 # Parameters:       
 # Output:           
-def getLanguagesFromTweetsBySuburb(tweetsBySuburb):
-
-    totals = {}
-
-    if tweetsBySuburb:
-        for hits in tweetsBySuburb["hits"]["hits"]:
-            lang = hits["_source"]["user"]["lang"]
-            lang = lang.lower()
-
-            if lang == 'select language...':
-                lang = 'und'
-
-            totals[lang] = totals.get(lang, 0) + 1
-        return totals
-    else:
-        return None
-
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
 def getCulturesBySuburb(countryOfBirthBySuburb,suburbCode):
+
     if countryOfBirthBySuburb:
         for crs in countryOfBirthBySuburb["features"]:
             suburb = crs["properties"]["feature_code"]
@@ -563,17 +548,32 @@ def getCountLanguages(languagesOfTweets,id):
 # Parameters:       
 # Output:           
 def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startTimestamp, endTimestamp):
-    tweetsBySuburb = json.loads(getTweetsBySuburb(term,suburbCode,0,10000, startTimestamp, endTimestamp))
-    languagesOfTweets = getLanguagesFromTweetsBySuburb(tweetsBySuburb)
 
-    countryOfBirthBySuburb = json.loads(getCulturesByState(stateCode))
+    languagesOfTweets = {}
+
+    tweetsBySuburb = getTopListBySuburb(term,suburbCode,"user.lang",0, startTimestamp, endTimestamp)
+
+    for buck in tweetsBySuburb["aggregations"]["2"]["buckets"]:
+      lang = buck["key"]
+      lang = lang.lower()
+
+      if lang == 'select language...':
+        lang = 'und'
+
+      languagesOfTweets[lang] = buck["doc_count"]
+
+    countryOfBirthBySuburb = getCulturesByState(stateCode)
+
     cultures = getCulturesBySuburb(countryOfBirthBySuburb,suburbCode)
 
-    languagesOfCountries = json.loads(getLanguages(1)) #1: Australia
+    languagesOfCountries = json.dumps(getLanguages(1), indent=4) #1: Australia
 
-    tweetsByCountryOfBirth = mergeTweetsLanguages(languagesOfTweets,languagesOfCountries,cultures)
+    tweetsByCountryOfBirth = mergeTweetsLanguages(languagesOfTweets,json.loads(languagesOfCountries),cultures)
+
+    res = {}
+    res["buckets"] = tweetsByCountryOfBirth
     
-    return json.dumps(tweetsByCountryOfBirth, indent=4)
+    return res
 
 
 # query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"support","operator":"or"}}},"strategy":"query_first"}}}'
@@ -586,15 +586,26 @@ def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startTimestamp, endTimes
 
 # statisticsByTerm("love", "206041117", "1428069500339", "1430578700339")
 # print(getSentimentTotalsByCity('AFL','VIC', "1428069500339", "1430578700339"))
-print(getAllSentimentTotalsByCity('AFL', "1428069500339", "1430578700339"))
+# print(getAllSentimentTotalsByCity('AFL', "1428069500339", "1430578700339"))
+# print(getCulturesByState('WA'))
 # AFL/206041117/1428069500339/1430578700339"
 # print(getTweetsBySuburb('a','206041122',"1427202000000", "1427202000000"))
 
 #1427893200000 - 1430402400000
 # 1428069500339/1430578700339"
 
-# print(getTweetsBySuburb('AFL','206041122','tweet'))
+# jsonQuery = '{"query":{"query_string":{"query":"text:AFL","analyze_wildcard":true}}}'
+# print(type(genericSearch(jsonQuery)))
 
+# print(json.dumps(getAllSentimentTotalsByCity('AFL', "1428069500339", "1430578700339")))
+
+# print(type(getTweetsByCountryOfBirth('a','VIC','206041122',"1428069500339", "1430578700339")))
+
+# print(type(statisticsByTerm('AFL', '206041122', "1428069500339", "1430578700339")))
+
+# print(type(getLanguages(1)))
+
+# print(getTweetsBySuburb('AFL','206041122','tweet'))
 # test = {
 #    "query":"text:AFL AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment=negative OR sentiment_analysis.sentiment=neutral) AND -user.lang:en",
 #    "agg1":{

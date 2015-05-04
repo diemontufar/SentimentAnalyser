@@ -45,6 +45,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         show("section-map");
         
 
+        hide('disclaimer-sentiment');
         hide("section-feed");
         hide("section-toptwitterers");
         hide("section-toptrends");
@@ -226,8 +227,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
     $( "#select-suburbs" ).change(function() {
         show("table-div");
-        $('#section-bar-chart').css('visibility','visible');
-        show('section-chart');
+        
+        
 
         var term = $("#term").val();
         var state = $("#select-cities").val();
@@ -243,13 +244,15 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         // modules.populatePositivePeople(term,suburb); //Unused
         // modules.populateNegativePeople(term,suburb); //Unused
 
-        show("section-feed");
-        show("section-toptwitterers");
-        show("section-toptrends");
-        show("section-topcountries");
-        show("section-overallsentiment");
-        show("div-totals");
-        
+        $('#disclaimer-sentiment').delay("1500").fadeIn();
+        $("#section-chart").delay("1500").fadeIn();
+        $("#section-feed").delay("1500").fadeIn();
+        $("#section-toptwitterers").delay("1500").fadeIn();
+        $("#section-toptrends").delay("1500").fadeIn();
+        $("#section-topcountries").delay("1500").fadeIn();
+        $("#section-overallsentiment").delay("1500").fadeIn();
+        $("#div-totals").delay("1500").fadeIn();     
+        $('#section-bar-chart').css('visibility','visible').hide().fadeIn("3000");   
 
     });
 

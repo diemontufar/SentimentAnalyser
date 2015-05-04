@@ -4,7 +4,7 @@
     "type": "city",
     "properties": {
       "name": "urn:x-ogc:def:crs:EPSG:4283",
-      "state_id": "WE",
+      "state_id": "WA",
       "state_name": "Perth",
       "state_coordinate": [
         -31.9535959,
