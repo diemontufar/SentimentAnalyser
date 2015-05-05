@@ -21,14 +21,15 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
   {
     return {
 
-        geo_search_service_url : '/genericGeoSearch/', //Gooood!
+        /*Web services URL definitions */
+        geo_search_service_url : '/genericGeoSearch/', 
         sentiment_totals_service_url : '/sentimentTotals/',
-        list_suburbs_service_url : '/suburbsByCountry/', //Good!
+        list_suburbs_service_url : '/suburbsByCountry/', 
         cultures_service_url : '/culturesByState', 
         list_languages_service_url : '/languagesByCountry/',
         table_cultures_service_url : '/tweetsByCountryOfBirth/',
-        list_top_bysuburb_service_url: 'topListBySuburb/', //Good!
-        list_sentiment_by_city_service_url: 'sentimentTotalsByCity/', //Good!
+        list_top_bysuburb_service_url: 'topListBySuburb/', 
+        list_sentiment_by_city_service_url: 'sentimentTotalsByCity/', 
 
         initialize : function() {
 
@@ -142,7 +143,7 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
           var request = this.geo_search_service_url + term + '/' + suburb + '/' +  start + '/' + size + '/' + startDate + '/' + endDate;
 
           // Send JSON request
-          // The returned JSON object will have a property called "results" where we find
+          // The returned JSON object will have a property called "hits" where we find
           // a list of the tweets matching our request query
           $.getJSON(request, function(data) {
 
@@ -221,7 +222,7 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
                 });
               }
 
-              console.log("Number of listed tweets: " + count_records);
+              console.log("Number of tweets on Feed module: " + count_records);
 
           }); //End getJSON
 
@@ -382,6 +383,7 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
           //Then Build the URL in order to send to the python service:
           var request = this.table_cultures_service_url.concat(term + '/' + state + '/' + suburb + '/' + startDate + '/' + endDate); //date missing
           tableRecordsGlobal = null;
+          var totalSumRecords = 0;
 
           $.getJSON(request, function(data) {
 
@@ -397,6 +399,11 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
               //Populate Top 5 
                $('#topcountries-div').empty();
                var html_cultures = '<ol type="1">';
+
+               $.each(tableRecordsGlobal,function(key,record){
+                  totalSumRecords += record.tweets;
+               });
+
                var i = 0;
                $.each(tableRecordsGlobal,function(key,record){
 
@@ -410,11 +417,19 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
                html_cultures += '</ol>';
                $('#topcountries-div').append(html_cultures);
 
-              // console.log(tableRecords);
-               var dynatable = $('#table-cultures').data('dynatable');
-               dynatable.settings.dataset.originalRecords = tableRecords;
-               dynatable.paginationPerPage.set(8);
-               dynatable.process();
+              
+               if (totalSumRecords !=0){
+                 var dynatable = $('#table-cultures').data('dynatable');
+                 dynatable.settings.dataset.originalRecords = tableRecords;
+                 dynatable.paginationPerPage.set(8);
+                 dynatable.process();
+               }else{
+                var suburb = $('#select-suburbs :selected').text();
+                var term = $("#term").val();
+                helper.infoMessage('No results found for: "' + term + '" in suburb: ' + suburb);
+               }
+
+               $('#results-found').val(totalSumRecords).trigger('change');
 
             }else{
               var suburb = $('#select-suburbs :selected').text();

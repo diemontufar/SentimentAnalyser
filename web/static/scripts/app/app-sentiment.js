@@ -21,40 +21,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
     function clearModules(){
 
-        start_page = 0; //global variable for pagination
-        size_page = 50; //global variables for pagination
-
-        $('#toptwitterers-div').empty();
-        $('#toptrends-div').empty();
-        $('#label-showing').empty();
-        $('#topcountries-div').empty();
-
-
-        $('#tab_1-1').empty();
-        $('#tab_2-2').empty();
-        $('#tab_3-3').empty();
-
-        $('#overall-sentiment-div h3').empty();
-        $('#overall-sentiment-div h3').append('None');
-
-        $('#total-tweets-div h3').empty();
-        $('#total-tweets-div h3').append('0');
-
-       
-        show("section-cultures");
-        show("section-map");
-        
-
-        hide('disclaimer-sentiment');
-        hide("section-feed");
-        hide("section-toptwitterers");
-        hide("section-toptrends");
-        hide("section-topcountries");
-        hide("section-overallsentiment");
-        hide("div-totals");
-        $('#section-bar-chart').css('visibility','hidden');
-        hide('section-chart');
-
+        helper.restartModules();
 
     };
 
@@ -104,6 +71,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
     /*When the user click the GO button do the following*/
 	$("#go-button").click( function(e){
 
+        $('#results-found').val(0).trigger('change');
+
 		var term = $("#term").val();
         //Show hidden modules
         clearModules();
@@ -113,7 +82,6 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         //If topic is not empty start to populate data*/
 		if (term!="" && term!=undefined){
 
-            modules.populateTweetsCitiesBarChart(term);
             modules.populateListOfCities();
             
 		}else{
@@ -227,8 +195,6 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
     $( "#select-suburbs" ).change(function() {
         show("table-div");
-        
-        
 
         var term = $("#term").val();
         var state = $("#select-cities").val();
@@ -236,23 +202,43 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         var date = null;
 
         modules.populateTable(term,state,suburb,date);
-        modules.drawTweetsBySuburb($("#term").val(),$(this).val());
-        modules.populateTopTwitterers(term,suburb,5);
-        modules.populateTopTrends(term,suburb,5);
-        modules.populateChartModule(chart,term,suburb);
-        modules.populateTweetModuleByTerm(term,suburb,start_page,size_page);
-        // modules.populatePositivePeople(term,suburb); //Unused
-        // modules.populateNegativePeople(term,suburb); //Unused
 
-        $('#disclaimer-sentiment').delay("1500").fadeIn();
-        $("#section-chart").delay("1500").fadeIn();
-        $("#section-feed").delay("1500").fadeIn();
-        $("#section-toptwitterers").delay("1500").fadeIn();
-        $("#section-toptrends").delay("1500").fadeIn();
-        $("#section-topcountries").delay("1500").fadeIn();
-        $("#section-overallsentiment").delay("1500").fadeIn();
-        $("#div-totals").delay("1500").fadeIn();     
-        $('#section-bar-chart').css('visibility','visible').hide().fadeIn("3000");   
+    });
+
+    $('#results-found').change(function() { 
+
+        if ($(this).val() != 0){
+
+            var term = $("#term").val();
+            var suburb = $("#select-suburbs").val();
+            var date = null;
+
+            modules.populateTweetsCitiesBarChart(term);
+            modules.drawTweetsBySuburb($("#term").val(),suburb);
+            modules.populateTopTwitterers(term,suburb,5);
+            modules.populateTopTrends(term,suburb,5);
+            modules.populateChartModule(chart,term,suburb);
+            modules.populateTweetModuleByTerm(term,suburb,start_page,size_page);
+            // modules.populatePositivePeople(term,suburb); //Unused
+            // modules.populateNegativePeople(term,suburb); //Unused
+
+            $('#disclaimer-sentiment').delay("1500").fadeIn();
+            $("#section-chart").delay("1500").fadeIn();
+            $("#section-feed").delay("1500").fadeIn();
+            $("#section-toptwitterers").delay("1500").fadeIn();
+            $("#section-toptrends").delay("1500").fadeIn();
+            $("#section-topcountries").delay("1500").fadeIn();
+            $("#section-overallsentiment").delay("1500").fadeIn();
+            $("#div-totals").delay("1500").fadeIn();     
+            $('#section-bar-chart').css('visibility','visible').hide().fadeIn("3000");   
+
+        }else{
+            if ($('#section-toptwitterers').css('display') == 'block'){
+                clearModules();
+                resetMapAndTable();
+                refreshMap();
+            }
+        }
 
     });
 

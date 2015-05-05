@@ -293,6 +293,49 @@ define(["moment"], function(Moment)
 
             },
 
+            restartModules: function(){
+
+            	total_tweets = 0; //global variable for totals
+            	cultures = null;
+		        start_page = 0; //global variable for pagination
+		        size_page = 50; //global variables for pagination
+		        var fading_time = 2000;
+
+		        $('#toptwitterers-div').empty();
+		        $('#toptrends-div').empty();
+		        $('#label-showing').empty();
+		        $('#topcountries-div').empty();
+
+
+		        $('#tab_1-1').empty();
+		        $('#tab_2-2').empty();
+		        $('#tab_3-3').empty();
+
+		        $('#overall-sentiment-div h3').empty();
+		        $('#overall-sentiment-div h3').append('None');
+
+		        $('#total-tweets-div h3').empty();
+		        $('#total-tweets-div h3').append('0');
+
+
+		       
+		        $("#section-cultures").fadeIn(2000);
+		        $("#section-map").fadeIn(2000);
+		        
+
+		        $('#disclaimer-sentiment').fadeOut(2000);
+		        $("#section-feed").fadeOut(2000);
+		        $("#section-toptwitterers").fadeOut(2000);
+		        $("#section-toptrends").fadeOut(2000);
+		        $("#section-topcountries").fadeOut(2000);
+		        $("#section-overallsentiment").fadeOut(2000);
+		        $("#div-totals").fadeOut(2000);
+		        $('#section-bar-chart').css('visibility','hidden');
+		        $('#section-chart').fadeOut(2000);
+
+
+		    },
+
 		  	isInStateList: function(state){
 
 				return statesList[state] != undefined;
