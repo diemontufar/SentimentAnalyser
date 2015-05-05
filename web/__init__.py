@@ -180,6 +180,25 @@ def getTopList(term,suburbCode,field,size,startDate,endDate):
 def getSentimentTotalsByCity(term,startDate,endDate):
 	return jsonify(indexer.getAllSentimentTotalsByCity(term,startDate,endDate))
 
+
+@app.route('/topListByCity/<field>/<size>/<startTimestamp>/<endTimestamp>',methods=['GET','OPTIONS'])
+@crossdomain(origin='*')
+def getAllTopListByCity(field,size,startTimestamp, endTimestamp):
+	return jsonify(indexer.getAllTopListsByCity(field,size,startTimestamp, endTimestamp))
+
+
+
+@app.route('/cultureTotalsByCity/<term>/<stateCode>/<startTimestamp>/<endTimestamp>',methods=['GET','OPTIONS'])
+@crossdomain(origin='*')
+def getAllLanguagesTotalsByCity(term, stateCode, startTimestamp, endTimestamp):
+	return jsonify(indexer.getAllLanguagesTotalsByCity(term, stateCode, startTimestamp, endTimestamp))
+
+
+@app.route('/sentimentTotalsByCity/<term>/<stateCode>/<startTimestamp>/<endTimestamp>',methods=['GET','OPTIONS'])
+@crossdomain(origin='*')
+def getAllSentimentByCity(term,stateCode, startTimestamp, endTimestamp):
+	return jsonify(indexer.getAllSentimentByCity(term,stateCode, startTimestamp, endTimestamp))
+
 #main
 if __name__ == "__main__":
 	app.run(debug=True)

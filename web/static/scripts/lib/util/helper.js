@@ -215,28 +215,7 @@ define(["moment"], function(Moment)
 
 		  	},
 
-		  	sentimentByCityBarChartOptions : {
-
-                 scaleShowGridLines : true,
-                 scaleGridLineColor : "rgba(0,0,0,.05)",
-                 scaleGridLineWidth : 1,
-                 scaleShowHorizontalLines: true,
-                 scaleShowVerticalLines: true,
-                 bezierCurve : true,
-                 bezierCurveTension : 0.4,
-                 pointDot : true,
-                 pointDotRadius : 4,
-                 pointDotStrokeWidth : 1,
-                 pointHitDetectionRadius : 20,
-                 datasetStroke : true,
-                 datasetStrokeWidth : 2,
-                 datasetFill : true,
-                 multiTooltipTemplate: "<%= datasetLabel %> : <%= value %>",
-                 legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-
-               },
-
-            getBarDataChart: function(data){
+            getTweetsByCityBarChartData: function(data,title,yAxisLabel){
 
             	  if (data !== undefined && data !== null){
 
@@ -254,35 +233,297 @@ define(["moment"], function(Moment)
 
             	  	});
 
+
+		            var dataChart =	{
+			              chart: {
+			                  type: 'column'
+			              },
+			              credits: {
+						      enabled: false
+						  },
+						  exporting: {
+						  	enabled: true
+						  },
+			              title: {
+			                  text: title
+			              },
+			              xAxis: {
+			                  categories: labelsStates
+			              },
+			              yAxis: {
+			                  title: {
+			                      text: yAxisLabel
+			                  }
+			              },
+			              plotOptions: {
+					            column: {
+					                dataLabels: {
+					                    enabled: true,
+					                }
+					            }
+					        },
+			              series: [{
+			                  name: 'Positive',
+			                  data: positives,
+			                  color: '#00aff0'
+			              }, 
+			              {
+			                  name: 'Negative',
+			                  data: negatives,
+			                  color: '#f05032'
+			              },
+			              {
+			                  name: 'Neutral',
+			                  data: neutrals,
+			                  color: '#54b847'
+			              }]
+		          	};
+
+			      }else{
+			      	return undefined;
+			      }
+
+			      return dataChart;
+
+
+            },
+
+            getTopTrendsByCityBarChartData: function(data,type,title,yAxisLabel){
+
+            	  if (data !== undefined && data !== null){
+
+         			var colorList = ['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE'];
+            	  	var labelsStates = [];
+            	  	var seriesP = [];
+
+            	  	var countTop = 0;
+            	  	var defaultP = [];
+
+            	  	
+            	  	$.each(data,function(key,value){
+
+            	  		
+            	  		var dataP = [];
+
+
+            	  		$.each(value.buckets,function(hashtag,count){
+
+	            	  		var dataT ={
+						                name: type + hashtag,
+						                data: [[countTop,count]]
+						               };
+
+							dataP.push(dataT);
+							
+						});
+
+            	  		if (dataP ===undefined || dataP ===null || dataP.length == 0){
+
+            	  			// labelsStates.push(null);
+
+            	  		}else{
+            	  			for (var i=0;i<5;i++){
+            	  				seriesP.push(dataP[i]);
+            	  			} 
+            	  			labelsStates.push(statesList[key]);
+            	  			countTop++;
+            	  		}
+
+            	  		
+
+            	  	});
+
+            	  	console.log(labelsStates);
+
 	            	  var dataChart = {
-							            labels: labelsStates,
-							            datasets: [
-							                {
-							                    label: "Positive",
-							                    fillColor: "rgba(0, 175, 240,0.5)",
-							                    strokeColor: "rgba(0, 175, 240,0.8)",
-							                    highlightFill: "rgba(0, 175, 240,0.75)",
-							                    highlightStroke: "rgba(0, 175, 240,1)",
-							                    data: positives
-							                },
-							                {
-							                    label: "Negative",
-							                    fillColor: "rgba(240, 80, 50,0.5)",
-							                    strokeColor: "rgba(240, 80, 50,0.8)",
-							                    highlightFill: "rgba(240, 80, 50,0.75)",
-							                    highlightStroke: "rgba(240, 80, 50,1)",
-							                    data: negatives
-							                },
-							                {
-							                    label: "Neutral",
-							                    fillColor: "rgba(84, 184, 71,0.5)",
-							                    strokeColor: "rgba(84, 184, 71,0.8)",
-							                    highlightFill: "rgba(84, 184, 71,0.75)",
-							                    highlightStroke: "rgba(84, 184, 71,1)",
-							                    data: neutrals
+							        chart: {
+							            type: 'column'
+							        },
+							        credits: {
+									      enabled: false
+									  },
+							        title: {
+							            text: title
+							        },
+							        exporting: {
+									  	enabled: true
+									  },
+							        xAxis: {
+							        	categories: labelsStates
+							        },
+							        yAxis: {
+							            min: 0,
+							            title: {
+							                text: yAxisLabel
+							            },
+							            stackLabels: {
+							                enabled: true,
+							                style: {
+							                    fontWeight: 'bold',
+							                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
 							                }
-							            ]
-							        };
+							            }
+							        },
+							        tooltip: {
+							                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+							                shared: true
+							            },
+							        plotOptions: {
+							            column: {
+							                stacking: 'percent',
+							                dataLabels: {
+							                    enabled: true,
+							                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+							                    style: {
+							                        textShadow: '0 0 3px black'
+							                    }
+							                }
+							            }
+							        },
+							        "series": seriesP
+							};
+
+			      }else{
+			      	return undefined;
+			      }
+
+			      return dataChart;
+
+
+            },
+
+            getCultureTotalsByCityPieChartData: function(data,title){
+
+            	  if (data !== undefined && data !== null){
+
+            	  	var dataList = [];
+
+            	  	$.each(data.buckets,function(key,value){
+
+            	  		dataList.push([key,value]);
+
+            	  	});
+
+            	  	console.log(dataList);
+
+		            var dataChart =	{
+							        chart: {
+							            plotBackgroundColor: null,
+							            plotBorderWidth: null,
+							            plotShadow: false
+							        },
+							        title: {
+							            text: title
+							        },
+							        credits: {
+									      enabled: false
+									  },
+							        tooltip: {
+							            pointFormat: '{series.name}: <b>{point.y}</b>'
+							        },
+							        exporting: {
+									  	enabled: true
+									  },
+							        plotOptions: {
+							            pie: {
+							                allowPointSelect: true,
+							                cursor: 'pointer',
+							                dataLabels: {
+							                    enabled: true,
+							                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+							                    style: {
+							                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+							                    }
+							                },
+							                showInLegend: true
+							            }
+							        },
+							        series: [{
+							            type: 'pie',
+							            name: 'No. of Tweets',
+							            data: dataList
+							        }]
+							    };
+
+			      }else{
+			      	return undefined;
+			      }
+
+			      return dataChart;
+
+
+            },
+
+            getSentimentTotalsByCityLineChartData: function(data,title){
+
+            	  if (data !== undefined && data !== null){
+
+            	  	var categoryList = [];
+            	  	var positiveList = [];
+            	  	var negativeList = [];
+            	  	var neutralList = [];
+
+
+            	  	$.each(data,function(key,value){
+
+            	  		categoryList.push(value.suburb_name);
+            	  		positiveList.push(value.results.total_positive);
+            	  		negativeList.push(value.results.total_negative);
+						neutralList.push(value.results.total_neutral);
+
+            	  	});
+
+		            var dataChart =	{
+							        chart: {
+							            type: 'line'
+							        },
+							        title: {
+							            text: title
+							        },
+							        subtitle: {
+							            text: 'Looking at the most Happiest and Misserable suburb'
+							        },
+							        credits: {
+									      enabled: false
+									  },
+							        tooltip: {
+										    crosshairs: true,
+										    animation: true,
+										    shared: true,
+										    formatter: function() {
+										        return this.x + '<br>'
+										            + this.points[0].series.name + ': ' + this.points[0].y + '<br>'
+										            + this.points[1].series.name + ': ' + this.points[1].y + '<br>'
+										            + this.points[2].series.name + ': ' + this.points[2].y;
+										        }
+										},
+							        xAxis: {
+							            categories: categoryList
+							        },
+							        yAxis: {
+							            title: {
+							                text: 'Sentiment count'
+							            }
+							        },
+							        plotOptions: {
+							            line: {
+							                dataLabels: {
+							                    enabled: true
+							                },
+							                enableMouseTracking: true
+							            }
+							        },
+							        series: [{
+							            name: 'Positive',
+							            data: positiveList
+							        }, {
+							            name: 'Negative',
+							            data: negativeList
+							        },{
+							            name: 'Neutral',
+							            data: neutralList
+							        }]
+							    };
 
 			      }else{
 			      	return undefined;

@@ -6,16 +6,11 @@
  * ======================================================================== */
 /*global google */
 
-define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOptions)
+define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Exporting)
 {
   "use strict";
   var chart = document.getElementById('piechart_3d');
   var default_img_avatar = "../static/img/undefined.png";
-
-  Chart.noConflict();
-  var chartOptions = new ChartOptions();
-
-  Chart.defaults.global = chartOptions.defaults;
 
   var PageModule = function()
   {
@@ -28,8 +23,12 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
         cultures_service_url : '/culturesByState', 
         list_languages_service_url : '/languagesByCountry/',
         table_cultures_service_url : '/tweetsByCountryOfBirth/',
-        list_top_bysuburb_service_url: 'topListBySuburb/', 
-        list_sentiment_by_city_service_url: 'sentimentTotalsByCity/', 
+        list_top_bysuburb_service_url: '/topListBySuburb/', 
+        list_sentiment_by_city_service_url: '/sentimentTotalsByCity/', 
+        list_top_by_city_service_url: '/topListByCity/',
+        cultures_totals_by_city_servide_url: '/cultureTotalsByCity/',
+        sentiment_totals_by_city_service_url: '/sentimentTotalsByCity/',
+
 
         initialize : function() {
 
@@ -369,7 +368,7 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
 
         },
 
-        populateTable: function(term,state,suburb,date){
+        populateTable: function(term,state,suburb){
 
           if (startDate === null && startDate === undefined){
             startDate = moment().subtract(29, 'days');
@@ -430,6 +429,7 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
                }
 
                $('#results-found').val(totalSumRecords).trigger('change');
+               console.log("Total tweets listed on Table: " + totalSumRecords);
 
             }else{
               var suburb = $('#select-suburbs :selected').text();
@@ -592,15 +592,104 @@ define(["util/helper","chartjs","chartoptions"], function(Helper,Chart,ChartOpti
 
           var helper = new Helper();
 
-          var dataChart = helper.getBarDataChart(data);
+          var dataChart = helper.getTweetsByCityBarChartData(data,"Tweets vs. main Cities","No. of Tweets");
 
-          // This will get the first returned node in the jQuery collection.
-          var myBarChart = new Chart(barChartSentimentCities).Bar(dataChart, helper.sentimentByCityBarChartOptions);
+          $('#mySentimentResultsByCityChartContainer').highcharts(dataChart);
 
         });
 
         
-      }
+      },
+
+      populateTopTrendsByCity: function(size){
+
+        if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
+        //Then Build the URL in order to send to the python service:
+        var request = this.list_top_by_city_service_url + 'entities.hashtags.text/' + size + '/' + startDate + '/' + endDate;
+
+        $.getJSON(request, function(data) {
+
+          var helper = new Helper();
+
+          var dataChart = helper.getTopTrendsByCityBarChartData(data,"#","Tweets vs. Main Cities","% of Tweets");
+
+          $('#myTrendsByCityChartContainer').highcharts(dataChart);
+
+
+        });
+
+      },
+
+      /* Caution: this takes too much time!! */
+      populatePieChartCulturesByCity: function(term,state){
+
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
+          //Then Build the URL in order to send to the python service:
+          var request = this.cultures_totals_by_city_servide_url.concat(term + '/' + state + '/' + startDate + '/' + endDate); //date missing
+
+          $.getJSON(request, function(data) {
+
+            // console.log(data);
+
+            var helper = new Helper();
+
+            var title = $( "#select-cities option:selected" ).text();
+
+            var dataChart = helper.getCultureTotalsByCityPieChartData(data,title);
+
+            $('#myCulturesByCityPieChartContainer').highcharts(dataChart);
+
+
+          });
+
+        },
+
+        
+
+        populateSentimentTotalsByCity: function(term,state){
+
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
+          //Then Build the URL in order to send to the python service:
+          var request = this.sentiment_totals_by_city_service_url.concat(term + '/' + state + '/' + startDate + '/' + endDate); //date missing
+
+          $.getJSON(request, function(data) {
+
+            console.log(data);
+
+            var helper = new Helper();
+
+            var dataChart = helper.getSentimentTotalsByCityLineChartData(data,"Sentiment results by Suburb");
+
+            $('#mySentimentByCityLineChartContainer').highcharts(dataChart);
+
+
+          });
+
+        }
 
 
     };

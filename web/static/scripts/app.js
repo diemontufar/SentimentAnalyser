@@ -29,8 +29,8 @@ requirejs.config({
         "dynatable": "dynatable/jquery.dynatable",
         "daterangepicker": "daterangepicker/daterangepicker",
         "moment": "daterangepicker/moment",
-        "chartjs": "chartjs/Chart.min",
-        "chartoptions" : "util/chartoptions"
+        "highcharts":"highcharts/highcharts",
+        "exporting":"highcharts/modules/exporting"
     },
     shim: {
         "jquery.bootstrap": {
@@ -50,6 +50,12 @@ requirejs.config({
         },
         "daterangepicker": {
             deps: ["jquery.bootstrap"]
+        },
+        "highcharts": {
+            deps: ["jquery"]
+        },
+        "exporting": {
+            deps: ["highcharts"]
         }
     }
 });

@@ -63,8 +63,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         hide("tab_2-2");
         hide("tab_3-3");
 
-        barChartSentimentCities = $("#sentimentByCityChart").get(0).getContext("2d"); //global BarChart
-        
+        modules.populateTweetsCitiesBarChart("*");
+        modules.populateTopTrendsByCity(5);
 
 	});
 
@@ -189,7 +189,11 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
     $( "#select-cities" ).change(function() {
         resetDynatable();
+        var term = $("#term").val();
         modules.populateListOfSuburbs($(this).val());
+        modules.populatePieChartCulturesByCity(term,$(this).val());
+
+        modules.populateSentimentTotalsByCity(term,$(this).val());
 
     });
 
@@ -213,7 +217,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
             var suburb = $("#select-suburbs").val();
             var date = null;
 
-            modules.populateTweetsCitiesBarChart(term);
+
             modules.drawTweetsBySuburb($("#term").val(),suburb);
             modules.populateTopTwitterers(term,suburb,5);
             modules.populateTopTrends(term,suburb,5);
