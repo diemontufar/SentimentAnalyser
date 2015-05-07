@@ -17,14 +17,22 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
     return {
 
         /*Web services URL definitions */
+
+        //1. Used for populating Cities list box:
+        suburbs_service_url : '/suburbsByCountry/',
+        //2. Used to populate Suburbs list box, and a global object containing alla info about suburbs:                
+        cultures_service_url : '/culturesByState', 
+        //3. Used to populate a global object containing a list of languages:                  
+        languages_service_url : '/languagesByCountry/',
+        //4. USed to populate a bar chart with a count of sentiment results by City
+        sentimenttotals_by_city_service_url: '/sentimentTotalsByCity/', 
+
+
         geo_search_service_url : '/genericGeoSearch/', 
         sentiment_totals_service_url : '/sentimentTotals/',
-        list_suburbs_service_url : '/suburbsByCountry/', 
-        cultures_service_url : '/culturesByState', 
-        list_languages_service_url : '/languagesByCountry/',
         table_cultures_service_url : '/tweetsByCountryOfBirth/',
         list_top_bysuburb_service_url: '/topListBySuburb/', 
-        list_sentiment_by_city_service_url: '/sentimentTotalsByCity/', 
+        
         list_top_by_city_service_url: '/topListByCity/',
         cultures_totals_by_city_servide_url: '/cultureTotalsByCity/',
         sentiment_totals_by_city_service_url: '/sentimentTotalsByCity/',
@@ -34,7 +42,188 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
         },
 
-        /* Populate Top 5 Twitterers */
+        /* 
+        * Name:         populateListOfCities
+        * Module:       Cities list box
+        * Parameters:   None
+        * Description:  Obtain list of Cities by state from the suburbs database and filtering them by the states defined on the helper class   
+        * Ation:        Populate #select-cities
+        * Output:       None
+        */
+        populateListOfCities : function(){
+
+          var helper = new Helper();
+          $('#select-suburbs').empty();
+          $('#select-cities').empty();
+          var country_code = "1"; //Australia
+
+          $.getJSON(this.suburbs_service_url + country_code).done(function(data) {
+
+            var city_options_html =  '<option value="all" disabled selected style="display:none;">Main Cities</option>';
+
+              $.each(data.states, function(sta, state) {
+
+                if (helper.isInStateList(state.state)){
+
+                    city_options_html = city_options_html + '<option value="' + state.state + '">' + helper.getCityName(state.state) + '</option>';
+
+                }
+
+              });
+               // Append html string to cities option list
+              $('#select-cities').append(city_options_html);
+
+          }).fail(function(){
+            var helper = new Helper();
+            helper.errorMessage('Error Loading list of Cities');
+          });
+
+        },
+
+        /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
+        populateListOfSuburbs : function(state){
+
+          $('#select-suburbs').empty();
+          cultures = null;
+
+          $.getJSON(this.cultures_service_url+'/'+state).done(function(data) {
+
+            if (data !== null && data!==undefined){
+
+               var suburbs_options_html =  '<option value="all" disabled selected style="display:none;">Select a Suburb</option>';
+
+               // console.log(data.state_coordinate);
+
+               var lat = data.crs.properties.state_coordinate[0];
+               var lang = data.crs.properties.state_coordinate[1];
+               var zoom = data.crs.properties.state_coordinate[2];
+
+               $.each(data.features, function(fea, feature) {
+
+                  suburbs_options_html = suburbs_options_html + '<option value="' + feature.properties.feature_code + '">' + feature.properties.feature_name + '</option>';
+
+               });
+
+              cultures = data; //assign current result to the global variable
+              map.data.addGeoJson(data);
+              map.setCenter(new google.maps.LatLng(lat, lang));
+              map.setZoom(zoom);
+               // Append html string to suburb option list
+              $('#select-suburbs').append(suburbs_options_html);
+
+            }
+          }).fail(function(){
+            var helper = new Helper();
+            var city = $('#select-cities :selected').text();
+            helper.infoMessage('No suburbs found in: ' + city );
+          });
+
+        },
+
+        /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
+        populateListOfLanguages: function(){
+
+          $.getJSON(this.languages_service_url + '1', function(data) {
+
+            languagesGlobal = data;
+
+          });
+
+        },
+
+        /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
+        populateSentimentByCityBarChart: function(term){
+
+          if (startDate === null && startDate === undefined){
+              startDate = moment().subtract(29, 'days');
+          
+            }
+
+            if (endDate ===null && endDate ===undefined){
+              endDate = moment();
+            }
+
+          //Then Build the URL in order to send to the python service:
+          var request = this.sentimenttotals_by_city_service_url + term + '/' + startDate + '/' + endDate;
+
+          $.getJSON(request, function(data) {
+
+            var helper = new Helper();
+
+            var dataChart = helper.getTweetsByCityBarChartData(data,"Tweets by City","No. of Tweets");
+
+            $('#mySentimentResultsByCityChartContainer').highcharts(dataChart);
+
+          });
+
+          
+        },
+
+      /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
+        populateTopTrendsByCityBarChart: function(size){
+
+          if (startDate === null && startDate === undefined){
+              startDate = moment().subtract(29, 'days');
+          
+            }
+
+            if (endDate ===null && endDate ===undefined){
+              endDate = moment();
+            }
+
+          //Then Build the URL in order to send to the python service:
+          var request = this.list_top_by_city_service_url + 'entities.hashtags.text/' + size + '/' + startDate + '/' + endDate;
+
+          $.getJSON(request, function(data) {
+
+            var helper = new Helper();
+
+            var dataChart = helper.getTopTrendsByCityBarChartData(data,"#","Tweets by City","% of Tweets");
+
+            $('#myTrendsByCityChartContainer').highcharts(dataChart);
+
+
+          });
+
+        },
+
+
+        /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
         populateTopTwitterers: function(term,suburb,size) { 
 
           var field = "user.screen_name";
@@ -80,7 +269,14 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
         },
 
-        /* Populate Top 5 Trends */
+        /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
         populateTopTrends: function(term,suburb,size) { 
 
           var field = "entities.hashtags.text";
@@ -126,7 +322,14 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
         },
 
-        /* Populate Tweets using JSON files */
+        /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
         populateTweetModuleByTerm: function(term,suburb,start,size) { 
 
           if (startDate === null && startDate === undefined){
@@ -227,7 +430,14 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
         },
 
-        /* Get data from web services in order to populate pie chart*/
+       /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
         populateChartModule : function(chart,term,suburb){
 
           if (startDate === null && startDate === undefined){
@@ -297,77 +507,14 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
         }, //end populateTableModule
 
-        /* Obtain list of Cities by state*/
-        populateListOfCities : function(){
-
-          var helper = new Helper();
-          $('#select-suburbs').empty();
-          $('#select-cities').empty();
-          var country_code = "1"; //Australia
-
-          $.getJSON(this.list_suburbs_service_url + country_code).done(function(data) {
-
-            var city_options_html =  '<option value="all" disabled selected style="display:none;">Main Cities</option>';
-
-              $.each(data.states, function(sta, state) {
-
-                if (helper.isInStateList(state.state)){
-
-                    city_options_html = city_options_html + '<option value="' + state.state + '">' + helper.getCityName(state.state) + '</option>';
-
-                }
-
-              });
-               // Append html string to cities option list
-              $('#select-cities').append(city_options_html);
-
-          }).fail(function(){
-            var helper = new Helper();
-            helper.errorMessage('Error Loading list of Cities');
-          });
-
-        },
-
-        /* Obtain list of Countries fo birth in order to populate list boxes*/
-        populateListOfSuburbs : function(state){
-
-          $('#select-suburbs').empty();
-          cultures = null;
-
-          $.getJSON(this.cultures_service_url+'/'+state).done(function(data) {
-
-            if (data !== null && data!==undefined){
-
-               var suburbs_options_html =  '<option value="all" disabled selected style="display:none;">Select a Suburb</option>';
-
-               // console.log(data.state_coordinate);
-
-               var lat = data.crs.properties.state_coordinate[0];
-               var lang = data.crs.properties.state_coordinate[1];
-               var zoom = data.crs.properties.state_coordinate[2];
-
-               $.each(data.features, function(fea, feature) {
-
-                  suburbs_options_html = suburbs_options_html + '<option value="' + feature.properties.feature_code + '">' + feature.properties.feature_name + '</option>';
-
-               });
-
-              cultures = data; //assign current result to the global variable
-              map.data.addGeoJson(data);
-              map.setCenter(new google.maps.LatLng(lat, lang));
-              map.setZoom(zoom);
-               // Append html string to suburb option list
-              $('#select-suburbs').append(suburbs_options_html);
-
-            }
-          }).fail(function(){
-            var helper = new Helper();
-            var city = $('#select-cities :selected').text();
-            helper.infoMessage('No suburbs found in: ' + city );
-          });
-
-        },
-
+        /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
         populateTable: function(term,state,suburb){
 
           if (startDate === null && startDate === undefined){
@@ -440,63 +587,14 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
         },
 
-        // populatePositivePeople: function(term,suburb){
-
-        //   //First build the query for searching the term as follows:
-        //   var qBuilder = new QBuilder();
-        //   var query = qBuilder.buildTopAggregation(term,"positive",suburb);
-
-        //   $('#positive-people-div h3').empty();
-        //   $('#positive-people-div h4').empty();
-
-        //   $.getJSON(this.custom_agg_service_url + query, function(data) {
-
-        //     var countryCode = data["aggregations"]["2"]["buckets"][0]["key"];
-        //     var count = data["aggregations"]["2"]["buckets"][0]["doc_count"];
-        //     var helper = new Helper();
-        //     var country = helper.getCountryName(countryCode);
-
-        //     $('#positive-people-div h3').append(country);
-        //     $('#positive-people-div h4').append(count);
-
-        //   });
-
-        // },
-
-        // populateNegativePeople: function(term,suburb){
-
-        //   //First build the query for searching the term as follows:
-        //   var qBuilder = new QBuilder();
-        //   var query = qBuilder.buildTopAggregation(term,"negative",suburb);
-
-        //   $('#negative-people-div h3').empty();
-        //   $('#negative-people-div h4').empty();
-
-        //   $.getJSON(this.custom_agg_service_url + query, function(data) {
-
-        //     var countryCode = data["aggregations"]["2"]["buckets"][0]["key"];
-        //     var count = data["aggregations"]["2"]["buckets"][0]["doc_count"];
-        //     var helper = new Helper();
-        //     var country = helper.getCountryName(countryCode);
-
-        //     $('#negative-people-div h3').append(country);
-        //     $('#negative-people-div h4').append(count);
-
-        //   });
-
-        // },
-
-        populateListOfLanguages: function(){
-
-          $.getJSON(this.list_languages_service_url + '1', function(data) {
-
-            languagesGlobal = data;
-
-          });
-
-        },
-
-        /*Obtain tweets (only map markers) within a suburb*/ //Goooood!
+        /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
         drawTweetsBySuburb : function(term,suburb){
 
           var startP = 0;
@@ -574,60 +672,15 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
           }); //End getJSON
       },
 
-      populateTweetsCitiesBarChart: function(term){
 
-        if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
-        
-          }
-
-          if (endDate ===null && endDate ===undefined){
-            endDate = moment();
-          }
-
-        //Then Build the URL in order to send to the python service:
-        var request = this.list_sentiment_by_city_service_url + term + '/' + startDate + '/' + endDate;
-
-        $.getJSON(request, function(data) {
-
-          var helper = new Helper();
-
-          var dataChart = helper.getTweetsByCityBarChartData(data,"Tweets vs. main Cities","No. of Tweets");
-
-          $('#mySentimentResultsByCityChartContainer').highcharts(dataChart);
-
-        });
-
-        
-      },
-
-      populateTopTrendsByCity: function(size){
-
-        if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
-        
-          }
-
-          if (endDate ===null && endDate ===undefined){
-            endDate = moment();
-          }
-
-        //Then Build the URL in order to send to the python service:
-        var request = this.list_top_by_city_service_url + 'entities.hashtags.text/' + size + '/' + startDate + '/' + endDate;
-
-        $.getJSON(request, function(data) {
-
-          var helper = new Helper();
-
-          var dataChart = helper.getTopTrendsByCityBarChartData(data,"#","Tweets vs. Main Cities","% of Tweets");
-
-          $('#myTrendsByCityChartContainer').highcharts(dataChart);
-
-
-        });
-
-      },
-
+      /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
       /* Caution: this takes too much time!! */
       populatePieChartCulturesByCity: function(term,state){
 
@@ -660,8 +713,14 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
         },
 
-        
-
+        /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
         populateSentimentTotalsByCity: function(term,state){
 
           if (startDate === null && startDate === undefined){
@@ -681,13 +740,49 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
             console.log(data);
 
             var helper = new Helper();
+            var city = helper.getCityName(state);
 
-            var dataChart = helper.getSentimentTotalsByCityLineChartData(data,"Sentiment results by Suburb");
+            var dataChart = helper.getSentimentTotalsByCityLineChartData(data,"Sentiment Analysis by Suburb", city);
 
             $('#mySentimentByCityLineChartContainer').highcharts(dataChart);
 
 
           });
+
+        },
+
+         /* 
+        * Name:         
+        * Module:       
+        * Parameters:   
+        * Description:  
+        * Ation:        
+        * Output:       
+        */
+        populatePopulationVsTweetsBarChart: function(term){
+
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
+          var helper = new Helper();
+
+          if (tableRecordsGlobal !== null && tableRecordsGlobal !== undefined){
+
+            var title = $( "#select-cities option:selected" ).text();
+
+            var dataChart = helper.getPopulationVsTweetsBarChartData(tableRecordsGlobal,title,'Count');
+
+            $('#myCulturesByCityBarChartContainer').highcharts(dataChart);
+
+          }else{
+            helper.errorMessage('Error Loading Population vs. Tweets Bar chart');
+          }
 
         }
 

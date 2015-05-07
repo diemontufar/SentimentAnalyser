@@ -1,3 +1,9 @@
+/* ========================================================================
+ * Author:            Diego Montufar
+ * Date:              25 Feb 2015
+ * Description:       
+ * ======================================================================== */
+
 var statesList = {};
 	statesList['VIC'] = 'Melbourne';
 	statesList['NSW'] = 'Sydney';
@@ -259,6 +265,14 @@ define(["moment"], function(Moment)
 					            column: {
 					                dataLabels: {
 					                    enabled: true,
+						                rotation: -90,
+						                color: '#FFFFFF',
+						                align: 'right',
+						                y: -10, // 10 pixels down from the top
+						                style: {
+						                    fontSize: '9px',
+						                    fontFamily: 'Verdana, sans-serif'
+						                }
 					                }
 					            }
 					        },
@@ -351,6 +365,7 @@ define(["moment"], function(Moment)
 							        xAxis: {
 							        	categories: labelsStates
 							        },
+							        
 							        yAxis: {
 							            min: 0,
 							            title: {
@@ -430,7 +445,7 @@ define(["moment"], function(Moment)
 							                cursor: 'pointer',
 							                dataLabels: {
 							                    enabled: true,
-							                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+							                    format: '<b>{point.name}</b>: {point.percentage:.2f} %',
 							                    style: {
 							                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
 							                    }
@@ -454,7 +469,7 @@ define(["moment"], function(Moment)
 
             },
 
-            getSentimentTotalsByCityLineChartData: function(data,title){
+            getSentimentTotalsByCityLineChartData: function(data,title,city){
 
             	  if (data !== undefined && data !== null){
 
@@ -481,7 +496,7 @@ define(["moment"], function(Moment)
 							            text: title
 							        },
 							        subtitle: {
-							            text: 'Looking at the most Happiest and Misserable suburb'
+							            text: 'Looking at the most Happiest and Misserable suburb in: ' + city
 							        },
 							        credits: {
 									      enabled: false
@@ -491,11 +506,17 @@ define(["moment"], function(Moment)
 										    animation: true,
 										    shared: true,
 										    formatter: function() {
-										        return this.x + '<br>'
-										            + this.points[0].series.name + ': ' + this.points[0].y + '<br>'
-										            + this.points[1].series.name + ': ' + this.points[1].y + '<br>'
-										            + this.points[2].series.name + ': ' + this.points[2].y;
-										        }
+										        var html = '<b>' + this.x + '</b><br>';
+
+										    	for (var i=0;i<this.points.length;i++){
+										    		if (i !=  this.points.length - 1){
+										    			html += '<b>' + this.points[i].series.name + '</b>: ' + this.points[i].y + '<br>';
+										    		}else{
+										    			html += '<b>' + this.points[i].series.name + '</b>: ' + this.points[i].y;
+										    		}
+										    	}
+										    	return html;
+										     }
 										},
 							        xAxis: {
 							            categories: categoryList
@@ -503,7 +524,8 @@ define(["moment"], function(Moment)
 							        yAxis: {
 							            title: {
 							                text: 'Sentiment count'
-							            }
+							            },
+							            min: 0
 							        },
 							        plotOptions: {
 							            line: {
@@ -515,13 +537,16 @@ define(["moment"], function(Moment)
 							        },
 							        series: [{
 							            name: 'Positive',
-							            data: positiveList
+							            data: positiveList,
+							            color: '#00aff0'
 							        }, {
 							            name: 'Negative',
-							            data: negativeList
+							            data: negativeList,
+							            color: '#f05032'
 							        },{
 							            name: 'Neutral',
-							            data: neutralList
+							            data: neutralList,
+							            color: '#54b847'
 							        }]
 							    };
 
@@ -531,6 +556,114 @@ define(["moment"], function(Moment)
 
 			      return dataChart;
 
+
+            },
+
+            getPopulationVsTweetsBarChartData: function(data,title,yAxisLabel){
+
+            	if (data !== undefined && data !== null){
+
+            	  	var cultures = [];
+            	  	var population = [];
+            	  	var tweets = [];
+
+            	  	$.each(data,function(key,value){
+
+            	  		cultures.push(value.countryOfBirth);
+        	  			population.push(value.total);
+            	  		tweets.push(value.tweets);
+
+            	  	});
+
+		            var dataChart =	{
+			              chart: {
+			                  zoomType: 'xy'
+			              },
+			              credits: {
+						      enabled: false
+						  },
+						  exporting: {
+						  	enabled: true
+						  },
+			              title: {
+			                  text: title
+			              },
+			              xAxis: {
+			                  categories: cultures
+			              },
+			              yAxis: [{ // Primary yAxis
+						            labels: {
+						                format: '{value}',
+						                style: {
+						                    color: Highcharts.getOptions().colors[1]
+						                }
+						            },
+						            title: {
+						                text: 'Population',
+						                style: {
+						                    color: Highcharts.getOptions().colors[1]
+						                }
+						            },
+						            min: 0
+						        }, { // Secondary yAxis
+						            title: {
+						                text: 'Tweets',
+						                style: {
+						                    color: Highcharts.getOptions().colors[0]
+						                }
+						            },
+						            labels: {
+						                format: '{value}',
+						                style: {
+						                    color: Highcharts.getOptions().colors[0]
+						                }
+						            },
+						            min: 0,
+						            opposite: true
+						        }],
+					        plotOptions: {
+					            line: {
+					                dataLabels: {
+					                    enabled: true
+					                },
+					                enableMouseTracking: true
+					            }
+					        },
+					      tooltip: {
+						    crosshairs: true,
+						    animation: true,
+						    shared: true,
+						    formatter: function() {
+						    	var html = '<b>' + this.x + '</b><br>';
+
+						    	for (var i=0;i<this.points.length;i++){
+						    		if (i !=  this.points.length - 1){
+						    			html += '<b>' + this.points[i].series.name + '</b>: ' + this.points[i].y + '<br>';
+						    		}else{
+						    			html += '<b>' + this.points[i].series.name + '</b>: ' + this.points[i].y;
+						    		}
+						    	}
+						    	return html;
+						    }
+							},
+
+							series: [{
+					            name: 'No. of Tweets',
+					            type: 'line',
+					            yAxis: 1,
+					            data: tweets
+					        }, {
+					            name: 'Population',
+					            type: 'line',
+					            data: population
+					        }]
+		          	};
+
+			      }else{
+			      	return undefined;
+			      }
+
+			      return dataChart;
 
             },
 
@@ -558,11 +691,13 @@ define(["moment"], function(Moment)
 		        $('#total-tweets-div h3').empty();
 		        $('#total-tweets-div h3').append('0');
 
-
 		       
 		        $("#section-cultures").fadeIn(2000);
 		        $("#section-map").fadeIn(2000);
 		        
+		        $('#section-piechart-cultures').fadeOut(2000);
+		        $('#section-linechart-sentiment').fadeOut(2000);
+		        $('#section-linechart-cultures').fadeOut(2000);
 
 		        $('#disclaimer-sentiment').fadeOut(2000);
 		        $("#section-feed").fadeOut(2000);
@@ -571,7 +706,7 @@ define(["moment"], function(Moment)
 		        $("#section-topcountries").fadeOut(2000);
 		        $("#section-overallsentiment").fadeOut(2000);
 		        $("#div-totals").fadeOut(2000);
-		        $('#section-bar-chart').css('visibility','hidden');
+		        // $('#section-bar-chart').css('visibility','hidden');
 		        $('#section-chart').fadeOut(2000);
 
 

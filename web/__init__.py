@@ -153,14 +153,6 @@ def getLanguagesByCountry(countryCode):
 def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startDate,endDate):
 	return jsonify(indexer.getTweetsByCountryOfBirth(term,stateCode,suburbCode,startDate,endDate))
 
-#Service: 
-#Description:
-#Parameters: 
-#return: 
-# @app.route('/genericAggregation/<jsonQuery>')
-# def getGenericAgg(jsonQuery):
-# 	return indexer.getGenericAgg(jsonQuery)
-
 
 #Service: 
 #Description:
@@ -181,23 +173,45 @@ def getSentimentTotalsByCity(term,startDate,endDate):
 	return jsonify(indexer.getAllSentimentTotalsByCity(term,startDate,endDate))
 
 
+#Service: 
+#Description:
+#Parameters: 
+#return: 
 @app.route('/topListByCity/<field>/<size>/<startTimestamp>/<endTimestamp>',methods=['GET','OPTIONS'])
 @crossdomain(origin='*')
 def getAllTopListByCity(field,size,startTimestamp, endTimestamp):
 	return jsonify(indexer.getAllTopListsByCity(field,size,startTimestamp, endTimestamp))
 
 
-
+#Service: 
+#Description:
+#Parameters: 
+#return: 
 @app.route('/cultureTotalsByCity/<term>/<stateCode>/<startTimestamp>/<endTimestamp>',methods=['GET','OPTIONS'])
 @crossdomain(origin='*')
 def getAllLanguagesTotalsByCity(term, stateCode, startTimestamp, endTimestamp):
 	return jsonify(indexer.getAllLanguagesTotalsByCity(term, stateCode, startTimestamp, endTimestamp))
 
 
+#Service: 
+#Description:
+#Parameters: 
+#return: 
 @app.route('/sentimentTotalsByCity/<term>/<stateCode>/<startTimestamp>/<endTimestamp>',methods=['GET','OPTIONS'])
 @crossdomain(origin='*')
 def getAllSentimentByCity(term,stateCode, startTimestamp, endTimestamp):
 	return jsonify(indexer.getAllSentimentByCity(term,stateCode, startTimestamp, endTimestamp))
+
+
+#Service: 
+#Description:
+#Parameters: 
+#return: 
+@app.route('/sentimentAnalysis/<text>',methods=['GET','OPTIONS'])
+@crossdomain(origin='*')
+def getSentimentAnalysis(text):
+	return jsonify(indexer.getSentimentAnalysis(text))
+
 
 #main
 if __name__ == "__main__":

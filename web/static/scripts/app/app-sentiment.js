@@ -63,8 +63,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         hide("tab_2-2");
         hide("tab_3-3");
 
-        modules.populateTweetsCitiesBarChart("*");
-        modules.populateTopTrendsByCity(5);
+        modules.populateSentimentByCityBarChart("*");
+        modules.populateTopTrendsByCityBarChart(5);
 
 	});
 
@@ -120,10 +120,25 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 	    $(this).find('i').toggleClass('fa-plus fa-minus')
 	});
 
-    $('#toggle-cultures').click(function(){
+    $('#toggle-top5-twitterers').click(function(){
         $(this).find('i').toggleClass('fa-plus fa-minus')
     });
 
+    $('#toggle-top5-trends').click(function(){
+        $(this).find('i').toggleClass('fa-plus fa-minus')
+    });
+
+    $('#toggle-top5-cultures').click(function(){
+        $(this).find('i').toggleClass('fa-plus fa-minus')
+    });
+
+    $('#toggle-sentimentbycity').click(function(){
+        $(this).find('i').toggleClass('fa-plus fa-minus')
+    });
+
+    function triggerButonClick(id){
+        $("#"+id).trigger("click");
+    };
 
     $("#btn-pos").click(function() {
     	show("tab_1-1");
@@ -191,9 +206,12 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         resetDynatable();
         var term = $("#term").val();
         modules.populateListOfSuburbs($(this).val());
+        
         modules.populatePieChartCulturesByCity(term,$(this).val());
-
         modules.populateSentimentTotalsByCity(term,$(this).val());
+
+        show('section-piechart-cultures');
+        show('section-linechart-sentiment');
 
     });
 
@@ -206,6 +224,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         var date = null;
 
         modules.populateTable(term,state,suburb,date);
+        show('section-linechart-cultures');
 
     });
 
@@ -218,14 +237,13 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
             var date = null;
 
 
+            modules.populatePopulationVsTweetsBarChart(term);
             modules.drawTweetsBySuburb($("#term").val(),suburb);
             modules.populateTopTwitterers(term,suburb,5);
             modules.populateTopTrends(term,suburb,5);
             modules.populateChartModule(chart,term,suburb);
             modules.populateTweetModuleByTerm(term,suburb,start_page,size_page);
-            // modules.populatePositivePeople(term,suburb); //Unused
-            // modules.populateNegativePeople(term,suburb); //Unused
-
+            
             $('#disclaimer-sentiment').delay("1500").fadeIn();
             $("#section-chart").delay("1500").fadeIn();
             $("#section-feed").delay("1500").fadeIn();

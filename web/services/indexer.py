@@ -1,10 +1,27 @@
+#########################################################################################################
+#
+# Author: Diego Montufar
+# Date: Apr/2015
+# Name: indexer.py
+# Description: 
+#              
+#
+# Execution:   python indexer.py
+#
+#########################################################################################################
+
 import indexer_settings as settings #custom settings
 import elasticsearch #elasticsearch library
 import couchdb #couchdb library
 import json
 import datetime
+import tweet_classifier.classifier as classifier
 
 es = elasticsearch.Elasticsearch()  # use default of localhost, port 9200
+
+
+def getSentimentAnalysis(text):
+  return classifier.doSentimentAnalysis(text)
 
 # Method:           genericSearch
 # Description:      Execute a generic query againt the index based on a json query
@@ -251,7 +268,11 @@ def getTopListBySuburb(term,suburbCode,field,size, startTimestamp, endTimestamp)
     matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
     return matches
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getTopListByCity(cityCode,field,size, startTimestamp, endTimestamp): 
 
     dateRange = getFormattedRange(startTimestamp,endTimestamp)
@@ -331,7 +352,11 @@ def getTweetsBySuburb(term,suburbCode,fromP,sizeP, startTimestamp, endTimestamp)
         matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
         return matches
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getCityBoundingBox(stateCode):
 
     coordinates = None
@@ -353,12 +378,12 @@ def getCityBoundingBox(stateCode):
 
     return coordinates
 
+
 # Method:           
 # Description:      
-#                   
-#                   
+#                                 
 # Parameters:       
-# Output:   
+# Output:           
 def getAggTotalsByCity(term, field, stateCode, startTimestamp, endTimestamp):
 
     dateRange = getFormattedRange(startTimestamp,endTimestamp)
@@ -398,7 +423,11 @@ def getAggTotalsByCity(term, field, stateCode, startTimestamp, endTimestamp):
         matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
         return matches
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getBucketsFromResponse(response):
 
     responseJson = response
@@ -417,6 +446,11 @@ def getBucketsFromResponse(response):
         return {"total" : total, "buckets" : bucks}
 
 
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getAllSentimentTotalsByCity(term, startTimestamp, endTimestamp):
 
     statesList = ['VIC','NSW','TAS','WA','SA','NT','QLD']
@@ -455,6 +489,11 @@ def getAllSentimentTotalsByCity(term, startTimestamp, endTimestamp):
     return sentimentTotalsByCityList
 
 
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getAllLanguagesTotalsByCity(term, stateCode, startTimestamp, endTimestamp):
 
     response = getAggTotalsByCity(term, "user.lang" ,stateCode, startTimestamp, endTimestamp)
@@ -486,7 +525,11 @@ def getAllLanguagesTotalsByCity(term, stateCode, startTimestamp, endTimestamp):
 
     return cleanedLanguageTotals
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def findCountryName(jsonLanguagesOfCountries,lang):
 
   country_name = ''
@@ -640,7 +683,11 @@ def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startTimestamp, endTimes
     
     return res
 
-
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getSuburbCodesFromGeoJson(geojsonSuburbsStr):
 
   geojsonSuburbs = json.loads(geojsonSuburbsStr)
@@ -655,6 +702,11 @@ def getSuburbCodesFromGeoJson(geojsonSuburbsStr):
   return suburbList
 
 
+# Method:           
+# Description:      
+#                                 
+# Parameters:       
+# Output:           
 def getAllSentimentByCity(term,stateCode, startTimestamp, endTimestamp):
 
   geojsonSuburbsStr = json.dumps(getCulturesByState(stateCode), indent=4)
@@ -693,7 +745,7 @@ def getAllSentimentByCity(term,stateCode, startTimestamp, endTimestamp):
 
 # getTweetsByLanguageByCity("*","VIC", "1420030800000","1430402400000") #Jan to May
 
-
+# print(json.dumps(getSentimentAnalysis("I'm happy to be here"),indent=4))
 
 # statisticsByTerm("love", "206041117", "1428069500339", "1430578700339")
 # print(getSentimentTotalsByCity('AFL','VIC', "1428069500339", "1430578700339"))

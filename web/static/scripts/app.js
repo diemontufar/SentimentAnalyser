@@ -1,15 +1,23 @@
-// For any third party dependencies, like jQuery, place them in the lib folder.
+/* ========================================================================
+ * Author:            Diego Montufar
+ * Date:              25 Feb 2015
+ * Description:       
+ * ======================================================================== */
 
-// Configure loading modules from the lib directory,
-// except for 'app' ones, which are in a sibling
-// directory.
+/*
+* For any third party dependencies, like jQuery, place them in the lib folder.
 
-//Versions:
-//jQuery v2.0.2
-//jQuery UI v1.10.3 
-//Bootstrap v3.0.3
-//SlimScroll v1.3.0
-//date.format v1.1
+* Configure loading modules from the lib directory,
+* except for 'app' ones, which are in a sibling
+* directory.
+
+*Versions:
+* jQuery v2.0.2
+* jQuery UI v1.10.3 
+* Bootstrap v3.0.3
+* SlimScroll v1.3.0
+* date.format v1.1
+*/
 
 requirejs.config({
     "baseUrl": 'static/scripts/lib',
