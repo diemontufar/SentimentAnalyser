@@ -1,6 +1,5 @@
 # Sentiment Analyser
 ===================
-
 - - - - 
 ###Exploring the Cultures of Australia
 
