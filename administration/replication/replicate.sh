@@ -1,6 +1,6 @@
 #!/bin/bash
 
-log_file="/Users/diogonal/Documents/CRONTABS/log_replication.dat"
+log_file="log_replication.dat"
 
 #Replicate victoria:
 curl -X POST http://diogonal:dgl0588@localhost:5984/_replicate  -d '{"source":"http://node3:sentiment3@115.146.86.97:5984/victoria", "target":"http://diogonal:dgl0588@localhost:5984/victoria"}' -H "Content-Type: application/json"

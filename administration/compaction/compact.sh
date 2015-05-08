@@ -1,6 +1,6 @@
 #!/bin/bash
 
-log_file="/Users/diogonal/Documents/CRONTABS/log_compaction.dat"
+log_file="log_compaction.dat"
 
 #Compact victoria:
 curl -H "Content-Type: application/json" -X POST http://node3:sentiment3@115.146.86.97:5984/victoria/_compact
