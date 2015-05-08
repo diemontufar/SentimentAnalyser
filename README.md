@@ -4,17 +4,18 @@
 **Exploring the Cultures of Australia**
 
 This project will explore the uptake of Twitter across the many languages and cultures of Australia. 
-It will focus on the harvesting and snetiment analysis of multi-language tweets from major cities of Australia and compare this information with broadly cultural information resources offered through organisations such as the Australian Bureau of Statistics and the Census 2011. 
+It will focus on the harvesting and sentiment analysis of multi-language tweets from major cities of Australia and compare this information with broadly cultural information resources offered through organisations such as the Australian Bureau of Statistics and the Census 2011. 
 ________________
 
 ## Features
 
 * **Harvester:** For pulling tweets from the Twitter streaming API using python tweepy library<br>
 * **Sentiment Analyser:** using an open sourced library called tweet_classifier<br>
+* **Batcher:** for couchdb document processing/cleaning in batch mode<br>
 * **Administration tools:** for managing bigdata storage on Couchdb<br>
 * **Orchestration tools:** using Ansible for deployment process<br>
 * **Elasticsearch indexer module:** for querying and searching topics<br> 
-* **A RESTful web-based portal:** for consulting the implemented web services module<br>
+* **A RESTful web-based portal:** for testing the implemented web services module<br>
 * **A Responsive HTML5-based dashboard:** a GUI for showing results<br>
 
 ## Getting Started
