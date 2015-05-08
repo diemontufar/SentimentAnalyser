@@ -1,12 +1,18 @@
 #########################################################################################################
 #
-# Author: Diego Montufar
-# Date: Apr/2015
-# Name: indexer.py
-# Description: 
-#              
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# Name:         indexer.py
+# Description:  This module builds queries based on the user-defined parameters taken from the URL's requesting call.
+#               There is a direct connection to elasticsearch and couchdb as defined on the settings file.
+#               Almost every query/response takes the form of a json structure, so called 'dictionary' in python, which is either returned
+#               or taken as parameter by some methods of this class.
+#               Error handling is not considered strictly in this module as any problem during requests comming from the client request,
+#               must be handled by the client's code side. However, PUT and DELETE operations are not allowed as we are only
+#               calling GET and POST calls for performing simple or more complex searches.
 #
-# Execution:   python indexer.py
+# Execution:    This module can be executed independently as well, by calling any of the implemented methods as follows: python indexer.py
+# Dependencies: tweet_classifier, couchdb,elasticsearch
 #
 #########################################################################################################
 
@@ -15,11 +21,15 @@ import elasticsearch #elasticsearch library
 import couchdb #couchdb library
 import json
 import datetime
-import tweet_classifier.classifier as classifier
+import tweet_classifier.classifier as classifier #Sentiment Analysis tool
 
 es = elasticsearch.Elasticsearch()  # use default of localhost, port 9200
 
-
+# Method:           getSentimentAnalysis
+# Description:      Perform sentiment analysis using the tweet_classifier python tools
+# Parameters:       jsonQuery must be a valid elasticsearch query.
+# Further info:     http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-queries.html
+# Output:           matches (JSON)
 def getSentimentAnalysis(text):
   return classifier.doSentimentAnalysis(text)
 
@@ -133,14 +143,14 @@ def getFormattedRange(startTimestamp,endTimestamp):
     else:
         return "[" + strStart + " TO " + strEnd + "]" #return range
 
+
 # Method:           statisticsByTerm
-# Description:      
-#                                 
+# Description:      Sentiment statistics by term and by suburb within a date range
 # Parameters:       term (String)
 #                   suburbCode (String)
 #                   startTimestamp (String)
 #                   endTimestamp (String)
-# Output:           
+# Output:           json object containing sentiment results
 def statisticsByTerm(term, suburbCode, startTimestamp, endTimestamp):
 
     dateRange = getFormattedRange(startTimestamp,endTimestamp)
@@ -167,12 +177,7 @@ def statisticsByTerm(term, suburbCode, startTimestamp, endTimestamp):
                                "_cache":True
                             }
                          },
-                         "query": {
-                                    "query_string": {
-                                      "query": query,
-                                      "analyze_wildcard": True
-                                    }
-                        }
+                         "query": { "query_string": {"query": query, "analyze_wildcard": True } }
                       }
                    },
                    "aggs": {
@@ -222,11 +227,15 @@ def statisticsByTerm(term, suburbCode, startTimestamp, endTimestamp):
 
     return json.loads(result)
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           getTopListBySuburb
+# Description:      List the top N list count of a particular field within a date range by suburb
+# Parameters:       term        (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   suburbCode  (String)  -> Suburb code. i.e. 206041122
+#                   field       (String)  -> Twitter field to aggreagate i.e. user.screen_name
+#                   size        (Int)     -> N i.e 5 for a Top five list 
+#                   startTimestamp   (Int)     -> Timestamp start date. i.e 1428069500339
+#                   endTimestamp     (Int)     -> Timestamp end date i.e 1430578700339
+# Output:           a json object containing the matched results
 def getTopListBySuburb(term,suburbCode,field,size, startTimestamp, endTimestamp): 
 
     dateRange = getFormattedRange(startTimestamp,endTimestamp)
@@ -268,17 +277,20 @@ def getTopListBySuburb(term,suburbCode,field,size, startTimestamp, endTimestamp)
     matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
     return matches
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
-def getTopListByCity(cityCode,field,size, startTimestamp, endTimestamp): 
+# Method:           getTopListByCity
+# Description:      Generic query for searching aggregated field within a bounding box
+# Parameters:       stateCode   (String)  -> State code. i.e. VIC, TAS
+#                   field       (String)  -> Twitter field to aggreagate i.e. user.screen_name
+#                   size        (Int)     -> N i.e 5 for a Top five list 
+#                   startTimestamp   (Int)     -> Timestamp start date. i.e 1428069500339
+#                   endTimestamp     (Int)     -> Timestamp end date i.e 1430578700339
+# Output:           a json object containing the matched results
+def getTopListByCity(stateCode,field,size, startTimestamp, endTimestamp): 
 
     dateRange = getFormattedRange(startTimestamp,endTimestamp)
     str_date_len = len(dateRange)
 
-    coordinates = getCityBoundingBox(cityCode)
+    coordinates = getCityBoundingBox(stateCode)
     query =  "created_at:" + dateRange
 
     jsonQuery = {
@@ -304,13 +316,15 @@ def getTopListByCity(cityCode,field,size, startTimestamp, endTimestamp):
     matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
     return matches
 
-# Method:           
-# Description:      
-#                   
-#                   
-# Parameters:       
-# Output:           
-#Get the tweets located within a multipolygon and a set of points
+# Method:           getTweetsBySuburb
+# Description:      Get all the tweets within a multipolygon defined on the geo json cultures database
+# Parameters:       term            (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   suburbCode      (String)  -> Suburb code. i.e. 206041122
+#                   fromP           (Int)     -> Pagination support. i.e. 0 if you want all the results, or 15 if you want to skip the first 15 results
+#                   sizeP            (Int)     -> Pagination support. i.e 50 if you want up to 50 resutls by taking account of startP parameter
+#                   startTimestamp   (Int)     -> Timestamp start date. i.e 1428069500339
+#                   endTimestamp     (Int)     -> Timestamp end date i.e 1430578700339
+# Output:    a json object containing the matched results
 def getTweetsBySuburb(term,suburbCode,fromP,sizeP, startTimestamp, endTimestamp):
 
     dateRange = getFormattedRange(startTimestamp,endTimestamp)
@@ -352,11 +366,10 @@ def getTweetsBySuburb(term,suburbCode,fromP,sizeP, startTimestamp, endTimestamp)
         matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
         return matches
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           getCityBoundingBox
+# Description:      Get the corresponding bounding box around a particular city             
+# Parameters:       stateCode       (String) -> State code. i.e. VIC, TAS
+# Output:           bounding box coordinates
 def getCityBoundingBox(stateCode):
 
     coordinates = None
@@ -379,11 +392,13 @@ def getCityBoundingBox(stateCode):
     return coordinates
 
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           getAggTotalsByCity
+# Description:      Generic method for getting aggregations based on a query with results falling within a bounding box
+# Parameters:       term        (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   field       (String)  -> Twitter field to aggreagate i.e. user.screen_name
+#                   startTimestamp   (Int)     -> Timestamp start date. i.e 1428069500339
+#                   endTimestamp     (Int)     -> Timestamp end date i.e 1430578700339
+# Output:           a json object containing the matched results
 def getAggTotalsByCity(term, field, stateCode, startTimestamp, endTimestamp):
 
     dateRange = getFormattedRange(startTimestamp,endTimestamp)
@@ -423,11 +438,11 @@ def getAggTotalsByCity(term, field, stateCode, startTimestamp, endTimestamp):
         matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
         return matches
 
-# Method:           
-# Description:      
+# Method:           getBucketsFromResponse
+# Description:      Helper method for retreiving results from bukets array comming from an elasticsearch response
 #                                 
-# Parameters:       
-# Output:           
+# Parameters:       response (Json Object) -> elasticsearch styled response
+# Output:           a json object containing the matched results
 def getBucketsFromResponse(response):
 
     responseJson = response
@@ -446,11 +461,14 @@ def getBucketsFromResponse(response):
         return {"total" : total, "buckets" : bucks}
 
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           getAllSentimentTotalsByCity
+# Description:      Build a query response with sentiment total statistics by term within a date range.
+#                   This method does multiple calls to the getAggTotalsByCity method and builds the response
+#                   based on the results obtained for each city.
+# Parameters:       term        (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   startTimestamp   (Int)     -> Timestamp start date. i.e 1428069500339
+#                   endTimestamp     (Int)     -> Timestamp end date i.e 1430578700339
+# Output:           a json object containing the matched results
 def getAllSentimentTotalsByCity(term, startTimestamp, endTimestamp):
 
     statesList = ['VIC','NSW','TAS','WA','SA','NT','QLD']
@@ -489,11 +507,13 @@ def getAllSentimentTotalsByCity(term, startTimestamp, endTimestamp):
     return sentimentTotalsByCityList
 
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           getAllLanguagesTotalsByCity
+# Description:      Get the count of languages found on the tweets by terms within a date range
+# Parameters:       term              (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   startTimestamp    (String)  -> the code of the state: i.e: VIC, TAS, etc
+#                   endTimestamp      (Int)     -> Timestamp start date. i.e 1428069500339
+#                   endDate           (Int)     -> Timestamp end date i.e 1430578700339
+# Output:           a json object containing the matched results
 def getAllLanguagesTotalsByCity(term, stateCode, startTimestamp, endTimestamp):
 
     response = getAggTotalsByCity(term, "user.lang" ,stateCode, startTimestamp, endTimestamp)
@@ -525,11 +545,12 @@ def getAllLanguagesTotalsByCity(term, stateCode, startTimestamp, endTimestamp):
 
     return cleanedLanguageTotals
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           findCountryName
+# Description:      Helper method for finding the name of a language by its code. i.e. en-gb corresponds to United Kigndom
+# Parameters:       jsonLanguagesOfCountries (Json object) -> large object containing all data (by state) comming from the 
+#                                                             cultures database corresponding to a particular state/city
+#                   lang (String)                          -> The language ou are looking for
+# Output:           the name of the language you are looking for
 def findCountryName(jsonLanguagesOfCountries,lang):
 
   country_name = ''
@@ -546,6 +567,13 @@ def findCountryName(jsonLanguagesOfCountries,lang):
   return country_name
 
 
+# Method:            getAllTopListsByCity
+# Description:       Get the top N list by city within a date range
+# Parameters:        field       (String)  -> Twitter field to aggreagate i.e. user.screen_name
+#                    size        (Int)     -> N i.e 5 for a Top five list 
+#                    startDate   (Int)     -> Timestamp start date. i.e 1428069500339
+#                    endDate     (Int)     -> Timestamp end date i.e 1430578700339
+# Output:            a json object containing the matched results
 def getAllTopListsByCity(field,size,startTimestamp, endTimestamp):
 
   statesList = ['VIC','NSW','TAS','WA','SA','NT','QLD']
@@ -561,11 +589,11 @@ def getAllTopListsByCity(field,size,startTimestamp, endTimestamp):
   return topListsByCity
 
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:            getCulturesBySuburb
+# Description:       Helper method for getting data related to a particular suburb like goejson and description fields. 
+# Parameters:        countryOfBirthBySuburb (Json object) -> A large object containing all countries of birth per suburb
+#                    suburbCode (String)                  -> a particular suburb you want to retrieve
+# Output:            a json object containing all data related to the suburb you were looking for
 def getCulturesBySuburb(countryOfBirthBySuburb,suburbCode):
 
     if countryOfBirthBySuburb:
@@ -576,11 +604,11 @@ def getCulturesBySuburb(countryOfBirthBySuburb,suburbCode):
     else:
         return None
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           mergeTweetsLanguages
+# Description:      Merge languages defined on the languages database and the ones found on the cultures database.
+#                   This method allow us to build a relationship between tweets and census data as well.
+# Parameters:       languagesOfTweets,languagesOfCountries,cultures
+# Output:           mergedCountedList (Json object containing a table of tweets and languages by suburb)
 def mergeTweetsLanguages(languagesOfTweets,languagesOfCountries,cultures):
 
     counts = {}
@@ -622,11 +650,8 @@ def mergeTweetsLanguages(languagesOfTweets,languagesOfCountries,cultures):
     return mergedCountedList
 
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           isInMergedList
+# Description:      Helper method. Check whether there is a language on the mergedList or not  
 def isInMergedList(mergedList,language):
 
     for cob in mergedList:
@@ -635,26 +660,44 @@ def isInMergedList(mergedList,language):
                 return cob["id"]
     return False
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           getListLanguages
+# Description:      Helper method. Get a list of languages found on the languagesOfCountries json object
 def getListLanguages(languagesOfCountries,id):
     for cob in languagesOfCountries:
         if cob["id"] == id:
             return cob["languages"]
 
+
+# Method:           getCountLanguages
+# Description:      Helper method. Get a count of languages found on the languagesOfTweets json object    
 def getCountLanguages(languagesOfTweets,id):
     for lan in languagesOfTweets:
         if lan == id:
             return int(languagesOfTweets[lan])
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           getSuburbCodesFromGeoJson
+# Description:      Helper method. Get suburb codes defined on the geojsonSuburbsStr json bsed string object.
+def getSuburbCodesFromGeoJson(geojsonSuburbsStr):
+
+  geojsonSuburbs = json.loads(geojsonSuburbsStr)
+  suburbList = {}
+
+  for feature in geojsonSuburbs["features"]:
+    code = feature["properties"]["feature_code"]
+    name = feature["properties"]["feature_name"]
+
+    suburbList[code] = name
+
+  return suburbList
+
+# Method:           getTweetsByCountryOfBirth
+# Description:      Get the count of tweets grouped by language as defined on the languages database
+# Parameters:       term        (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   stateCode   (String)  -> the code of the state: i.e: VIC, TAS, etc
+#                   suburbCode  (String)  -> Suburb code. i.e. 206041122
+#                   startTimestamp   (Int)     -> Timestamp start date. i.e 1428069500339
+#                   endTimestamp     (Int)     -> Timestamp end date i.e 1430578700339
+# Output:           a json object containing the matched results
 def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startTimestamp, endTimestamp):
 
     languagesOfTweets = {}
@@ -683,30 +726,15 @@ def getTweetsByCountryOfBirth(term,stateCode,suburbCode,startTimestamp, endTimes
     
     return res
 
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
-def getSuburbCodesFromGeoJson(geojsonSuburbsStr):
 
-  geojsonSuburbs = json.loads(geojsonSuburbsStr)
-  suburbList = {}
-
-  for feature in geojsonSuburbs["features"]:
-    code = feature["properties"]["feature_code"]
-    name = feature["properties"]["feature_name"]
-
-    suburbList[code] = name
-
-  return suburbList
-
-
-# Method:           
-# Description:      
-#                                 
-# Parameters:       
-# Output:           
+# Method:           getAllSentimentByCity
+# Description:       Get the total sentiment by City, by term within a date range.
+# Disclaimer:        This search takes a long time. Must be reviewed.
+# Parameters:        term        (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   stateCode   (String)  -> the code of the state: i.e: VIC, TAS, etc
+#                   startTimestamp   (Int)     -> Timestamp start date. i.e 1428069500339
+#                   endTimestamp     (Int)     -> Timestamp end date i.e 1430578700339
+# Output:            a json object containing the matched results
 def getAllSentimentByCity(term,stateCode, startTimestamp, endTimestamp):
 
   geojsonSuburbsStr = json.dumps(getCulturesByState(stateCode), indent=4)
@@ -722,74 +750,3 @@ def getAllSentimentByCity(term,stateCode, startTimestamp, endTimestamp):
     response[suburb]["suburb_name"] = suburbList[suburb]
 
   return response
-
-
-#--------------------------------------
-  # tweetsBySuburb = getTweetsBySuburb(term,suburbCode,fromP,sizeP, startTimestamp, endTimestamp)
-
-
-# query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"support","operator":"or"}}},"strategy":"query_first"}}}'
-# query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}},from:0,size:20}'
-# query = '{"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}},from:1,size":50}}'
-# print(statisticsByTerm('AFL','206041117'))
-# # print(statisticsByTerm(query,'tweet'))
-# print(customSearch(query,'tweet'))
-#
-
-# print(json.dumps(getTopListByCity('VIC',"entities.hashtags.text",5, "1428069500339", "1430578700339"), indent=4))
-
-# print(json.dumps(getAllTopListsByCity("entities.hashtags.text",5,"1428303745213","1430809345213"), indent=4))
-
-
-# print(json.dumps(getAllSentimentByCity("*", "SA", "1428303745213","1430809345213"), indent=4))
-
-# getTweetsByLanguageByCity("*","VIC", "1420030800000","1430402400000") #Jan to May
-
-# print(json.dumps(getSentimentAnalysis("I'm happy to be here"),indent=4))
-
-# statisticsByTerm("love", "206041117", "1428069500339", "1430578700339")
-# print(getSentimentTotalsByCity('AFL','VIC', "1428069500339", "1430578700339"))
-# print(getAllSentimentTotalsByCity('AFL', "1428069500339", "1430578700339"))
-# print(getCulturesByState('WA'))
-# AFL/206041117/1428069500339/1430578700339"
-# print(getTweetsBySuburb('a','206041122',"1427202000000", "1427202000000"))
-
-#1427893200000 - 1430402400000
-# 1428069500339/1430578700339"
-
-# jsonQuery = '{"query":{"query_string":{"query":"text:AFL","analyze_wildcard":true}}}'
-# print(type(genericSearch(jsonQuery)))
-
-# print(json.dumps(getAllSentimentTotalsByCity('AFL', "1428069500339", "1430578700339")))
-
-# print(type(getTweetsByCountryOfBirth('a','VIC','206041122',"1428069500339", "1430578700339")))
-
-# print(type(statisticsByTerm('AFL', '206041122', "1428069500339", "1430578700339")))
-
-# print(type(getLanguages(1)))
-
-# print(getTweetsBySuburb('AFL','206041122','tweet'))
-# test = {
-#    "query":"text:AFL AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment=negative OR sentiment_analysis.sentiment=neutral) AND -user.lang:en",
-#    "agg1":{
-#       "field":"user.lang",
-#       "size":1,
-#       "order":"desc"
-#    },
-#    "agg2":{
-#       "field":"sentiment_analysis.sentiment",
-#       "size":1,
-#       "order":"desc"
-#    }
-# }
-# # print(test[query])
-# print(getCustomAgg('tweet',test))
-
-# print(getLanguages ('1'))
-
-# print(getTweetsByCountryOfBirth('AFL','VIC','206041122'))
-# print(getTweetsBySuburb('a','206041122','tweet'))
-
-# {"query":{"filtered":{"query":{"match":{"text":{"query":"love","operator":"or"}}},"filter":{"term":{"lang":"en"}}}}}
-# print(getCultures('VIC'))
-# print(getTweetsBySuburb('AFL','206041117','tweet'))

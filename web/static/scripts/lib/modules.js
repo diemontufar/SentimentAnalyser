@@ -1,10 +1,11 @@
 /* ========================================================================
  * Author:            Diego Montufar
- * Date:              25 Feb 2015
- * Description:       Here are defined the main modules: maps, chatrs and the tweeter feed.
- 					  All their behaviour is managed through this script.
+ * Date:              Feb/2015
+ * Description:       The modules class calls web services served by the indexer module.
+ *                    With the information obtained, populates the corresponding modules 
+ *                    depending on user input in the form of a table, chart or list. 
+ *                    This class interacts directly with the Helper class.
  * ======================================================================== */
-/*global google */
 
 define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Exporting)
 {
@@ -17,24 +18,27 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
     return {
 
         /*Web services URL definitions */
-
         //1. Used for populating Cities list box:
         suburbs_service_url : '/suburbsByCountry/',
         //2. Used to populate Suburbs list box, and a global object containing alla info about suburbs:                
         cultures_service_url : '/culturesByState', 
-        //3. Used to populate a global object containing a list of languages:                  
+        //3. Used to populate a global object containing a list of languages:                   
         languages_service_url : '/languagesByCountry/',
         //4. USed to populate a bar chart with a count of sentiment results by City
         sentimenttotals_by_city_service_url: '/sentimentTotalsByCity/', 
-
-
-        geo_search_service_url : '/genericGeoSearch/', 
-        sentiment_totals_service_url : '/sentimentTotals/',
-        table_cultures_service_url : '/tweetsByCountryOfBirth/',
-        list_top_bysuburb_service_url: '/topListBySuburb/', 
-        
+        //5. Populate top N trends by city
         list_top_by_city_service_url: '/topListByCity/',
-        cultures_totals_by_city_servide_url: '/cultureTotalsByCity/',
+        //6. Populate top 5 trends/twitterers by suburb
+        list_top_by_suburb_service_url: '/topListBySuburb/', 
+        //7. Generic geo search with pagination
+        geo_search_service_url : '/genericGeoSearch/', 
+        //8. Sentiment analysis totals by suburb (Google Pie chart)
+        sentiment_totals_service_url : '/sentimentTotals/',
+        //9. Populate table of cultures of Australia
+        table_cultures_service_url : '/tweetsByCountryOfBirth/',
+        //10. Populate culture totals by city
+        cultures_totals_by_city_service_url: '/cultureTotalsByCity/',
+        //11. Populate sentiment totals line chart
         sentiment_totals_by_city_service_url: '/sentimentTotalsByCity/',
 
 
@@ -47,7 +51,7 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         * Module:       Cities list box
         * Parameters:   None
         * Description:  Obtain list of Cities by state from the suburbs database and filtering them by the states defined on the helper class   
-        * Ation:        Populate #select-cities
+        * Action:       Populate #select-cities
         * Output:       None
         */
         populateListOfCities : function(){
@@ -81,12 +85,12 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         },
 
         /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populateListOfSuburbs
+        * Module:       Suburbs list box
+        * Parameters:   state (String) -> state code i.e. VIC, TAS, NSW
+        * Description:  Obtain a list ob suburbs corresponding to a particular state
+        * Action:       Populate #select-suburbs
+        * Output:       None
         */
         populateListOfSuburbs : function(state){
 
@@ -98,8 +102,6 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
             if (data !== null && data!==undefined){
 
                var suburbs_options_html =  '<option value="all" disabled selected style="display:none;">Select a Suburb</option>';
-
-               // console.log(data.state_coordinate);
 
                var lat = data.crs.properties.state_coordinate[0];
                var lang = data.crs.properties.state_coordinate[1];
@@ -128,12 +130,12 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         },
 
         /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populateListOfLanguages
+        * Module:       Populate global variable of languages
+        * Parameters:   None
+        * Description:  Get a list of available languages defined on the languages couchdb
+        * Action:        Populate global variable languagesGlobal
+        * Output:       None
         */
         populateListOfLanguages: function(){
 
@@ -146,12 +148,12 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         },
 
         /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populateSentimentByCityBarChart
+        * Module:       Populate sentiment by city
+        * Parameters:   term (String) -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        * Description:  Populate Sentiment by City bar chart
+        * Action:        Populate #mySentimentResultsByCityChartContainer
+        * Output:       None
         */
         populateSentimentByCityBarChart: function(term){
 
@@ -181,12 +183,12 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         },
 
       /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populateTopTrendsByCityBarChart
+        * Module:       Top trends by city
+        * Parameters:   size (Int) ->  Top N, i.e. 5 for a top five listing
+        * Description:  Get the top N list of trends by city
+        * Action:        Populate #myTrendsByCityChartContainer
+        * Output:       None
         */
         populateTopTrendsByCityBarChart: function(size){
 
@@ -217,12 +219,14 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
 
         /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populateTopTwitterers
+        * Module:       Top twitterers list
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        *               suburb(String)  -> Suburb code. i.e. 206041122
+        *               size (Int)      -> Top N, i.e. 5 for a top five listing
+        * Description:  Populate Top 5 list of twitterers
+        * Action:        populate #toptwitterers-div
+        * Output:       None
         */
         populateTopTwitterers: function(term,suburb,size) { 
 
@@ -237,7 +241,7 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
             endDate = moment();
           }
 
-          var request = this.list_top_bysuburb_service_url + term + '/' + suburb + '/' + field + '/' + size + '/' + startDate + '/' + endDate;
+          var request = this.list_top_by_suburb_service_url + term + '/' + suburb + '/' + field + '/' + size + '/' + startDate + '/' + endDate;
 
           $.getJSON(request).done(function(data) {
 
@@ -270,12 +274,14 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         },
 
         /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populateTopTrends
+        * Module:       Top trends list
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        *               suburb(String)  -> Suburb code. i.e. 206041122
+        *               size (Int)      -> Top N, i.e. 5 for a top five listing
+        * Description:  Populate Top 5 list of twitterers
+        * Action:        populate #toptrends-div
+        * Output:       None
         */
         populateTopTrends: function(term,suburb,size) { 
 
@@ -290,7 +296,7 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
             endDate = moment();
           }
 
-          var request = this.list_top_bysuburb_service_url + term + '/' + suburb + '/' + field + '/' + size + '/' + startDate + '/' + endDate;
+          var request = this.list_top_by_suburb_service_url + term + '/' + suburb + '/' + field + '/' + size + '/' + startDate + '/' + endDate;
 
           $.getJSON(request).done(function(data) {
 
@@ -323,11 +329,14 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         },
 
         /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
+        * Name:         populateTweetModuleByTerm
+        * Module:       Tweets
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        *               suburb(String)  -> Suburb code. i.e. 206041122
+        *               start (Int)     -> Support for pagination, starting by 0 up to size
+        *               size (Int)      -> Top N, i.e. 5 for a top five listing
+        * Description:  Populate tweet feed module
+        * Action:        
         * Output:       
         */
         populateTweetModuleByTerm: function(term,suburb,start,size) { 
@@ -431,11 +440,13 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         },
 
        /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
+        * Name:         populateChartModule
+        * Module:       Sentiment results by suburb
+        * Parameters:   chart (Gchart)  -> Google chart
+        *               term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        *               suburb(String)  -> Suburb code. i.e. 206041122  
+        * Description:  Populate sentiment results: % positives, % neatives, %neutrals
+        * Action:        
         * Output:       
         */
         populateChartModule : function(chart,term,suburb){
@@ -505,15 +516,17 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
         	}); //End getJSON
 
-        }, //end populateTableModule
+        },
 
         /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populateTable
+        * Module:       AU Cultures table
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        *               state (String)  -> state code i.e. VIC,TAS,NSW, etc
+        *               suburb(String)  -> Suburb code. i.e. 206041122  
+        * Description:  Populate table of cultures using dynatable plugin
+        * Action:       Populate #table-cultures
+        * Output:       None
         */
         populateTable: function(term,state,suburb){
 
@@ -588,12 +601,13 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         },
 
         /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         drawTweetsBySuburb
+        * Module:       Maps
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        *               suburb(String)  -> Suburb code. i.e. 206041122
+        * Description:  Populate GMaps module
+        * Action:       Populate maps with markers and geojson information
+        * Output:       None
         */
         drawTweetsBySuburb : function(term,suburb){
 
@@ -670,56 +684,58 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
               map.setZoom(12);
               } //if data
           }); //End getJSON
-      },
+        },
 
 
       /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populatePieChartCulturesByCity
+        * Module:       Cultures by City
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        *               state (String)  -> state code i.e. VIC,TAS,NSW, etc
+        * Description:  Populate Cultures by city pie chart module
+        * Action:       Populate #myCulturesByCityPieChartContainer
+        * Output:       None
         */
-      /* Caution: this takes too much time!! */
-      populatePieChartCulturesByCity: function(term,state){
+        populatePieChartCulturesByCity: function(term,state){
 
-          if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
-        
-          }
+            if (startDate === null && startDate === undefined){
+              startDate = moment().subtract(29, 'days');
+          
+            }
 
-          if (endDate ===null && endDate ===undefined){
-            endDate = moment();
-          }
+            if (endDate ===null && endDate ===undefined){
+              endDate = moment();
+            }
 
-          //Then Build the URL in order to send to the python service:
-          var request = this.cultures_totals_by_city_servide_url.concat(term + '/' + state + '/' + startDate + '/' + endDate); //date missing
+            //Then Build the URL in order to send to the python service:
+            var request = this.cultures_totals_by_city_service_url.concat(term + '/' + state + '/' + startDate + '/' + endDate); //date missing
 
-          $.getJSON(request, function(data) {
+            $.getJSON(request, function(data) {
 
-            // console.log(data);
+              // console.log(data);
 
-            var helper = new Helper();
+              var helper = new Helper();
 
-            var title = $( "#select-cities option:selected" ).text();
+              var title = $( "#select-cities option:selected" ).text();
 
-            var dataChart = helper.getCultureTotalsByCityPieChartData(data,title);
+              var dataChart = helper.getCultureTotalsByCityPieChartData(data,title);
 
-            $('#myCulturesByCityPieChartContainer').highcharts(dataChart);
+              $('#myCulturesByCityPieChartContainer').highcharts(dataChart);
 
 
-          });
+            });
 
-        },
+          },
 
         /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populateSentimentTotalsByCity
+        * Module:       Sentiment totals by city
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        *               state (String)  -> state code i.e. VIC,TAS,NSW, etc
+        * Description:  Populate a line chart with sentiment results in order to check which culture is the most happiest
+        *               and the most misserable (by a particular term or any term)
+        * Action:       Populate #mySentimentByCityLineChartContainer
+        * Output:       None
         */
         populateSentimentTotalsByCity: function(term,state){
 
@@ -752,12 +768,12 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         },
 
          /* 
-        * Name:         
-        * Module:       
-        * Parameters:   
-        * Description:  
-        * Ation:        
-        * Output:       
+        * Name:         populatePopulationVsTweetsBarChart
+        * Module:       Tweets vs. Population results
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        * Description:  Populate a line chart for comparing the amount of tweets vs the actual population by suburb
+        * Action:       Populate #myCulturesByCityBarChartContainer
+        * Output:       None
         */
         populatePopulationVsTweetsBarChart: function(term){
 

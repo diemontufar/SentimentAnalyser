@@ -1,15 +1,17 @@
 /* ========================================================================
  * Author:            Diego Montufar
  * Date:              25 Feb 2015
- * Description:       
+ * Description:       Here we are defining all library dependecies and imports by using Requirejs.
+ *                    Requirejs help us to structure a javascript project without having to explicitly
+ *                    define <script> html tags on the index.html file. Also helps to import omptimized JS libraries
+ *                    
  * ======================================================================== */
 
 /*
 * For any third party dependencies, like jQuery, place them in the lib folder.
 
 * Configure loading modules from the lib directory,
-* except for 'app' ones, which are in a sibling
-* directory.
+* except for 'app' ones, which are in a sibling directory
 
 *Versions:
 * jQuery v2.0.2
@@ -70,5 +72,5 @@ requirejs.config({
 
 // Start loading the main app file. Put all of
 // your application logic in there.
-requirejs(['app/app-sentiment']);
+requirejs(['app/main']);
 

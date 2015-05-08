@@ -3,39 +3,40 @@
  * Date:              25 Feb 2015
  * Description:       
  *                    All the interaction between the user and the UI will be handled by this class
- *                    Here we get parameters chosen by the user and then we make calls to the 'modules.js' class.
+ *                    Here we get parameters chosen by the user and then we populate the correponding modules
  * ======================================================================== */
 
-require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visualization,1,packages:[corechart]","dateformat","modules","chart","dynatable","daterangepicker","util/helper"], function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,gPieChart,Dynatable,Daterangepicker,Helper) {
+require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
+            "goog!visualization,1,packages:[corechart]","dateformat",
+            "modules","chart","dynatable","daterangepicker","util/helper"], 
+    function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,gPieChart,Dynatable,Daterangepicker,Helper) {
 
-	var chart = new gPieChart();
-	chart.initializeChart();
+	var chart = new gPieChart(); //create Google pie chart
+	chart.initializeChart(); //initilize
 
-	var modules = new PageModules();
-    var helper = new Helper(); 
+	var modules = new PageModules(); //Create Modules intance
+    var helper = new Helper(); //create helper intance
 
+    /* Onload method */
 	$(window).load(function() {	
 
 		
 	});
 
-    function clearModules(){
+    /*Document ready method */
+    $(document).ready(function() {
 
-        helper.restartModules();
+        //Initialize slimScroll for tweet feed module
+        $(function(){
+            $('#scrollable').slimScroll({
+                height: '250px'
+            });
+        });
 
-    };
-
-    /*Document ready initializations */
-	$(document).ready(function() {
-
-		$(function(){
-		    $('#scrollable').slimScroll({
-		        height: '250px'
-		    });
-		});
-
+        //Get global List of languages
         modules.populateListOfLanguages();
 
+        //Initialize dynatable for cultures by suburb
         $('#table-cultures').dynatable({
             features: {
                 paginate: true,
@@ -47,30 +48,36 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
               }
         });
 
+        //Initialize daterange picker list box
         $('#daterange-btn').daterangepicker(helper.date_options,selectedDate);
 
-
+        //Initialize date to the last 30 days
         var ini_date = moment().subtract(29, 'days');
         var end_date = moment();
 
-        startDate = ini_date;
-        endDate = end_date;
+        startDate = ini_date; //assign to global variable
+        endDate = end_date; //assign to global variable
 
+        //present formatted dates to the user
         $('#daterange-btn span').html(startDate.format('MMMM D, YYYY') + ' - ' + endDate.format('MMMM D, YYYY'));
         
-
-		show("tab_1-1");
+        //Show and Hide tweet feed pages
+        show("tab_1-1");
         hide("tab_2-2");
         hide("tab_3-3");
 
+        //Populate Sentiment by City totals
         modules.populateSentimentByCityBarChart("*");
+        //Populate Top trends totals by city
         modules.populateTopTrendsByCityBarChart(5);
 
-	});
+    });
 
-    /*When the user click the GO button do the following*/
+
+    /*When the user clicks the GO button do the following*/
 	$("#go-button").click( function(e){
 
+        //Activate flag
         $('#results-found').val(0).trigger('change');
 
 		var term = $("#term").val();
@@ -85,10 +92,18 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
             modules.populateListOfCities();
             
 		}else{
-			helper.infoMessage("Please insert some topic!");
+			helper.infoMessage("Please insert some topic, or * if you want to query any results");
 		}
    	});
 
+    /* Reset values, visibility, clear variables, etc */
+    function clearModules(){
+
+        helper.restartModules();
+
+    };
+
+    /* Collapse buttons controlling */
    	$("[data-widget='collapse']").click(function() {
         //Find the box parent        
         var box = $(this).parents(".box").first();
@@ -103,7 +118,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         }
     });
 
-   	//Toggle between button in tweet feed
+   	/*Toggle between buttons in tweet feed */
     $('.btn-group[data-toggle="btn-toggle"]').each(function() {
 	    var group = $(this);
 	    $(this).find(".btn").click(function(e) {
@@ -116,48 +131,58 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
     //Activate tooltips
     $("[data-toggle='tooltip']").tooltip();
 
+    //Toggle collapsable buttons on module*/
 	$('#toggle-map').click(function(){
 	    $(this).find('i').toggleClass('fa-plus fa-minus')
 	});
 
+    //Toggle collapsable buttons on module*/
     $('#toggle-top5-twitterers').click(function(){
         $(this).find('i').toggleClass('fa-plus fa-minus')
     });
 
+    //Toggle collapsable buttons on module*/
     $('#toggle-top5-trends').click(function(){
         $(this).find('i').toggleClass('fa-plus fa-minus')
     });
 
+    //Toggle collapsable buttons on module*/
     $('#toggle-top5-cultures').click(function(){
         $(this).find('i').toggleClass('fa-plus fa-minus')
     });
 
+    //Toggle collapsable buttons on module*/
     $('#toggle-sentimentbycity').click(function(){
         $(this).find('i').toggleClass('fa-plus fa-minus')
     });
 
+    /*Trigger click event*/
     function triggerButonClick(id){
         $("#"+id).trigger("click");
     };
 
+    /*Event handling for tweet feed module */
     $("#btn-pos").click(function() {
     	show("tab_1-1");
         hide("tab_2-2");
         hide("tab_3-3");
     });
 
+    /*Event handling for tweet feed module */
     $("#btn-neu").click(function() {        
 		hide("tab_1-1");
 		show("tab_2-2");
 		hide("tab_3-3");
     });
 
+    /*Event handling for tweet feed module */
     $("#btn-neg").click(function() {        
         hide("tab_1-1");
         hide("tab_2-2");
         show("tab_3-3");
     });
 
+    /* Date selection callback which triggers suburb list box onchange event*/
     function selectedDate(start,end){
         startDate = start;
         endDate = end;
@@ -166,17 +191,19 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         $("#select-suburbs").trigger("change");
     };
 
+    /* Generic show event*/
     function show(id){
         var selector = '#'+id;
         $(selector).fadeIn(2000);
     };
 
+    /* Generic show event*/
     function hide(id){
         var selector = '#'+id;
         $(selector).fadeOut(100);
     };
 
-    //Pagination
+    /* Support for pagination in tweet feed module */
     $("#scrollable").slimScroll().bind('slimscroll', function(e, pos){
 
     	var term = $("#term").val();
@@ -202,12 +229,20 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 	});
 
 
+    /* Populate suburbs list and other modules when selecting a city on the list box */
     $( "#select-cities" ).change(function() {
-        resetDynatable();
-        var term = $("#term").val();
-        modules.populateListOfSuburbs($(this).val());
         
+        resetDynatable(); //Clear table
+        
+        var term = $("#term").val(); //get the term
+
+        //Populate list of suburbs based on the selected city
+        modules.populateListOfSuburbs($(this).val()); 
+        
+        //Populate PieChart
         modules.populatePieChartCulturesByCity(term,$(this).val());
+        //Populate Line Chart
+        //Disclaimer: This methos usually tkes more that 1min as it performs a count through each suburb
         modules.populateSentimentTotalsByCity(term,$(this).val());
 
         show('section-piechart-cultures');
@@ -215,7 +250,9 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
     });
 
+    /* Populate the rest of the modules which depends on the suburb selection */
     $( "#select-suburbs" ).change(function() {
+        
         show("table-div");
 
         var term = $("#term").val();
@@ -223,11 +260,13 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
         var suburb = $(this).val();
         var date = null;
 
+        //Populate table module
         modules.populateTable(term,state,suburb,date);
         show('section-linechart-cultures');
 
     });
 
+    //Populate all modules based on the results defined on the global flag which shouldn't be empty
     $('#results-found').change(function() { 
 
         if ($(this).val() != 0){
@@ -264,18 +303,21 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll","goog!visual
 
     });
 
+    //Reset table module
     function resetDynatable(){
         var dynatable = $('#table-cultures').data('dynatable');
         dynatable.settings.dataset.originalRecords = null;
         dynatable.process();
     };
 
+    //Refresh map
     function refreshMap(){
         var center = map.getCenter();
         google.maps.event.trigger(map, "resize");
         map.setCenter(center); 
     };
 
+    //Reset modules with initial values for new searches    
     function resetMapAndTable(){
         //Clear Map
         deleteMarkers();

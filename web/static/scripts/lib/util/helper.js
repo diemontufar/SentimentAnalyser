@@ -1,9 +1,15 @@
 /* ========================================================================
  * Author:            Diego Montufar
- * Date:              25 Feb 2015
- * Description:       
+ * Date:              Feb/2015
+ * Description:       Helper class is used to perform non-trivial tasks such as:
+ 						- Configuring date and time parameters
+ 						- Parsing texts, links, emails, etc.
+ 						- Getting goe positioning data and computing coordinate points for GMaps 
+ 						- Reseting global variables, modules and other values
+ 						- Building configuration structures in order to populate chart modules
  * ======================================================================== */
 
+//Define a global list of relevant states and names of Australia
 var statesList = {};
 	statesList['VIC'] = 'Melbourne';
 	statesList['NSW'] = 'Sydney';
@@ -17,6 +23,7 @@ define(["moment"], function(Moment)
 {
 	"use strict";
 
+	/* Class Helper */
 	var Helper = function()
 	{
 		return {
@@ -44,9 +51,6 @@ define(["moment"], function(Moment)
                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                     },
                     opens: 'left',
-                    // buttonClasses: ['btn btn-default'],
-                    // applyClass: 'btn-sm btn-primary',
-                    // cancelClass: 'btn-sm',
                     format: 'MM/DD/YYYY',
                     separator: ' to ',
                     locale: {
@@ -83,6 +87,7 @@ define(["moment"], function(Moment)
 				});
 			},
 
+			/* Build table structure based on records obtained from an elasticsearch response */
 			getCulturesRecords:function(countryRecords){
 
 			  var count = 1;
@@ -115,6 +120,7 @@ define(["moment"], function(Moment)
 
 			},
 
+			/* Get the country name based on the language code */
 			getCountryName:function(languageCode){
 
 				var name;
@@ -140,6 +146,9 @@ define(["moment"], function(Moment)
 
 			},
 
+			/* Compute the geo location of a tweet based on the coordinates/place fields */
+			//Try to find a point whether it is defined on the coordinates field or in the place.bounding_box field.
+			//When a bounding bos is found, we compute the central point which will serve as an estimate of the exact location.
 			getGeoMarkerPoint: function(tweet){
 
 			  var image = {url: '../static/img/marker-neutral.png', size: new google.maps.Size(32, 32)};
@@ -221,6 +230,11 @@ define(["moment"], function(Moment)
 
 		  	},
 
+		  	/* 
+		  	* Method: 	   getTweetsByCityBarChartData
+		  	* Description: Bar chart configuration structure
+		  	* Module: 	   modules.populateSentimentByCityBarChart
+		  	*/
             getTweetsByCityBarChartData: function(data,title,yAxisLabel){
 
             	  if (data !== undefined && data !== null){
@@ -239,28 +253,13 @@ define(["moment"], function(Moment)
 
             	  	});
 
-
 		            var dataChart =	{
-			              chart: {
-			                  type: 'column'
-			              },
-			              credits: {
-						      enabled: false
-						  },
-						  exporting: {
-						  	enabled: true
-						  },
-			              title: {
-			                  text: title
-			              },
-			              xAxis: {
-			                  categories: labelsStates
-			              },
-			              yAxis: {
-			                  title: {
-			                      text: yAxisLabel
-			                  }
-			              },
+			              chart: {type: 'column'}, 
+			              credits: {enabled: false }, 
+			              exporting: {enabled: true }, 
+			              title: {text: title }, 
+			              xAxis: {categories: labelsStates }, 
+			              yAxis: {title: {text: yAxisLabel } }, 
 			              plotOptions: {
 					            column: {
 					                dataLabels: {
@@ -299,9 +298,13 @@ define(["moment"], function(Moment)
 
 			      return dataChart;
 
-
             },
 
+            /* 
+		  	* Method: 	   getTopTrendsByCityBarChartData
+		  	* Description: Bar chart configuration structure
+		  	* Module: 	   modules.populateTopTrendsByCityBarChart
+		  	*/
             getTopTrendsByCityBarChartData: function(data,type,title,yAxisLabel){
 
             	  if (data !== undefined && data !== null){
@@ -313,20 +316,13 @@ define(["moment"], function(Moment)
             	  	var countTop = 0;
             	  	var defaultP = [];
 
-            	  	
             	  	$.each(data,function(key,value){
 
-            	  		
             	  		var dataP = [];
-
 
             	  		$.each(value.buckets,function(hashtag,count){
 
-	            	  		var dataT ={
-						                name: type + hashtag,
-						                data: [[countTop,count]]
-						               };
-
+	            	  		var dataT ={name: type + hashtag, data: [[countTop,count]] };
 							dataP.push(dataT);
 							
 						});
@@ -342,35 +338,18 @@ define(["moment"], function(Moment)
             	  			labelsStates.push(statesList[key]);
             	  			countTop++;
             	  		}
-
-            	  		
-
             	  	});
 
             	  	console.log(labelsStates);
 
 	            	  var dataChart = {
-							        chart: {
-							            type: 'column'
-							        },
-							        credits: {
-									      enabled: false
-									  },
-							        title: {
-							            text: title
-							        },
-							        exporting: {
-									  	enabled: true
-									  },
-							        xAxis: {
-							        	categories: labelsStates
-							        },
-							        
+							        chart: {type: 'column'}, 
+							        credits: {enabled: false }, 
+							        title: {text: title }, 
+							        exporting: {enabled: true }, 
+							        xAxis: {categories: labelsStates },
 							        yAxis: {
-							            min: 0,
-							            title: {
-							                text: yAxisLabel
-							            },
+							            min: 0, title: {text: yAxisLabel }, 
 							            stackLabels: {
 							                enabled: true,
 							                style: {
@@ -404,9 +383,13 @@ define(["moment"], function(Moment)
 
 			      return dataChart;
 
-
             },
 
+            /* 
+		  	* Method: 	   getCultureTotalsByCityPieChartData
+		  	* Description: Pie chart configuration structure
+		  	* Module: 	   modules.populatePieChartCulturesByCity
+		  	*/
             getCultureTotalsByCityPieChartData: function(data,title){
 
             	  if (data !== undefined && data !== null){
@@ -465,10 +448,13 @@ define(["moment"], function(Moment)
 			      }
 
 			      return dataChart;
-
-
             },
 
+            /* 
+		  	* Method: 	   getSentimentTotalsByCityLineChartData
+		  	* Description: Line chart configuration structure
+		  	* Module: 	   modules.populateSentimentTotalsByCity
+		  	*/
             getSentimentTotalsByCityLineChartData: function(data,title,city){
 
             	  if (data !== undefined && data !== null){
@@ -477,7 +463,6 @@ define(["moment"], function(Moment)
             	  	var positiveList = [];
             	  	var negativeList = [];
             	  	var neutralList = [];
-
 
             	  	$.each(data,function(key,value){
 
@@ -489,18 +474,12 @@ define(["moment"], function(Moment)
             	  	});
 
 		            var dataChart =	{
-							        chart: {
-							            type: 'line'
-							        },
-							        title: {
-							            text: title
-							        },
+							        chart: {type: 'line'}, 
+							        title: {text: title }, 
 							        subtitle: {
 							            text: 'Looking at the most Happiest and Misserable suburb in: ' + city
 							        },
-							        credits: {
-									      enabled: false
-									  },
+							        credits: {enabled: false }, 
 							        tooltip: {
 										    crosshairs: true,
 										    animation: true,
@@ -555,10 +534,13 @@ define(["moment"], function(Moment)
 			      }
 
 			      return dataChart;
-
-
             },
 
+            /* 
+		  	* Method: 	   getPopulationVsTweetsBarChartData
+		  	* Description: Bar chart configuration structure
+		  	* Module: 	   modules.populatePopulationVsTweetsBarChart
+		  	*/
             getPopulationVsTweetsBarChartData: function(data,title,yAxisLabel){
 
             	if (data !== undefined && data !== null){
@@ -576,21 +558,11 @@ define(["moment"], function(Moment)
             	  	});
 
 		            var dataChart =	{
-			              chart: {
-			                  zoomType: 'xy'
-			              },
-			              credits: {
-						      enabled: false
-						  },
-						  exporting: {
-						  	enabled: true
-						  },
-			              title: {
-			                  text: title
-			              },
-			              xAxis: {
-			                  categories: cultures
-			              },
+			              chart: {zoomType: 'xy'}, 
+			              credits: {enabled: false }, 
+			              exporting: {enabled: true }, 
+			              title: {text: title }, 
+			              xAxis: {categories: cultures }, 
 			              yAxis: [{ // Primary yAxis
 						            labels: {
 						                format: '{value}',
@@ -667,6 +639,7 @@ define(["moment"], function(Moment)
 
             },
 
+            // Clear and reset modules and global variables */
             restartModules: function(){
 
             	total_tweets = 0; //global variable for totals
@@ -706,24 +679,25 @@ define(["moment"], function(Moment)
 		        $("#section-topcountries").fadeOut(2000);
 		        $("#section-overallsentiment").fadeOut(2000);
 		        $("#div-totals").fadeOut(2000);
-		        // $('#section-bar-chart').css('visibility','hidden');
 		        $('#section-chart').fadeOut(2000);
-
 
 		    },
 
+		    /* Check if state is in the states list */
 		  	isInStateList: function(state){
 
 				return statesList[state] != undefined;
 
 		  	},
 
+		  	/* Get the city name given the id */
 		  	getCityName: function(id){
 			  
 			  return statesList[id];
 
 			},
 
+			/* Configure message modal window for info */
 			infoMessage: function(msg){
 		        var icon = '<i class="icon fa fa-info" style="margin-right: 10px;"></i>';
 		        $('.modal-title').empty();
@@ -733,6 +707,7 @@ define(["moment"], function(Moment)
 		        $('#basicModal').modal('show');
 		    },
 
+		    /* Configure message modal window for alert */
 		    alertMessage: function(msg){
 		        var icon = '<i class="icon fa fa-warning" style="margin-right: 10px;"></i>';
 		        $('.modal-title').empty();
@@ -742,6 +717,7 @@ define(["moment"], function(Moment)
 		        $('#basicModal').modal('show');
 		    },
 
+		    /* Configure message modal window for error */
 		    errorMessage: function(msg){
 		        var icon = '<i class="icon fa fa-ban" style="margin-right: 10px;"></i>';
 		        $('.modal-title').empty();

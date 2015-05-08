@@ -1,3 +1,11 @@
+#########################################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# Name:         indexer_settings.py
+# Description:  Define server URLs, databases and elasticsearch index. This file is called from inside the indexer module.
+#
+#########################################################################################################
 
 #Elasticsearch index:
 es_index = 'twitterall'
