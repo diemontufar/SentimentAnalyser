@@ -1,10 +1,11 @@
 # Sentiment Analyser
 ===================
-- - - - 
-###Exploring the Cultures of Australia
+
+**Exploring the Cultures of Australia**
 
 This project will explore the uptake of Twitter across the many languages and cultures of Australia. 
 It will focus on the harvesting and snetiment analysis of multi-language tweets from major cities of Australia and compare this information with broadly cultural information resources offered through organisations such as the Australian Bureau of Statistics and the Census 2011. 
+________________
 
 ## Features
 
