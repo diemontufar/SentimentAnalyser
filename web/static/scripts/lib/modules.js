@@ -753,8 +753,6 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
           $.getJSON(request, function(data) {
 
-            console.log(data);
-
             var helper = new Helper();
             var city = helper.getCityName(state);
 

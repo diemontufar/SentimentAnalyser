@@ -333,14 +333,16 @@ define(["moment"], function(Moment)
 
             	  		}else{
             	  			for (var i=0;i<5;i++){
-            	  				seriesP.push(dataP[i]);
+            	  				if (dataP[i]!==null && dataP[i]!=undefined){
+            	  					seriesP.push(dataP[i]);
+            	  				}
             	  			} 
             	  			labelsStates.push(statesList[key]);
             	  			countTop++;
             	  		}
             	  	});
 
-            	  	console.log(labelsStates);
+            	  	console.log(JSON.stringify(seriesP));
 
 	            	  var dataChart = {
 							        chart: {type: 'column'}, 
