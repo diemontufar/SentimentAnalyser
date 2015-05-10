@@ -1,3 +1,13 @@
+#########################################################################################################
+#
+# Author:         Diego Montufar
+# Date:           Apr/2015
+# Name:           emailer.py
+# Description:    Sends email notifications from/to the configured email accounts in the settings.py file
+#
+#
+#########################################################################################################
+
 import smtplib
 import settings
 
@@ -8,7 +18,6 @@ def sendEmail(message,from_addr=settings.from_address, to_addr_list=[settings.to
               smtpserver=settings.smtp_server, port=settings.smtp_port):
     header  = 'From: %s\n' % from_addr
     header += 'To: %s\n' % ','.join(to_addr_list)
-    #header += 'Cc: %s\n' % ','.join(cc_addr_list)
     header += 'Subject: %s\n\n' % subject
     message = header + message
  

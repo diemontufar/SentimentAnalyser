@@ -1,21 +1,21 @@
 #########################################################################################################
 #
-# Author: Diego Montufar
-# Date: Apr/2015
-# Name: harvester_classifier.py
-# Description: Performs Sentiment, geo location and gender analysis for streamed tweets as they come.
-#              Logs will be written in a file for each quadrant defined in the settings i.e. log_harvester_TEST_1.txt
+# Author: 			Diego Montufar
+# Date: 			Apr/2015
+# Name: 			settings.py
+# Description: 		Performs Sentiment, geo location and gender analysis for streamed tweets as they come.
+#              		Logs will be written in a file for each quadrant defined in the settings i.e. log_harvester_TEST_1.txt
 #
-# Execution:   python harvester_classifier.py 1
-# Output:      log_harvester_TEST_1.txt
+# Execution:   		python harvester_classifier.py 1
+# Output:      		log_harvester_TEST_1.txt
 #
 #########################################################################################################
 
 #Email default configurations:
 smtp_server = 'smtp.gmail.com'
-from_address = 'sentiment.notificator@gmail.com'
-to_address = 'dmontufar@student.unimelb.edu.au'
-from_password = 'Twittersentiment'
+from_address = 'foo@gmail.com'
+to_address = 'bar@gmail.com'
+from_password = 'bar_pass'
 def_subject = 'Harvesting process status update'
 smtp_port = 587
 
@@ -24,8 +24,8 @@ server = 'http://localhost:5984/'
 vm_ip = 'node1:localhost' #just a description to be included on emails
 database = '' #initialize empty
 location = '' #initialize empty
-admin_user = 'diogonal' #Futon admin username
-admin_pass = 'dgl0588' #Futon admin pass
+admin_user = '<user>' #Futon admin username
+admin_pass = '<pass>' #Futon admin pass
 
 #Initialize variables for each quadrant
 consumer_key = '' #initialize empty
@@ -64,9 +64,9 @@ def defineQuadrant(quadrant):
 		database = 'test' #name of the couchdb where you want to store tweets
 		location = 'TEST' #description to be included on emailing services
 		region_quadrant = '1' #description to be included on emailing services, may be the same as the value of quadrant
-		consumer_key = '86AeqigDcQNqySn1DQm5GZ5Jv' #Twitter API credentias (example)
-		consumer_secret = 'KxjrbvZiQyBcvJtNDWyKPAnTr6kyIAWZMdpEBuftWKdzUg0JK9' #Twitter API credentias (example)
-		access_token = '3161848488-ffvqUxam48G60zqPTklYTWwWY1N5sNMW2LlDUdd' #Twitter API credentias (example)
-		access_secret = 'irs9HUlGEg35FrxJVc0cgCTzWlwkVjxwips58GxKR7kgq' #Twitter API credentias (example)
+		consumer_key = '1rryuUcww935qsmu7fkk2Taena' #Twitter API credentias (example)
+		consumer_secret = 'mcii2QVvbbJMh7D0omT9auWhiJUpM3qhHt21lUck9UptoDv6yXb' #Twitter API credentias (example)
+		access_token = '3184636436-qUAD1TcPYENWl3MnxyuqA7tq4RqVcoRzoF891cMc' #Twitter API credentias (example)
+		access_secret = 'Et3exDs83RpjEKw6HNfGSfEKQNcolUZJVoMGAjmNEpQmdd' #Twitter API credentias (example)
 		#Bounding Box:
 		locations = [145.0544,-39.1549,148.2020,-35.7746] #Define a bounding box where the tweets should come from
