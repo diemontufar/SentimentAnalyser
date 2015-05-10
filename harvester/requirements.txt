@@ -1,0 +1,8 @@
+tweet_classifier
+TextBlob
+twitter-text-python
+couchDB
+python-memcached
+naiveBayesClassifier
+genderizer
+tweepy
