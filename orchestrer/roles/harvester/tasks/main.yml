@@ -1,0 +1,38 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         main.yml
+# Context:      Apply only to slave instances
+# Description:  Configure specific coponents for a slave instance. For this project 
+#               a slave node is considered both a harvester and a ES shard.
+#
+#
+#########################################################################################
+  
+- name: Modify Elastic Search Role
+  lineinfile: dest={{ elasticsearch_conf_file }} line='node.master':' false'
+  tags: 
+  - configuration   
+  
+ #Setup the Harvester
+- name: Create path to data
+  file: path={{ harvester_install_path }} state=directory owner={{ default_user }} group={{ default_group }} mode=0755
+  tags: 
+  - install_harvester
+ 
+- name: Download Harvester from Github
+  shell: curl -sL --user "iamguest:Twittersentiment" {{ project_repository_url }} > master.zip
+  tags:
+  - install_harvester
+  
+- name: Unzip Harvester
+  command: unzip -o -j master.zip "SentimentAnalyser-master/harvester/*" -d"harvester"
+  tags:
+  - install_harvester
+  
+- name: Chown everything to ubuntu
+  file: group={{ default_group }} owner={{ default_user }} path={{ harvester_install_path }} recurse=yes state=directory
+  tags:
+  - install_harvester
+  

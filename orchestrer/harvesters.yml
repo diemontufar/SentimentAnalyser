@@ -1,0 +1,17 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         harvesters.yml
+# Context:      Apply rules only to harvester instances
+# Description:  Configure which rules shoul be applied to the corresponding type of instance
+#
+#
+#########################################################################################
+
+- hosts: harvesters
+  sudo: yes
+  sudo_user: root
+  roles:
+    - common
+    - harvester

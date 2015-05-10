@@ -1,0 +1,38 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         all
+# Context:      Apply to any configured instance
+# Description:  This is a configuration file in which you define paths to main directories, 
+#				security credentials, libraries to be downloades, etc.
+#
+#
+#########################################################################################
+
+admin_password: $6$RW/8ncaWzQRJp$Gq8LmDJG7H97J4GndgZrp/qX8JC9PScDa4C9zNZvvR4BaQit/NqD1M1i1cqAUm0FvZl4msTJVlfZ3NveJLG091
+
+elasticsearch_download_url: https://download.elasticsearch.org/elasticsearch/elasticsearch
+elasticsearch_version: 1.5.1
+timezone: Australia/Melbourne
+download_dest: /tmp
+
+couchdb_conf: /etc/couchdb/local.ini
+couchdb_admin: cultures
+couchdb_pass: sentiment
+
+arch: x64
+apache_vhosts_conf: /etc/apache2/sites-available/000-default.conf
+
+harvester_install_path: /home/ubuntu/harvester
+project_install_path: /home/ubuntu/SentimentAnalyser
+default_user: ubuntu
+default_group: ubuntu
+project_repository_url: https://github.com/diogonal/SentimentAnalyser/archive/master.zip
+
+elasticsearch_home_dir: /usr/share/elasticsearch
+elasticsearch_conf_file: /etc/elasticsearch/elasticsearch.yml
+elasticsearch_plugins:
+ - { name: 'elasticsearch/elasticsearch-river-couchdb/2.5.0', path: 'river-couchdb' }
+ - { name: 'lukas-vlcek/bigdesk', path: 'bigdesk' }
+ - { name: 'mobz/elasticsearch-head', path: 'head' }

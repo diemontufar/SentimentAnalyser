@@ -1,0 +1,127 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         main.yml
+# Description:  Setup basic configuration in the system. Including:
+#                 - Create an admin user/password
+#                 - Update and Upgrade system
+#                 - Configure date/timezone and hostname
+#                 - Install new software and tools
+#                 - Install and configure servers: ES, couchdb, apache2
+#
+#
+#########################################################################################
+
+#Create a default user
+- name: Create admin user
+  action: user name=admin password={{admin_password}}
+
+#Install, upgrade all required packages
+  name: Add java repositories
+  action: apt_repository repo='deb-src http://archive.canonical.com/ubuntu hardy partner' state=absent
+  
+  name: Add java repositories for configuration
+  action: apt_repository repo='ppa:webupd8team/java'
+  
+- name: Package Update
+  action: apt update_cache=yes
+
+- name: Package Upgrade
+  action: apt upgrade=yes
+
+- name: Install Ntp
+  action: apt name=ntp state=present
+  
+- name: Install Curl
+  action: apt name=curl state=present
+
+- name: Install Unzip
+  action: apt name=unzip state=present
+
+- name: Install Git
+  action: apt name=git state=present
+
+- name: Install Subversion
+  action: apt name=subversion state=present
+  
+- name: Autoaccept license for Java
+  action: shell echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+ 
+- name: Install Java 7
+  action: apt pkg=oracle-java7-installer state=latest install_recommends=yes
+ 
+- name: Set Java 7 Env
+  action: apt pkg=oracle-java7-set-default state=latest install_recommends=yes
+  
+  name: Check If Elastic Search is Already Installed
+- shell: if [ -e /usr/share/elasticsearch/lib/elasticsearch-{{ elasticsearch_version }}.jar ]; then echo yes; else echo no; fi;
+  register: version_exists
+  always_run: True
+  
+- name: Download Elasticsearch deb
+  get_url: url={{ elasticsearch_download_url }}/elasticsearch-{{ elasticsearch_version }}.deb dest=/tmp/elasticsearch-{{ elasticsearch_version }}.deb mode=0440
+  
+- name: Install Elasticsearch deb
+  shell: dpkg -i -E --force-confnew /tmp/elasticsearch-{{ elasticsearch_version }}.deb
+  when: version_exists.stdout == 'no'
+
+#Change hostname
+- name: Change hostname
+  lineinfile: dest=/etc/hosts line="127.0.1.1 {{ ansible_hostname }}"
+  tags: 
+  - configuration
+
+#Configure NTP
+- name: Ensure NTP is stopped
+  service: name=ntp state=stopped
+
+- name: Configuring timezone
+  shell: echo {{ timezone }} > /etc/timezone; dpkg-reconfigure --frontend noninteractive tzdata
+
+- name: Synchronize
+  shell: ntpdate pool.ntp.org
+
+- name: Ensure NTP is started
+  service: name=ntp state=started
+  
+#Install Couchdb
+- name: Install CouchDb
+  action: apt name=couchdb state=present
+ 
+#Install PIP 
+- name: Check to see if pip is already installed
+  shell: if [ -e /usr/bin/pip ]; then echo yes; else echo no; fi;
+  register: pip_is_installed
+  always_run: True
+  
+- name: Download pip
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest={{ download_dest }}
+  when: pip_is_installed.stdout == "no"
+
+- name: Install pip
+  command: "python {{ download_dest }}/get-pip.py"
+  sudo: yes
+  when: pip_is_installed.stdout == "no"
+
+- name: Remove get-pip.py
+  file: state=absent path={{ download_dest }}/get-pip.py
+  when: pip_is_installed.stdout == "no"
+  
+#Install and configure relevant components defined on yml files
+- include: libraries-python.yml
+- include: elasticsearch-setup.yml
+- include: couchdb-setup.yml
+
+#Start Elastic Search
+- name: Ensure Elastic Search has started
+  service: name=elasticsearch state=started
+  
+#Execute verifications
+- name: Verifications
+  shell: java -version;curl http://localhost:9200;date
+  register: verifications
+  always_run: true
+  
+- name: Debug
+  debug: var=verifications

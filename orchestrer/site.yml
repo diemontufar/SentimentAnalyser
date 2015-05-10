@@ -1,0 +1,12 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         site.yml
+# Description:  Include rules defined for different types of Instances
+#
+#
+#########################################################################################
+
+- include: harvesters.yml
+- include: masters.yml

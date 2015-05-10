@@ -1,0 +1,67 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         main.yml
+# Context:      Apply only to master instances
+# Description:  Configure specific coponents for a master instance. For this project 
+#               a master node is considered only an ES coordinator.
+#
+#
+#########################################################################################
+
+#Setup 
+- name: Install Apache2
+  action: apt name=apache2 update_cache=yes state=latest
+  tags:
+  - apache
+
+- name: Install Modwsgi apache library
+  action: apt name=libapache2-mod-wsgi state=present
+  tags:
+  - apache
+
+- name: Push virtualhost configuration template
+  template: src=virtualhost.j2 dest={{ apache_vhosts_conf }}
+  notify:
+    - restart apache2
+  tags:
+  - apache
+
+#Setup Web App 
+- name: Create path to data
+  file: path={{ project_install_path }} state=directory owner={{ default_user }} group={{ default_group }} mode=0755
+  tags: 
+  - install_webapp
+
+- name: Download Web module from Github
+  shell: curl -sL --user "iamguest:Twittersentiment" {{ project_repository_url }} > master.zip
+  tags:
+  - install_webapp
+  
+- name: Unzip Project
+  command: unzip master.zip
+  tags:
+  - install_webapp
+
+- name: Rename Project folder
+  command: mv SentimentAnalyser-master SentimentAnalyser
+  tags:
+  - install_webapp
+
+- name: Change directory permissions
+  command: chmod 755 -R {{ project_install_path }}
+  
+- name: Make symbolic link to web directory
+  command: ln -s {{ project_install_path }} /var/www/html/
+  notify:
+    - restart apache2
+  tags:
+  - install_webapp
+
+#Configure ES   
+- name: Modify Elastic Search Role
+  lineinfile: dest={{ elasticsearch_conf_file }} line='node.master':' true'
+  tags: 
+  - configuration
+   

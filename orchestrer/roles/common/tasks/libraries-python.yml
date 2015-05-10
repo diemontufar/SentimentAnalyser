@@ -1,0 +1,24 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         librearies-python.yml
+# Description:  Install python librearies necessary for 
+#
+#
+#########################################################################################
+
+- name: Install python libraries
+  pip: name={{ item.name }}
+  with_items:
+    - { name: 'tweepy' }
+    - { name: 'genderizer' }
+    - { name: 'naiveBayesClassifier' }
+    - { name: 'python-memcached' }
+    - { name: 'couchDB' }        
+    - { name: 'twitter-text-python' }
+    - { name: 'TextBlob' }
+    - { name: 'tweet_classifier' }
+    - { name: 'pytz' }
+    - { name: 'Flask' }
+    - { name: 'elasticsearch' }

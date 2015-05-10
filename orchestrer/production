@@ -1,0 +1,14 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         production
+# Description:  Configure host names and ip addresses
+#				[masters]: Define here a list of your instances which will serve as master nodes
+#				[harvesters]: Define here a list of your instances which will serve as slave nodes
+#
+#########################################################################################
+
+#Harvesters
+[masters]
+node1 ansible_ssh_host=115.146.87.117

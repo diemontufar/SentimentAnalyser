@@ -1,0 +1,30 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         couchdb-setup.yml
+# Description:  Setup couchdb configurations and admin credentials
+#
+#
+#########################################################################################
+
+- name: Stop Couchdb service
+  service: name=couchdb state=stopped
+  tags: 
+  - configuration
+
+
+- name: Bind all ips for couchdb
+  lineinfile: dest={{ couchdb_conf }} regexp=";bind_address = 127.0.0.1" line="bind_address = 0.0.0.0" backrefs=yes state=present
+  tags: 
+  - configuration
+
+- name: Restart Couchdb service
+  service: name=couchdb state=started
+  tags: 
+  - configuration
+
+- name: Setup Admin User and Password
+  shell: sleep 10;curl -X PUT http://127.0.0.1:5984/_config/admins/{{ couchdb_admin }} -d "{{ couchdb_pass }}"
+  tags:
+  - configuration

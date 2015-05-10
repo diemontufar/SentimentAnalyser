@@ -1,0 +1,82 @@
+#########################################################################################
+#
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# File:         elasticsearch-setup.yml
+# Description:  Setup elasticsearch cluster configurations and path to main directories  
+#
+#
+#########################################################################################
+
+- name: Ensure Elastic Search is stopped
+  service: name=elasticsearch state=stopped
+  tags: 
+  - configuration 
+
+#Install plugins 
+- name: Installing Plugins by Name
+  action: >
+    shell if [ ! -e {{ elasticsearch_home_dir }}/plugins/{{ item.path }} ]; then bin/plugin -install {{ item.name }} ; fi;
+    chdir={{ elasticsearch_home_dir }}
+  when: item.url is not defined
+  with_items: elasticsearch_plugins
+  ignore_errors: yes
+  
+#Change Configurations
+- name: Create ES directries for data and logs
+  file: path={{ item.path }} state=directory owner=elasticsearch group=elasticsearch mode=0770
+  with_items:
+    - { path: '/mnt/elasticsearch/data' }
+    - { path: '/mnt/elasticsearch/logs' }
+  tags: 
+  - configuration
+  
+- name: Setup cluster name
+  lineinfile: dest={{ elasticsearch_conf_file }} line='cluster.name':' test-cluster'
+  tags: 
+  - configuration
+
+- name: Setup shard name
+  lineinfile: dest={{ elasticsearch_conf_file }} line='node.name':' {{ ansible_hostname }}'
+  tags: 
+  - configuration 
+  
+- name: Configure ES shard to store data
+  lineinfile: dest={{ elasticsearch_conf_file }} line='node.data':' true'
+  tags: 
+  - configuration 
+
+- name: Setup ES path to data
+  lineinfile: dest={{ elasticsearch_conf_file }} line='path.data':' /mnt/elasticsearch/data'
+  tags: 
+  - configuration 
+
+- name: Setup ES path to logs
+  lineinfile: dest={{ elasticsearch_conf_file }} line='path.logs':' /mnt/elasticsearch/logs'
+  tags: 
+  - configuration 
+
+- name: Allow Crossdomain
+  lineinfile: dest={{ elasticsearch_conf_file }} line='http.cors.enabled':' true'
+  tags: 
+  - configuration 
+
+- name: Allow cross from all origins
+  lineinfile: dest={{ elasticsearch_conf_file }} line='http.cors.allow-origin':' "*"'
+  tags: 
+  - configuration 
+
+- name: Increase max content length
+  lineinfile: dest={{ elasticsearch_conf_file }} line='http.max_content_length':' "100mb"'
+  tags: 
+  - configuration 
+
+- name: Increase max initial line length
+  lineinfile: dest={{ elasticsearch_conf_file }} line='http.max_initial_line_length':' "100kB"'
+  tags: 
+  - configuration
+
+- name: Ensure Elasticsearch has started
+  service: name=elasticsearch state=started
+  tags: 
+  - configuration 
