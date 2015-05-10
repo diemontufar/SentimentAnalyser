@@ -3,11 +3,10 @@ Twitter Sentiment classifier
 
 - - - - 
 
-PyPI release: https://pypi.python.org/pypi/tweet_classifier
-version: 1.1.3
-Note: This is a forked version of the main module which can be found [here](https://github.com/diogonal/classifier).
-
-Author: diogonal
+**Author:** Diego Montufar<br>
+**PyPI release:** https://pypi.python.org/pypi/tweet_classifier<br>
+**Stable Version:** 1.1.3<br>
+**Note:** This is a forked version of the main module which can be found [here](https://github.com/diogonal/classifier).<br>
 
 With this tool you can analyse sentiment on tweets and classify them in positive, neutral or negative according to the computed polarity and subjectivity. Although it is oriented to tweets, you can use it for any text.
 
