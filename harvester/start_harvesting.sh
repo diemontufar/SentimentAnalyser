@@ -2,13 +2,13 @@
 
 #########################################################################################################
 #
-# Author: 		Diego Montufar
-# Date: 		Apr/2015
-# Name: 		start_harvesting.sh
+# Author: 		  Diego Montufar
+# Date: 		    Apr/2015
+# Name:         start_harvesting.sh
 # Description: 	Executes multiple instances of the harvester_classifier.py program
 #
 # Execution:   	./start_harvesting.sh 
-# By range:		./start_harvesting.sh 4 7
+# By range:		  ./start_harvesting.sh 4 7
 #
 #########################################################################################################
 
