@@ -1,13 +1,13 @@
 #########################################################################################################
 #
-# Author: Diego Montufar
-# Date: Apr/2015
-# Name: harvester_classifier.py
-# Description: Performs Sentiment, geo location and gender analysis for streamed tweets as they come.
-#              Logs will be written in a file for each quadrant defined in the settings i.e. log_harvester_TEST_1.txt
+# Author:       Diego Montufar
+# Date:         Apr/2015
+# Name:         harvester_classifier.py
+# Description:  Performs Sentiment, geo location and gender analysis for streamed tweets as they come.
+#               Logs will be written in a file for each quadrant defined in the settings i.e. log_harvester_TEST_1.txt
 #
-# Execution:   python harvester_classifier.py 1
-# Output:      log_harvester_TEST_1.txt
+# Execution:    python harvester_classifier.py 1
+# Output:       log_harvester_TEST_1.txt
 #
 #########################################################################################################
 import json #json docs

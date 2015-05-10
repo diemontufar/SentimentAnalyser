@@ -2,12 +2,12 @@
 
 #########################################################################################################
 #
-# Author: 			Diego Montufar
-# Date: 			Apr/2015
-# Name: 			stop_harvesting.sh
-# Description: 		Stops all the current running instances of the harvester_classifier.py program
+# Author: 		Diego Montufar
+# Date: 		Apr/2015
+# Name: 		stop_harvesting.sh
+# Description: 	Stops all the current running instances of the harvester_classifier.py program
 #
-# Execution:   		./stop_harvesting.sh 
+# Execution:	./stop_harvesting.sh 
 #
 #########################################################################################################
 
