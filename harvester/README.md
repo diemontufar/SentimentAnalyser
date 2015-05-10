@@ -3,7 +3,7 @@ Harvester & Classifier Module
 
 - - - - 
 
-This module harvests tweets comming from the Twitter streaming API falling within a particular bounding box.
+This module harvests tweets coming from the Twitter streaming API falling within a particular bounding box.
 During the process, each tweet will be analysed and then stored on a noSQL database (couchdb).
 
 ##Features:
@@ -39,7 +39,7 @@ Further information:<br>
 
 Althought gender is not provided on streamed tweets, this field can be guessed from information defined in the 'user' field. Generally, users put their real names on the 'user.name' field, so we can perform a quick tokenization to the text and use the genderizer open source library to compute the gender and inlcude it on the tweet before inserting on a database.
 
-Genderizer uses NLTK tools to guess whether a first name is male or female. However, given that we cannot control which information is included in most of the fields defined on a tweet, we end up getting rubbish, which cannot be processed accurately by the genderizer. In the case a name cannot be guessed, it will throw a null which will be inlcuded on the tweet as well. Anyhow, previous tests showed that 70% - 75% of the tweets have well defined user names, so results still are a richful source of information that may be used for data analysis later on.
+Genderizer uses NLTK tools to guess whether a first name is male or female. However, given that we cannot control which information is included in most of the fields defined on a tweet, we end up getting rubbish, which cannot be processed accurately by the genderizer. In the case a name cannot be guessed, it will throw a null which will be included on the tweet as well. Anyhow, previous tests showed that 70% - 75% of the tweets have well defined user names, so results still are a richful source of information that may be used for data analysis later on.
 
 Further information: [genderizer](https://github.com/muatik/genderizer)
 
@@ -51,7 +51,7 @@ Streamed tweets only correspond to a predefined bounding box. The API will allow
 
 ## Background 
 
-Since tweets are streamed continously from he Twitter API, we need to run the harvester program as a daemon process. Alternatively, one may want to keep multiple instances running at the same time. Often, each instance corresponds to a particular bounding box defining a zone of interest. 
+Since tweets are streamed continuously from he Twitter API, we need to run the harvester program as a daemon process. Alternatively, one may want to keep multiple instances running at the same time. Often, each instance corresponds to a particular bounding box defining a zone of interest. 
 
 This module presents two alternatives for harvesting tweets. The first one is a generic version which allows you to harvest tweets and perform Sentiment analysis before storing them on a couchdb database. The second one does the same job, but considering Gender analysis as well. The later was developed as a proof of concept in order to test accuracy and usefulness of the genderizer python library.
 
