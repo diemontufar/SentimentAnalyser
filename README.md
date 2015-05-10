@@ -7,20 +7,19 @@ This project will explore the uptake of Twitter across the many languages and cu
 It will focus on the harvesting and sentiment analysis of multi-language tweets from major cities of Australia and compare this information with broadly cultural information resources offered through organisations such as the Australian Bureau of Statistics and the Census 2011. 
 ________________
 
-## Features
+## Features & Modules
 
 * **Harvester:** For pulling tweets from the Twitter streaming API using python tweepy library<br>
-* **Sentiment Analyser:** using an open sourced library called tweet_classifier<br>
-* **Batcher:** for couchdb document processing/cleaning in batch mode<br>
-* **Administration tools:** for managing bigdata storage on Couchdb<br>
+* **Classifier:** using an open sourced library called tweet_classifier used for Sentiment Analysis<br>
+* **Administration tools:** for managing Couchdb databases<br>
 * **Orchestration tools:** using Ansible for deployment process<br>
-* **Elasticsearch indexer module:** for querying and searching topics<br> 
+* **Elasticsearch indexer module:** for configuring an index in an elascticsearh cluster<br> 
 * **A RESTful web-based portal:** for testing the implemented web services module<br>
 * **A Responsive HTML5-based dashboard:** a GUI for showing results<br>
 
 ## Getting Started
 
-Visit the [wiki](https://github.com/diogonal/SentimentAnalyser/wiki)
+Visit the [wiki](https://github.com/diogonal/SentimentAnalyser/wiki) or follow the REDME files listed on each module.
 
 ## Credits
 
