@@ -189,6 +189,11 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
         console.log(startDate + ' - ' + endDate);
         $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         $("#select-suburbs").trigger("change");
+        
+        //Populate Sentiment by City totals
+        modules.populateSentimentByCityBarChart("*");
+        //Populate Top trends totals by city
+        modules.populateTopTrendsByCityBarChart(5);
     };
 
     /* Generic show event*/
