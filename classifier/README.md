@@ -4,6 +4,8 @@ Twitter Sentiment classifier
 - - - - 
 
 PyPI release: https://pypi.python.org/pypi/tweet_classifier
+version: 1.1.3
+Note: This is a forked version of the main module which can be found [here](https://github.com/diogonal/classifier).
 
 Author: diogonal
 
@@ -17,17 +19,19 @@ Tweets are analysed considering the following aspects:
 
 ## Dependencies
 
-$`pip install twitter-text-python`
+```
+$ sudo pip install twitter-text-python
 
-$`pip install -U textblob`
-
-$`python -m textblob.download_corpora`
+$ sudo pip install -U TextBlob
+```
 
 Further Information about TextBlob [Here](http://textblob.readthedocs.org/en/latest/install.html)
 
 ## Installation
 
->`pip install tweet_classifier`
+```
+sudo pip install tweet_classifier`
+```
 
 ## Usage
 
