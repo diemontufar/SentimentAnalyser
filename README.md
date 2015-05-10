@@ -19,7 +19,7 @@ ________________
 
 ## Getting Started
 
-Visit the [wiki](https://github.com/diogonal/SentimentAnalyser/wiki) or follow the REDME files listed on each module.
+Visit the [wiki](https://github.com/diogonal/SentimentAnalyser/wiki) or follow the README files listed on each module.
 
 ## Credits
 
