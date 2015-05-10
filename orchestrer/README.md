@@ -70,7 +70,7 @@ If only a specific group of actions is required:
 ansible-playbook --private-key {path-to-your-pem-file} -uubuntu -i production site.yml  --tags "apache"
 ```
 
-If you want to limit the deployment process only for a pacticular hostname:
+If you want to limit the deployment process only to a pacticular hostname:
 
 ```
 $ ansible-playbook --private-key {path-to-your-pem-file} -uubuntu -i production site.yml  --limit {name-of-host: ie node1}
