@@ -67,7 +67,7 @@ $ ansible-playbook --private-key {path-to-your-pem-file} -uubuntu -i production 
 If only a specific group of actions is required:
 
 ```
-ansible-playbook --private-key {path-to-your-pem-file} -uubuntu -i production site.yml  --tags "apache"
+$ ansible-playbook --private-key {path-to-your-pem-file} -uubuntu -i production site.yml  --tags "apache"
 ```
 
 If you want to limit the deployment process only to a pacticular hostname:
