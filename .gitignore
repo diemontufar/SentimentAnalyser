@@ -1,7 +1,6 @@
 ##Project ignores
 harvester/__pycache__/
 web/__pycache__/
-orchestration/venv/
 __pycache__
 venv
 extras
