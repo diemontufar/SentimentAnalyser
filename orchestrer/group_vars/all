@@ -36,3 +36,4 @@ elasticsearch_plugins:
  - { name: 'elasticsearch/elasticsearch-river-couchdb/2.5.0', path: 'river-couchdb' }
  - { name: 'lukas-vlcek/bigdesk', path: 'bigdesk' }
  - { name: 'mobz/elasticsearch-head', path: 'head' }
+ - { name: 'org.carrot2/elasticsearch-carrot2/1.8.0', path: 'carrot2' }

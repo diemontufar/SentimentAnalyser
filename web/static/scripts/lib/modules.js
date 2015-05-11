@@ -7,10 +7,10 @@
  *                    This class interacts directly with the Helper class.
  * ======================================================================== */
 
-define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Exporting)
+define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay","foamtree"], function(Helper,Highcharts,Highcharts3d,Exporting,Nodatatodisplay,Foamtree)
 {
   "use strict";
-  var chart = document.getElementById('piechart_3d');
+
   var default_img_avatar = "../static/img/undefined.png";
 
   var PageModule = function()
@@ -40,6 +40,9 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         cultures_totals_by_city_service_url: '/cultureTotalsByCity/',
         //11. Populate sentiment totals line chart
         sentiment_totals_by_city_service_url: '/sentimentTotalsByCity/',
+
+        //Clustering using carrot elasticsearch service
+        clustering_url: 'http://localhost:9200/twitterall/tweet/_search_with_clusters',
 
 
         initialize : function() {
@@ -173,7 +176,11 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
             var helper = new Helper();
 
-            var dataChart = helper.getTweetsByCityBarChartData(data,"Tweets by City","No. of Tweets");
+            // console.log("Start: " + startDate.format('YYYY-MMMM-D') + ", End: " + endDate.format('YYYY-MMMM-D'));
+
+            var title = "Count of Tweets by City: " + helper.getDateRange(startDate,endDate);
+
+            var dataChart = helper.getTweetsByCityBarChartData(data,title,"No. of Tweets");
 
             $('#mySentimentResultsByCityChartContainer').highcharts(dataChart);
 
@@ -208,7 +215,9 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
             var helper = new Helper();
 
-            var dataChart = helper.getTopTrendsByCityBarChartData(data,"#","Tweets by City","% of Tweets");
+            var title = "Count of Tweets by City: " + helper.getDateRange(startDate,endDate);
+
+            var dataChart = helper.getTopTrendsByCityBarChartData(data,"#",title,"% of Tweets");
 
             $('#myTrendsByCityChartContainer').highcharts(dataChart);
 
@@ -442,14 +451,13 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
        /* 
         * Name:         populateChartModule
         * Module:       Sentiment results by suburb
-        * Parameters:   chart (Gchart)  -> Google chart
-        *               term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
         *               suburb(String)  -> Suburb code. i.e. 206041122  
         * Description:  Populate sentiment results: % positives, % neatives, %neutrals
         * Action:        
         * Output:       
         */
-        populateChartModule : function(chart,term,suburb){
+        populateChartModule : function(term,suburb){
 
           if (startDate === null && startDate === undefined){
             startDate = moment().subtract(29, 'days');
@@ -462,8 +470,6 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
           //Then Build the URL in order to send to the python service:
           var request = this.sentiment_totals_service_url.concat(term + '/' + suburb + '/' + startDate + '/' + endDate);
-
-          var pie_chart = chart;
 
           $.getJSON(request,function(data) {
 
@@ -482,34 +488,17 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
                     total_tweets = parseInt(result.total_positive) + parseInt(result.total_negative) + parseInt(result.total_neutral); //Update global variable
                      
-                    pie_chart.drawPieChart(chart_results);
+                    var suburb = $( "#select-suburbs option:selected" ).text();
+                    var title = "Setiment Analysis: " + suburb;
+
+                    console.log(data);
+
+                    var dataChart = helper.getChartModuleData(data,title);
+
+                    $('#piechart_3d').highcharts(dataChart);
+
                     $('#label-showing').empty();
                     $('#label-showing').append('Showing from 1 to ' + size_page + ' of  ' + total_tweets + ' tweets');
-
-                    $('#overall-sentiment-div h3').empty();
-                    $('#overall-sentiment-div h3').append(result.mean_sentiment);
-
-                    $('#total-tweets-div h3').empty();
-                    $('#total-tweets-div h3').append(total_tweets);
-
-                    var icon;
-                    var color;
-                    document.getElementById("overall-icon").className = "";
-                    document.getElementById("overall-div").className = "";
-                    
-                    if (result.mean_sentiment == 'Positive'){
-                      icon = "fa " + helper.sentiment_icon.positive;
-                      color = "small-box bg-aqua";
-                    }else if (result.mean_sentiment == 'Negative'){
-                      icon = "fa " + helper.sentiment_icon.negative;
-                      color = "small-box bg-red";
-                    }else{
-                      icon = "fa " + helper.sentiment_icon.neutral;
-                      color = "small-box bg-green";
-                    }
-
-                    document.getElementById("overall-icon").className = icon;
-                    document.getElementById("overall-div").className = color;
                    
                  });
               }
@@ -698,6 +687,8 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
         */
         populatePieChartCulturesByCity: function(term,state){
 
+          console.log("I was called!");
+
             if (startDate === null && startDate === undefined){
               startDate = moment().subtract(29, 'days');
           
@@ -716,7 +707,7 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
               var helper = new Helper();
 
-              var title = $( "#select-cities option:selected" ).text();
+              var title = "Population vs. Tweets in: " + $( "#select-cities option:selected" ).text();
 
               var dataChart = helper.getCultureTotalsByCityPieChartData(data,title);
 
@@ -765,7 +756,7 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
         },
 
-         /* 
+        /* 
         * Name:         populatePopulationVsTweetsBarChart
         * Module:       Tweets vs. Population results
         * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
@@ -788,7 +779,7 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
 
           if (tableRecordsGlobal !== null && tableRecordsGlobal !== undefined){
 
-            var title = $( "#select-cities option:selected" ).text();
+            var title = "Cultures vs. Percentage of Tweets in: " + $( "#select-cities option:selected" ).text();
 
             var dataChart = helper.getPopulationVsTweetsBarChartData(tableRecordsGlobal,title,'Count');
 
@@ -798,8 +789,67 @@ define(["util/helper","highcharts","exporting"], function(Helper,Highcharts,Expo
             helper.errorMessage('Error Loading Population vs. Tweets Bar chart');
           }
 
-        }
+        },
 
+        /* CLustering topics */
+        populateCluster: function(term){
+
+          console.log("I'm the cluster!");
+          var helper = new Helper();
+          // var request = helper.getClusteredData(term,"text");
+
+          var request = {
+                     "search_request":{
+                      "query": {
+                        "query_string": {
+                          "query": "text:" + term
+                        }
+                      },
+                      },
+                      "size": 400000,
+                      "query_hint": term,
+                            "field_mapping":{
+                              "title": ["_source.title"],
+                              "content": ["_source.text"]
+                              },
+                      "algorithm": "lingo",
+                        "attributes": {
+                            "LingoClusteringAlgorithm.desiredClusterCountBase": 5
+                        },
+                        "include_hits": true
+                      };
+          console.log(request);
+
+          var getUrl = this.clustering_url+"?"
+             + "q="+term+"&"
+             + "size=200000&"
+             + "field_mapping_title=_source.title&"
+             + "field_mapping_content=_source.text&algorithm=lingo&include_hits=false";
+
+          console.log(getUrl);
+   
+          $.ajax({
+              url: getUrl,
+              type: 'GET',
+              contentType: 'application/json',
+              crossDomain: true,
+              dataType: 'json',
+              data: JSON.stringify(request),
+              success: function(response) {
+
+                  var title = "Clustering";
+                  var helper = Helper();
+                  var foamTree=helper.getClusterData(response,title);
+                  console.log("DONE");
+
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                  var jso = jQuery.parseJSON(jqXHR.responseText);
+                  console.log( jqXHR.status + ':' + errorThrown + ':' + jso.error);
+              }
+          }); 
+          console.log(JSON.stringify(request));
+      }
 
     };
   };

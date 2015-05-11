@@ -40,12 +40,13 @@
         var tableRecordsGlobal //global table records
         var startDate; //current date selected
         var endDate; //current date selected
+        var foamtree;
         
         function initialize() {
         var mapOptions = {
-                            center: { lat: -37.816667, lng: 144.966667},
+                            center: { lat: -26.209487, lng: 134.060946},
                             // center: {lat: 55.948564, lng: -3.181694}, //Edinburgh
-                            zoom: 11
+                            zoom: 4
                         };
           map = new google.maps.Map(document.getElementById('regions_div'),mapOptions);
 
@@ -128,7 +129,7 @@
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Services</a></li>
+                      <li><a href="http://115.146.87.52/services/Rest2.html" target="_blank">Services</a></li>
                       <li><a href="http://trends24.in/australia/" target="_blank">Twitter trends</a></li>
                     </ul>
                 </div>
@@ -186,7 +187,7 @@
 
                                     <i class="fa fa-globe"></i>
                                     <h3 class="box-title">
-                                        Map
+                                        Map: Main cities and suburbs
                                     </h3>
                                 </div>
                                 <div class="box-body no-padding">
@@ -207,17 +208,9 @@
                                 <!-- Header -->
                                 <div class="box-header with-border">
 
-<!--                                     <div class="pull-right box-tools">
-
-                                         <button class="btn btn-default .btn-flat pull-right" id="toggle-cultures" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
-                                         <i class="fa fa-minus"></i>
-                                         </button>
-
-                                    </div> -->
-
                                     <i class="fa fa-group"></i>
                                       <h3 class="box-title">
-                                          AU Cultures
+                                          Cultures
                                       </h3>
 
                                     <div class="box-footer clearfix">
@@ -230,7 +223,7 @@
 
                                           <div class="pull-right" style="margin-right: 15px; margin-left: 10px;">
                                              <!-- <label>Select</label> -->
-                                              <select class="form-control" id="select-suburbs" width="180" style="width: 180px">
+                                              <select class="form-control" id="select-suburbs" width="150" style="width: 150px">
 
                                               </select>
                                           </div>
@@ -252,9 +245,9 @@
                                             <th style="display: none">Country Code</th>
                                             <th>Country of Birth</th>
                                             <th style="display: none">Country Languages</th>
-                                            <th>Males</th>
-                                            <th>Females</th>
-                                            <th>Total</th>
+                                            <th style="display: none">Males</th>
+                                            <th style="display: none">Females</th>
+                                            <th>Total Population</th>
                                             <th>Tweets</th>
                                           </thead>
                                           <tbody>
@@ -271,9 +264,20 @@
                       <div class="col-lg-6 connectedSortable" id="section-piechart-cultures" style="display:none;">
                           <!-- DONUT CHART -->
                           <div class="box box-danger">
+
                               <div class="box-header with-border">
+
+                              <!-- tools box -->
+                                <div class="pull-right box-tools">
+
+                                     <button class="btn btn-default .btn-flat pull-right" id="toggle-culturesbycity-pie" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                     <i class="fa fa-minus"></i>
+                                     </button>
+
+                                </div><!-- /. tools -->
+
                                   <i class="fa fa-group"></i>
-                                  <h3 class="box-title">Cultures by City</h3>
+                                  <h3 class="box-title">Statistics by City</h3>
                               </div>
                               <div class="box-body">
                                   <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
@@ -294,14 +298,14 @@
                                 <!-- tools box -->
                                 <div class="pull-right box-tools">
 
-                                     <button class="btn btn-default .btn-flat pull-right" id="toggle-top5-trends" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                     <button class="btn btn-default .btn-flat pull-right" id="toggle-culturesbycity-bar" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
                                      <i class="fa fa-minus"></i>
                                      </button>
 
                                 </div><!-- /. tools -->
                               
                                   <i class="fa fa-group"></i>
-                                  <h3 class="box-title">Cultures by City</h3>
+                                  <h3 class="box-title">Statistics by City</h3>
                               </div>
                               <div class="box-body">
                                   <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
@@ -312,6 +316,16 @@
                           </div>
                       
                       </div><!-- ./Left Row -->
+                    </div>
+
+                    <div class="row" id="disclaimer-trends" style="display:none;">
+                      <center>
+                        <h2 style="margin-bottom: 30px;"> 
+                          <medium style="font-family: Source Sans Pro, sans-serif; color: rgba(105, 115, 109, 0.54); font-size: 25px;">
+                            <label id="label-trends">Top trending lists in: city</label>
+                          </medium> 
+                        </h2>
+                      </center>
                     </div>
 
                     <!-- Main row-->
@@ -437,12 +451,11 @@
 
                     </div><!-- /.row -->
 
-
                     <div class="row" id="disclaimer-sentiment" style="display:none;">
                       <center>
                         <h2 style="margin-bottom: 30px;"> 
                           <medium style="font-family: Source Sans Pro, sans-serif; color: rgba(105, 115, 109, 0.54); font-size: 25px;">
-                            Sentiment analysis is performed against english language tweets only!
+                            <label id="label-sentiment">Sentiment analysis is performed against english language tweets only!</label>
                           </medium> 
                         </h2>
                       </center>
@@ -451,7 +464,7 @@
                     <div class="row">
 
                         <!-- Left row -->
-                        <div class="col-md-3" id="section-chart" style="display:none;">
+                        <div class="col-md-6" id="section-chart" style="display:none;">
                             <!-- DONUT CHART -->
                             <div class="box box-danger">
                                 <div class="box-header with-border">
@@ -460,7 +473,7 @@
                                 </div>
                                 <div class="box-body chart-responsive">
                                     <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
-                                    <div class="chart" id="piechart_3d" style="height: 250px; position: relative;"></div>
+                                    <div class="chart" id="piechart_3d" style="height: 270px; position: relative;"></div>
                                 </div><!-- /.box-body -->
                             </div>
                         
@@ -538,6 +551,15 @@
                     </div><!-- /.row -->
 
                     
+                    <div class="row" id="disclaimer-trending-city" style="display:block;">
+                      <center>
+                        <h2 style="margin-bottom: 30px;"> 
+                          <medium style="font-family: Source Sans Pro, sans-serif; color: rgba(105, 115, 109, 0.54); font-size: 25px;">
+                            <label id="label-trending-city">Top trending lists by City</label>
+                          </medium> 
+                        </h2>
+                      </center>
+                    </div>
 
                     <div class="row">
 
@@ -599,6 +621,35 @@
                           <div class="box-body">
                               <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
                               <div class="full-width-chart" id="mySentimentByCityLineChartContainer" style="height: 600px; width: 100%;">
+                                  <!-- <canvas id="topTrendsByCityChart" width="500px" height="250px"></canvas> -->
+                              </div>
+                          </div><!-- /.box-body -->
+                      </div>
+                  
+                  </div><!-- ./Left Row -->
+                </div>
+
+                <div class="row">
+                  <!-- Left row -->
+                  <div class="col-lg-12 connectedSortable" id="section-cluster" style="display:block;">
+                      <!-- DONUT CHART -->
+                      <div class="box box-danger">
+                          <div class="box-header with-border">
+                              <!-- tools box -->
+                              <div class="pull-right box-tools">
+
+                                   <button class="btn btn-default .btn-flat pull-right" id="toggle-cluster" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                                   <i class="fa fa-minus"></i>
+                                   </button>
+
+                              </div><!-- /. tools -->
+
+                              <i class="fa fa-smile-o"></i>
+                              <h3 class="box-title">Cluster</h3>
+                          </div>
+                          <div class="box-body">
+                              <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
+                              <div class="full-width-chart" id="cluster" style="height: 300px; width: 97%;">
                                   <!-- <canvas id="topTrendsByCityChart" width="500px" height="250px"></canvas> -->
                               </div>
                           </div><!-- /.box-body -->

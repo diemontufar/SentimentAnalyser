@@ -19,6 +19,25 @@ var statesList = {};
 	statesList['WA'] = 'Perth';
 	statesList['SA'] = 'Adelaide';
 
+function calculateUniqueDocumentsCount(cluster) {
+  var uniqueIds = {};
+  if (cluster.documents) {
+    cluster.documents.forEach(function(id) {
+      uniqueIds[id] = true;
+    });
+  }
+  
+  if (cluster.clusters) {
+    cluster.clusters.forEach(function(subcluster) {
+      for (var key in calculateUniqueDocumentsCount(subcluster)) {
+        uniqueIds[key] = true;
+      };
+    });
+  }
+  cluster.uniqueDocumentsCount = Object.keys(uniqueIds).length;
+  return uniqueIds;
+};
+
 define(["moment"], function(Moment)
 {
 	"use strict";
@@ -60,7 +79,7 @@ define(["moment"], function(Moment)
                         toLabel: 'To',
                         customRangeLabel: 'Custom',
                         daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
-                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                         firstDay: 1
                     }
              },
@@ -103,7 +122,7 @@ define(["moment"], function(Moment)
 	                                                'countryLanguages' : country.languages,
 	                                                'males' : country.population.males,
 	                                                'females' : country.population.females,
-	                                                'total' : country.population.total,
+	                                                'totalPopulation' : country.population.total,
 	                                                'tweets' : country.count
 	                                              };
 
@@ -275,20 +294,33 @@ define(["moment"], function(Moment)
 					                }
 					            }
 					        },
+					      	lang: {
+					            noData: "No results found"
+					        },
+					        noData: {
+					            style: {
+					                fontWeight: 'bold',
+					                fontSize: '15px',
+					                color: '#303030'
+					            }
+					        },
 			              series: [{
 			                  name: 'Positive',
 			                  data: positives,
-			                  color: '#00aff0'
+			                  color: '#00aff0',
+			                  pointWidth: 20
 			              }, 
 			              {
 			                  name: 'Negative',
 			                  data: negatives,
-			                  color: '#f05032'
+			                  color: '#f05032',
+			                  pointWidth: 20
 			              },
 			              {
 			                  name: 'Neutral',
 			                  data: neutrals,
-			                  color: '#54b847'
+			                  color: '#54b847',
+			                  pointWidth: 20
 			              }]
 		          	};
 
@@ -342,7 +374,7 @@ define(["moment"], function(Moment)
             	  		}
             	  	});
 
-            	  	console.log(JSON.stringify(seriesP));
+            	  	// console.log(JSON.stringify(seriesP));
 
 	            	  var dataChart = {
 							        chart: {type: 'column'}, 
@@ -374,6 +406,40 @@ define(["moment"], function(Moment)
 							                        textShadow: '0 0 3px black'
 							                    }
 							                }
+							            }
+							        },
+							        legend: {
+										align: 'right',
+										borderWidth: 0,
+										layout: 'vertical',
+										itemMarginTop: 7,
+										itemMarginBottom: 7,
+										itemStyle: {
+											lineHeight: '25px',
+											fontFamily: "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif",
+											fontSize: '14px',
+											color: '#333'
+										},
+
+										verticalAlign: 'top',
+										x: -60,
+										y: 110
+									},
+									labelFormatter: function () {
+										console.log(this);
+							            // if (this.x == 0) return '<h2>{}</h2>' + this.name;
+							            // else if (this.x == 2) return '<div class="second"><h2>Title Group 2</h2>' + this.name + '</div>';
+							            // else return this.name;
+
+							        },
+							        lang: {
+					            		noData: "No results found"
+							        },
+							        noData: {
+							            style: {
+							                fontWeight: 'bold',
+							                fontSize: '15px',
+							                color: '#303030'
 							            }
 							        },
 							        "series": seriesP
@@ -436,6 +502,16 @@ define(["moment"], function(Moment)
 							                    }
 							                },
 							                showInLegend: true
+							            }
+							        },
+							        lang: {
+					            		noData: "No results found"
+							        },
+							        noData: {
+							            style: {
+							                fontWeight: 'bold',
+							                fontSize: '15px',
+							                color: '#303030'
 							            }
 							        },
 							        series: [{
@@ -516,6 +592,16 @@ define(["moment"], function(Moment)
 							                enableMouseTracking: true
 							            }
 							        },
+							        lang: {
+					            		noData: "No results found"
+							        },
+							        noData: {
+							            style: {
+							                fontWeight: 'bold',
+							                fontSize: '15px',
+							                color: '#303030'
+							            }
+							        },
 							        series: [{
 							            name: 'Positive',
 							            data: positiveList,
@@ -554,7 +640,7 @@ define(["moment"], function(Moment)
             	  	$.each(data,function(key,value){
 
             	  		cultures.push(value.countryOfBirth);
-        	  			population.push(value.total);
+        	  			population.push(value.totalPopulation);
             	  		tweets.push(value.tweets);
 
             	  	});
@@ -620,7 +706,16 @@ define(["moment"], function(Moment)
 						    	return html;
 						    }
 							},
-
+							lang: {
+					            noData: "No results found"
+					        },
+					        noData: {
+					            style: {
+					                fontWeight: 'bold',
+					                fontSize: '15px',
+					                color: '#303030'
+					            }
+					        },
 							series: [{
 					            name: 'No. of Tweets',
 					            type: 'line',
@@ -634,6 +729,152 @@ define(["moment"], function(Moment)
 		          	};
 
 			      }else{
+			      	return undefined;
+			      }
+
+			      return dataChart;
+
+            },
+
+            getClusterData: function(response,title){
+
+			      if (response !== undefined && response !== null){
+
+			          if (response.hits.total > 0) {
+			             $('#cluster').text("");
+			          } else {
+			             $('#cluster').text("no results found");
+			          }
+
+			          response.clusters.forEach(function(cluster) {
+			             calculateUniqueDocumentsCount(cluster);
+			          });
+
+			          var visualizationInput = {
+			             groups: response.clusters.map(function mapper(cluster) {
+			                return {
+			                   label: cluster.phrases[0],
+			                   weight: cluster.uniqueDocumentsCount,
+			                   groups: (cluster.clusters || []).map(mapper)
+			                 }
+			              })
+			            };
+			          if (typeof foamtree !== 'undefined'){
+			                foamtree.dispose();
+			          }
+			          foamtree = new CarrotSearchFoamTree({
+			             id: "cluster",
+			             backgroundColor: "#fff",
+			             dataObject: visualizationInput
+			          });
+         
+			          console.log(visualizationInput);
+			      }else{
+			        return undefined;
+			      }
+
+			},
+
+            getChartModuleData: function(response,title){
+
+            	var data = response.results;
+            	var colors = ['#00aff0', '#f05032', '#54b847'];
+
+            	if (data !== undefined && data !== null){
+
+            		var seriesP = [];
+
+
+            		if (data.mean_sentiment == "Positive"){
+            			seriesP.push({ name : "Positive", y: data.total_positive, sliced: true, selected: true , color: colors[0]}); 
+            			seriesP.push({ name : "Negative", y: data.total_negative, color: colors[1] });
+            			seriesP.push({ name : "Neutral", y: data.total_neutral, color: colors[2] });
+            		}else if (data.mean_sentiment == "Negative"){
+            			seriesP.push({ name : "Positive", y: data.total_positive, color: colors[0] });
+            			seriesP.push({ name : "Negative", y: data.total_negative, sliced: true, selected: true, color: colors[1] });
+            			seriesP.push({ name : "Neutral", y: data.total_neutral, color: colors[2] });
+            		}else{
+            			seriesP.push({ name : "Positive", y: data.total_positive, color: colors[0] });
+            			seriesP.push({ name : "Negative", y: data.total_negative, color: colors[1] });
+            			seriesP.push({ name : "Neutral", y: data.total_neutral, sliced: true, selected: true, color: colors[2] });
+            		}
+
+            		console.log(response);
+
+            	var dataChart = {
+						        chart: {
+						            type: 'pie',
+						            options3d: {
+						                enabled: true,
+						                alpha: 45,
+						                beta: 0
+						            },
+						            events: {
+						                load: function(event) {
+						                	  var txt = '<b>Tweets</b><br>' + data.total_tweets;
+						                      var label = this['renderer']['label'](txt)
+						                   .css({
+						                       'width': '150px',
+						                       'color' : 'grey',
+						                       'fontSize':'20px'
+						                       
+						                   })
+						                   .attr({
+						                       'stroke': 'grey',
+						                       'stroke-width': 0,
+						                       'r': 5,
+						                       'padding': 3                      
+						                   })
+						                   .add();
+						                   
+						                   label.align(Highcharts.extend(['label']['getBBox()'], {
+						                       'align': 'right',
+						                       'x': -110, // offset
+						                       'verticalAlign': 'bottom',
+						                       'y': -150 // offset
+						                   }), null, 'spacingBox');
+						                }
+						            }
+						        },
+						        credits: {enabled: false }, 
+			              		exporting: {enabled: true }, 
+						        title: {
+						            text: title
+						        },
+						        tooltip: {
+						            pointFormat: '{series.name}: <b>{point.y}</b>'
+						        },
+						        plotOptions: {
+						            pie: {
+						                allowPointSelect: true,
+						                cursor: 'pointer',
+						                dataLabels: {
+						                    enabled: true,
+						                    format: '<b>{point.name}</b>: {point.percentage:.2f} %',
+						                    style: {
+						                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+						                    }
+						                },
+						                showInLegend: true
+						            }
+						        },
+						        lang: {
+				            		noData: "No results found"
+						        },
+						        noData: {
+						            style: {
+						                fontWeight: 'bold',
+						                fontSize: '15px',
+						                color: '#303030'
+						            }
+						        },
+						        series: [{
+						            type: 'pie',
+						            name: 'Tweets',
+						            data: seriesP
+						        }]
+						    };
+				}else{
 			      	return undefined;
 			      }
 
@@ -665,21 +906,19 @@ define(["moment"], function(Moment)
 
 		        $('#total-tweets-div h3').empty();
 		        $('#total-tweets-div h3').append('0');
-
-		       
-		        $("#section-cultures").fadeIn(2000);
-		        $("#section-map").fadeIn(2000);
 		        
 		        $('#section-piechart-cultures').fadeOut(2000);
 		        $('#section-linechart-sentiment').fadeOut(2000);
 		        $('#section-linechart-cultures').fadeOut(2000);
 
+		        //Disclaimer messages
 		        $('#disclaimer-sentiment').fadeOut(2000);
+		        $('#disclaimer-trends').fadeOut(2000);
+
 		        $("#section-feed").fadeOut(2000);
 		        $("#section-toptwitterers").fadeOut(2000);
 		        $("#section-toptrends").fadeOut(2000);
 		        $("#section-topcountries").fadeOut(2000);
-		        $("#section-overallsentiment").fadeOut(2000);
 		        $("#div-totals").fadeOut(2000);
 		        $('#section-chart').fadeOut(2000);
 
@@ -696,6 +935,32 @@ define(["moment"], function(Moment)
 		  	getCityName: function(id){
 			  
 			  return statesList[id];
+
+			},
+
+			/* Obtain date range string */
+			getDateRange: function(start,end){
+
+				var result = start.format('MMM D, YYYY') + " - " + end.format('MMM D, YYYY');
+
+				var ranges = {
+                       'Today': [moment().format('YYYY-MMMM-D'), moment().format('YYYY-MMMM-D')],
+                       'Yesterday': [moment().subtract(1, 'days').format('YYYY-MMMM-D'), moment().subtract(1, 'days').format('YYYY-MMMM-D')],
+                       'Last 7 Days': [moment().subtract(6, 'days').format('YYYY-MMMM-D'), moment().format('YYYY-MMMM-D')],
+                       'Last 30 Days': [moment().subtract(29, 'days').format('YYYY-MMMM-D'), moment().format('YYYY-MMMM-D')],
+                       'This Month': [moment().startOf('month').format('YYYY-MMMM-D'), moment().endOf('month').format('YYYY-MMMM-D')],
+                       'Last Month': [moment().subtract(1, 'month').startOf('month').format('YYYY-MMMM-D'), moment().subtract(1, 'month').endOf('month').format('YYYY-MMMM-D')]
+                    }
+
+                $.each(ranges,function(rangeName,range){
+
+                	if (start.format('YYYY-MMMM-D') == range[0] && end.format('YYYY-MMMM-D') == range[1]){
+                		result = rangeName;
+                	}
+
+                });
+
+                return result;
 
 			},
 

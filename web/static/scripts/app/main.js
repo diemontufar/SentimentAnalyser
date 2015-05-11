@@ -8,11 +8,8 @@
 
 require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
             "goog!visualization,1,packages:[corechart]","dateformat",
-            "modules","chart","dynatable","daterangepicker","util/helper"], 
-    function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,gPieChart,Dynatable,Daterangepicker,Helper) {
-
-	var chart = new gPieChart(); //create Google pie chart
-	chart.initializeChart(); //initilize
+            "modules","dynatable","daterangepicker","util/helper"], 
+    function($,jqueryui,bootstrap,slimscroll,jsapi,dateformat,PageModules,Dynatable,Daterangepicker,Helper) {
 
 	var modules = new PageModules(); //Create Modules intance
     var helper = new Helper(); //create helper intance
@@ -42,7 +39,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
                 paginate: true,
                 sort: true,
                 pushState: true,
-                search: true,
+                search: false,
                 recordCount: true,
                 perPageSelect: false
               }
@@ -59,17 +56,15 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
         endDate = end_date; //assign to global variable
 
         //present formatted dates to the user
-        $('#daterange-btn span').html(startDate.format('MMMM D, YYYY') + ' - ' + endDate.format('MMMM D, YYYY'));
+        var dateStr = helper.getDateRange(startDate,endDate);
+        $('#daterange-btn span').html(dateStr);
         
         //Show and Hide tweet feed pages
         show("tab_1-1");
         hide("tab_2-2");
         hide("tab_3-3");
 
-        //Populate Sentiment by City totals
-        modules.populateSentimentByCityBarChart("*");
-        //Populate Top trends totals by city
-        modules.populateTopTrendsByCityBarChart(5);
+        updateSentimentAndTrendsByCity();
 
     });
 
@@ -79,22 +74,44 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
 
         //Activate flag
         $('#results-found').val(0).trigger('change');
+        var helper = new Helper();
 
 		var term = $("#term").val();
-        //Show hidden modules
-        clearModules();
-        resetMapAndTable();
-        refreshMap();
+        var state = $('#select-cities').val();
+        var suburb = $('#select-suburbs').val();
 
         //If topic is not empty start to populate data*/
-		if (term!="" && term!=undefined){
+        if (term=="" || term===undefined || term===null){
+            helper.errorMessage("Please insert some topic, or * if you want to query any results");
+            return;
+        }
 
+        modules.populateCluster(term);
+
+        if (state === null && suburb===null){ //First time search
             modules.populateListOfCities();
-            
-		}else{
-			helper.infoMessage("Please insert some topic, or * if you want to query any results");
-		}
+            showFirstTime();
+            updateSentimentAndTrendsByCity();   
+        }
+
+        if (state !== null && suburb===null){ //Is not the first time but suburb is missing
+            helper.errorMessage('Suburb cannot be empty, please select one from the list');
+        }else if(state !== null && suburb!==null){
+            console.log(state);
+            console.log(suburb);
+
+            $("#select-suburbs").trigger("change");
+        }else{
+            helper.alertMessage('Some modules require City and Suburb parameters, please select one from the list');
+        }
+
    	});
+
+    function showFirstTime(){
+        $("#section-cultures").fadeIn(2000);
+        $("#section-map").fadeIn(2000);
+        refreshMap();
+    };
 
     /* Reset values, visibility, clear variables, etc */
     function clearModules(){
@@ -156,6 +173,22 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
         $(this).find('i').toggleClass('fa-plus fa-minus')
     });
 
+    //Toggle collapsable buttons on module*/
+    $('#toggle-culturesbycity-bar').click(function(){
+        $(this).find('i').toggleClass('fa-plus fa-minus')
+    });
+
+    //Toggle collapsable buttons on module*/
+    $('#toggle-culturesbycity-pie').click(function(){
+        $(this).find('i').toggleClass('fa-plus fa-minus')
+    });
+
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            $("#go-button").trigger("click");
+        }
+    });
+
     /*Trigger click event*/
     function triggerButonClick(id){
         $("#"+id).trigger("click");
@@ -187,13 +220,71 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
         startDate = start;
         endDate = end;
         console.log(startDate + ' - ' + endDate);
-        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        $("#select-suburbs").trigger("change");
-        
+        var dateStr = helper.getDateRange(startDate,endDate);
+        $('#daterange-btn span').html(dateStr);
+
+        var state = $('#select-cities').val();
+        var suburb = $('#select-suburbs').val();
+
+        console.log(state);
+        console.log(suburb);
+
+        if (state === null && suburb===null){ //First time search
+            updateSentimentAndTrendsByCity();
+            return;
+        }
+
+        if (state !== null){
+            updateSentimentAndTrendsByCity();
+        }else{
+            helper.errorMessage('City cannot be empty, please select one from the list');
+        }
+
+        if ( suburb === null){
+            helper.alertMessage('Some modules require Suburb as parameter, please select one from the list');
+        }else{
+            var term = $("#term").val();
+            if (term === null || term === undefined || term === ""){
+                term = "*";
+            }
+            updateCulturesTotalsSentimentAndTrends(term,state);
+            $("#select-suburbs").trigger("change");
+        }
+
+    };
+
+    /* Update modules of totals */
+    function updateSentimentAndTrendsByCity(){
         //Populate Sentiment by City totals
-        modules.populateSentimentByCityBarChart("*");
+        var term = $("#term").val();
+        if (term === null || term === undefined || term === ""){
+            term = "*";
+        }
+        modules.populateSentimentByCityBarChart(term);
         //Populate Top trends totals by city
         modules.populateTopTrendsByCityBarChart(5);
+    };
+
+    /* Update modules:
+    *       populatePieChartCulturesByCity
+    *       populateSentimentTotalsByCity
+    *       updateSentimentAndTrendsByCity
+    */
+    function updateCulturesTotalsSentimentAndTrends(term,stateCode){
+        //Populate PieChart
+        modules.populatePieChartCulturesByCity(term,stateCode);
+
+        //Populate Line Chart
+        //Disclaimer: This methos usually tkes more that 1min as it performs a count through each suburb
+        modules.populateSentimentTotalsByCity(term,stateCode);
+        
+        //Populate modules of totals (Sentiment and Top Trends)
+        updateSentimentAndTrendsByCity();
+
+        show('section-piechart-cultures');
+        show('section-linechart-cultures');
+        show('section-linechart-sentiment'); //Slow method
+
     };
 
     /* Generic show event*/
@@ -237,21 +328,15 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
     /* Populate suburbs list and other modules when selecting a city on the list box */
     $( "#select-cities" ).change(function() {
         
+        $('#results-found').val(0).trigger('change');
         resetDynatable(); //Clear table
         
         var term = $("#term").val(); //get the term
 
         //Populate list of suburbs based on the selected city
         modules.populateListOfSuburbs($(this).val()); 
-        
-        //Populate PieChart
-        modules.populatePieChartCulturesByCity(term,$(this).val());
-        //Populate Line Chart
-        //Disclaimer: This methos usually tkes more that 1min as it performs a count through each suburb
-        modules.populateSentimentTotalsByCity(term,$(this).val());
 
-        show('section-piechart-cultures');
-        show('section-linechart-sentiment');
+        updateCulturesTotalsSentimentAndTrends(term,$(this).val());
 
     });
 
@@ -267,7 +352,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
 
         //Populate table module
         modules.populateTable(term,state,suburb,date);
-        show('section-linechart-cultures');
+        updateSentimentAndTrendsByCity();
 
     });
 
@@ -278,6 +363,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
 
             var term = $("#term").val();
             var suburb = $("#select-suburbs").val();
+            var suburbName = $( "#select-suburbs option:selected" ).text();
             var date = null;
 
 
@@ -285,16 +371,23 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
             modules.drawTweetsBySuburb($("#term").val(),suburb);
             modules.populateTopTwitterers(term,suburb,5);
             modules.populateTopTrends(term,suburb,5);
-            modules.populateChartModule(chart,term,suburb);
+            modules.populateChartModule(term,suburb);
             modules.populateTweetModuleByTerm(term,suburb,start_page,size_page);
             
+            $('#section-piechart-cultures').delay("1500").fadeIn();
+            $('#section-linechart-cultures').delay("1500").fadeIn();
+
+            //Disclaimer messages
             $('#disclaimer-sentiment').delay("1500").fadeIn();
+            showLabel('#label-trends',"Top trending lists in: " + suburbName);
+            $('#disclaimer-trends').delay("1500").fadeIn();
+
             $("#section-chart").delay("1500").fadeIn();
             $("#section-feed").delay("1500").fadeIn();
             $("#section-toptwitterers").delay("1500").fadeIn();
             $("#section-toptrends").delay("1500").fadeIn();
             $("#section-topcountries").delay("1500").fadeIn();
-            $("#section-overallsentiment").delay("1500").fadeIn();
+            // $("#section-overallsentiment").delay("1500").fadeIn();
             $("#div-totals").delay("1500").fadeIn();     
             $('#section-bar-chart').css('visibility','visible').hide().fadeIn("3000");   
 
@@ -307,6 +400,12 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
         }
 
     });
+
+    //Show label
+    function showLabel(id,text){
+        $(id).empty();
+        $(id).append(text);
+    };
 
     //Reset table module
     function resetDynatable(){
@@ -326,10 +425,10 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
     function resetMapAndTable(){
         //Clear Map
         deleteMarkers();
-        map.data.forEach(function(feature) {
-            //filter...
-            map.data.remove(feature);
-        });
+        // map.data.forEach(function(feature) {
+        //     //filter...
+        //     map.data.remove(feature);
+        // });
         map.setCenter(new google.maps.LatLng(-26.209487, 134.060946)); 
         map.setZoom(4);
 

@@ -35,12 +35,14 @@ requirejs.config({
         "propertyParser" : "util/propertyParser",
         "async" : "util/async",
         "helper": "util/helper",
-        "chart": "util/chart",
         "dynatable": "dynatable/jquery.dynatable",
         "daterangepicker": "daterangepicker/daterangepicker",
         "moment": "daterangepicker/moment",
         "highcharts":"highcharts/highcharts",
-        "exporting":"highcharts/modules/exporting"
+        "exporting":"highcharts/modules/exporting",
+        "nodatatodisplay":"highcharts/modules/no-data-to-display",
+        "highcharts3d": "highcharts/highcharts-3d",
+        "foamtree": "carrotsearch/carrotsearch.foamtree"
     },
     shim: {
         "jquery.bootstrap": {
@@ -66,7 +68,17 @@ requirejs.config({
         },
         "exporting": {
             deps: ["highcharts"]
+        },
+        "nodatatodisplay":{
+            deps: ["highcharts"]
+        },
+        "highcharts3d":{
+            deps: ["highcharts"]
+        },
+        "foamtree": {
+            deps: ["jquery"]
         }
+
     }
 });
 
