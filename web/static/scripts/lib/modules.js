@@ -816,7 +816,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
                         }
                       },
                       },
-                      "size": 400000,
+                      "size": 10000,
                       "query_hint": term,
                             "field_mapping":{
                               "title": ["_source.title"],
@@ -832,7 +832,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
 
           var getUrl = this.clustering_url+"?"
              + "q="+term+"&"
-             + "size=200000&"
+             + "size=5000&"
              + "field_mapping_title=_source.title&"
              + "field_mapping_content=_source.text&algorithm=lingo&include_hits=false";
 

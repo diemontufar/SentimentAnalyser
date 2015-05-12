@@ -86,7 +86,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
             return;
         }
 
-        modules.populateCluster(term);
+        // modules.populateCluster(term);
 
         if (state === null && suburb===null){ //First time search
             modules.populateListOfCities();
@@ -276,7 +276,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
 
         //Populate Line Chart
         //Disclaimer: This methos usually tkes more that 1min as it performs a count through each suburb
-        modules.populateSentimentTotalsByCity(term,stateCode);
+        // modules.populateSentimentTotalsByCity(term,stateCode);
         
         //Populate modules of totals (Sentiment and Top Trends)
         updateSentimentAndTrendsByCity();
