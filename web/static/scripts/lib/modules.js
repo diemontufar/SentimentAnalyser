@@ -162,7 +162,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         populateSentimentByCityBarChart: function(term){
 
           if (startDate === null && startDate === undefined){
-              startDate = moment().subtract(29, 'days');
+              startDate = moment().subtract(6, 'days');
           
             }
 
@@ -201,7 +201,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         populateTopTrendsByCityBarChart: function(size){
 
           if (startDate === null && startDate === undefined){
-              startDate = moment().subtract(29, 'days');
+              startDate = moment().subtract(6, 'days');
           
             }
 
@@ -243,7 +243,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
           var field = "user.screen_name";
 
           if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
+            startDate = moment().subtract(6, 'days');
         
           }
 
@@ -298,7 +298,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
           var field = "entities.hashtags.text";
 
           if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
+            startDate = moment().subtract(6, 'days');
         
           }
 
@@ -352,7 +352,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         populateTweetModuleByTerm: function(term,suburb,start,size) { 
 
           if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
+            startDate = moment().subtract(6, 'days');
         
           }
 
@@ -461,7 +461,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         populateChartModule : function(term,suburb){
 
           if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
+            startDate = moment().subtract(6, 'days');
         
           }
 
@@ -521,7 +521,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         populateTable: function(term,state,suburb){
 
           if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
+            startDate = moment().subtract(6, 'days');
         
           }
 
@@ -605,7 +605,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
           var sizeP = 10000;
 
           if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
+            startDate = moment().subtract(6, 'days');
         
           }
 
@@ -691,7 +691,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
           console.log("I was called!");
 
             if (startDate === null && startDate === undefined){
-              startDate = moment().subtract(29, 'days');
+              startDate = moment().subtract(6, 'days');
           
             }
 
@@ -732,7 +732,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         populateSentimentTotalsByCity: function(term,state){
 
           if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
+            startDate = moment().subtract(6, 'days');
         
           }
 
@@ -768,7 +768,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         populatePopulationVsTweetsBarChart: function(term){
 
           if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
+            startDate = moment().subtract(6, 'days');
         
           }
 

@@ -49,7 +49,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
         $('#daterange-btn').daterangepicker(helper.date_options,selectedDate);
 
         //Initialize date to the last 30 days
-        var ini_date = moment().subtract(29, 'days');
+        var ini_date = moment().subtract(6, 'days');
         var end_date = moment();
 
         startDate = ini_date; //assign to global variable
