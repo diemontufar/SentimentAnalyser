@@ -43,6 +43,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
 
         //Clustering using carrot elasticsearch service
         clustering_url: 'http://115.146.86.249:9200/australia/tweet/_search_with_clusters',
+        // clustering_url: 'http://localhost:9200/twitterall/tweet/_search_with_clusters',
 
 
         initialize : function() {
@@ -799,7 +800,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
           // var request = helper.getClusteredData(term,"text");
 
           if (startDate === null && startDate === undefined){
-            startDate = moment().subtract(29, 'days');
+            startDate = moment().subtract(6, 'days');
         
           }
 
@@ -815,7 +816,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
                         }
                       },
                       },
-                      "size": 40000,
+                      "size": 400000,
                       "query_hint": term,
                             "field_mapping":{
                               "title": ["_source.title"],
@@ -831,7 +832,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
 
           var getUrl = this.clustering_url+"?"
              + "q="+term+"&"
-             + "size=20000&"
+             + "size=200000&"
              + "field_mapping_title=_source.title&"
              + "field_mapping_content=_source.text&algorithm=lingo&include_hits=false";
 
