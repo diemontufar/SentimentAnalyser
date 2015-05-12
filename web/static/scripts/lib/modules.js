@@ -798,15 +798,24 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
           var helper = new Helper();
           // var request = helper.getClusteredData(term,"text");
 
+          if (startDate === null && startDate === undefined){
+            startDate = moment().subtract(29, 'days');
+        
+          }
+
+          if (endDate ===null && endDate ===undefined){
+            endDate = moment();
+          }
+
           var request = {
                      "search_request":{
                       "query": {
                         "query_string": {
-                          "query": "text:" + term
+                          "query": "text:" + term + " AND created_at:[" + startDate + " TO " + endDate + "]"
                         }
                       },
                       },
-                      "size": 400000,
+                      "size": 40000,
                       "query_hint": term,
                             "field_mapping":{
                               "title": ["_source.title"],
@@ -822,7 +831,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
 
           var getUrl = this.clustering_url+"?"
              + "q="+term+"&"
-             + "size=200000&"
+             + "size=20000&"
              + "field_mapping_title=_source.title&"
              + "field_mapping_content=_source.text&algorithm=lingo&include_hits=false";
 
