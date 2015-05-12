@@ -42,7 +42,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         sentiment_totals_by_city_service_url: '/sentimentTotalsByCity/',
 
         //Clustering using carrot elasticsearch service
-        clustering_url: 'http://localhost:9200/twitterall/tweet/_search_with_clusters',
+        clustering_url: 'http://localhost:9200/australia/tweet/_search_with_clusters',
 
 
         initialize : function() {
