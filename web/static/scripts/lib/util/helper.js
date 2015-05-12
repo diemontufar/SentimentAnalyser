@@ -265,11 +265,14 @@ define(["moment"], function(Moment)
 
             	  	$.each(data,function(key,value){
 
-            	  		labelsStates.push(statesList[key]);
+            	  		if (value.positive == 0 && value.negative == 0 && value.neutral == 0){
+            	  			labelsStates.push(null);
+            	  		}else{
+            	  			labelsStates.push(statesList[key]);
+            	  		}
         	  			positives.push(value.positive);
-            	  		negatives.push(value.negative);
-            	  		neutrals.push(value.neutral);
-
+	        	  		negatives.push(value.negative);
+	        	  		neutrals.push(value.neutral);
             	  	});
 
 		            var dataChart =	{
@@ -544,10 +547,15 @@ define(["moment"], function(Moment)
 
             	  	$.each(data,function(key,value){
 
-            	  		categoryList.push(value.suburb_name);
+            	  		if (value.results.total_positive == 0 && value.results.total_negative == 0 && value.results.total_neutral == 0){
+            	  			categoryList.push(null);
+            	  		}else{
+            	  			categoryList.push(value.suburb_name);
+            	  		}
             	  		positiveList.push(value.results.total_positive);
             	  		negativeList.push(value.results.total_negative);
 						neutralList.push(value.results.total_neutral);
+            	  		
 
             	  	});
 
