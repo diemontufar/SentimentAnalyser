@@ -69,6 +69,80 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
     });
 
 
+    //When the user presses the execute cluster button */
+    $("#cluster-button").on('click', function(e){
+
+        var term = $("#term").val();
+        //If topic is not empty start to populate data*/
+        if (term=="" || term===undefined || term===null){
+            helper.errorMessage("Please insert some topic if you want to query any results");
+            return;
+        }
+
+        var dateStr = helper.getDateRange(startDate,endDate);
+        var msg = "<b>Are you sure do you want to execute the Lingo clustering algorithm?</b><br><br>";
+        msg += "<b>Term:&nbsp;</b>" + term;
+        msg += "<br><b>Period:&nbsp;</b>" + dateStr;
+
+        var icon = '<i class="icon fa fa-warning" style="margin-right: 10px;"></i>';
+        $('.modal-title').empty();
+        $('.modal-body').empty();
+        $('.modal-title').append(icon+'Warning');
+        $('.modal-body').append(msg);
+
+        $('#confirmationModal').modal('show');
+
+        $('#confirmationModal').modal({ backdrop: 'static', keyboard: false })
+            .one('click', '#execute', function (e) {
+                console.log("I'm going to execute the Algorithm");
+                triggerButonClick("toggle-cluster");
+                modules.populateCluster(term);
+            });
+    });
+
+    //When the user presses the execute sentiment totals button */
+    $("#sentiment-totals-button").on('click', function(e){
+
+        var term = $("#term").val();
+        //If topic is not empty start to populate data*/
+        if (term=="" || term===undefined || term===null){
+            helper.errorMessage("Please insert some topic if you want to query any results");
+            return;
+        }
+
+        var state = $('#select-cities').val();
+
+        //If topic is not empty start to populate data*/
+        if (state=="" || state===undefined || state===null){
+            helper.errorMessage("City is required, please select one from the list first");
+            return;
+        }
+
+        var city = $( "#select-cities option:selected" ).text();
+
+        var dateStr = helper.getDateRange(startDate,endDate);
+        var msg = "<b>Are you sure do you want to execute total Sentiment statistics by Suburb?</b><br><br>";
+        msg += "<b>Term:&nbsp;</b>" + term;
+        msg += "<br><b>City:&nbsp;</b>" + city;
+        msg += "<br><b>Period:&nbsp;</b>" + dateStr;
+
+        var icon = '<i class="icon fa fa-warning" style="margin-right: 10px;"></i>';
+        $('.modal-title').empty();
+        $('.modal-body').empty();
+        $('.modal-title').append(icon+'Warning');
+        $('.modal-body').append(msg);
+
+        $('#confirmationModal').modal('show');
+
+        $('#confirmationModal').modal({ backdrop: 'static', keyboard: false })
+            .one('click', '#execute', function (e) {
+                console.log("I'm going to execute sentiment totals by suburb");
+                triggerButonClick("toggle-sentimentbycity");
+                modules.populateSentimentTotalsByCity(term,state);
+            });
+    });
+
+
     /*When the user clicks the GO button do the following*/
 	$("#go-button").click( function(e){
 
@@ -82,11 +156,9 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
 
         //If topic is not empty start to populate data*/
         if (term=="" || term===undefined || term===null){
-            helper.errorMessage("Please insert some topic, or * if you want to query any results");
+            helper.errorMessage("Please insert some topic if you want to query any results");
             return;
         }
-
-        // modules.populateCluster(term);
 
         if (state === null && suburb===null){ //First time search
             modules.populateListOfCities();
@@ -170,6 +242,11 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
 
     //Toggle collapsable buttons on module*/
     $('#toggle-sentimentbycity').click(function(){
+        $(this).find('i').toggleClass('fa-plus fa-minus')
+    });
+
+    //Toggle collapsable buttons on module*/
+    $('#toggle-cluster').click(function(){
         $(this).find('i').toggleClass('fa-plus fa-minus')
     });
 
@@ -267,23 +344,17 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
 
     /* Update modules:
     *       populatePieChartCulturesByCity
-    *       populateSentimentTotalsByCity
     *       updateSentimentAndTrendsByCity
     */
     function updateCulturesTotalsSentimentAndTrends(term,stateCode){
         //Populate PieChart
         modules.populatePieChartCulturesByCity(term,stateCode);
 
-        //Populate Line Chart
-        //Disclaimer: This methos usually tkes more that 1min as it performs a count through each suburb
-        // modules.populateSentimentTotalsByCity(term,stateCode);
-        
         //Populate modules of totals (Sentiment and Top Trends)
         updateSentimentAndTrendsByCity();
 
         show('section-piechart-cultures');
         show('section-linechart-cultures');
-        show('section-linechart-sentiment'); //Slow method
 
     };
 

@@ -797,7 +797,6 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
 
           console.log("I'm the cluster!");
           var helper = new Helper();
-          // var request = helper.getClusteredData(term,"text");
 
           if (startDate === null && startDate === undefined){
             startDate = moment().subtract(6, 'days');

@@ -79,7 +79,7 @@ define(["moment"], function(Moment)
                         toLabel: 'To',
                         customRangeLabel: 'Custom',
                         daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
-                        monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                         firstDay: 1
                     }
              },
@@ -908,7 +908,6 @@ define(["moment"], function(Moment)
 		        $('#total-tweets-div h3').append('0');
 		        
 		        $('#section-piechart-cultures').fadeOut(2000);
-		        $('#section-linechart-sentiment').fadeOut(2000);
 		        $('#section-linechart-cultures').fadeOut(2000);
 
 		        //Disclaimer messages

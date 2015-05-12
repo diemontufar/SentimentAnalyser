@@ -600,63 +600,51 @@
                         </div><!-- ./Left Row -->
                     </div>
 
-                <div class="row">
-                  <!-- Left row -->
-                  <div class="col-lg-12 connectedSortable" id="section-linechart-sentiment" style="display:none;">
-                      <!-- DONUT CHART -->
-                      <div class="box box-danger">
+                    <div class="row">
+                      <div class="col-lg-12" id="section-linechart-sentiment" style="display:block;">
+                        <div class="box box-danger collapsed-box">
                           <div class="box-header with-border">
-                              <!-- tools box -->
-                              <div class="pull-right box-tools">
-
-                                   <button class="btn btn-default .btn-flat pull-right" id="toggle-sentimentbycity" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
-                                   <i class="fa fa-minus"></i>
-                                   </button>
-
-                              </div><!-- /. tools -->
-
-                              <i class="fa fa-smile-o"></i>
-                              <h3 class="box-title">Sentiment Analysis by Suburb</h3>
-                          </div>
-                          <div class="box-body">
-                              <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
-                              <div class="full-width-chart" id="mySentimentByCityLineChartContainer" style="height: 600px; width: 100%;">
-                                  <!-- <canvas id="topTrendsByCityChart" width="500px" height="250px"></canvas> -->
-                              </div>
+                            <i class="fa fa-smile-o"></i>
+                            <h3 class="box-title">Sentiment Analysis by Suburb</h3>
+                            <div class="box-tools pull-right">
+                            <button class="btn btn-default .btn-flat pull-right" id="toggle-sentimentbycity" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                             <i class="fa fa-plus"></i>
+                             </button>
+                            </div><!-- /.box-tools -->
+                            <div class="pull-right  box-tools">
+                              <button class="btn btn-block btn-danger" id="sentiment-totals-button">&nbsp;&nbsp;Execute Search&nbsp;&nbsp;</button>
+                            </div>
+                          </div><!-- /.box-header -->
+                          <div class="box-body" style="display: none;">
+                            <div class="full-width-chart" id="mySentimentByCityLineChartContainer" style="height: 600px; width: 100%;">
                           </div><!-- /.box-body -->
-                      </div>
-                  
-                  </div><!-- ./Left Row -->
-                </div>
+                        </div><!-- /.box -->
+                      </div><!-- /.col -->
+                    </div>
+                  </div>
 
-                <div class="row">
-                  <!-- Left row -->
-                  <div class="col-lg-12 connectedSortable" id="section-cluster" style="display:block;">
-                      <!-- DONUT CHART -->
-                      <div class="box box-danger">
+                  <div class="row">
+                      <div class="col-lg-12" id="section-cluster" style="display:block;">
+                        <div class="box box-danger collapsed-box">
                           <div class="box-header with-border">
-                              <!-- tools box -->
-                              <div class="pull-right box-tools">
-
-                                   <button class="btn btn-default .btn-flat pull-right" id="toggle-cluster" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
-                                   <i class="fa fa-minus"></i>
-                                   </button>
-
-                              </div><!-- /. tools -->
-
-                              <i class="fa fa-smile-o"></i>
-                              <h3 class="box-title">Cluster of Trending topics</h3>
-                          </div>
-                          <div class="box-body">
-                              <!--<div class="chart" id="sentiment-chart" style="height: 300px; position: relative;"></div>-->
-                              <div class="full-width-chart" id="cluster" style="height: 300px; width: 97%;">
-                                  <!-- <canvas id="topTrendsByCityChart" width="500px" height="250px"></canvas> -->
-                              </div>
+                            <i class="fa fa-th-large"></i>
+                            <h3 class="box-title">Cluster of Trending topics</h3>
+                            <div class="box-tools pull-right">
+                            <button class="btn btn-default .btn-flat pull-right" id="toggle-cluster" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px; margin-left: 15px;">
+                             <i class="fa fa-plus"></i>
+                             </button>
+                            </div><!-- /.box-tools -->
+                            <div class="pull-right  box-tools">
+                              <button class="btn btn-block btn-danger" id="cluster-button">&nbsp;&nbsp;Execute Lingo Algorithm&nbsp;&nbsp;</button>
+                            </div>
+                          </div><!-- /.box-header -->
+                          <div class="box-body" style="display: none;">
+                            <div class="full-width-chart" id="cluster" style="height: 300px; width: 97%;"></div>
                           </div><!-- /.box-body -->
-                      </div>
-                  
-                  </div><!-- ./Left Row -->
-                </div>
+                        </div><!-- /.box -->
+                      </div><!-- /.col -->
+                    </div>
+                  </div>
 
                 </section><!-- /.content -->
 
@@ -675,6 +663,24 @@
                     </div>
                     <div class="modal-body">
                         <h3>Modal Body</h3>
+                    </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Modal Body</h3>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" data-dismiss="modal" class="btn btn-primary" id="execute">Execute</button>
+                      <button type="button" data-dismiss="modal" class="btn">Cancel</button>
                     </div>
             </div>
           </div>
