@@ -543,11 +543,7 @@ define(["moment"], function(Moment)
 
             	  	$.each(data,function(key,value){
 
-            	  		if (value.results.total_positive == 0 && value.results.total_negative == 0 && value.results.total_neutral == 0){
-            	  			categoryList.push(null);
-            	  		}else{
-            	  			categoryList.push(value.suburb_name);
-            	  		}
+            	  		categoryList.push(value.suburb_name);
             	  		positiveList.push(value.results.total_positive);
             	  		negativeList.push(value.results.total_negative);
 						neutralList.push(value.results.total_neutral);
