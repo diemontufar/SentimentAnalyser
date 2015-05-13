@@ -95,7 +95,9 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
         $('#confirmationModal').modal({ backdrop: 'static', keyboard: false })
             .one('click', '#execute', function (e) {
                 console.log("I'm going to execute the Algorithm");
-                triggerButonClick("toggle-cluster");
+                if ($("#toggle-cluster i").attr("class").indexOf("fa-plus") > -1){
+                    triggerButonClick("toggle-cluster");
+                }
                 modules.populateCluster(term);
             });
     });
@@ -137,7 +139,9 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
         $('#confirmationModal').modal({ backdrop: 'static', keyboard: false })
             .one('click', '#execute', function (e) {
                 console.log("I'm going to execute sentiment totals by suburb");
-                triggerButonClick("toggle-sentimentbycity");
+                if ($("#toggle-sentimentbycity i").attr("class").indexOf("fa-plus") > -1){
+                    triggerButonClick("toggle-sentimentbycity");
+                }
                 modules.populateSentimentTotalsByCity(term,state);
             });
     });

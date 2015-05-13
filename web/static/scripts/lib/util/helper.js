@@ -429,7 +429,7 @@ define(["moment"], function(Moment)
 										y: 110
 									},
 									labelFormatter: function () {
-										console.log(this);
+										// console.log(this);
 							            // if (this.x == 0) return '<h2>{}</h2>' + this.name;
 							            // else if (this.x == 2) return '<div class="second"><h2>Title Group 2</h2>' + this.name + '</div>';
 							            // else return this.name;
