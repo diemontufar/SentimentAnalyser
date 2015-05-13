@@ -265,11 +265,7 @@ define(["moment"], function(Moment)
 
             	  	$.each(data,function(key,value){
 
-            	  		if (value.positive == 0 && value.negative == 0 && value.neutral == 0){
-            	  			labelsStates.push(null);
-            	  		}else{
-            	  			labelsStates.push(statesList[key]);
-            	  		}
+            	  		labelsStates.push(statesList[key]);
         	  			positives.push(value.positive);
 	        	  		negatives.push(value.negative);
 	        	  		neutrals.push(value.neutral);
