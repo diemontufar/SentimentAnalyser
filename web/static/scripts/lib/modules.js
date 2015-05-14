@@ -40,6 +40,8 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         cultures_totals_by_city_service_url: '/cultureTotalsByCity/',
         //11. Populate sentiment totals line chart
         sentiment_totals_by_city_service_url: '/sentimentTotalsByCity/',
+        //12. Populate sentiment by cultures by suburb
+        cultures_sentiment_by_suburb_service_url: '/cultureSentimentBySuburb/',
 
         //Clustering using carrot elasticsearch service
         clustering_url: 'http://115.146.86.249:9200/australia/tweet/_search_with_clusters',
@@ -688,7 +690,48 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
         */
         populatePieChartCulturesByCity: function(term,state){
 
-          console.log("I was called!");
+            if (startDate === null && startDate === undefined){
+              startDate = moment().subtract(6, 'days');
+          
+            }
+
+            if (endDate ===null && endDate ===undefined){
+              endDate = moment();
+            }
+
+            //Then Build the URL in order to send to the python service:
+            var request = this.cultures_totals_by_city_service_url.concat(term + '/' + state + '/' + startDate + '/' + endDate); 
+
+            $.getJSON(request, function(data) {
+
+              // console.log(data);
+
+              var helper = new Helper();
+
+              var title = "Tweets by Culture in city: " + $( "#select-cities option:selected" ).text();
+
+              var dataChart = helper.getCultureTotalsByCityPieChartData(data,title);
+
+              $('#myCulturesByCityPieChartContainer').highcharts(dataChart);
+
+
+            });
+
+          },
+
+        /* 
+        * Name:         populatePieChartCulturesByCity
+        * Module:       Cultures by City
+        * Parameters:   term (String)   -> Text you want to search for. i.e. AFL, Tony Abbott or * 
+        *               state (String)  -> state code i.e. VIC,TAS,NSW, etc
+        *               suburb(String)  -> Suburb code. i.e. 206041122
+        * Description:  Populate Sentiment by Cultures by suburb bar chart module
+        * Action:       Populate #mySentimentCulturesBySuburbBarChartContainer
+        * Output:       None
+        */
+        populateBarChartSentimentCulturesBySuburb: function(term,suburb){
+
+          console.log("Sentiment By Culture was called");
 
             if (startDate === null && startDate === undefined){
               startDate = moment().subtract(6, 'days');
@@ -700,24 +743,25 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
             }
 
             //Then Build the URL in order to send to the python service:
-            var request = this.cultures_totals_by_city_service_url.concat(term + '/' + state + '/' + startDate + '/' + endDate); //date missing
+            var request = this.cultures_sentiment_by_suburb_service_url.concat(term + '/' + suburb + '/' + startDate + '/' + endDate); 
 
             $.getJSON(request, function(data) {
 
-              // console.log(data);
+              console.log(data);
 
               var helper = new Helper();
 
-              var title = "Population vs. Tweets in: " + $( "#select-cities option:selected" ).text();
+              var title = "Sentiment % by Culture in suburb: " + $( "#select-suburbs option:selected" ).text();
 
-              var dataChart = helper.getCultureTotalsByCityPieChartData(data,title);
+              var dataChart = helper.getSentimentCulturesBySuburbBarChartData(data,title);
 
-              $('#myCulturesByCityPieChartContainer').highcharts(dataChart);
+              $('#mySentimentCulturesBySuburbBarChartContainer').highcharts(dataChart);
 
 
             });
 
           },
+
 
         /* 
         * Name:         populateSentimentTotalsByCity
@@ -757,6 +801,7 @@ define(["util/helper","highcharts","highcharts3d","exporting","nodatatodisplay",
 
         },
 
+//DEPRECATED!!!!
         /* 
         * Name:         populatePopulationVsTweetsBarChart
         * Module:       Tweets vs. Population results

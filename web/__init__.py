@@ -242,6 +242,18 @@ def getSentimentAnalysis(text):
 	return jsonify(indexer.getSentimentAnalysis(text))
 
 
+#Service:       cultureSentimentBySuburb
+#Description:   Get the count of sentiment of languages found on the tweets by terms within a date range
+#Parameters:    <term>        (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#               <suburbCode>  (String)  -> Suburb code. i.e. 206041122
+#               <startDate>   (Int)     -> Timestamp start date. i.e 1428069500339
+#               <endDate>     (Int)     -> Timestamp end date i.e 1430578700339
+#output:        a json object containing the matched results
+@app.route('/cultureSentimentBySuburb/<term>/<suburbCode>/<startDate>/<endDate>',methods=['GET','OPTIONS'])
+@crossdomain(origin='*')
+def getLanguagesSentimentBySuburb(term, suburbCode, startDate, endDate):
+    return jsonify(indexer.getLanguagesSentimentBySuburb(term, suburbCode, startDate, endDate))
+
 #main
 if __name__ == "__main__":
 	app.run(debug=True)

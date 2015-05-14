@@ -438,6 +438,76 @@ def getAggTotalsByCity(term, field, stateCode, startTimestamp, endTimestamp):
         matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
         return matches
 
+# Method:           getAggLanguageSentimentBySuburb
+# Description:      Method for getting aggregations based on a query with results falling within a suburb polygon
+# Parameters:       term        (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   suburbCode  (String)  -> Suburb code. i.e. 206041122
+#                   startTimestamp   (Int)     -> Timestamp start date. i.e 1428069500339
+#                   endTimestamp     (Int)     -> Timestamp end date i.e 1430578700339
+# Output:           a json object containing the matched results
+def getAggLanguageSentimentBySuburb(term, suburbCode, startTimestamp, endTimestamp):
+
+    dateRange = getFormattedRange(startTimestamp,endTimestamp)
+    str_date_len = len(dateRange)
+
+    multipolygon = getMultipolygon(suburbCode)
+
+    if term == '*':
+      query =  "created_at:" + dateRange
+    else:
+      query = 'text:' + term
+      # query += " AND (sentiment_analysis.sentiment:positive OR sentiment_analysis.sentiment:negative OR sentiment_analysis.sentiment:neutral)"
+      query +=  " AND created_at:" + dateRange
+
+    jsonQuery = {
+                   "query":{
+                      "filtered":{
+                         "filter":{
+                            "or":{
+                               "filters" : [
+                                                {"geo_shape":{"place.bounding_box":{"relation": "within", "shape": {"type": "multipolygon", "coordinates": multipolygon } } } },
+                                                {"geo_polygon": {"coordinates.coordinates": {"points" : multipolygon[0][0] } } }
+                                            ],
+                               "_cache":True
+                            }
+                         },
+                         "query": {
+                                    "query_string": {
+                                      "query": query,
+                                      "analyze_wildcard": True
+                                    }
+                        }
+                      }
+                   },
+                   "aggs":{
+                      "2":{
+                         "terms":{
+                            "field":"user.lang",
+                            "size":20,
+                            "order":{
+                               "_count":"desc"
+                            }
+                         },
+                         "aggs":{
+                            "3":{
+                               "terms":{
+                                  "field":"sentiment_analysis.sentiment",
+                                  "size":3,
+                                  "order":{
+                                     "_count":"desc"
+                                  }
+                               }
+                            }
+                         }
+                      }
+                   },
+                   "size":0
+                }
+
+    matches = es.search(index=settings.es_index, doc_type=settings.es_docType, body=jsonQuery)
+    return matches
+
+
 # Method:           getBucketsFromResponse
 # Description:      Helper method for retreiving results from bukets array comming from an elasticsearch response
 #                                 
@@ -460,6 +530,57 @@ def getBucketsFromResponse(response):
 
         return {"total" : total, "buckets" : bucks}
 
+# Method:           getSentimentBucketsFromResponse
+# Description:      Helper method for retreiving sentiment total results from bukets array comming from an elasticsearch response
+#                                 
+# Parameters:       response (Json Object) -> elasticsearch styled response
+# Output:           a json object containing the matched results
+def getSentimentBucketsFromResponse(response):
+
+    responseJson = response
+    bucks = {}
+    total = 0
+
+    if responseJson is not None:
+
+        buckets = responseJson["aggregations"]["2"]["buckets"]
+
+        for buck in buckets:
+
+          senti = {}
+          language = buck["key"]
+          language = language.lower()
+          if language == 'select language...':
+            language = 'und'
+
+          sentiments = buck["3"]["buckets"]
+
+          for sentiment in sentiments:
+            if sentiment["key"] == "positive":
+              senti["positive"] = sentiment["doc_count"]
+            elif sentiment["key"] == "negative":
+              senti["negative"] = sentiment["doc_count"]
+            else:
+              senti["neutral"] = sentiment["doc_count"]
+
+          try:
+            dummy = senti["positive"]
+          except KeyError:
+            senti["positive"] = 0
+
+          try:
+            dummy = senti["negative"]
+          except KeyError:
+            senti["negative"] = 0
+
+          try:
+            dummy = senti["neutral"]
+          except KeyError:
+            senti["neutral"] = 0
+
+          bucks[language] = senti
+
+        return {"sentiment_cultures" : bucks}
 
 # Method:           getAllSentimentTotalsByCity
 # Description:      Build a query response with sentiment total statistics by term within a date range.
@@ -510,9 +631,9 @@ def getAllSentimentTotalsByCity(term, startTimestamp, endTimestamp):
 # Method:           getAllLanguagesTotalsByCity
 # Description:      Get the count of languages found on the tweets by terms within a date range
 # Parameters:       term              (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   stateCode   (String)  -> State code. i.e. VIC, TAS
 #                   startTimestamp    (String)  -> the code of the state: i.e: VIC, TAS, etc
 #                   endTimestamp      (Int)     -> Timestamp start date. i.e 1428069500339
-#                   endDate           (Int)     -> Timestamp end date i.e 1430578700339
 # Output:           a json object containing the matched results
 def getAllLanguagesTotalsByCity(term, stateCode, startTimestamp, endTimestamp):
 
@@ -750,3 +871,37 @@ def getAllSentimentByCity(term,stateCode, startTimestamp, endTimestamp):
     response[suburb]["suburb_name"] = suburbList[suburb]
 
   return response
+
+
+
+# Method:           getLanguagesSentimentBySuburb
+# Description:      Get the count of languages found on the tweets by terms within a date range
+# Parameters:       term              (String)  -> Text you want to search for. i.e. AFL or Tony Abbott or *
+#                   suburbCode      (String)  -> Suburb code. i.e. 206041122
+#                   startTimestamp    (String)  -> the code of the state: i.e: VIC, TAS, etc
+#                   endTimestamp      (Int)     -> Timestamp start date. i.e 1428069500339
+# Output:           a json object containing the matched results
+def getLanguagesSentimentBySuburb(term, suburbCode, startTimestamp, endTimestamp):
+
+    response = getAggLanguageSentimentBySuburb(term, suburbCode, startTimestamp, endTimestamp)
+    languageTotals = getSentimentBucketsFromResponse(response)
+    languagesOfCountries = json.dumps(getLanguages(1), indent=4) #1: Australia
+    jsonLanguagesOfCountries = json.loads(languagesOfCountries)
+
+    languageList = {}
+    cob = {}
+
+    for language in languageTotals["sentiment_cultures"]:
+      
+      sentiments = languageTotals["sentiment_cultures"][language]
+      country_name = findCountryName(jsonLanguagesOfCountries,language)
+
+      try:
+          found = cob[country_name]
+          cob[country_name]["positive"] = cob[country_name].get("positive",0) + sentiments["positive"]
+          cob[country_name]["negative"] = cob[country_name].get("negative",0) + sentiments["negative"]
+          cob[country_name]["neutral"] = cob[country_name].get("neutral",0) + sentiments["neutral"]
+      except KeyError: #just create new
+          cob[country_name] = sentiments
+
+    return cob

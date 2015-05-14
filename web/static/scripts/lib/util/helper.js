@@ -736,6 +736,116 @@ define(["moment"], function(Moment)
 
             },
 
+            /* 
+            * Method:      getSentimentCulturesBySuburbBarChartData
+            * Description: Bar chart configuration structure
+            * Module:      modules.populateBarChartSentimentCulturesBySuburb
+            */
+            getSentimentCulturesBySuburbBarChartData: function(data,title){
+
+                if (data !== undefined && data !== null){
+
+                    var cultures = [];
+                    var positives = [];
+                    var negatives = [];
+                    var neutrals = [];
+
+                    $.each(data,function(key,value){
+
+                        if (value.positive == 0 && value.negative ==0 && value.neutral == 0){
+
+                            //pass
+
+                        }else{
+                            cultures.push(key);
+                            positives.push(value.positive);
+                            negatives.push(value.negative);
+                            neutrals.push(value.neutral);
+                        }
+
+                    });
+
+                    var dataChart = {
+                                chart: {
+                                    type: 'column'
+                                },
+                                credits: {enabled: false }, 
+                                exporting: {enabled: true }, 
+                                title: {
+                                    text: title
+                                },
+                                xAxis: {
+                                    categories: cultures
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: "% and No. of Tweets"
+                                    },
+                                    stackLabels: {
+                                        enabled: true,
+                                        style: {
+                                            fontWeight: 'bold',
+                                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                                            shared: true
+                                        },
+                                    plotOptions: {
+                                        column: {
+                                            stacking: 'percent',
+                                            dataLabels: {
+                                                enabled: false,
+                                                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                                                style: {
+                                                    textShadow: '0 0 3px black'
+                                                }
+                                            }
+                                        }
+                                    },
+                                    legend: {
+                                        align: 'right',
+                                        borderWidth: 0,
+                                        layout: 'vertical',
+                                        itemMarginTop: 7,
+                                        itemMarginBottom: 7,
+                                        itemStyle: {
+                                            lineHeight: '25px',
+                                            fontFamily: "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif",
+                                            fontSize: '14px',
+                                            color: '#333'
+                                        },
+
+                                        verticalAlign: 'top',
+                                        x: -60,
+                                        y: 110
+                                    },
+                                series: [{
+                                    name: 'Positive',
+                                    data: positives,
+                                    color: '#00aff0'
+                                }, {
+                                    name: 'Negative',
+                                    data: negatives,
+                                    color: '#f05032'
+                                }, {
+                                    name: 'Neutral',
+                                    data: neutrals,
+                                    color: '#54b847'
+                                }]
+                            };
+
+                }else{
+                    return undefined;
+                  }
+
+                return dataChart;
+
+            },
+
             getClusterData: function(response,title){
 
 			      if (response !== undefined && response !== null){
@@ -908,7 +1018,7 @@ define(["moment"], function(Moment)
 		        $('#total-tweets-div h3').append('0');
 		        
 		        $('#section-piechart-cultures').fadeOut(2000);
-		        $('#section-linechart-cultures').fadeOut(2000);
+		        $('#section-barchart-cultures').fadeOut(2000);
 
 		        //Disclaimer messages
 		        $('#disclaimer-sentiment').fadeOut(2000);

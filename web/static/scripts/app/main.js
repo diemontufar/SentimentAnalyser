@@ -255,7 +255,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
     });
 
     //Toggle collapsable buttons on module*/
-    $('#toggle-culturesbycity-bar').click(function(){
+    $('#toggle-culturesbysuburb-bar').click(function(){
         $(this).find('i').toggleClass('fa-plus fa-minus')
     });
 
@@ -442,7 +442,8 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
             var date = null;
 
 
-            modules.populatePopulationVsTweetsBarChart(term);
+            // modules.populatePopulationVsTweetsBarChart(term);
+            modules.populateBarChartSentimentCulturesBySuburb(term,suburb);
             modules.drawTweetsBySuburb($("#term").val(),suburb);
             modules.populateTopTwitterers(term,suburb,5);
             modules.populateTopTrends(term,suburb,5);
@@ -450,7 +451,7 @@ require(["jquery","jquery.jqueryui","jquery.bootstrap","slimscroll",
             modules.populateTweetModuleByTerm(term,suburb,start_page,size_page);
             
             $('#section-piechart-cultures').delay("1500").fadeIn();
-            $('#section-linechart-cultures').delay("1500").fadeIn();
+            $('#section-barchart-cultures').delay("1500").fadeIn();
 
             //Disclaimer messages
             $('#disclaimer-sentiment').delay("1500").fadeIn();
