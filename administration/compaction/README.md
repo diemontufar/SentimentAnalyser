@@ -15,7 +15,9 @@ Resources need to be used efficiently since in some cases they can be reduced li
 $ ./compact.sh
 ```
 
-3. You will see a log file which looks something like this:
+3. A log file will be created, which looks something like this:
 
-Compacted at:  29/03/2015 09:09:42
+```
+Compacted at:  29/03/2015 09:09:42<br>
 Compacted at:  29/03/2015 09:10:57
+```
