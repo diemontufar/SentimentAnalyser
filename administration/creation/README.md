@@ -7,27 +7,27 @@ Creates databases on the defined nodes depending on their roles and configuratio
 
 # Databases
 
-* CULTURES: Contains geojson and population information of the suburbs of the main cities of Australia.
-* SUBURBS: Contains a list of inner suburbs of the main cities of Australia: Melbourne, Sydney, Hobart, Darwin, Brisbane, Perth and Adelaide.
-* LANGUAGES: Contains information related to languages spoken in he countries of birth found on the cultures database. This serves as a link between tweets and data defined on the cultures and suburbs database.
+* **CULTURES:** Contains geojson and population information of the suburbs of the main cities of Australia.
+* **SUBURBS:** Contains a list of inner suburbs of the main cities of Australia: Melbourne, Sydney, Hobart, Darwin, Brisbane, Perth and Adelaide.
+* **LANGUAGES:** Contains information related to languages spoken in he countries of birth found on the cultures database. This serves as a link between tweets and data defined on the cultures and suburbs database.
 
 # Usage
 
 Execute the creation script defined inside each directory corresponding to each database.
 
-1. Cultures
+* **Cultures**
 
 ```
 $ cultures/create_cities_couchdb.sh
 ```
 
-2. Suburbs
+* **Suburbs**
 
 ```
 $ suburbs/create_suburbs_couchdb.sh
-``
+```
 
-3. Languages
+* **Languages**
 
 ```
 $ languages/create_languages_couchdb.sh
