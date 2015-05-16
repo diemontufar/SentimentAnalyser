@@ -24,7 +24,7 @@
 - name: Push virtualhost configuration template
   template: src=virtualhost.j2 dest={{ apache_vhosts_conf }}
   notify:
-    - restart apache2
+      - restart apache2
   tags:
   - apache
 
@@ -38,30 +38,30 @@
   shell: curl -sL --user "iamguest:Twittersentiment" {{ project_repository_url }} > master.zip
   tags:
   - install_webapp
-  
+
 - name: Unzip Project
   command: unzip master.zip
   tags:
   - install_webapp
 
 - name: Rename Project folder
-  command: mv SentimentAnalyser-master SentimentAnalyser
+  shell: mv SentimentAnalyser-master/* SentimentAnalyser
+  tags:
+  - install_webapp
+
+- name: Remove old directory
+  shell: rm -R SentimentAnalyser-master
   tags:
   - install_webapp
 
 - name: Change directory permissions
   command: chmod 755 -R {{ project_install_path }}
-  
-- name: Make symbolic link to web directory
-  command: ln -s {{ project_install_path }} /var/www/html/
-  notify:
-    - restart apache2
-  tags:
-  - install_webapp
+
+- name: Create symlink to SentimentAnalyser
+  file: src={{ project_install_path }} dest={{ project_apache_symlink }} state=link force=yes
 
 #Configure ES   
 - name: Modify Elastic Search Role
   lineinfile: dest={{ elasticsearch_conf_file }} line='node.master':' true'
   tags: 
   - configuration
-   

@@ -11,4 +11,4 @@
 
 #Harvesters
 [masters]
-node1 ansible_ssh_host=115.146.87.117
+master ansible_ssh_host=115.146.84.242

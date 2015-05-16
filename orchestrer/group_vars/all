@@ -26,6 +26,7 @@ apache_vhosts_conf: /etc/apache2/sites-available/000-default.conf
 
 harvester_install_path: /home/ubuntu/harvester
 project_install_path: /home/ubuntu/SentimentAnalyser
+project_apache_symlink: /var/www/html/SentimentAnalyser
 default_user: ubuntu
 default_group: ubuntu
 project_repository_url: https://github.com/diogonal/SentimentAnalyser/archive/master.zip
