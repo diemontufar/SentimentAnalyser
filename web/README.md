@@ -17,7 +17,6 @@ The web module is a dashboard-based HTML5 application which shows sentiment anal
 
 * **Cluster of topics:** Trends can be identified not only by looking at the hashtag top lists, but considering correlated topics and phrases as well. The clustering module uses a lingo algorithm to create a cluster of topics found by giving it a key (which is the text we are looking for) and a date range. This process is executed on the fly against our elasticsearch index and helps to understand better what people is twittering about and to have a more general idea on which trends are currently happening or happened in the past. 
 
-* **Web services module:** 
 
 ## Requirements
 
@@ -30,7 +29,7 @@ $ pip install -r requirements.txt
 
 ## Instalation
 
-Assuming you are using apache2 as web server, you need to install the wsgi plugin in order to configure the server and recognize python as server side code and wsgi web based applications as well.
+Assuming you are using apache2 as web server and unix based OS, you need to install the wsgi plugin in order to configure the server and recognize python as server side code and wsgi web based applications as well.
 
 **Apache Server:**<br>
 
@@ -44,6 +43,12 @@ $ sudo apt-get install libapache2-mod-wsgi
 * Restart apache
 ```
 $ sudo apachectl restart
+```
+
+* Assuming default web server setup, access the web site through:
+
+```
+http://localhost
 ```
 
 ## License
