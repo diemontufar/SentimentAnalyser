@@ -8,7 +8,7 @@
 #########################################################################################################
 
 #Elasticsearch index:
-es_index = 'twitterall'
+es_index = 'australia'
 es_docType = 'tweet'
 
 #Couchdb Database and credentials

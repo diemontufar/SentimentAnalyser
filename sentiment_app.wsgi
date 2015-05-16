@@ -21,13 +21,9 @@ import logging
 logging.basicConfig(stream=sys.stderr)
 
 #We need to define where is located our web module
-sys.path.insert(0,"/Library/WebServer/Documents/SentimentAnalyser/")
-sys.path.append('/Library/WebServer/Documents/SentimentAnalyser/web')
-sys.path.append('/Library/WebServer/Documents/services')
-sys.path.append('/Library/WebServer/Documents/dashboard')
-sys.path.append('/Library/WebServer/Documents/services/resources/')
-sys.path.append('/Library/WebServer/Documents/SentimentAnalyser/web/static/json/')
-sys.path.append('/Library/WebServer/Documents/SentimentAnalyser/web/services/')
+sys.path.insert(0,"/var/www/html/SentimentAnalyser/")
+sys.path.append('/var/www/html/SentimentAnalyser/web')
+sys.path.append('/var/www/html/SentimentAnalyser/web/services/')
 
 #Import web module
 from web import app as application
