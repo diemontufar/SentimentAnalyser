@@ -1,6 +1,8 @@
 # Sentiment Analyser
 ===================
 
+![portal](https://github.com/diogonal/SentimentAnalyser/blob/master/wiki/img/portal_complete.jpg)
+
 **Exploring the Cultures of Australia**
 
 This project will explore the uptake of Twitter across the many languages and cultures of Australia. 
@@ -23,8 +25,8 @@ Visit the [wiki](https://github.com/diogonal/SentimentAnalyser/wiki) or follow t
 
 ## Credits
 
-Author: Diego Montufar<br>
-Supervisor: Richard Sinnott
+**Author:** Diego Montufar<br>
+**Supervisor:** Richard Sinnott
 
 ## License
 
