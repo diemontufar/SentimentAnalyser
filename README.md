@@ -28,6 +28,12 @@ Visit the [wiki](https://github.com/diogonal/SentimentAnalyser/wiki) or follow t
 **Author:** Diego Montufar<br>
 **Supervisor:** Richard Sinnott
 
+## Find out more
+
+| **[Technical Docs] [techdocs]**     | **[Setup Guide] [setup]**     | **[Roadmap] [roadmap]**           | **[Contributing] [contributing]**           |
+|-------------------------------------|-------------------------------|-----------------------------------|---------------------------------------------|
+| [![i1] [techdocs-image]] [techdocs] | [![i2] [setup-image]] [setup] | [![i3] [roadmap-image]] [roadmap] | [![i4] [contributing-image]] [contributing] |
+
 ## License
 
 The MIT License (MIT)
@@ -39,3 +45,13 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[techdocs-image]: https://github.com/diogonal/SentimentAnalyser/blob/master/wiki/img/docs.png
+[setup-image]: https://github.com/diogonal/SentimentAnalyser/blob/master/wiki/img/setup.png
+[roadmap-image]: https://github.com/diogonal/SentimentAnalyser/blob/master/wiki/img/roadmap.png
+[contributing-image]: https://github.com/diogonal/SentimentAnalyser/blob/master/wiki/img/contributing.png
+
+[techdocs]: https://github.com/diogonal/SentimentAnalyser/wiki
+[setup]: https://github.com/diogonal/SentimentAnalyser/wiki
+[roadmap]: https://github.com/diogonal/SentimentAnalyser/wiki
+[contributing]: https://github.com/diogonal/SentimentAnalyser/wiki
