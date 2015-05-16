@@ -1,0 +1,38 @@
+<VirtualHost *:80>
+        ServerName localhost
+        ServerAdmin localhost
+
+        WSGIDaemonProcess SentimentAnalyser user=ubuntu group=staff threads=5
+        WSGIProcessGroup SentimentAnalyser
+        WSGIScriptAlias / /var/www/html/SentimentAnalyser/sentiment_app.wsgi
+
+        <Directory /var/www/html/SentimentAnalyser/web/>
+                WSGIScriptReloading On
+                Order allow,deny
+                Allow from all
+                Require all granted
+        </Directory>
+
+        Alias /static /var/www/html/SentimentAnalyser/web/static
+
+        <Directory /var/www/html/SentimentAnalyser/web/static/>
+                WSGIScriptReloading On
+                Order allow,deny
+                Allow from all
+                Require all granted
+        </Directory>
+
+        Alias /templates /var/www/html/SentimentAnalyser/web/templates
+
+        <Directory /var/www/html/SentimentAnalyser/web/templates/>
+                WSGIScriptReloading On
+                Order allow,deny
+                Allow from all
+                Require all granted
+        </Directory>
+
+
+        ErrorLog /var/log/apache2/error.log
+        LogLevel warn
+        CustomLog /var/log/apache2/access.log combined
+</VirtualHost>

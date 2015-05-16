@@ -44,8 +44,9 @@ $ sudo apt-get install libapache2-mod-wsgi
 ```
 $ sudo apachectl restart
 ```
+* Configure a virtual host in /etc/apache2/sites-available/000-default.conf by using the recommended setup shown [Here](https://github.com/diogonal/SentimentAnalyser/blob/master/web/vhosts_config.txt)
 
-* Assuming default web server setup, access the web site through:
+* Assuming a default web server setup with localhost as host on port 80, access the web site through:
 
 ```
 http://localhost
