@@ -11,13 +11,13 @@ ________________
 
 ## Features & Modules
 
-* **Harvester:** For pulling tweets from the Twitter streaming API using python tweepy library<br>
-* **Classifier:** using an open sourced library called tweet_classifier used for Sentiment Analysis<br>
-* **Administration tools:** for managing Couchdb databases<br>
-* **Orchestration tools:** using Ansible for deployment process<br>
-* **Elasticsearch indexer module:** for configuring an index in an elascticsearh cluster<br> 
-* **A RESTful web-based portal:** for testing the implemented web services module<br>
-* **A Responsive HTML5-based dashboard:** a GUI for showing results<br>
+* **Harvester:** For pulling tweets from the Twitter streaming API using python tweepy library ([Here](https://github.com/diogonal/SentimentAnalyser/tree/master/harvester))<br>
+* **Classifier:** using an open sourced library called tweet_classifier used for Sentiment Analysis ([Here](https://github.com/diogonal/SentimentAnalyser/tree/master/classifier))<br>
+* **Administration tools:** For managing Couchdb databases ([Here](https://github.com/diogonal/SentimentAnalyser/tree/master/administration))<br>
+* **Orchestration tools:** using Ansible for deployment process ([Here](https://github.com/diogonal/SentimentAnalyser/tree/master/orchestrer))<br>
+* **Elasticsearch indexer module:** For configuring an index in an elascticsearh cluster ([Here](https://github.com/diogonal/SentimentAnalyser/tree/master/orchestrer))<br> 
+* **A RESTful web-based portal:** For testing the implemented web services module ([Here](https://github.com/diogonal/services))<br>
+* **A Responsive HTML5-based dashboard:** a GUI for showing results ([Here](https://github.com/diogonal/SentimentAnalyser/tree/master/web))<br>
 
 ## Getting Started
 
