@@ -27,7 +27,7 @@ The web module is a dashboard-based HTML5 application which shows sentiment anal
 $ pip install -r requirements.txt
 ``` 
 
-## Instalation
+## Installation
 
 Assuming you are using apache2 as web server and unix based OS, you need to install the wsgi plugin in order to configure the server and recognize python as server side code and wsgi web based applications as well.
 
