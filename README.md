@@ -3,10 +3,9 @@
 
 ![portal](https://github.com/diogonal/SentimentAnalyser/blob/master/wiki/img/portal_complete.jpg)
 
-**Exploring the Cultures of Australia**
+**Exploring the Cultures of Australia through Social Media**
 
-This project will explore the uptake of Twitter across the many languages and cultures of Australia. 
-It will focus on the harvesting and sentiment analysis of multi-language tweets from major cities of Australia and compare this information with broadly cultural information resources offered through organisations such as the Australian Bureau of Statistics and the Census 2011. 
+A general analysis across the many languages and cultures of Australia through social media sources of information such as Twitter was performed. A web application sup- porting a range of scenarios was implemented using state-of-the-art distributed and data analysis technologies such as ElasticSearch, with resources from the National eResearch Collaboration Tools and the NeCTAR Research Cloud. Almost 2.5 million tweets were collected from the Twitter streaming API and several sentiment analysis scenarios were applied in order to explore opinions of different ethnic and multi-cultural communities of Australia around a range of different topics including politics, sports and social impact events that took place between March and May 2015. It was shown how statistical data from the last Census (2011) from the Australian Bureau of Statistics can be correlated with information obtained from social media, allowing us to gain a deeper understanding of the multicultural diversity of Australia.
 ________________
 
 ## Features & Modules
@@ -26,7 +25,7 @@ Visit the [wiki](https://github.com/diogonal/SentimentAnalyser/wiki) or follow t
 ## Credits
 
 **Author:** Diego Montufar<br>
-**Supervisor:** Richard Sinnott
+**Supervisor:** Prof. Richard Sinnott
 
 ## Find out more
 
